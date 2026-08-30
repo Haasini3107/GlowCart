@@ -4,187 +4,172 @@
 
 <head>
 
-```
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+   content="width=device-width, initial-scale=1.0">
 
 <title>GlowCart - Login</title>
 
 <style>
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-    body {
-        min-height: 100vh;
+body {
+    min-height: 100vh;
 
-        display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-        justify-content: center;
+    background:
+        linear-gradient(
+            135deg,
+            #ffd6e8,
+            #fff7fb
+        );
+}
 
-        align-items: center;
+.container {
 
-        background:
-            linear-gradient(
-                135deg,
-                #ffd6e8,
-                #fff7fb
-            );
-    }
+    width: 400px;
+    max-width: 92%;
 
-    .container {
+    background: white;
 
-        width: 400px;
+    padding: 35px;
 
-        background: white;
+    border-radius: 20px;
 
-        padding: 35px;
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,0.12);
+}
 
-        border-radius: 20px;
+.logo {
 
-        box-shadow:
-            0 10px 35px
-            rgba(0,0,0,0.12);
+    text-align: center;
 
-    }
+    color: #e83e8c;
 
-    .logo {
+    font-size: 32px;
 
-        text-align: center;
+    font-weight: bold;
 
-        color: #e83e8c;
+    margin-bottom: 8px;
+}
 
-        font-size: 32px;
+h2 {
 
-        font-weight: bold;
+    text-align: center;
 
-        margin-bottom: 8px;
+    margin-bottom: 25px;
 
-    }
+    color: #444;
+}
 
-    h2 {
+input {
 
-        text-align: center;
+    width: 100%;
 
-        margin-bottom: 25px;
+    padding: 13px;
 
-        color: #444;
+    margin-bottom: 15px;
 
-    }
+    border: 1px solid #ddd;
 
-    input {
+    border-radius: 10px;
 
-        width: 100%;
+    font-size: 15px;
+}
 
-        padding: 13px;
+input:focus {
 
-        margin-bottom: 15px;
+    outline: none;
 
-        border: 1px solid #ddd;
+    border-color: #e83e8c;
+}
 
-        border-radius: 10px;
+button {
 
-        font-size: 15px;
+    width: 100%;
 
-    }
+    padding: 13px;
 
-    input:focus {
+    border: none;
 
-        outline: none;
+    border-radius: 25px;
 
-        border-color: #e83e8c;
+    background:
+        linear-gradient(
+            135deg,
+            #e91e63,
+            #9c27b0
+        );
 
-    }
+    color: white;
 
-    button {
+    font-size: 16px;
 
-        width: 100%;
+    font-weight: bold;
 
-        padding: 13px;
+    cursor: pointer;
+}
 
-        border: none;
+button:hover {
 
-        border-radius: 25px;
+    opacity: 0.9;
+}
 
-        background:
-            linear-gradient(
-                135deg,
-                #e91e63,
-                #9c27b0
-            );
+.message {
 
-        color: white;
+    text-align: center;
 
-        font-size: 16px;
+    margin-top: 15px;
 
-        font-weight: bold;
+    font-weight: bold;
 
-        cursor: pointer;
+    line-height: 1.5;
+}
 
-    }
+.register {
 
-    button:hover {
+    text-align: center;
 
-        opacity: 0.9;
+    margin-top: 20px;
+}
 
-    }
+.register a {
 
-    .message {
+    color: #e83e8c;
 
-        text-align: center;
+    font-weight: bold;
 
-        margin-top: 15px;
+    text-decoration: none;
+}
 
-        font-weight: bold;
+.home-link {
 
-        line-height: 1.5;
+    text-align: center;
 
-    }
+    margin-top: 15px;
+}
 
-    .register {
+.home-link a {
 
-        text-align: center;
+    color: #7b1fa2;
 
-        margin-top: 20px;
+    text-decoration: none;
 
-    }
-
-    .register a {
-
-        color: #e83e8c;
-
-        font-weight: bold;
-
-        text-decoration: none;
-
-    }
-
-    .home-link {
-
-        text-align: center;
-
-        margin-top: 15px;
-
-    }
-
-    .home-link a {
-
-        color: #7b1fa2;
-
-        text-decoration: none;
-
-        font-weight: bold;
-
-    }
+    font-weight: bold;
+}
 
 </style>
-```
 
 </head>
 
@@ -194,82 +179,54 @@
 
 ```
 <div class="logo">
-
     GlowCart
-
 </div>
 
-
 <h2>
-
     Welcome Back
-
 </h2>
-
 
 <form id="loginForm">
 
-
     <input
-
         type="email"
-
         id="email"
-
         placeholder="Email Address"
-
-        required>
-
+        required
+    >
 
     <input
-
         type="password"
-
         id="password"
-
         placeholder="Password"
-
-        required>
-
+        required
+    >
 
     <button type="submit">
-
         Login
-
     </button>
-
 
 </form>
 
-
 <div
-
     class="message"
-
     id="message">
-
 </div>
-
 
 <div class="register">
 
     New to GlowCart?
 
     <a href="register.html">
-
         Create Account
-
     </a>
 
 </div>
 
-
 <div class="home-link">
 
     <a href="index.html">
-
         ← Back to GlowCart Home
-
     </a>
 
 </div>
@@ -279,144 +236,92 @@
 
 <script>
 
-
 document
+.getElementById("loginForm")
+.addEventListener("submit", function(event) {
 
-    .getElementById("loginForm")
+    event.preventDefault();
 
-    .addEventListener(
+    const email =
+        document
+        .getElementById("email")
+        .value
+        .trim()
+        .toLowerCase();
 
-        "submit",
+    const password =
+        document
+        .getElementById("password")
+        .value;
 
-        async function(event) {
-
-
-            event.preventDefault();
-
-
-            const email =
-
-                document
-
-                    .getElementById("email")
-
-                    .value
-
-                    .trim()
-
-                    .toLowerCase();
+    const message =
+        document
+        .getElementById("message");
 
 
-            const password =
+    /* GET REGISTERED USERS */
 
-                document
-
-                    .getElementById("password")
-
-                    .value;
-
-
-            const message =
-
-                document
-
-                    .getElementById("message");
+    let users =
+        JSON.parse(
+            localStorage.getItem("glowcartUsers")
+        ) || [];
 
 
-            /*
-             * Get registered users
-             * from this browser.
-             */
+    /* FIND USER */
 
-            let users =
+    const user =
+        users.find(function(u) {
 
-                JSON.parse(
-
-                    localStorage.getItem(
-
-                        "glowcartUsers"
-
-                    )
-
-                ) || [];
-
-
-            const user =
-
-                users.find(
-
-                    u =>
-
-                        u.email === email &&
-
-                        u.password === password
-
-                );
-
-
-            if (!user) {
-
-                message.style.color = "red";
-
-                message.innerText =
-
-                    "Invalid email or password.";
-
-                return;
-
-            }
-
-
-            /*
-             * Save logged-in user.
-             */
-
-            localStorage.setItem(
-
-                "glowcartLoggedIn",
-
-                JSON.stringify(user)
-
+            return (
+                u.email.toLowerCase() === email &&
+                u.password === password
             );
 
-
-            /*
-             * Show success message.
-             */
-
-            message.style.color = "green";
-
-            message.innerHTML =
-
-                "Login successful!<br>" +
-
-                "Welcome to GlowCart, " +
-
-                user.name +
-
-                "!";
+        });
 
 
-            /*
-             * Go directly to the
-             * MAIN HOME PAGE.
-             */
+    /* INVALID LOGIN */
 
-            setTimeout(function() {
+    if (!user) {
 
-                window.location.replace(
+        message.style.color = "red";
 
-                    "index.html"
+        message.innerText =
+            "Invalid email or password.";
 
-                );
-
-            }, 1800);
+        return;
+    }
 
 
-        }
+    /* SAVE LOGIN */
 
+    localStorage.setItem(
+        "glowcartLoggedIn",
+        JSON.stringify(user)
     );
 
+
+    /* SUCCESS */
+
+    message.style.color = "green";
+
+    message.innerHTML =
+        "Login successful!<br>" +
+        "Welcome to GlowCart, " +
+        user.name +
+        "!";
+
+
+    /* GO TO MAIN GLOWCART PAGE */
+
+    setTimeout(function() {
+
+        window.location.href =
+            "index.html";
+
+    }, 1200);
+
+});
 
 </script>
 
