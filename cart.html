@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>GlowCart - Shopping Cart</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background:
+        radial-gradient(circle at 10% 20%, #ffe4ef, transparent 25%),
+        radial-gradient(circle at 90% 10%, #eadcff, transparent 25%),
+        #faf8fc;
+
+    color: #333;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+
+    height: 75px;
+
+    background: rgba(255,255,255,0.96);
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 7%;
+
+    gap: 30px;
+
+    box-shadow:
+        0 3px 20px rgba(0,0,0,0.08);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+}
+
+
+.logo {
+
+    text-decoration: none;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    color: #e91e63;
+
+    margin-right: auto;
+}
+
+
+.logo span {
+    color: #7b1fa2;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search {
+
+    display: flex;
+
+    width: 380px;
+
+    height: 42px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    background: white;
+}
+
+
+.search input {
+
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    padding: 0 18px;
+
+    font-size: 14px;
+}
+
+
+.search button {
+
+    width: 55px;
+
+    border: none;
+
+    background: linear-gradient(
+        135deg,
+        #e91e63,
+        #9c27b0
+    );
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+
+.nav-link {
+
+    text-decoration: none;
+
+    color: #444;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.nav-link:hover {
+
+    color: #e91e63;
+
+}
+
+
+/* ================= NAVIGATION ================= */
+
+.nav-bar {
+
+    background: white;
+
+    padding: 14px 7%;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+
+.nav-bar a {
+
+    text-decoration: none;
+
+    color: #666;
+
+    font-weight: 600;
+
+    margin-right: 25px;
+
+}
+
+
+.nav-bar a:hover {
+
+    color: #e91e63;
+
+}
+
+
+/* ================= PAGE TITLE ================= */
+
+.cart-container {
+
+    max-width: 1200px;
+
+    margin: 50px auto;
+
+    padding: 0 25px;
+}
+
+
+.page-title {
+
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+
+.page-title h1 {
+
+    font-size: 38px;
+
+    color: #6a1b9a;
+
+    margin-bottom: 10px;
+}
+
+
+.page-title p {
+
+    color: #777;
+
+    font-size: 16px;
+}
+
+
+/* ================= CART LAYOUT ================= */
+
+.cart-layout {
+
+    display: grid;
+
+    grid-template-columns: 1fr 360px;
+
+    gap: 30px;
+
+    align-items: start;
+}
+
+
+/* ================= CART PRODUCTS ================= */
+
+.cart-products {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+.cart-item {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.07);
+
+    border: 1px solid #f1e8f0;
+
+    transition: 0.3s;
+}
+
+
+.cart-item:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(156,39,176,0.12);
+}
+
+
+/* ================= PRODUCT IMAGE ================= */
+
+.cart-image {
+
+    width: 135px;
+
+    height: 135px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #f3e8ff
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+.cart-image img {
+
+    width: 115px;
+
+    height: 115px;
+
+    object-fit: contain;
+
+    transition: 0.3s;
+}
+
+
+.cart-image img:hover {
+
+    transform: scale(1.08);
+}
+
+
+/* ================= PRODUCT DETAILS ================= */
+
+.product-details {
+
+    flex: 1;
+}
+
+
+.product-details h3 {
+
+    font-size: 20px;
+
+    color: #6a1b9a;
+
+    margin-bottom: 8px;
+}
+
+
+.product-details .price {
+
+    color: #e91e63;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+
+.product-details .item-total {
+
+    color: #555;
+
+    margin-bottom: 12px;
+}
+
+
+/* ================= QUANTITY ================= */
+
+.quantity-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+}
+
+
+.quantity-box button {
+
+    width: 30px;
+
+    height: 30px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #fce4ec;
+
+    color: #c2185b;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+.quantity-box span {
+
+    font-weight: bold;
+
+    min-width: 20px;
+
+    text-align: center;
+}
+
+
+/* ================= REMOVE ================= */
+
+.remove-button {
+
+    border: none;
+
+    background: transparent;
+
+    color: #e91e63;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    padding: 0;
+}
+
+
+.remove-button:hover {
+
+    text-decoration: underline;
+}
+
+
+/* ================= SUMMARY ================= */
+
+.cart-summary {
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.09);
+
+    position: sticky;
+
+    top: 110px;
+
+    border: 1px solid #f0e6f0;
+}
+
+
+.cart-summary h2 {
+
+    color: #6a1b9a;
+
+    margin-bottom: 25px;
+
+    font-size: 24px;
+}
+
+
+.summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin: 18px 0;
+
+    color: #555;
+
+    font-size: 16px;
+}
+
+
+.summary-row.total {
+
+    color: #6a1b9a;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin-top: 20px;
+}
+
+
+.green {
+
+    color: #2e7d32;
+
+    font-weight: bold;
+}
+
+
+.summary-line {
+
+    border: none;
+
+    border-top: 1px solid #eee;
+
+    margin: 20px 0;
+}
+
+
+/* ================= CHECKOUT ================= */
+
+.checkout-button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e91e63,
+            #9c27b0
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(156,39,176,0.25);
+
+    transition: 0.3s;
+}
+
+
+.checkout-button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 30px rgba(156,39,176,0.35);
+}
+
+
+/* ================= SECURE ================= */
+
+.secure-box {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: #fff5f9;
+
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* ================= EMPTY CART ================= */
+
+.empty-cart {
+
+    background: white;
+
+    padding: 70px 30px;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.08);
+}
+
+
+.empty-icon {
+
+    font-size: 65px;
+
+    margin-bottom: 20px;
+}
+
+
+.empty-cart h2 {
+
+    color: #6a1b9a;
+
+    margin-bottom: 10px;
+}
+
+
+.empty-cart p {
+
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+.shop-now {
+
+    display: inline-block;
+
+    padding: 13px 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e91e63,
+            #9c27b0
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 25px;
+
+    font-weight: bold;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+
+    margin-top: 80px;
+
+    background: #211d24;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+
+footer span {
+
+    color: #f06292;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 850px) {
+
+    .header {
+
+        flex-wrap: wrap;
+
+        height: auto;
+
+        padding: 15px 20px;
+
+        gap: 15px;
+    }
+
+
+    .logo {
+
+        margin-right: 0;
+    }
+
+
+    .search {
+
+        order: 3;
+
+        width: 100%;
+    }
+
+
+    .cart-layout {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .cart-summary {
+
+        position: static;
+    }
+
+}
+
+
+@media(max-width: 550px) {
+
+    .cart-item {
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    .quantity-box {
+
+        justify-content: center;
+    }
+
+
+    .product-details {
+
+        width: 100%;
+    }
+
+
+    .page-title h1 {
+
+        font-size: 30px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<a href="home.html"
+class="logo">
+
+Glow<span>Cart</span>
+
+</a>
+
+
+<div class="search">
+
+<input
+type="text"
+placeholder="Search skincare products...">
+
+<button>
+🔍
+</button>
+
+</div>
+
+
+<a href="index.html"
+class="nav-link">
+
+Login
+
+</a>
+
+
+<a href="orders.html"
+class="nav-link">
+
+Orders
+
+</a>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="nav-bar">
+
+<a href="home.html">
+Home
+</a>
+
+<a href="products.html">
+Continue Shopping
+</a>
+
+</nav>
+
+
+<!-- ================= CART ================= -->
+
+<div class="cart-container">
+
+
+<div class="page-title">
+
+<h1>
+Your Shopping Cart 🛍️
+</h1>
+
+<p>
+Review your skincare favourites before checkout
+</p>
+
+</div>
+
+
+<div class="cart-layout">
+
+
+<!-- CART PRODUCTS -->
+
+<div
+class="cart-products"
+id="cartItems">
+
+</div>
+
+
+<!-- ORDER SUMMARY -->
+
+<div class="cart-summary">
+
+<h2>
+Order Summary
+</h2>
+
+
+<div class="summary-row">
+
+<span>
+Subtotal
+</span>
+
+<span>
+₹<span id="subtotal">0</span>
+</span>
+
+</div>
+
+
+<div class="summary-row">
+
+<span>
+Delivery
+</span>
+
+<span class="green">
+FREE
+</span>
+
+</div>
+
+
+<hr class="summary-line">
+
+
+<div class="summary-row total">
+
+<span>
+Total
+</span>
+
+<span>
+₹<span id="total">0</span>
+</span>
+
+</div>
+
+
+<button
+class="checkout-button"
+onclick="checkout()">
+
+Proceed to Checkout →
+
+</button>
+
+
+<div class="secure-box">
+
+🔒 Secure & Safe Checkout
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<p>
+© 2026 <span>GlowCart</span> · Premium Skincare Shopping
+</p>
+
+</footer>
+
+
+<script>
+
+
+let cart =
+JSON.parse(localStorage.getItem("cart")) || [];
+
+
+
+/* ================= DISPLAY CART ================= */
+
+function displayCart() {
+
+    let container =
+        document.getElementById("cartItems");
+
+    container.innerHTML = "";
+
+    let total = 0;
+
+
+    /* EMPTY CART */
+
+    if(cart.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-cart">
+
+                <div class="empty-icon">
+                    🛍️
+                </div>
+
+                <h2>
+                    Your GlowCart is Empty
+                </h2>
+
+                <p>
+                    Your favourite skincare products
+                    are waiting for you.
+                </p>
+
+                <a
+                    href="products.html"
+                    class="shop-now">
+
+                    Explore Products →
+
+                </a>
+
+            </div>
+
+        `;
+
+        document.getElementById("subtotal")
+            .innerText = "0";
+
+        document.getElementById("total")
+            .innerText = "0";
+
+        return;
+    }
+
+
+    /* DISPLAY PRODUCTS */
+
+    cart.forEach(function(item,index) {
+
+
+        let price =
+            parseInt(
+                item.price
+                .replace("₹","")
+                .replace(",","")
+            );
+
+
+        let itemTotal =
+            price * item.quantity;
+
+
+        total += itemTotal;
+
+
+        container.innerHTML += `
+
+            <div class="cart-item">
+
+
+                <div class="cart-image">
+
+                    <img
+                        src="${item.image}"
+                        alt="${item.name}">
+
+                </div>
+
+
+                <div class="product-details">
+
+                    <h3>
+                        ${item.name}
+                    </h3>
+
+
+                    <p class="price">
+                        ${item.price}
+                    </p>
+
+
+                    <div class="quantity-box">
+
+                        <button
+                            onclick="decreaseQuantity(${index})">
+
+                            −
+
+                        </button>
+
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+
+                        <button
+                            onclick="increaseQuantity(${index})">
+
+                            +
+
+                        </button>
+
+                    </div>
+
+
+                    <p class="item-total">
+
+                        Item Total:
+                        <strong>
+                            ₹${itemTotal}
+                        </strong>
+
+                    </p>
+
+
+                    <button
+                        class="remove-button"
+                        onclick="removeItem(${index})">
+
+                        🗑 Remove from Cart
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+    document.getElementById("subtotal")
+        .innerText = total;
+
+
+    document.getElementById("total")
+        .innerText = total;
+
+}
+
+
+
+/* ================= INCREASE ================= */
+
+function increaseQuantity(index) {
+
+    cart[index].quantity++;
+
+    saveCart();
+
+}
+
+
+
+/* ================= DECREASE ================= */
+
+function decreaseQuantity(index) {
+
+    if(cart[index].quantity > 1) {
+
+        cart[index].quantity--;
+
+    }
+    else {
+
+        cart.splice(index,1);
+
+    }
+
+    saveCart();
+
+}
+
+
+
+/* ================= REMOVE ================= */
+
+function removeItem(index) {
+
+    cart.splice(index,1);
+
+    saveCart();
+
+}
+
+
+
+/* ================= SAVE ================= */
+
+function saveCart() {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    displayCart();
+
+}
+
+
+
+/* ================= CHECKOUT ================= */
+
+function checkout() {
+
+    if(cart.length === 0) {
+
+        alert(
+            "Your GlowCart is empty. Please add a product first."
+        );
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "checkout.html";
+
+}
+
+
+
+/* ================= LOAD ================= */
+
+displayCart();
+
+</script>
+
+
+</body>
+
+</html>
