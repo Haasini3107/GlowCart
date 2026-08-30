@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlowCart - Login</title>
 
 ```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>GlowCart - Login</title>
+
 <style>
+
     * {
         box-sizing: border-box;
         margin: 0;
@@ -17,80 +23,166 @@
 
     body {
         min-height: 100vh;
+
         display: flex;
+
         justify-content: center;
+
         align-items: center;
-        background: linear-gradient(135deg, #ffd6e8, #fff7fb);
+
+        background:
+            linear-gradient(
+                135deg,
+                #ffd6e8,
+                #fff7fb
+            );
     }
 
     .container {
+
         width: 400px;
+
         background: white;
+
         padding: 35px;
+
         border-radius: 20px;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+
+        box-shadow:
+            0 10px 35px
+            rgba(0,0,0,0.12);
+
     }
 
     .logo {
+
         text-align: center;
+
         color: #e83e8c;
+
         font-size: 32px;
+
         font-weight: bold;
+
         margin-bottom: 8px;
+
     }
 
     h2 {
+
         text-align: center;
+
         margin-bottom: 25px;
+
         color: #444;
+
     }
 
     input {
+
         width: 100%;
+
         padding: 13px;
+
         margin-bottom: 15px;
+
         border: 1px solid #ddd;
+
         border-radius: 10px;
+
         font-size: 15px;
+
     }
 
     input:focus {
+
         outline: none;
+
         border-color: #e83e8c;
+
     }
 
     button {
+
         width: 100%;
+
         padding: 13px;
+
         border: none;
+
         border-radius: 25px;
-        background: #e83e8c;
+
+        background:
+            linear-gradient(
+                135deg,
+                #e91e63,
+                #9c27b0
+            );
+
         color: white;
+
         font-size: 16px;
+
         font-weight: bold;
+
         cursor: pointer;
+
     }
 
     button:hover {
-        background: #d62978;
+
+        opacity: 0.9;
+
     }
 
     .message {
+
         text-align: center;
+
         margin-top: 15px;
+
         font-weight: bold;
+
+        line-height: 1.5;
+
     }
 
     .register {
+
         text-align: center;
+
         margin-top: 20px;
+
     }
 
     .register a {
+
         color: #e83e8c;
+
         font-weight: bold;
+
         text-decoration: none;
+
     }
+
+    .home-link {
+
+        text-align: center;
+
+        margin-top: 15px;
+
+    }
+
+    .home-link a {
+
+        color: #7b1fa2;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+    }
+
 </style>
 ```
 
@@ -101,37 +193,85 @@
 <div class="container">
 
 ```
-<div class="logo">GlowCart</div>
+<div class="logo">
 
-<h2>Welcome Back</h2>
+    GlowCart
+
+</div>
+
+
+<h2>
+
+    Welcome Back
+
+</h2>
+
 
 <form id="loginForm">
 
-    <input
-        type="email"
-        id="email"
-        placeholder="Email Address"
-        required
-    >
 
     <input
+
+        type="email"
+
+        id="email"
+
+        placeholder="Email Address"
+
+        required>
+
+
+    <input
+
         type="password"
+
         id="password"
+
         placeholder="Password"
-        required
-    >
+
+        required>
+
 
     <button type="submit">
+
         Login
+
     </button>
+
 
 </form>
 
-<div class="message" id="message"></div>
+
+<div
+
+    class="message"
+
+    id="message">
+
+</div>
+
 
 <div class="register">
+
     New to GlowCart?
-    <a href="register.html">Create Account</a>
+
+    <a href="register.html">
+
+        Create Account
+
+    </a>
+
+</div>
+
+
+<div class="home-link">
+
+    <a href="index.html">
+
+        ← Back to GlowCart Home
+
+    </a>
+
 </div>
 ```
 
@@ -139,65 +279,147 @@
 
 <script>
 
-document.getElementById("loginForm").addEventListener("submit", function(event) {
 
-    event.preventDefault();
+document
 
-    const email =
-        document.getElementById("email").value.trim().toLowerCase();
+    .getElementById("loginForm")
 
-    const password =
-        document.getElementById("password").value;
+    .addEventListener(
 
-    const message =
-        document.getElementById("message");
+        "submit",
+
+        async function(event) {
 
 
-    let users =
-        JSON.parse(localStorage.getItem("glowcartUsers")) || [];
+            event.preventDefault();
 
 
-    const user =
-        users.find(
-            u =>
-                u.email === email &&
-                u.password === password
-        );
+            const email =
+
+                document
+
+                    .getElementById("email")
+
+                    .value
+
+                    .trim()
+
+                    .toLowerCase();
 
 
-    if (!user) {
+            const password =
 
-        message.style.color = "red";
+                document
 
-        message.innerText =
-            "Invalid email or password.";
+                    .getElementById("password")
 
-        return;
-    }
+                    .value;
 
 
-    localStorage.setItem(
-        "glowcartLoggedIn",
-        JSON.stringify(user)
+            const message =
+
+                document
+
+                    .getElementById("message");
+
+
+            /*
+             * Get registered users
+             * from this browser.
+             */
+
+            let users =
+
+                JSON.parse(
+
+                    localStorage.getItem(
+
+                        "glowcartUsers"
+
+                    )
+
+                ) || [];
+
+
+            const user =
+
+                users.find(
+
+                    u =>
+
+                        u.email === email &&
+
+                        u.password === password
+
+                );
+
+
+            if (!user) {
+
+                message.style.color = "red";
+
+                message.innerText =
+
+                    "Invalid email or password.";
+
+                return;
+
+            }
+
+
+            /*
+             * Save logged-in user.
+             */
+
+            localStorage.setItem(
+
+                "glowcartLoggedIn",
+
+                JSON.stringify(user)
+
+            );
+
+
+            /*
+             * Show success message.
+             */
+
+            message.style.color = "green";
+
+            message.innerHTML =
+
+                "Login successful!<br>" +
+
+                "Welcome to GlowCart, " +
+
+                user.name +
+
+                "!";
+
+
+            /*
+             * Go directly to the
+             * MAIN HOME PAGE.
+             */
+
+            setTimeout(function() {
+
+                window.location.replace(
+
+                    "index.html"
+
+                );
+
+            }, 1800);
+
+
+        }
+
     );
 
-
-    message.style.color = "green";
-
-    message.innerText =
-        "Login successful! Welcome to GlowCart, " +
-        user.name + "!";
-
-
-    setTimeout(function() {
-
-        window.location.href = "index.html";
-
-    }, 1800);
-
-});
 
 </script>
 
 </body>
+
 </html>
