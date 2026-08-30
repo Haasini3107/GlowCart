@@ -1,6 +1,7 @@
 {
   "name": "glowcart-backend",
   "version": "1.0.0",
+  "description": "GlowCart Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
