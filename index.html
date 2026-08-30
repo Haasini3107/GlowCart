@@ -4,9 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>GlowCart - Premium Face Creams</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -30,8 +32,8 @@ header{
     height:72px;
     display:flex;
     align-items:center;
-    padding:0 5%;
-    gap:25px;
+    justify-content:space-between;
+    padding:0 6%;
     box-shadow:0 2px 12px rgba(0,0,0,.08);
     position:sticky;
     top:0;
@@ -43,50 +45,16 @@ header{
     font-weight:bold;
     color:#e91e63;
     letter-spacing:-1px;
-    white-space:nowrap;
 }
 
 .logo span{
     color:#7b1fa2;
 }
 
-/* SEARCH */
-
-.search-box{
-    flex:1;
-    max-width:570px;
-    height:42px;
-    display:flex;
-    background:#f6f4f8;
-    border:1px solid #eee;
-    border-radius:25px;
-    overflow:hidden;
-}
-
-.search-box input{
-    flex:1;
-    border:0;
-    outline:0;
-    background:transparent;
-    padding:0 18px;
-    font-size:14px;
-}
-
-.search-box button{
-    width:55px;
-    border:0;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white;
-    cursor:pointer;
-    font-size:18px;
-}
-
-/* NAV */
-
 nav{
     display:flex;
     align-items:center;
-    gap:22px;
+    gap:25px;
 }
 
 nav a{
@@ -101,82 +69,49 @@ nav a:hover{
 }
 
 .login-btn{
-    border:1px solid #e91e63;
-    padding:9px 18px;
-    border-radius:22px;
+    border:2px solid #e91e63;
     color:#e91e63!important;
+    padding:9px 20px;
+    border-radius:25px;
+}
+
+.login-btn:hover{
+    background:#e91e63;
+    color:white!important;
 }
 
 .register-btn{
     background:linear-gradient(135deg,#e91e63,#9c27b0);
     color:white!important;
-    padding:11px 20px;
+    padding:11px 22px;
     border-radius:25px;
     box-shadow:0 5px 15px rgba(233,30,99,.25);
 }
 
 .cart-btn{
-    position:relative;
-    font-size:20px;
+    color:#7b1fa2!important;
 }
 
-.cart-count{
-    position:absolute;
-    top:-12px;
-    right:-13px;
-    background:#e91e63;
-    color:white;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    font-size:11px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+/* ================= LOGIN SUCCESS ================= */
 
-/* ================= CATEGORY BAR ================= */
-
-.category-bar{
-    background:white;
-    padding:15px 5%;
-    display:flex;
-    justify-content:center;
-    gap:45px;
-    border-bottom:1px solid #eee;
-    overflow-x:auto;
-}
-
-.category{
+#loginMessage{
+    display:none;
+    background:#e8f5e9;
+    color:#2e7d32;
     text-align:center;
-    cursor:pointer;
-    min-width:75px;
-    transition:.3s;
-}
-
-.category:hover{
-    color:#e91e63;
-    transform:translateY(-3px);
-}
-
-.category-icon{
-    font-size:26px;
-    margin-bottom:5px;
-}
-
-.category p{
-    font-size:13px;
+    padding:13px;
     font-weight:bold;
+    border-bottom:1px solid #c8e6c9;
 }
 
 /* ================= HOME ================= */
 
 .home{
-    min-height:560px;
+    min-height:620px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:65px 8%;
+    padding:70px 8%;
     background:
         radial-gradient(circle at 80% 20%,#f6d9ff 0%,transparent 30%),
         radial-gradient(circle at 10% 80%,#ffdce9 0%,transparent 30%),
@@ -194,7 +129,7 @@ nav a:hover{
     color:#e91e63;
     padding:8px 18px;
     border-radius:20px;
-    font-size:13px;
+    font-size:14px;
     font-weight:bold;
     margin-bottom:20px;
     box-shadow:0 5px 15px rgba(0,0,0,.06);
@@ -235,7 +170,7 @@ nav a:hover{
     transform:translateY(-3px);
 }
 
-/* ================= HERO PRODUCT ================= */
+/* ================= PRODUCT IMAGE ================= */
 
 .product-area{
     width:470px;
@@ -262,8 +197,9 @@ nav a:hover{
 .product-circle img{
     width:300px;
     height:300px;
-    object-fit:cover;
+    object-fit:contain;
     border-radius:20px;
+    mix-blend-mode:multiply;
     filter:drop-shadow(0 20px 20px rgba(0,0,0,.18));
     transition:.5s;
 }
@@ -283,27 +219,141 @@ nav a:hover{
 }
 
 .card-one{
-    top:55px;
+    top:60px;
     right:0;
 }
 
 .card-two{
-    bottom:55px;
+    bottom:60px;
     left:0;
+}
+
+/* ================= CATEGORIES ================= */
+
+.categories{
+    background:white;
+    padding:25px 8%;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.category{
+    padding:14px 24px;
+    border-radius:25px;
+    background:#fff0f6;
+    color:#7b1fa2;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.category:hover{
+    background:#e91e63;
+    color:white;
+    transform:translateY(-3px);
+}
+
+/* ================= PRODUCTS ================= */
+
+.products{
+    padding:70px 8%;
+    background:#fff;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-heading h2{
+    font-size:35px;
+    color:#6a1b9a;
+    margin-bottom:10px;
+}
+
+.section-heading p{
+    color:#777;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.product-card{
+    background:white;
+    border:1px solid #eee;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    transition:.3s;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+
+.product-card img{
+    width:100%;
+    height:210px;
+    object-fit:contain;
+    border-radius:15px;
+    background:#fff8fb;
+}
+
+.product-card h3{
+    color:#6a1b9a;
+    margin:15px 0 8px;
+}
+
+.product-card p{
+    color:#777;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.price{
+    font-size:22px;
+    color:#e91e63;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.old-price{
+    color:#999;
+    text-decoration:line-through;
+    font-size:14px;
+    margin-left:7px;
+}
+
+.buy-btn{
+    border:none;
+    background:linear-gradient(135deg,#e91e63,#9c27b0);
+    color:white;
+    padding:11px 25px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 /* ================= FEATURES ================= */
 
 .features{
     background:white;
-    padding:45px 8%;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
+    padding:55px 8%;
+    display:flex;
+    justify-content:space-between;
     text-align:center;
+    gap:25px;
 }
 
 .feature{
+    width:25%;
     padding:25px 15px;
     border-radius:15px;
     transition:.3s;
@@ -334,231 +384,12 @@ nav a:hover{
 .feature p{
     color:#666;
     line-height:1.6;
-    font-size:14px;
-}
-
-/* ================= PRODUCTS ================= */
-
-.products-section{
-    padding:65px 6%;
-    background:#f8f8fb;
-}
-
-.section-heading{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-}
-
-.section-heading h2{
-    color:#6a1b9a;
-    font-size:30px;
-}
-
-.section-heading p{
-    color:#777;
-    margin-top:6px;
-}
-
-.view-all{
-    border:0;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white;
-    padding:11px 20px;
-    border-radius:22px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:22px;
-}
-
-.product-card{
-    background:white;
-    border-radius:16px;
-    padding:15px;
-    position:relative;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-    transition:.3s;
-    overflow:hidden;
-}
-
-.product-card:hover{
-    transform:translateY(-7px);
-    box-shadow:0 15px 35px rgba(123,31,162,.15);
-}
-
-.wishlist{
-    position:absolute;
-    right:15px;
-    top:15px;
-    width:36px;
-    height:36px;
-    border:0;
-    border-radius:50%;
-    background:white;
-    box-shadow:0 3px 12px #ddd;
-    cursor:pointer;
-    font-size:19px;
-    z-index:2;
-}
-
-.product-image{
-    width:100%;
-    height:220px;
-    background:#fff5fa;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    margin-bottom:15px;
-}
-
-.product-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:.4s;
-}
-
-.product-card:hover .product-image img{
-    transform:scale(1.06);
-}
-
-.product-card h3{
-    font-size:16px;
-    color:#444;
-    min-height:40px;
-    margin-bottom:8px;
-}
-
-.rating{
-    display:inline-block;
-    background:#388e3c;
-    color:white;
-    padding:4px 8px;
-    border-radius:5px;
-    font-size:12px;
-    margin-bottom:10px;
-}
-
-.price-row{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    margin-bottom:5px;
-}
-
-.price{
-    font-size:20px;
-    font-weight:bold;
-    color:#222;
-}
-
-.old-price{
-    color:#999;
-    text-decoration:line-through;
-    font-size:13px;
-}
-
-.discount{
-    color:#388e3c;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.add-cart{
-    width:100%;
-    margin-top:12px;
-    padding:11px;
-    border:0;
-    border-radius:9px;
-    background:#fff0f6;
-    color:#e91e63;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.add-cart:hover{
-    background:#e91e63;
-    color:white;
-}
-
-.buy-now{
-    width:100%;
-    margin-top:8px;
-    padding:11px;
-    border:0;
-    border-radius:9px;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* ================= OFFERS ================= */
-
-.offers{
-    padding:60px 6%;
-    background:white;
-}
-
-.offer-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-}
-
-.offer{
-    padding:30px;
-    border-radius:18px;
-    color:white;
-    min-height:160px;
-    position:relative;
-    overflow:hidden;
-}
-
-.offer:nth-child(1){
-    background:linear-gradient(135deg,#e91e63,#ff80ab);
-}
-
-.offer:nth-child(2){
-    background:linear-gradient(135deg,#7b1fa2,#ba68c8);
-}
-
-.offer:nth-child(3){
-    background:linear-gradient(135deg,#ad1457,#ec407a);
-}
-
-.offer h2{
-    margin-bottom:10px;
-}
-
-.offer p{
-    line-height:1.6;
-}
-
-.offer span{
-    display:inline-block;
-    margin-top:12px;
-    background:white;
-    color:#e91e63;
-    padding:7px 14px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
 }
 
 /* ================= REGISTRATION ================= */
 
 .registration{
-    padding:75px 20px;
+    padding:80px 20px;
     background:linear-gradient(135deg,#fff0f6,#f5eaff);
     display:flex;
     justify-content:center;
@@ -605,15 +436,10 @@ nav a:hover{
     font-size:15px;
 }
 
-.form-group input:focus{
-    border-color:#e91e63;
-    box-shadow:0 0 0 3px rgba(233,30,99,.08);
-}
-
 .submit-btn{
     width:100%;
     padding:14px;
-    border:0;
+    border:none;
     border-radius:10px;
     background:linear-gradient(135deg,#e91e63,#9c27b0);
     color:white;
@@ -622,143 +448,50 @@ nav a:hover{
     cursor:pointer;
 }
 
-#message{
-    text-align:center;
-    margin-top:15px;
-    color:#2e7d32;
-    font-weight:bold;
-}
-
 /* ================= FOOTER ================= */
 
 footer{
     background:#211d24;
     color:white;
-    padding:45px 7% 20px;
-}
-
-.footer-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:30px;
-}
-
-footer h3{
-    color:#f06292;
-    margin-bottom:15px;
-    font-size:15px;
-}
-
-footer p{
-    color:#ddd;
-    margin:9px 0;
-    font-size:13px;
-}
-
-.copy{
     text-align:center;
-    border-top:1px solid #444;
-    padding-top:20px;
-    margin-top:30px;
+    padding:35px 20px;
 }
 
-/* ================= TOAST ================= */
-
-.toast{
-    position:fixed;
-    right:25px;
-    bottom:25px;
-    background:#211d24;
-    color:white;
-    padding:15px 24px;
-    border-radius:10px;
-    display:none;
-    z-index:3000;
-    box-shadow:0 5px 20px rgba(0,0,0,.25);
+footer span{
+    color:#f06292;
 }
 
 /* ================= MOBILE ================= */
 
-@media(max-width:1000px){
-
-    .product-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .features{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .home{
-        padding:50px 5%;
-    }
-
-    .product-area{
-        width:380px;
-        height:380px;
-    }
-
-    .product-circle{
-        width:330px;
-        height:330px;
-    }
-}
-
-@media(max-width:700px){
+@media(max-width:768px){
 
     header{
+        padding:15px 20px;
         height:auto;
-        padding:15px;
-        flex-wrap:wrap;
-    }
-
-    .logo{
-        width:100%;
-        text-align:center;
-    }
-
-    .search-box{
-        order:3;
-        width:100%;
-        max-width:none;
     }
 
     nav{
-        gap:10px;
+        gap:8px;
     }
 
-    nav a{
-        font-size:12px;
-    }
-
-    nav a:first-child,
-    nav a:nth-child(2){
+    nav a:not(.login-btn):not(.register-btn){
         display:none;
-    }
-
-    .category-bar{
-        justify-content:flex-start;
-        gap:25px;
     }
 
     .home{
         flex-direction:column;
         text-align:center;
-        padding:50px 20px;
+        padding:55px 20px;
     }
 
     .home-text h1{
         font-size:40px;
     }
 
-    .home-text p{
-        font-size:16px;
-    }
-
     .product-area{
         width:320px;
         height:320px;
-        margin-top:35px;
+        margin-top:40px;
     }
 
     .product-circle{
@@ -771,38 +504,16 @@ footer p{
         height:220px;
     }
 
-    .floating-card{
-        padding:10px 13px;
-        font-size:11px;
+    .features{
+        flex-direction:column;
     }
 
-    .features{
-        grid-template-columns:1fr;
+    .feature{
+        width:100%;
     }
 
     .product-grid{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .product-image{
-        height:170px;
-    }
-
-    .product-card{
-        padding:10px;
-    }
-
-    .product-card h3{
-        font-size:14px;
-    }
-
-    .offer-grid{
         grid-template-columns:1fr;
-    }
-
-    .footer-grid{
-        grid-template-columns:1fr 1fr;
     }
 
     .registration-box{
@@ -811,12 +522,6 @@ footer p{
     }
 }
 
-@media(max-width:400px){
-
-    .product-grid{
-        grid-template-columns:1fr;
-    }
-}
 </style>
 </head>
 
@@ -830,18 +535,11 @@ footer p{
         Glow<span>Cart</span>
     </div>
 
-    <div class="search-box">
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search face creams, serums, skincare...">
-
-        <button onclick="searchProducts()">🔍</button>
-    </div>
-
     <nav>
 
         <a href="#home">Home</a>
+
+        <a href="#products">Products</a>
 
         <a href="#features">Why Us</a>
 
@@ -849,54 +547,22 @@ footer p{
             Login
         </a>
 
-        <a href="#register" class="register-btn">
+        <a href="register.html" class="register-btn">
             Register
         </a>
 
         <a href="cart.html" class="cart-btn">
-            🛒
-            <span class="cart-count" id="cartCount">0</span>
+            🛒 Cart
         </a>
 
     </nav>
 
 </header>
 
+<!-- LOGIN SUCCESS MESSAGE -->
 
-<!-- ================= CATEGORY BAR ================= -->
-
-<div class="category-bar">
-
-    <div class="category" onclick="filterProducts('all')">
-        <div class="category-icon">✨</div>
-        <p>All</p>
-    </div>
-
-    <div class="category" onclick="filterProducts('cream')">
-        <div class="category-icon">🧴</div>
-        <p>Face Cream</p>
-    </div>
-
-    <div class="category" onclick="filterProducts('serum')">
-        <div class="category-icon">💧</div>
-        <p>Serums</p>
-    </div>
-
-    <div class="category" onclick="filterProducts('moisturizer')">
-        <div class="category-icon">🌸</div>
-        <p>Moisturizers</p>
-    </div>
-
-    <div class="category" onclick="filterProducts('sunscreen')">
-        <div class="category-icon">☀️</div>
-        <p>Sunscreen</p>
-    </div>
-
-    <div class="category" onclick="filterProducts('offers')">
-        <div class="category-icon">🔥</div>
-        <p>Offers</p>
-    </div>
-
+<div id="loginMessage">
+    ✅ Login successful! Welcome back to GlowCart ❤️
 </div>
 
 
@@ -916,17 +582,14 @@ footer p{
         </h1>
 
         <p>
-            Discover premium face creams, serums and skincare
-            products specially selected for your daily beauty routine.
-            Shop your favourites at GlowCart.
+            Discover premium face creams specially selected
+            to nourish, moisturize and care for your skin.
+            Shop your favourite skincare products at GlowCart.
         </p>
 
-        <button
-            class="shop-button"
-            onclick="document.getElementById('products').scrollIntoView()">
-
+        <button class="shop-button"
+                onclick="goToProducts()">
             Start Shopping →
-
         </button>
 
     </div>
@@ -955,6 +618,215 @@ footer p{
 </section>
 
 
+<!-- ================= CATEGORIES ================= -->
+
+<section class="categories">
+
+    <div class="category"
+         onclick="showCategory('Face Creams')">
+        🧴 Face Creams
+    </div>
+
+    <div class="category"
+         onclick="showCategory('Moisturizers')">
+        💧 Moisturizers
+    </div>
+
+    <div class="category"
+         onclick="showCategory('Serums')">
+        ✨ Serums
+    </div>
+
+    <div class="category"
+         onclick="showCategory('Sunscreen')">
+        ☀️ Sunscreen
+    </div>
+
+    <div class="category"
+         onclick="showCategory('Beauty')">
+        💄 Beauty
+    </div>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section class="products" id="products">
+
+    <div class="section-heading">
+
+        <h2>✨ Our Premium Collection</h2>
+
+        <p>
+            Shop our most loved skincare products
+        </p>
+
+    </div>
+
+
+    <div class="product-grid">
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=600&q=80"
+                alt="Face cream">
+
+            <h3>Glow Radiance Cream</h3>
+
+            <p>
+                Hydrating daily face cream for a
+                smooth and radiant look.
+            </p>
+
+            <div class="price">
+                ₹399
+                <span class="old-price">₹699</span>
+            </div>
+
+            <button class="buy-btn"
+                    onclick="addToCart('Glow Radiance Cream',399)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+                alt="Skincare serum">
+
+            <h3>Vitamin C Glow Serum</h3>
+
+            <p>
+                Lightweight serum designed for
+                bright and fresh-looking skin.
+            </p>
+
+            <div class="price">
+                ₹499
+                <span class="old-price">₹899</span>
+            </div>
+
+            <button class="buy-btn"
+                    onclick="addToCart('Vitamin C Glow Serum',499)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
+                alt="Moisturizer">
+
+            <h3>Hydra Soft Moisturizer</h3>
+
+            <p>
+                Deep moisturizing formula for
+                soft and comfortable skin.
+            </p>
+
+            <div class="price">
+                ₹349
+                <span class="old-price">₹599</span>
+            </div>
+
+            <button class="buy-btn"
+                    onclick="addToCart('Hydra Soft Moisturizer',349)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80"
+                alt="Sunscreen">
+
+            <h3>Sun Shield SPF 50</h3>
+
+            <p>
+                Everyday sunscreen for lightweight
+                protection and hydration.
+            </p>
+
+            <div class="price">
+                ₹449
+                <span class="old-price">₹799</span>
+            </div>
+
+            <button class="buy-btn"
+                    onclick="addToCart('Sun Shield SPF 50',449)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=600&q=80"
+                alt="Night cream">
+
+            <h3>Luxury Night Cream</h3>
+
+            <p>
+                Rich night cream for a nourished
+                and refreshed feeling.
+            </p>
+
+            <div class="price">
+                ₹549
+                <span class="old-price">₹999</span>
+            </div>
+
+            <button class="buy-btn"
+                    onclick="addToCart('Luxury Night Cream',549)">
+                Add to Cart
+            </button>
+
+        </div>
+
+
+        <div class="product-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80"
+                alt="Premium skincare">
+
+            <h3>Premium Glow Kit</h3>
+
+            <p>
+                Complete skincare essentials for
+                your everyday beauty routine.
+            </p>
+
+            <div class="price">
+                ₹699
+                <span class="old-price">₹1199</span>
+            </div>
+
+            <button class="buy-btn"
+                    onclick="addToCart('Premium Glow Kit',699)">
+                Add to Cart
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <!-- ================= FEATURES ================= -->
 
 <section class="features" id="features">
@@ -972,6 +844,7 @@ footer p{
 
     </div>
 
+
     <div class="feature">
 
         <div class="feature-icon">💧</div>
@@ -980,10 +853,11 @@ footer p{
 
         <p>
             Products designed to keep your skin
-            soft and moisturized.
+            feeling soft and moisturized.
         </p>
 
     </div>
+
 
     <div class="feature">
 
@@ -992,11 +866,12 @@ footer p{
         <h3>Healthy Glow</h3>
 
         <p>
-            Discover skincare products for a
-            fresh-looking natural glow.
+            Discover skincare that helps you
+            maintain a fresh-looking glow.
         </p>
 
     </div>
+
 
     <div class="feature">
 
@@ -1005,8 +880,8 @@ footer p{
         <h3>Easy Shopping</h3>
 
         <p>
-            Search, select and order your
-            favourite products easily.
+            Find your favourite skincare products
+            easily in one place.
         </p>
 
     </div>
@@ -1014,168 +889,33 @@ footer p{
 </section>
 
 
-<!-- ================= PRODUCTS ================= -->
+<!-- ================= REGISTER ================= -->
 
-<section class="products-section" id="products">
-
-    <div class="section-heading">
-
-        <div>
-            <h2>✨ Trending Products</h2>
-            <p>Best skincare products at special prices</p>
-        </div>
-
-        <button
-            class="view-all"
-            onclick="filterProducts('all')">
-            View All
-        </button>
-
-    </div>
-
-
-    <div class="product-grid" id="productGrid"></div>
-
-</section>
-
-
-<!-- ================= OFFERS ================= -->
-
-<section class="offers">
-
-    <div class="section-heading">
-
-        <div>
-            <h2>🔥 GlowCart Special Offers</h2>
-            <p>Limited-time deals just for you</p>
-        </div>
-
-    </div>
-
-
-    <div class="offer-grid">
-
-        <div class="offer">
-
-            <h2>50% OFF</h2>
-
-            <p>
-                On selected premium face creams.
-            </p>
-
-            <span>SHOP NOW</span>
-
-        </div>
-
-
-        <div class="offer">
-
-            <h2>BUY 1 GET 1</h2>
-
-            <p>
-                Special skincare combos available now.
-            </p>
-
-            <span>GRAB DEAL</span>
-
-        </div>
-
-
-        <div class="offer">
-
-            <h2>FREE DELIVERY</h2>
-
-            <p>
-                Free delivery on orders above ₹499.
-            </p>
-
-            <span>SHOP NOW</span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= REGISTRATION ================= -->
-
-<section class="registration" id="register">
+<section class="registration">
 
     <div class="registration-box">
 
-        <h2>Create Your Account</h2>
+        <h2>Join GlowCart</h2>
 
         <p class="subtitle">
-            Join GlowCart and start your skincare journey
+            Create an account and start shopping
         </p>
 
-        <form id="registrationForm"
-              onsubmit="registerUser(event)">
+        <button class="submit-btn"
+                onclick="window.location.href='register.html'">
 
-            <div class="form-group">
+            Create Account →
 
-                <label>Full Name</label>
+        </button>
 
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Enter your full name"
-                    required>
+        <br><br>
 
-            </div>
+        <button class="submit-btn"
+                onclick="window.location.href='login.html'">
 
+            Already have an account? Login
 
-            <div class="form-group">
-
-                <label>Email Address</label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Mobile Number</label>
-
-                <input
-                    type="tel"
-                    id="mobile"
-                    placeholder="Enter your mobile number"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>Password</label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Create a password"
-                    required>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="submit-btn">
-
-                Register Now
-
-            </button>
-
-            <p id="message"></p>
-
-        </form>
+        </button>
 
     </div>
 
@@ -1186,445 +926,101 @@ footer p{
 
 <footer>
 
-    <div class="footer-grid">
-
-        <div>
-            <h3>GLOWCART</h3>
-            <p>About GlowCart</p>
-            <p>Contact Us</p>
-            <p>Careers</p>
-            <p>Our Story</p>
-        </div>
-
-        <div>
-            <h3>HELP</h3>
-            <p>Payments</p>
-            <p>Shipping</p>
-            <p>Returns</p>
-            <p>Cancellation</p>
-        </div>
-
-        <div>
-            <h3>POLICY</h3>
-            <p>Terms of Use</p>
-            <p>Privacy Policy</p>
-            <p>Security</p>
-            <p>Refund Policy</p>
-        </div>
-
-        <div>
-            <h3>CONTACT</h3>
-            <p>📧 support@glowcart.com</p>
-            <p>📞 +91 98765 43210</p>
-            <p>📍 India</p>
-        </div>
-
-    </div>
-
-    <div class="copy">
-        © 2026 <span>GlowCart</span>. All Rights Reserved.
-    </div>
+    <p>
+        © 2026 <span>GlowCart</span>.
+        All Rights Reserved.
+    </p>
 
 </footer>
 
 
-<!-- TOAST -->
-
-<div class="toast" id="toast">
-    Added to cart 🛒
-</div>
-
-
 <script>
 
-/* ================= PRODUCTS ================= */
+/* ================= START SHOPPING ================= */
 
-const products = [
+function goToProducts(){
 
-{
-    id:1,
-    name:"GlowCare Vitamin C Face Cream",
-    category:"cream",
-    price:399,
-    oldPrice:799,
-    rating:"4.6",
-    image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=85"
-},
+    document
+        .getElementById("products")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
 
-{
-    id:2,
-    name:"Radiance Hyaluronic Acid Serum",
-    category:"serum",
-    price:499,
-    oldPrice:999,
-    rating:"4.7",
-    image:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=85"
-},
-
-{
-    id:3,
-    name:"PureGlow Daily Moisturizer",
-    category:"moisturizer",
-    price:299,
-    oldPrice:599,
-    rating:"4.5",
-    image:"https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=600&q=85"
-},
-
-{
-    id:4,
-    name:"SunShield SPF 50 Sunscreen",
-    category:"sunscreen",
-    price:349,
-    oldPrice:699,
-    rating:"4.8",
-    image:"https://images.unsplash.com/photo-1556229010-aa3f7ff66f1a?auto=format&fit=crop&w=600&q=85"
-},
-
-{
-    id:5,
-    name:"Glow Boost Night Cream",
-    category:"cream",
-    price:449,
-    oldPrice:899,
-    rating:"4.6",
-    image:"https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=600&q=85"
-},
-
-{
-    id:6,
-    name:"FreshSkin Vitamin E Cream",
-    category:"cream",
-    price:329,
-    oldPrice:649,
-    rating:"4.4",
-    image:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=85"
-},
-
-{
-    id:7,
-    name:"AquaGlow Hydrating Serum",
-    category:"serum",
-    price:549,
-    oldPrice:1099,
-    rating:"4.8",
-    image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=85"
-},
-
-{
-    id:8,
-    name:"Luxury Glow Face Cream",
-    category:"cream",
-    price:599,
-    oldPrice:1199,
-    rating:"4.9",
-    image:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=85"
 }
 
-];
+
+/* ================= LOGIN SUCCESS ================= */
+
+/*
+   Your login.html should redirect here after
+   successful login using:
+
+   window.location.href = "index.html?login=success";
+*/
+
+const params =
+    new URLSearchParams(window.location.search);
+
+if(params.get("login") === "success"){
+
+    const message =
+        document.getElementById("loginMessage");
+
+    message.style.display = "block";
+
+    setTimeout(function(){
+
+        message.style.display = "none";
+
+    },5000);
+
+}
 
 
 /* ================= CART ================= */
 
-let cart =
-JSON.parse(localStorage.getItem("glowcart")) || [];
+function addToCart(name,price){
 
+    let cart =
+        JSON.parse(
+            localStorage.getItem("glowcart")
+        ) || [];
 
-/* ================= DISPLAY ================= */
-
-function displayProducts(list){
-
-    const grid =
-    document.getElementById("productGrid");
-
-    grid.innerHTML="";
-
-    if(list.length===0){
-
-        grid.innerHTML=`
-            <div style="
-                grid-column:1/-1;
-                text-align:center;
-                padding:50px;
-                color:#777;
-                background:white;
-                border-radius:15px;">
-                <h2>😔 No products found</h2>
-                <p style="margin-top:10px;">
-                    Try another search.
-                </p>
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.forEach(product=>{
-
-        let discount =
-        Math.round(
-            ((product.oldPrice-product.price)/
-            product.oldPrice)*100
-        );
-
-
-        grid.innerHTML += `
-
-        <div class="product-card">
-
-            <button
-                class="wishlist"
-                onclick="wishlist()">
-                ♡
-            </button>
-
-            <div class="product-image">
-
-                <img
-                    src="${product.image}"
-                    alt="${product.name}">
-
-            </div>
-
-            <h3>
-                ${product.name}
-            </h3>
-
-            <span class="rating">
-                ${product.rating} ★
-            </span>
-
-            <div class="price-row">
-
-                <span class="price">
-                    ₹${product.price}
-                </span>
-
-                <span class="old-price">
-                    ₹${product.oldPrice}
-                </span>
-
-            </div>
-
-            <div class="discount">
-                ${discount}% off
-            </div>
-
-            <button
-                class="add-cart"
-                onclick="addToCart(${product.id})">
-
-                🛒 Add to Cart
-
-            </button>
-
-            <button
-                class="buy-now"
-                onclick="buyNow(${product.id})">
-
-                Buy Now
-
-            </button>
-
-        </div>
-
-        `;
-
+    cart.push({
+        name:name,
+        price:price,
+        quantity:1
     });
-}
-
-
-/* ================= ADD CART ================= */
-
-function addToCart(id){
-
-    const product =
-    products.find(p=>p.id===id);
-
-    cart.push(product);
 
     localStorage.setItem(
         "glowcart",
         JSON.stringify(cart)
     );
 
-    updateCartCount();
-
-    showToast(
-        product.name + " added to cart 🛒"
+    alert(
+        name +
+        " added to cart successfully! 🛒"
     );
-}
 
-
-/* ================= BUY ================= */
-
-function buyNow(id){
-
-    addToCart(id);
-
-    setTimeout(function(){
-
-        window.location.href="cart.html";
-
-    },300);
-}
-
-
-/* ================= CART COUNT ================= */
-
-function updateCartCount(){
-
-    document.getElementById("cartCount")
-    .innerText=cart.length;
-}
-
-
-/* ================= SEARCH ================= */
-
-function searchProducts(){
-
-    const value =
-    document.getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
-
-
-    if(value===""){
-
-        displayProducts(products);
-
-    }
-    else{
-
-        const result =
-        products.filter(product =>
-            product.name
-            .toLowerCase()
-            .includes(value)
-        );
-
-        displayProducts(result);
-
-    }
-
-
-    document
-    .getElementById("products")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
 }
 
 
 /* ================= CATEGORY ================= */
 
-function filterProducts(category){
+function showCategory(category){
 
-    let result;
-
-    if(category==="all"){
-
-        result=products;
-
-    }
-    else{
-
-        result=
-        products.filter(
-            p=>p.category===category
-        );
-
-    }
-
-    displayProducts(result);
-
-    document
-    .getElementById("products")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
-}
-
-
-/* ================= WISHLIST ================= */
-
-function wishlist(){
-
-    showToast(
-        "Added to wishlist ❤️"
+    alert(
+        category +
+        " selected. Products are available below."
     );
-}
-
-
-/* ================= TOAST ================= */
-
-function showToast(message){
-
-    const toast =
-    document.getElementById("toast");
-
-    toast.innerText=message;
-
-    toast.style.display="block";
-
-    setTimeout(function(){
-
-        toast.style.display="none";
-
-    },2000);
-}
-
-
-/* ================= REGISTER ================= */
-
-/*
-   Keep your existing backend files.
-   This frontend only shows the success message.
-*/
-
-function registerUser(event){
-
-    event.preventDefault();
-
-    const name =
-    document.getElementById("name").value;
-
-    document.getElementById("message")
-    .innerText=
-    "Registration successful! Welcome "
-    + name + " ❤️";
 
     document
-    .getElementById("registrationForm")
-    .reset();
+        .getElementById("products")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
 }
-
-
-/* ================= ENTER SEARCH ================= */
-
-document
-.getElementById("searchInput")
-.addEventListener(
-    "keypress",
-    function(event){
-
-        if(event.key==="Enter"){
-
-            searchProducts();
-
-        }
-
-    }
-);
-
-
-/* ================= START ================= */
-
-displayProducts(products);
-
-updateCartCount();
 
 </script>
 
