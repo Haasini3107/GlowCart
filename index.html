@@ -1,505 +1,723 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowCart - Premium Face Creams</title>
 
-<title>GlowCart - Premium Face Creams</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-<style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+        body {
+            background: #f8f8fb;
+            color: #333;
+        }
 
-body {
-    background: #fff7f9;
-    color: #222;
-}
+        /* ================= HEADER ================= */
 
-/* HEADER */
+        header {
+            background: rgba(255, 255, 255, 0.97);
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-header {
-    background: #131921;
-    color: white;
-    padding: 18px 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+        .logo {
+            font-size: 29px;
+            font-weight: bold;
+            color: #e91e63;
+            letter-spacing: -1px;
+        }
 
-.logo {
-    font-size: 30px;
-    font-family: Georgia, serif;
-    color: #ffb6c9;
-}
+        .logo span {
+            color: #7b1fa2;
+        }
 
-.logo span {
-    color: white;
-}
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
 
-nav {
-    display: flex;
-    gap: 25px;
-}
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: 0.3s;
+        }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-}
+        nav a:hover {
+            color: #e91e63;
+        }
 
-nav a:hover {
-    color: #ffb6c9;
-}
+        .register-btn {
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white !important;
+            padding: 11px 22px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.25);
+        }
 
-/* HERO */
+        .register-btn:hover {
+            transform: translateY(-2px);
+        }
 
-.hero {
-    min-height: 580px;
+        /* ================= HOME ================= */
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+        .home {
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 8%;
+            background:
+                radial-gradient(circle at 80% 20%, #f6d9ff 0%, transparent 30%),
+                radial-gradient(circle at 10% 80%, #ffdce9 0%, transparent 30%),
+                linear-gradient(120deg, #fff2f7, #f5edff);
+            overflow: hidden;
+        }
 
-    padding: 70px 9%;
+        .home-text {
+            max-width: 570px;
+        }
 
-    background:
-        linear-gradient(
-            90deg,
-            #ffe6ed,
-            #fff5f7,
-            #ffffff
-        );
-}
+        .small-title {
+            display: inline-block;
+            background: #ffffff;
+            color: #e91e63;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+        }
 
-.hero-content {
-    max-width: 560px;
-}
+        .home-text h1 {
+            font-size: 55px;
+            line-height: 1.1;
+            color: #6a1b9a;
+            margin-bottom: 22px;
+        }
 
-.small-title {
-    color: #d65a7a;
-    font-weight: bold;
-    letter-spacing: 3px;
-    margin-bottom: 18px;
-}
+        .home-text h1 span {
+            color: #e91e63;
+        }
 
-.hero h1 {
-    font-family: Georgia, serif;
-    font-size: 58px;
-    line-height: 1.1;
-    margin-bottom: 22px;
-}
+        .home-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #5f5f5f;
+            margin-bottom: 30px;
+        }
 
-.hero h1 span {
-    color: #d65a7a;
-}
+        .shop-button {
+            border: none;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(156, 39, 176, 0.25);
+            transition: 0.3s;
+        }
 
-.hero p {
-    color: #555;
-    font-size: 18px;
-    line-height: 1.7;
-    margin-bottom: 30px;
-}
+        .shop-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(156, 39, 176, 0.35);
+        }
 
-.start-button {
-    background: #131921;
-    color: white;
-    border: none;
-    padding: 16px 34px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        /* ================= PRODUCT IMAGE ================= */
 
-.start-button:hover {
-    background: #d65a7a;
-    transform: translateY(-2px);
-}
+        .product-area {
+            width: 470px;
+            height: 470px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.hero-image {
-    width: 430px;
-    max-width: 42%;
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-}
+        .product-circle {
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 25px 60px rgba(130, 60, 150, 0.15),
+                inset 0 0 30px rgba(255,255,255,0.8);
+        }
 
-/* FEATURES */
+        .product-circle img {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 20px;
+            mix-blend-mode: multiply;
+            filter: drop-shadow(0 20px 20px rgba(0,0,0,0.18));
+            transition: 0.5s;
+        }
 
-.features {
-    padding: 60px 8%;
-    background: white;
+        .product-circle img:hover {
+            transform: scale(1.06) rotate(2deg);
+        }
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-}
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            font-weight: bold;
+            color: #6a1b9a;
+        }
 
-.feature {
-    text-align: center;
-    padding: 30px 20px;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    background: #fffafa;
-}
+        .card-one {
+            top: 60px;
+            right: 0;
+        }
 
-.feature-icon {
-    font-size: 35px;
-    margin-bottom: 15px;
-}
+        .card-two {
+            bottom: 60px;
+            left: 0;
+        }
 
-.feature h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
+        /* ================= FEATURES ================= */
 
-.feature p {
-    color: #777;
-    font-size: 14px;
-    line-height: 1.5;
-}
+        .features {
+            background: white;
+            padding: 55px 8%;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            gap: 25px;
+        }
 
-/* REGISTER */
+        .feature {
+            width: 25%;
+            padding: 25px 15px;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
 
-.register-section {
-    padding: 60px 20px;
-    text-align: center;
-    background: #fff0f4;
-}
+        .feature:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
 
-.register-section h2 {
-    font-family: Georgia, serif;
-    font-size: 32px;
-    margin-bottom: 10px;
-}
+        .feature-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff0f6;
+            font-size: 30px;
+        }
 
-.register-section p {
-    color: #666;
-    margin-bottom: 25px;
-}
+        .feature h3 {
+            margin-bottom: 10px;
+            color: #7b1fa2;
+        }
 
-.register-button {
-    background: #131921;
-    color: white;
-    border: none;
-    padding: 14px 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
+        .feature p {
+            color: #666;
+            line-height: 1.6;
+        }
 
-.register-button:hover {
-    background: #d65a7a;
-}
+        /* ================= REGISTRATION ================= */
 
-/* FOOTER */
+        .registration {
+            padding: 80px 20px;
+            background:
+                linear-gradient(135deg, #fff0f6, #f5eaff);
+            display: flex;
+            justify-content: center;
+        }
 
-footer {
-    background: #131921;
-    color: white;
-    text-align: center;
-    padding: 30px;
-}
+        .registration-box {
+            width: 470px;
+            background: white;
+            padding: 42px;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+        }
 
-footer p {
-    color: #aaa;
-    font-size: 13px;
-}
+        .registration-box h2 {
+            text-align: center;
+            color: #7b1fa2;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
 
-/* MOBILE */
+        .registration-box .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 28px;
+        }
 
-@media(max-width: 800px) {
+        .form-group {
+            margin-bottom: 18px;
+        }
 
-    header {
-        padding: 18px 25px;
-    }
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px;
+        }
 
-    nav {
-        gap: 12px;
-    }
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
 
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 60px 25px;
-    }
+        .form-group input:focus {
+            border-color: #e91e63;
+            box-shadow: 0 0 0 3px rgba(233,30,99,0.08);
+        }
 
-    .hero h1 {
-        font-size: 42px;
-    }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #e91e63, #9c27b0);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    .hero-image {
-        max-width: 90%;
-        width: 350px;
-        margin-top: 40px;
-    }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
 
-    .features {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            color: #2e7d32;
+            font-weight: bold;
+        }
 
-@media(max-width: 500px) {
+        /* ================= FOOTER ================= */
 
-    header {
-        flex-direction: column;
-        gap: 15px;
-    }
+        footer {
+            background: #211d24;
+            color: white;
+            text-align: center;
+            padding: 28px;
+        }
 
-    nav {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+        footer span {
+            color: #f06292;
+        }
 
-    .features {
-        grid-template-columns: 1fr;
-    }
+        /* ================= MOBILE ================= */
 
-    .hero h1 {
-        font-size: 36px;
-    }
+        @media (max-width: 768px) {
 
-}
+            header {
+                padding: 15px 20px;
+                height: auto;
+            }
 
-</style>
+            nav {
+                gap: 10px;
+            }
 
+            nav a:not(.register-btn) {
+                display: none;
+            }
+
+            .home {
+                flex-direction: column;
+                text-align: center;
+                padding: 55px 20px;
+            }
+
+            .home-text h1 {
+                font-size: 40px;
+            }
+
+            .product-area {
+                width: 320px;
+                height: 320px;
+                margin-top: 40px;
+            }
+
+            .product-circle {
+                width: 280px;
+                height: 280px;
+            }
+
+            .product-circle img {
+                width: 220px;
+                height: 220px;
+            }
+
+            .floating-card {
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+
+            .card-one {
+                top: 25px;
+                right: -5px;
+            }
+
+            .card-two {
+                bottom: 25px;
+                left: -5px;
+            }
+
+            .features {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .feature {
+                width: 100%;
+            }
+
+            .registration-box {
+                width: 100%;
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- ================= HEADER ================= -->
 
-<!-- HEADER -->
+    <header>
 
-<header>
-
-    <div class="logo">
-        Glow<span>Cart</span>
-    </div>
-
-    <nav>
-
-        <a href="#home">Home</a>
-
-        <a href="#why">Why Us</a>
-
-        <a href="#register">Register</a>
-
-        <a href="login.html">Login</a>
-
-    </nav>
-
-</header>
-
-
-<!-- HERO / FRONT PAGE -->
-
-<section class="hero" id="home">
-
-    <div class="hero-content">
-
-        <div class="small-title">
-            PREMIUM SKINCARE COLLECTION
+        <div class="logo">
+            Glow<span>Cart</span>
         </div>
 
-        <h1>
-            Beautiful Skin.<br>
-            <span>Natural Glow.</span>
-        </h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#features">Why Us</a>
+            <a href="#register" class="register-btn">
+                Register
+            </a>
+        </nav>
 
-        <p>
-            Discover premium face creams specially selected
-            to nourish, moisturize and care for your skin.
-            Shop your favourite skincare products at GlowCart.
-        </p>
-
-        <!-- IMPORTANT BUTTON -->
-
-        <button
-            class="start-button"
-            onclick="startShopping()"
-        >
-            Start Shopping →
-        </button>
-
-    </div>
+    </header>
 
 
-    <img
-        class="hero-image"
-        src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
-        alt="Premium Face Cream"
-    >
+    <!-- ================= HOME PAGE ================= -->
 
-</section>
+    <section class="home" id="home">
 
+        <div class="home-text">
 
-<!-- FEATURES -->
+            <div class="small-title">
+                PREMIUM SKINCARE COLLECTION
+            </div>
 
-<section class="features" id="why">
+            <h1>
+                Beautiful Skin.<br>
+                <span>Natural Glow.</span>
+            </h1>
 
-    <div class="feature">
+            <p>
+                Discover premium face creams specially selected
+                to nourish, moisturize and care for your skin.
+                Shop your favourite skincare products at GlowCart.
+            </p>
 
-        <div class="feature-icon">
-            🌿
+            <button
+                class="shop-button"
+                onclick="goToRegister()">
+
+                Start Shopping →
+
+            </button>
+
         </div>
 
-        <h3>
-            Natural Care
-        </h3>
 
-        <p>
-            Carefully selected skincare products
-            for your daily beauty routine.
-        </p>
+        <div class="product-area">
 
-    </div>
+            <div class="product-circle">
 
+                <img
+                    <img
+    src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=90"
+    alt="Premium face cream">
+                   
 
-    <div class="feature">
+            </div>
 
-        <div class="feature-icon">
-            💧
+            <div class="floating-card card-one">
+                ✨ Premium Care
+            </div>
+
+            <div class="floating-card card-two">
+                💧 Deep Hydration
+            </div>
+
         </div>
 
-        <h3>
-            Deep Hydration
-        </h3>
-
-        <p>
-            Products designed to keep your skin
-            feeling soft and moisturized.
-        </p>
-
-    </div>
+    </section>
 
 
-    <div class="feature">
+    <!-- ================= FEATURES ================= -->
 
-        <div class="feature-icon">
-            ✨
+    <section class="features" id="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🌿
+            </div>
+
+            <h3>Natural Care</h3>
+
+            <p>
+                Carefully selected skincare products
+                for your daily beauty routine.
+            </p>
+
         </div>
 
-        <h3>
-            Healthy Glow
-        </h3>
 
-        <p>
-            Discover skincare that helps you
-            maintain a fresh-looking glow.
-        </p>
+        <div class="feature">
 
-    </div>
+            <div class="feature-icon">
+                💧
+            </div>
 
+            <h3>Deep Hydration</h3>
 
-    <div class="feature">
+            <p>
+                Products designed to keep your skin
+                feeling soft and moisturized.
+            </p>
 
-        <div class="feature-icon">
-            🛍️
         </div>
 
-        <h3>
-            Easy Shopping
-        </h3>
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ✨
+            </div>
+
+            <h3>Healthy Glow</h3>
+
+            <p>
+                Discover skincare that helps you
+                maintain a fresh-looking glow.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🛍️
+            </div>
+
+            <h3>Easy Shopping</h3>
+
+            <p>
+                Find your favourite skincare products
+                easily in one place.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= USER REGISTRATION ================= -->
+
+    <section class="registration" id="register">
+
+        <div class="registration-box">
+
+            <h2>Create Your Account</h2>
+
+            <p class="subtitle">
+                Join GlowCart and start your skincare journey
+            </p>
+
+
+            <form id="registrationForm"
+                  onsubmit="registerUser(event)">
+
+                <div class="form-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="Enter your mobile number"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create a password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    Register Now
+
+                </button>
+
+                <p id="message"></p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
 
         <p>
-            Find your favourite skincare products
-            easily in one place.
+            © 2026 <span>GlowCart</span>. All Rights Reserved.
         </p>
 
-    </div>
-
-</section>
+    </footer>
 
 
-<!-- REGISTER -->
+    <!-- ================= JAVASCRIPT ================= -->
 
-<section
-    class="register-section"
-    id="register"
->
+    <script>
 
-    <h2>
-        Create Your Account
-    </h2>
+        function goToRegister() {
 
-    <p>
-        Join GlowCart and start your skincare journey
-    </p>
+            document
+                .getElementById("register")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
 
-    <button
-        class="register-button"
-        onclick="goRegister()"
-    >
-        Register Now
-    </button>
-
-</section>
+        }
 
 
-<!-- FOOTER -->
+        function registerUser(event) {
 
-<footer>
+            event.preventDefault();
 
-    <p>
-        © 2026 GlowCart. All Rights Reserved.
-    </p>
+            let name =
+                document.getElementById("name").value;
 
-</footer>
+            let email =
+                document.getElementById("email").value;
 
+            let mobile =
+                document.getElementById("mobile").value;
 
-<script>
-
-/*
-====================================================
-START SHOPPING
-====================================================
-
-IMPORTANT:
-
-Your current live front page is already:
-
-https://haasini3107.github.io/GlowCart/
-
-If the shopping page is also the ROOT page, clicking
-the button cannot navigate to the same URL and show
-a different page.
-
-Therefore, your MAIN SHOPPING PAGE must have a
-different filename, for example:
-
-h.html
-
-Then use:
-
-https://haasini3107.github.io/GlowCart/h.html
-*/
-
-function startShopping() {
-
-    window.location.href = "h.html";
-
-}
+            let password =
+                document.getElementById("password").value;
 
 
-/* REGISTER */
+            console.log("Name:", name);
+            console.log("Email:", email);
+            console.log("Mobile:", mobile);
+            console.log("Password:", password);
 
-function goRegister() {
 
-    window.location.href = "register.html";
+            document.getElementById("message").innerText =
+                "Registration successful! Welcome to GlowCart ❤️";
 
-}
 
-</script>
+            document
+                .getElementById("registrationForm")
+                .reset();
+
+        }
+
+    </script>
 
 </body>
-
 </html>
-```
