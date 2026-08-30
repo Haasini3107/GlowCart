@@ -1,412 +1,1527 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GlowCart | Premium Skincare</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f5f6f8;
+    color: #222;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    background: #131921;
+    color: white;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 10px 35px;
+    gap: 25px;
+}
+
+.logo {
+    width: 180px;
+}
+
+.logo h1 {
+    font-size: 29px;
+    color: #ffb6c9;
+    font-family: Georgia, serif;
+}
+
+.logo span {
+    color: white;
+}
+
+.logo p {
+    font-size: 11px;
+    color: #ddd;
+    margin-top: 3px;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 700px;
+    height: 44px;
+    display: flex;
+}
+
+.search-container input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0 18px;
+    font-size: 15px;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-container button {
+    width: 55px;
+    border: none;
+    background: #ffb6c9;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 0 5px 5px 0;
+}
+
+.header-link {
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.header-link small {
+    display: block;
+    font-size: 11px;
+    color: #ddd;
+}
+
+.header-link strong {
+    font-size: 14px;
+}
+
+.cart {
+    font-size: 15px;
+}
+
+#cartCount {
+    background: #ffb6c9;
+    color: #131921;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* ================= NAVIGATION ================= */
+
+.navigation {
+    background: #232f3e;
+    color: white;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0 35px;
+    gap: 35px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.navigation a:hover {
+    color: #ffb6c9;
+}
+
+/* ================= CATEGORIES ================= */
+
+.categories {
+    background: white;
+    padding: 18px 35px;
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.category {
+    text-align: center;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.category img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #fff5f7;
+    padding: 8px;
+}
+
+.category p {
+    margin-top: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    margin: 18px 30px;
+    min-height: 340px;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,228,235,0.98),
+            rgba(255,245,247,0.88),
+            rgba(255,255,255,0.45)
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 80px;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 550px;
+}
+
+.small-title {
+    color: #d65a7a;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.hero h2 {
+    font-family: Georgia, serif;
+    font-size: 48px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.shop-button {
+    background: #131921;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.shop-button:hover {
+    background: #d65a7a;
+}
+
+.hero-image {
+    width: 350px;
+    height: 300px;
+    object-fit: contain;
+}
+
+/* ================= PRODUCTS ================= */
+
+.section {
+    margin: 20px 30px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    font-family: Georgia, serif;
+    font-size: 26px;
+}
+
+.view-all {
+    color: #d65a7a;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.product {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 9px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.25s;
+    position: relative;
+}
+
+.product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #008a45;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-image {
+    height: 230px;
+    width: 100%;
+    object-fit: contain;
+    padding: 18px;
+    background: #fafafa;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.brand {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.product-name {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.4;
+    min-height: 42px;
+}
+
+.rating {
+    display: inline-block;
+    margin-top: 9px;
+    background: #168a42;
+    color: white;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.rating-count {
+    color: #777;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.price {
+    margin-top: 10px;
+}
+
+.current-price {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #777;
+    margin-left: 7px;
+    font-size: 13px;
+}
+
+.offer {
+    color: #008a45;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* ================= FEATURES ================= */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.feature {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    background: #fffafa;
+}
+
+.feature-icon {
+    width: 55px;
+    height: 55px;
+    margin: auto auto 12px;
+    border-radius: 50%;
+    background: #ffe7ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.feature h3 {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.feature p {
+    color: #777;
+    font-size: 13px;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #131921;
+    color: white;
+    margin-top: 30px;
+    padding: 45px 50px 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.footer-column h3 {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.footer-column p {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #eee;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    margin-top: 30px;
+    padding-top: 20px;
+    text-align: center;
+    color: #aaa;
+    font-size: 13px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px) {
+
+    .products {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:750px) {
+
+    .header {
+        flex-wrap: wrap;
+        padding: 10px 20px;
+    }
+
+    .navigation {
+        overflow-x: auto;
+        padding: 0 15px;
+    }
+
+    .categories {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 15px;
+    }
+
+    .hero {
+        padding: 35px;
+    }
+
+    .hero h2 {
+        font-size: 35px;
+    }
+
+    .hero-image {
+        width: 220px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .features {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:500px) {
+
+    .search-container {
+        order: 5;
+        width: 100%;
+    }
+
+    .hero {
+        margin: 10px;
+        padding: 25px;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .section {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo">
+
+        <h1>
+            Glow<span>Cart</span>
+        </h1>
+
+        <p>
+            Beauty • Care • Confidence
+        </p>
+
+    </div>
+
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search face creams, moisturizers..."
+            onkeyup="searchProducts()"
+        >
+
+        <button onclick="searchProducts()">
+            🔍
+        </button>
+
+    </div>
+
+
+    <div
+        class="header-link"
+        onclick="goLogin()"
+    >
+
+        <small>
+            Hello
+        </small>
+
+        <strong>
+            Account & Login
+        </strong>
+
+    </div>
+
+
+    <div
+        class="header-link"
+        onclick="openOrders()"
+    >
+
+        <small>
+            Your
+        </small>
+
+        <strong>
+            Orders
+        </strong>
+
+    </div>
+
+
+    <div
+        class="header-link cart"
+        onclick="openCart()"
+    >
+
+        🛒 Cart
+
+        <span id="cartCount">
+            0
+        </span>
+
+    </div>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="navigation">
+
+    <a onclick="scrollToProducts()">
+        ☰ All
+    </a>
+
+    <a onclick="scrollToProducts()">
+        Best Sellers
+    </a>
+
+    <a onclick="filterCategory('cream')">
+        Face Creams
+    </a>
+
+    <a onclick="scrollToProducts()">
+        Moisturizers
+    </a>
+
+    <a onclick="scrollToProducts()">
+        New Arrivals
+    </a>
+
+    <a onclick="scrollToProducts()">
+        Today's Deals
+    </a>
+
+</nav>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<div class="categories">
+
+    <div
+        class="category"
+        onclick="filterCategory('cream')"
+    >
+
+        <img
+            src="https://f.nooncdn.com/p/pzsku/ZF78944DAAB86E95AFDA5Z/45/_/1708106666/f99950ae-7cc5-4a4b-9bf7-feaa9ba9396a.jpg?width=800"
+        >
+
+        <p>
+            Face Creams
+        </p>
+
+    </div>
+
+
+    <div
+        class="category"
+        onclick="filterCategory('vitamin')"
+    >
+
+        <img
+            src="https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg"
+        >
+
+        <p>
+            Vitamin C
+        </p>
+
+    </div>
+
+
+    <div
+        class="category"
+        onclick="filterCategory('natural')"
+    >
+
+        <img
+            src="https://cdn2.primor.eu/media/catalog/product/cache/f3020b7489dcfc4d1d147cf4dad07b7f/5/9/5907747213821_0a45.webp"
+        >
+
+        <p>
+            Natural Care
+        </p>
+
+    </div>
+
+
+    <div
+        class="category"
+        onclick="scrollToProducts()"
+    >
+
+        <img
+            src="https://images.pexels.com/photos/7941454/pexels-photo-7941454.jpeg"
+        >
+
+        <p>
+            Moisturizers
+        </p>
+
+    </div>
+
+
+    <div
+        class="category"
+        onclick="scrollToProducts()"
+    >
+
+        <img
+            src="https://images.pexels.com/photos/6963149/pexels-photo-6963149.jpeg"
+        >
+
+        <p>
+            Skin Care
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="small-title">
+            PREMIUM SKINCARE
+        </div>
+
+        <h2>
+            Your Skin Deserves
+            Something Beautiful.
+        </h2>
+
+        <p>
+            Discover carefully selected face creams
+            and skincare essentials for a fresh,
+            hydrated and healthy-looking glow.
+        </p>
+
+        <button
+            class="shop-button"
+            onclick="scrollToProducts()"
+        >
+            Shop Now →
+        </button>
+
+    </div>
+
+
+    <img
+        class="hero-image"
+        src="https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg"
+        alt="Vitamin C Face Cream"
+    >
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section
+    class="section"
+    id="productsSection"
+>
+
+    <div class="section-heading">
+
+        <h2>
+            Best Selling Face Creams
+        </h2>
+
+        <span
+            class="view-all"
+            onclick="showAllProducts()"
+        >
+            View All →
+        </span>
+
+    </div>
+
+
+    <div
+        class="products"
+        id="productsContainer"
+    >
+
+
+        <!-- PRODUCT 1 -->
+
+        <div
+            class="product"
+            data-category="vitamin"
+            onclick="showProduct(0)"
+        >
+
+            <span class="discount-badge">
+                28% OFF
+            </span>
+
+            <img
+                class="product-image"
+                src="https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">
+                    GlowCart Essentials
+                </div>
+
+                <div class="product-name">
+                    Vitamin C Brightening Face Cream
+                </div>
+
+                <span class="rating">
+                    ★ 4.5
+                </span>
+
+                <span class="rating-count">
+                    1,248
+                </span>
+
+                <div class="price">
+
+                    <span class="current-price">
+                        ₹499
+                    </span>
+
+                    <span class="old-price">
+                        ₹699
+                    </span>
+
+                    <span class="offer">
+                        28% off
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 2 -->
+
+        <div
+            class="product"
+            data-category="cream"
+            onclick="showProduct(1)"
+        >
+
+            <span class="discount-badge">
+                30% OFF
+            </span>
+
+            <img
+                class="product-image"
+                src="https://f.nooncdn.com/p/pzsku/ZF78944DAAB86E95AFDA5Z/45/_/1708106666/f99950ae-7cc5-4a4b-9bf7-feaa9ba9396a.jpg?width=800"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">
+                    GlowCart Essentials
+                </div>
+
+                <div class="product-name">
+                    Aloe Vera Hydrating Face Cream
+                </div>
+
+                <span class="rating">
+                    ★ 4.4
+                </span>
+
+                <span class="rating-count">
+                    2,031
+                </span>
+
+                <div class="price">
+
+                    <span class="current-price">
+                        ₹349
+                    </span>
+
+                    <span class="old-price">
+                        ₹499
+                    </span>
+
+                    <span class="offer">
+                        30% off
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 3 -->
+
+        <div
+            class="product"
+            data-category="natural"
+            onclick="showProduct(2)"
+        >
+
+            <span class="discount-badge">
+                25% OFF
+            </span>
+
+            <img
+                class="product-image"
+                src="https://cdn2.primor.eu/media/catalog/product/cache/f3020b7489dcfc4d1d147cf4dad07b7f/5/9/5907747213821_0a45.webp"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">
+                    GlowCart Naturals
+                </div>
+
+                <div class="product-name">
+                    Natural Aloe Vera Moisturizing Cream
+                </div>
+
+                <span class="rating">
+                    ★ 4.3
+                </span>
+
+                <span class="rating-count">
+                    874
+                </span>
+
+                <div class="price">
+
+                    <span class="current-price">
+                        ₹299
+                    </span>
+
+                    <span class="old-price">
+                        ₹399
+                    </span>
+
+                    <span class="offer">
+                        25% off
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 4 -->
+
+        <div
+            class="product"
+            data-category="cream"
+            onclick="showProduct(3)"
+        >
+
+            <span class="discount-badge">
+                20% OFF
+            </span>
+
+            <img
+                class="product-image"
+                src="https://images.pexels.com/photos/7941454/pexels-photo-7941454.jpeg"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">
+                    GlowCart Skin
+                </div>
+
+                <div class="product-name">
+                    Daily Hydration Face Cream
+                </div>
+
+                <span class="rating">
+                    ★ 4.6
+                </span>
+
+                <span class="rating-count">
+                    1,567
+                </span>
+
+                <div class="price">
+
+                    <span class="current-price">
+                        ₹449
+                    </span>
+
+                    <span class="old-price">
+                        ₹559
+                    </span>
+
+                    <span class="offer">
+                        20% off
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 5 -->
+
+        <div
+            class="product"
+            data-category="cream"
+            onclick="showProduct(4)"
+        >
+
+            <span class="discount-badge">
+                22% OFF
+            </span>
+
+            <img
+                class="product-image"
+                src="https://images.pexels.com/photos/6963149/pexels-photo-6963149.jpeg"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">
+                    GlowCart Premium
+                </div>
+
+                <div class="product-name">
+                    Luxury Daily Face Moisturizer
+                </div>
+
+                <span class="rating">
+                    ★ 4.7
+                </span>
+
+                <span class="rating-count">
+                    932
+                </span>
+
+                <div class="price">
+
+                    <span class="current-price">
+                        ₹599
+                    </span>
+
+                    <span class="old-price">
+                        ₹769
+                    </span>
+
+                    <span class="offer">
+                        22% off
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <h2>
+            Why Shop With GlowCart?
+        </h2>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🚚
+            </div>
+
+            <h3>
+                Fast Delivery
+            </h3>
+
+            <p>
+                Quick and reliable delivery
+                to your doorstep.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                🔒
+            </div>
+
+            <h3>
+                Secure Payment
+            </h3>
+
+            <p>
+                Your payment information
+                is protected.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ↩
+            </div>
+
+            <h3>
+                Easy Returns
+            </h3>
+
+            <p>
+                Simple return process for
+                eligible products.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ⭐
+            </div>
+
+            <h3>
+                Quality Products
+            </h3>
+
+            <p>
+                Carefully selected skincare
+                products.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div class="footer-column">
+
+            <h3>
+                GET TO KNOW US
+            </h3>
+
+            <p>About GlowCart</p>
+            <p>Contact Us</p>
+            <p>Careers</p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                CUSTOMER SERVICE
+            </h3>
+
+            <p>Help Center</p>
+            <p>Shipping</p>
+            <p>Returns</p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                POLICIES
+            </h3>
+
+            <p>Privacy Policy</p>
+            <p>Terms & Conditions</p>
+            <p>Refund Policy</p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                CONNECT WITH US
+            </h3>
+
+            <p>Instagram</p>
+            <p>Facebook</p>
+            <p>YouTube</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 GlowCart — Premium Skincare Store
+
+    </div>
+
+</footer>
+
+
 <script>
 
-    /* ================= PRODUCT DATA ================= */
+/* ================= PRODUCT DATA ================= */
 
-    const products = [
+const products = [
 
-        {
-            name: "Vitamin C Brightening Face Cream",
-            brand: "GlowCart Essentials",
-            image: "https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg",
-            price: 499,
-            oldPrice: 699,
-            offer: "28% OFF",
-            rating: "★ 4.5",
-            category: "vitamin",
-            description:
-                "A lightweight Vitamin C face cream designed for daily skincare. It provides hydration and helps give the skin a fresh and radiant appearance."
-        },
+    {
+        name: "Vitamin C Brightening Face Cream",
+        brand: "GlowCart Essentials",
+        image: "https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg",
+        price: 499,
+        category: "vitamin"
+    },
 
-        {
-            name: "Aloe Vera Hydrating Face Cream",
-            brand: "GlowCart Essentials",
-            image: "https://f.nooncdn.com/p/pzsku/ZF78944DAAB86E95AFDA5Z/45/_/1708106666/f99950ae-7cc5-4a4b-9bf7-feaa9ba9396a.jpg?width=800",
-            price: 349,
-            oldPrice: 499,
-            offer: "30% OFF",
-            rating: "★ 4.4",
-            category: "cream",
-            description:
-                "A soothing aloe vera based moisturizing face cream designed to provide comfortable hydration and leave skin feeling soft and refreshed."
-        },
+    {
+        name: "Aloe Vera Hydrating Face Cream",
+        brand: "GlowCart Essentials",
+        image: "https://f.nooncdn.com/p/pzsku/ZF78944DAAB86E95AFDA5Z/45/_/1708106666/f99950ae-7cc5-4a4b-9bf7-feaa9ba9396a.jpg?width=800",
+        price: 349,
+        category: "cream"
+    },
 
-        {
-            name: "Natural Aloe Vera Moisturizing Cream",
-            brand: "GlowCart Naturals",
-            image: "https://cdn2.primor.eu/media/catalog/product/cache/f3020b7489dcfc4d1d147cf4dad07b7f/5/9/5907747213821_0a45.webp",
-            price: 299,
-            oldPrice: 399,
-            offer: "25% OFF",
-            rating: "★ 4.3",
-            category: "natural",
-            description:
-                "A natural-inspired moisturizing cream with aloe vera designed for a simple daily skincare routine."
-        },
+    {
+        name: "Natural Aloe Vera Moisturizing Cream",
+        brand: "GlowCart Naturals",
+        image: "https://cdn2.primor.eu/media/catalog/product/cache/f3020b7489dcfc4d1d147cf4dad07b7f/5/9/5907747213821_0a45.webp",
+        price: 299,
+        category: "natural"
+    },
 
-        {
-            name: "Daily Hydration Face Cream",
-            brand: "GlowCart Skin",
-            image: "https://images.pexels.com/photos/7941454/pexels-photo-7941454.jpeg",
-            price: 449,
-            oldPrice: 559,
-            offer: "20% OFF",
-            rating: "★ 4.6",
-            category: "cream",
-            description:
-                "A daily moisturizer with a lightweight feel. Perfect for adding hydration to your everyday skincare routine."
-        },
+    {
+        name: "Daily Hydration Face Cream",
+        brand: "GlowCart Skin",
+        image: "https://images.pexels.com/photos/7941454/pexels-photo-7941454.jpeg",
+        price: 449,
+        category: "cream"
+    },
 
-        {
-            name: "Luxury Daily Face Moisturizer",
-            brand: "GlowCart Premium",
-            image: "https://images.pexels.com/photos/6963149/pexels-photo-6963149.jpeg",
-            price: 599,
-            oldPrice: 769,
-            offer: "22% OFF",
-            rating: "★ 4.7",
-            category: "cream",
-            description:
-                "A premium-style daily moisturizer created for a simple and elegant skincare routine."
-        }
-
-    ];
-
-
-    /* ================= VARIABLES ================= */
-
-    let selectedProduct = 0;
-    let currentQuantity = 1;
-
-    let cart = JSON.parse(localStorage.getItem("glowcart")) || [];
-
-
-    /* ================= CART COUNT ================= */
-
-    function updateCartCount() {
-
-        let total = 0;
-
-        cart.forEach(function(item) {
-            total += item.quantity;
-        });
-
-        document.getElementById("cartCount").innerText = total;
+    {
+        name: "Luxury Daily Face Moisturizer",
+        brand: "GlowCart Premium",
+        image: "https://images.pexels.com/photos/6963149/pexels-photo-6963149.jpeg",
+        price: 599,
+        category: "cream"
     }
 
-
-    /* ================= SHOW PRODUCT ================= */
-
-    function showProduct(index) {
-
-        selectedProduct = index;
-
-        const product = products[index];
-
-        document.getElementById("detailImage").src =
-            product.image;
-
-        document.getElementById("detailBrand").innerText =
-            product.brand;
-
-        document.getElementById("detailName").innerText =
-            product.name;
-
-        document.getElementById("detailRating").innerText =
-            product.rating;
-
-        document.getElementById("detailPrice").innerText =
-            "₹" + product.price;
-
-        document.getElementById("detailOldPrice").innerText =
-            "₹" + product.oldPrice;
-
-        document.getElementById("detailOffer").innerText =
-            product.offer;
-
-        document.getElementById("detailDescription").innerText =
-            product.description;
-
-        currentQuantity = 1;
-
-        document.getElementById("quantity").innerText =
-            currentQuantity;
-
-        document.getElementById("productModal").style.display =
-            "flex";
-    }
+];
 
 
-    /* ================= CLOSE MODAL ================= */
+/* ================= CART ================= */
 
-    function closeModal() {
-
-        document.getElementById("productModal").style.display =
-            "none";
-    }
-
-
-    function closeOutside(event) {
-
-        if (
-            event.target ===
-            document.getElementById("productModal")
-        ) {
-            closeModal();
-        }
-    }
+let cart =
+    JSON.parse(
+        localStorage.getItem("glowcart")
+    ) || [];
 
 
-    /* ================= QUANTITY ================= */
+function updateCartCount() {
 
-    function increaseQuantity() {
+    let total = 0;
 
-        currentQuantity++;
+    cart.forEach(function(item) {
 
-        document.getElementById("quantity").innerText =
-            currentQuantity;
-    }
+        total += Number(item.quantity);
 
+    });
 
-    function decreaseQuantity() {
+    document.getElementById("cartCount").innerText =
+        total;
 
-        if (currentQuantity > 1) {
-            currentQuantity--;
-        }
-
-        document.getElementById("quantity").innerText =
-            currentQuantity;
-    }
+}
 
 
-    /* ================= ADD TO CART ================= */
+function addToCart(index) {
 
-    function addToCart() {
+    const product = products[index];
 
-        const product = products[selectedProduct];
-
-        const existingProduct = cart.find(function(item) {
-            return item.name === product.name;
-        });
-
-
-        if (existingProduct) {
-
-            existingProduct.quantity += currentQuantity;
-
-        } else {
-
-            cart.push({
-
-                name: product.name,
-                brand: product.brand,
-                image: product.image,
-                price: product.price,
-                quantity: currentQuantity
-
-            });
-
-        }
-
-
-        localStorage.setItem(
-            "glowcart",
-            JSON.stringify(cart)
+    const existing =
+        cart.find(
+            item => item.name === product.name
         );
 
 
-        updateCartCount();
+    if(existing) {
 
-        closeModal();
+        existing.quantity++;
 
-        alert(
-            product.name +
-            " added to cart successfully!"
-        );
-    }
+    } else {
 
-
-    /* ================= BUY NOW ================= */
-
-    function buyNow() {
-
-        const product = products[selectedProduct];
-
-
-        const buyItem = {
+        cart.push({
 
             name: product.name,
+
             brand: product.brand,
+
             image: product.image,
+
             price: product.price,
-            quantity: currentQuantity
 
-        };
-
-
-        localStorage.setItem(
-            "buyNowProduct",
-            JSON.stringify(buyItem)
-        );
-
-
-        window.location.href = "placeorder.html";
-    }
-
-
-    /* ================= OPEN CART ================= */
-
-    function openCart() {
-
-        window.location.href = "cart.html";
-    }
-
-
-    /* ================= SEARCH ================= */
-
-    function searchProducts() {
-
-        const search =
-            document
-                .getElementById("searchInput")
-                .value
-                .toLowerCase()
-                .trim();
-
-
-        const cards =
-            document.querySelectorAll(".product");
-
-
-        cards.forEach(function(card) {
-
-            const name =
-                card
-                    .querySelector(".product-name")
-                    .innerText
-                    .toLowerCase();
-
-
-            if (name.includes(search)) {
-
-                card.style.display = "";
-
-            } else {
-
-                card.style.display = "none";
-
-            }
+            quantity: 1
 
         });
 
     }
 
 
-    /* ================= CATEGORY FILTER ================= */
+    localStorage.setItem(
+        "glowcart",
+        JSON.stringify(cart)
+    );
 
-    function filterCategory(category) {
-
-        const cards =
-            document.querySelectorAll(".product");
-
-
-        cards.forEach(function(card) {
-
-            const productCategory =
-                card.getAttribute("data-category");
-
-
-            if (
-                category === "cream" ||
-                productCategory === category
-            ) {
-
-                card.style.display = "";
-
-            } else {
-
-                card.style.display = "none";
-
-            }
-
-        });
-
-
-        scrollToProducts();
-    }
-
-
-    /* ================= SHOW ALL ================= */
-
-    function showAllProducts() {
-
-        const cards =
-            document.querySelectorAll(".product");
-
-
-        cards.forEach(function(card) {
-
-            card.style.display = "";
-
-        });
-
-
-        scrollToProducts();
-    }
-
-
-    /* ================= SCROLL ================= */
-
-    function scrollToProducts() {
-
-        document
-            .getElementById("productsSection")
-            .scrollIntoView({
-                behavior: "smooth"
-            });
-
-    }
-
-
-    /* ================= LOGIN ================= */
-
-    function goLogin() {
-
-        window.location.href = "login.html";
-
-    }
-
-
-    /* ================= ORDERS ================= */
-
-    function openOrders() {
-
-        window.location.href = "orders.html";
-
-    }
-
-
-    /* ================= START ================= */
 
     updateCartCount();
 
 
-    /* ================= CART CLICK ================= */
+    alert(
+        product.name +
+        " added to cart!"
+    );
 
-    document
-        .querySelector(".cart")
-        .addEventListener("click", openCart);
-
-
-    /* ================= ORDERS CLICK ================= */
-
-    const orderLinks =
-        document.querySelectorAll(".header-link");
+}
 
 
-    if (orderLinks.length >= 3) {
+/* ================= PRODUCT ================= */
 
-        orderLinks[2].onclick = openOrders;
+function showProduct(index) {
+
+    const product = products[index];
+
+    const choice =
+        confirm(
+            product.name +
+            "\n\nPrice: ₹" +
+            product.price +
+            "\n\nClick OK to add to cart."
+        );
+
+
+    if(choice) {
+
+        addToCart(index);
 
     }
 
+}
+
+
+/* ================= CART ================= */
+
+function openCart() {
+
+    window.location.href =
+        "cart.html";
+
+}
+
+
+/* ================= LOGIN ================= */
+
+function goLogin() {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* ================= ORDERS ================= */
+
+function openOrders() {
+
+    window.location.href =
+        "orders.html";
+
+}
+
+
+/* ================= SEARCH ================= */
+
+function searchProducts() {
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const cards =
+        document.querySelectorAll(".product");
+
+
+    cards.forEach(function(card) {
+
+        const name =
+            card
+            .querySelector(".product-name")
+            .innerText
+            .toLowerCase();
+
+
+        if(name.includes(search)) {
+
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* ================= CATEGORY ================= */
+
+function filterCategory(category) {
+
+    const cards =
+        document.querySelectorAll(".product");
+
+
+    cards.forEach(function(card) {
+
+        const productCategory =
+            card.getAttribute(
+                "data-category"
+            );
+
+
+        if(productCategory === category) {
+
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    scrollToProducts();
+
+}
+
+
+/* ================= SHOW ALL ================= */
+
+function showAllProducts() {
+
+    document
+    .querySelectorAll(".product")
+    .forEach(function(card) {
+
+        card.style.display = "";
+
+    });
+
+}
+
+
+/* ================= SCROLL ================= */
+
+function scrollToProducts() {
+
+    document
+    .getElementById("productsSection")
+    .scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* ================= LOAD ================= */
+
+updateCartCount();
+
 </script>
+
+</body>
+
+</html>
+```
