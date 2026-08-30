@@ -1,858 +1,1207 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>GlowCart - Premium Face Creams</title>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GlowCart | Premium Skincare</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-    }
 
-    html {
-        scroll-behavior: smooth;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    body {
-        background: #f8f8fb;
-        color: #333;
-    }
+body {
+    background: #f5f6f8;
+    color: #222;
+}
 
-    header {
-        background: rgba(255, 255, 255, 0.97);
-        height: 72px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 6%;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
+.header {
+    background: #131921;
+    color: white;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 10px 35px;
+    gap: 25px;
+}
 
-    .logo {
-        font-size: 29px;
-        font-weight: bold;
-        color: #e91e63;
-        letter-spacing: -1px;
-    }
+.logo {
+    width: 180px;
+}
 
-    .logo span {
-        color: #7b1fa2;
-    }
+.logo h1 {
+    font-size: 29px;
+    color: #ffb6c9;
+    font-family: Georgia, serif;
+}
 
-    nav {
-        display: flex;
-        align-items: center;
-        gap: 30px;
-    }
+.logo span {
+    color: white;
+}
 
-    nav a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 600;
-    }
+.logo p {
+    font-size: 11px;
+    color: #ddd;
+}
 
-    nav a:hover {
-        color: #e91e63;
-    }
+.search-container {
+    flex: 1;
+    max-width: 700px;
+    height: 44px;
+    display: flex;
+}
 
-    .register-btn {
-        background: linear-gradient(135deg, #e91e63, #9c27b0);
-        color: white !important;
-        padding: 11px 22px;
-        border-radius: 25px;
-    }
+.search-container input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0 18px;
+    font-size: 15px;
+    border-radius: 5px 0 0 5px;
+}
 
-    .logout-btn {
-        border: none;
-        background: #333;
-        color: white;
+.search-container button {
+    width: 55px;
+    border: none;
+    background: #ffb6c9;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.header-link {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.header-link small {
+    display: block;
+    font-size: 11px;
+    color: #ddd;
+}
+
+.header-link strong {
+    font-size: 14px;
+}
+
+.cart {
+    font-size: 15px;
+}
+
+#cartCount {
+    background: #ffb6c9;
+    color: #131921;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.navigation {
+    background: #232f3e;
+    color: white;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0 35px;
+    gap: 35px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.navigation a:hover {
+    color: #ffb6c9;
+}
+
+.categories {
+    background: white;
+    padding: 18px 35px;
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.category {
+    text-align: center;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.category img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #fff5f7;
+    padding: 8px;
+}
+
+.category p {
+    margin-top: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hero {
+    margin: 18px 30px;
+    min-height: 340px;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,228,235,0.98),
+            rgba(255,245,247,0.88),
+            rgba(255,255,255,0.45)
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 80px;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 550px;
+}
+
+.small-title {
+    color: #d65a7a;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.hero h2 {
+    font-family: Georgia, serif;
+    font-size: 48px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.shop-button {
+    background: #131921;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.shop-button:hover {
+    background: #d65a7a;
+}
+
+.hero-image {
+    width: 350px;
+    height: 300px;
+    object-fit: contain;
+}
+
+.section {
+    margin: 20px 30px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.section-heading h2 {
+    font-family: Georgia, serif;
+    font-size: 26px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.product {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 9px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.25s;
+    position: relative;
+}
+
+.product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #008a45;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-image {
+    height: 230px;
+    width: 100%;
+    object-fit: contain;
+    padding: 18px;
+    background: #fafafa;
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.brand {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.product-name {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.4;
+    min-height: 42px;
+}
+
+.rating {
+    display: inline-block;
+    margin-top: 9px;
+    background: #168a42;
+    color: white;
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.rating-count {
+    color: #777;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.price {
+    margin-top: 10px;
+}
+
+.current-price {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #777;
+    margin-left: 7px;
+    font-size: 13px;
+}
+
+.offer {
+    color: #008a45;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.feature {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    background: #fffafa;
+}
+
+.feature-icon {
+    width: 55px;
+    height: 55px;
+    margin: auto auto 12px;
+    border-radius: 50%;
+    background: #ffe7ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.feature h3 {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.feature p {
+    color: #777;
+    font-size: 13px;
+}
+
+footer {
+    background: #131921;
+    color: white;
+    margin-top: 30px;
+    padding: 45px 50px 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.footer-column h3 {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.footer-column p {
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #eee;
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    margin-top: 30px;
+    padding-top: 20px;
+    text-align: center;
+    color: #aaa;
+    font-size: 13px;
+}
+
+@media(max-width:1100px) {
+    .products {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+@media(max-width:750px) {
+
+    .header {
+        flex-wrap: wrap;
         padding: 10px 20px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-weight: bold;
     }
 
-    .home {
-        min-height: 620px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 70px 8%;
-        background:
-            radial-gradient(circle at 80% 20%, #f6d9ff 0%, transparent 30%),
-            radial-gradient(circle at 10% 80%, #ffdce9 0%, transparent 30%),
-            linear-gradient(120deg, #fff2f7, #f5edff);
+    .navigation {
+        overflow-x: auto;
     }
 
-    .home-text {
-        max-width: 570px;
+    .categories {
+        overflow-x: auto;
+        justify-content: flex-start;
     }
 
-    .small-title {
-        display: inline-block;
-        background: white;
-        color: #e91e63;
-        padding: 8px 18px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 20px;
+    .hero {
+        padding: 35px;
     }
 
-    .home-text h1 {
-        font-size: 55px;
-        line-height: 1.1;
-        color: #6a1b9a;
-        margin-bottom: 22px;
+    .hero h2 {
+        font-size: 35px;
     }
 
-    .home-text h1 span {
-        color: #e91e63;
+    .hero-image {
+        width: 220px;
     }
 
-    .home-text p {
-        font-size: 18px;
-        line-height: 1.8;
-        color: #5f5f5f;
-        margin-bottom: 30px;
-    }
-
-    .shop-button {
-        border: none;
-        background: linear-gradient(135deg, #e91e63, #9c27b0);
-        color: white;
-        padding: 15px 30px;
-        border-radius: 30px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .product-area {
-        width: 470px;
-        height: 470px;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .product-circle {
-        width: 400px;
-        height: 400px;
-        background: rgba(255,255,255,0.8);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 25px 60px rgba(130,60,150,0.15);
-    }
-
-    .product-circle img {
-        width: 300px;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 20px;
-        filter: drop-shadow(0 20px 20px rgba(0,0,0,0.18));
-    }
-
-    .floating-card {
-        position: absolute;
-        background: white;
-        padding: 15px 20px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        font-weight: bold;
-        color: #6a1b9a;
-    }
-
-    .card-one {
-        top: 60px;
-        right: 0;
-    }
-
-    .card-two {
-        bottom: 60px;
-        left: 0;
+    .products {
+        grid-template-columns: repeat(2,1fr);
     }
 
     .features {
-        background: white;
-        padding: 55px 8%;
-        display: flex;
-        justify-content: space-between;
-        text-align: center;
-        gap: 25px;
+        grid-template-columns: repeat(2,1fr);
     }
+}
 
-    .feature {
-        width: 25%;
-        padding: 25px 15px;
-        border-radius: 15px;
-    }
+@media(max-width:500px) {
 
-    .feature:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    .feature-icon {
-        width: 65px;
-        height: 65px;
-        margin: 0 auto 15px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff0f6;
-        font-size: 30px;
-    }
-
-    .feature h3 {
-        margin-bottom: 10px;
-        color: #7b1fa2;
-    }
-
-    .feature p {
-        color: #666;
-        line-height: 1.6;
-    }
-
-    .registration {
-        padding: 80px 20px;
-        background: linear-gradient(135deg, #fff0f6, #f5eaff);
-        display: flex;
-        justify-content: center;
-    }
-
-    .registration-box {
-        width: 470px;
-        background: white;
-        padding: 42px;
-        border-radius: 20px;
-        box-shadow: 0 15px 45px rgba(0,0,0,0.1);
-    }
-
-    .registration-box h2 {
-        text-align: center;
-        color: #7b1fa2;
-        font-size: 30px;
-        margin-bottom: 10px;
-    }
-
-    .subtitle {
-        text-align: center;
-        color: #777;
-        margin-bottom: 28px;
-    }
-
-    .form-group {
-        margin-bottom: 18px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 7px;
-        font-weight: bold;
-    }
-
-    .form-group input {
+    .search-container {
+        order: 5;
         width: 100%;
-        padding: 14px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        outline: none;
-        font-size: 15px;
     }
 
-    .submit-btn {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #e91e63, #9c27b0);
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
+    .hero {
+        margin: 10px;
+        padding: 25px;
     }
 
-    #message {
-        text-align: center;
-        margin-top: 15px;
-        font-weight: bold;
+    .hero-image {
+        display: none;
     }
 
-    .login-link {
-        text-align: center;
-        margin-top: 18px;
+    .section {
+        margin: 10px;
+        padding: 15px;
     }
 
-    .login-link a {
-        color: #e91e63;
-        font-weight: bold;
-        text-decoration: none;
+    .products {
+        grid-template-columns: 1fr;
     }
 
-    footer {
-        background: #211d24;
-        color: white;
-        text-align: center;
-        padding: 28px;
+    .features {
+        grid-template-columns: 1fr;
     }
 
-    footer span {
-        color: #f06292;
+    .footer-grid {
+        grid-template-columns: 1fr;
     }
+}
 
-    @media (max-width: 768px) {
-
-        header {
-            padding: 15px 20px;
-            height: auto;
-        }
-
-        nav {
-            gap: 8px;
-        }
-
-        nav a:not(.register-btn) {
-            display: none;
-        }
-
-        .home {
-            flex-direction: column;
-            text-align: center;
-            padding: 55px 20px;
-        }
-
-        .home-text h1 {
-            font-size: 40px;
-        }
-
-        .product-area {
-            width: 320px;
-            height: 320px;
-            margin-top: 40px;
-        }
-
-        .product-circle {
-            width: 280px;
-            height: 280px;
-        }
-
-        .product-circle img {
-            width: 220px;
-            height: 220px;
-        }
-
-        .features {
-            flex-direction: column;
-        }
-
-        .feature {
-            width: 100%;
-        }
-
-        .registration-box {
-            width: 100%;
-            padding: 30px 20px;
-        }
-    }
 </style>
-```
 
 </head>
 
 <body>
 
-<header>
+<header class="header">
 
-```
-<div class="logo">
-    Glow<span>Cart</span>
-</div>
+    <div class="logo">
+        <h1>Glow<span>Cart</span></h1>
+        <p>Beauty • Care • Confidence</p>
+    </div>
 
-<nav>
+    <div class="search-container">
 
-    <a href="#home">Home</a>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search face creams, moisturizers..."
+            onkeyup="searchProducts()"
+        >
 
-    <a href="#features">Why Us</a>
+        <button onclick="searchProducts()">🔍</button>
 
-    <a href="product.html">Products</a>
+    </div>
 
-    <a href="cart.html">Cart</a>
+    <div class="header-link" onclick="goLogin()">
+        <small>Hello</small>
+        <strong>Account & Login</strong>
+    </div>
 
-    <a href="login.html" id="loginLink">
-        Login
-    </a>
+    <div class="header-link" onclick="openOrders()">
+        <small>Your</small>
+        <strong>Orders</strong>
+    </div>
 
-    <a href="#register"
-       class="register-btn"
-       id="registerLink">
-        Register
-    </a>
-
-    <button
-        class="logout-btn"
-        id="logoutButton"
-        style="display:none;"
-        onclick="logout()">
-        Logout
-    </button>
-
-</nav>
-```
+    <div class="header-link cart" onclick="openCart()">
+        🛒 Cart
+        <span id="cartCount">0</span>
+    </div>
 
 </header>
 
-<section class="home" id="home">
+<nav class="navigation">
 
-```
-<div class="home-text">
+    <a onclick="scrollToProducts()">☰ All</a>
+    <a onclick="scrollToProducts()">Best Sellers</a>
+    <a onclick="scrollToProducts()">Face Creams</a>
+    <a onclick="scrollToProducts()">Moisturizers</a>
+    <a onclick="scrollToProducts()">New Arrivals</a>
+    <a onclick="scrollToProducts()">Today's Deals</a>
 
-    <div class="small-title">
-        PREMIUM SKINCARE COLLECTION
-    </div>
+</nav>
 
-    <h1>
-        Beautiful Skin.<br>
-        <span>Natural Glow.</span>
-    </h1>
+<div class="categories">
 
-    <p>
-        Discover premium face creams specially selected
-        to nourish, moisturize and care for your skin.
-        Shop your favourite skincare products at GlowCart.
-    </p>
+    <div class="category" onclick="filterCategory('cream')">
 
-    <button
-        class="shop-button"
-        onclick="startShopping()">
+        <img src="https://f.nooncdn.com/p/pzsku/ZF78944DAAB86E95AFDA5Z/45/_/1708106666/f99950ae-7cc5-4a4b-9bf7-feaa9ba9396a.jpg?width=800">
 
-        Start Shopping →
-
-    </button>
-
-</div>
-
-
-<div class="product-area">
-
-    <div class="product-circle">
-
-        <img
-            src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=90"
-            alt="Premium face cream">
+        <p>Face Creams</p>
 
     </div>
 
-    <div class="floating-card card-one">
-        ✨ Premium Care
+    <div class="category" onclick="filterCategory('vitamin')">
+
+        <img src="https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg">
+
+        <p>Vitamin C</p>
+
     </div>
 
-    <div class="floating-card card-two">
-        💧 Deep Hydration
+    <div class="category" onclick="filterCategory('natural')">
+
+        <img src="https://cdn2.primor.eu/media/catalog/product/cache/f3020b7489dcfc4d1d147cf4dad07b7f/5/9/5907747213821_0a45.webp">
+
+        <p>Natural Care</p>
+
+    </div>
+
+    <div class="category" onclick="scrollToProducts()">
+
+        <img src="https://images.pexels.com/photos/7941454/pexels-photo-7941454.jpeg">
+
+        <p>Moisturizers</p>
+
+    </div>
+
+    <div class="category" onclick="scrollToProducts()">
+
+        <img src="https://images.pexels.com/photos/6963149/pexels-photo-6963149.jpeg">
+
+        <p>Skin Care</p>
+
     </div>
 
 </div>
-```
 
-</section>
+<section class="hero">
 
-<section class="features" id="features">
+    <div class="hero-content">
 
-```
-<div class="feature">
-
-    <div class="feature-icon">🌿</div>
-
-    <h3>Natural Care</h3>
-
-    <p>
-        Carefully selected skincare products
-        for your daily beauty routine.
-    </p>
-
-</div>
-
-
-<div class="feature">
-
-    <div class="feature-icon">💧</div>
-
-    <h3>Deep Hydration</h3>
-
-    <p>
-        Products designed to keep your skin
-        feeling soft and moisturized.
-    </p>
-
-</div>
-
-
-<div class="feature">
-
-    <div class="feature-icon">✨</div>
-
-    <h3>Healthy Glow</h3>
-
-    <p>
-        Discover skincare that helps you
-        maintain a fresh-looking glow.
-    </p>
-
-</div>
-
-
-<div class="feature">
-
-    <div class="feature-icon">🛍️</div>
-
-    <h3>Easy Shopping</h3>
-
-    <p>
-        Find your favourite skincare products
-        easily in one place.
-    </p>
-
-</div>
-```
-
-</section>
-
-<section class="registration" id="register">
-
-```
-<div class="registration-box">
-
-    <h2>Create Your Account</h2>
-
-    <p class="subtitle">
-        Join GlowCart and start your skincare journey
-    </p>
-
-
-    <form id="registrationForm">
-
-        <div class="form-group">
-
-            <label>Full Name</label>
-
-            <input
-                type="text"
-                id="name"
-                placeholder="Enter your full name"
-                required>
-
+        <div class="small-title">
+            PREMIUM SKINCARE
         </div>
 
+        <h2>
+            Your Skin Deserves
+            Something Beautiful.
+        </h2>
 
-        <div class="form-group">
+        <p>
+            Discover carefully selected face creams and
+            skincare essentials for a fresh, hydrated
+            and healthy-looking glow.
+        </p>
 
-            <label>Email Address</label>
-
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>Mobile Number</label>
-
-            <input
-                type="tel"
-                id="mobile"
-                placeholder="Enter your mobile number"
-                required>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>Password</label>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="Create a password"
-                required>
-
-        </div>
-
-
-        <button
-            type="submit"
-            class="submit-btn">
-
-            Register Now
-
+        <button class="shop-button" onclick="scrollToProducts()">
+            Shop Now →
         </button>
 
-        <p id="message"></p>
+    </div>
 
-    </form>
+    <img
+        class="hero-image"
+        src="https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg"
+        alt="Vitamin C Face Cream"
+    >
 
+</section>
 
-    <div class="login-link">
+<section class="section" id="productsSection">
 
-        Already registered?
+    <div class="section-heading">
 
-        <a href="login.html">
-            Login here
-        </a>
+        <h2>Best Selling Face Creams</h2>
+
+        <span
+            onclick="showAllProducts()"
+            style="color:#d65a7a;font-weight:bold;cursor:pointer;"
+        >
+            View All →
+        </span>
 
     </div>
 
-</div>
-```
+    <div class="products" id="productsContainer">
+
+        <div class="product" data-category="vitamin" onclick="showProduct(0)">
+
+            <span class="discount-badge">28% OFF</span>
+
+            <img
+                class="product-image"
+                src="https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">GlowCart Essentials</div>
+
+                <div class="product-name">
+                    Vitamin C Brightening Face Cream
+                </div>
+
+                <span class="rating">★ 4.5</span>
+
+                <span class="rating-count">1,248</span>
+
+                <div class="price">
+
+                    <span class="current-price">₹499</span>
+
+                    <span class="old-price">₹699</span>
+
+                    <span class="offer">28% off</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="product" data-category="cream" onclick="showProduct(1)">
+
+            <span class="discount-badge">30% OFF</span>
+
+            <img
+                class="product-image"
+                src="https://f.nooncdn.com/p/pzsku/ZF78944DAAB86E95AFDA5Z/45/_/1708106666/f99950ae-7cc5-4a4b-9bf7-feaa9ba9396a.jpg?width=800"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">GlowCart Essentials</div>
+
+                <div class="product-name">
+                    Aloe Vera Hydrating Face Cream
+                </div>
+
+                <span class="rating">★ 4.4</span>
+
+                <span class="rating-count">2,031</span>
+
+                <div class="price">
+
+                    <span class="current-price">₹349</span>
+
+                    <span class="old-price">₹499</span>
+
+                    <span class="offer">30% off</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="product" data-category="natural" onclick="showProduct(2)">
+
+            <span class="discount-badge">25% OFF</span>
+
+            <img
+                class="product-image"
+                src="https://cdn2.primor.eu/media/catalog/product/cache/f3020b7489dcfc4d1d147cf4dad07b7f/5/9/5907747213821_0a45.webp"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">GlowCart Naturals</div>
+
+                <div class="product-name">
+                    Natural Aloe Vera Moisturizing Cream
+                </div>
+
+                <span class="rating">★ 4.3</span>
+
+                <span class="rating-count">874</span>
+
+                <div class="price">
+
+                    <span class="current-price">₹299</span>
+
+                    <span class="old-price">₹399</span>
+
+                    <span class="offer">25% off</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="product" data-category="cream" onclick="showProduct(3)">
+
+            <span class="discount-badge">20% OFF</span>
+
+            <img
+                class="product-image"
+                src="https://images.pexels.com/photos/7941454/pexels-photo-7941454.jpeg"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">GlowCart Skin</div>
+
+                <div class="product-name">
+                    Daily Hydration Face Cream
+                </div>
+
+                <span class="rating">★ 4.6</span>
+
+                <span class="rating-count">1,567</span>
+
+                <div class="price">
+
+                    <span class="current-price">₹449</span>
+
+                    <span class="old-price">₹559</span>
+
+                    <span class="offer">20% off</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="product" data-category="cream" onclick="showProduct(4)">
+
+            <span class="discount-badge">22% OFF</span>
+
+            <img
+                class="product-image"
+                src="https://images.pexels.com/photos/6963149/pexels-photo-6963149.jpeg"
+            >
+
+            <div class="product-info">
+
+                <div class="brand">GlowCart Premium</div>
+
+                <div class="product-name">
+                    Luxury Daily Face Moisturizer
+                </div>
+
+                <span class="rating">★ 4.7</span>
+
+                <span class="rating-count">932</span>
+
+                <div class="price">
+
+                    <span class="current-price">₹599</span>
+
+                    <span class="old-price">₹769</span>
+
+                    <span class="offer">22% off</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="section-heading">
+        <h2>Why Shop With GlowCart?</h2>
+    </div>
+
+    <div class="features">
+
+        <div class="feature">
+            <div class="feature-icon">🚚</div>
+            <h3>Fast Delivery</h3>
+            <p>Quick and reliable delivery to your doorstep.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Payment</h3>
+            <p>Your payment information is protected.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">↩</div>
+            <h3>Easy Returns</h3>
+            <p>Simple return process for eligible products.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">⭐</div>
+            <h3>Quality Products</h3>
+            <p>Carefully selected skincare products.</p>
+        </div>
+
+    </div>
 
 </section>
 
 <footer>
 
-```
-<p>
-    © 2026 <span>GlowCart</span>.
-    All Rights Reserved.
-</p>
-```
+    <div class="footer-grid">
+
+        <div class="footer-column">
+            <h3>GET TO KNOW US</h3>
+            <p>About GlowCart</p>
+            <p>Contact Us</p>
+            <p>Careers</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>CUSTOMER SERVICE</h3>
+            <p>Help Center</p>
+            <p>Shipping</p>
+            <p>Returns</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>POLICIES</h3>
+            <p>Privacy Policy</p>
+            <p>Terms & Conditions</p>
+            <p>Refund Policy</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>CONNECT WITH US</h3>
+            <p>Instagram</p>
+            <p>Facebook</p>
+            <p>YouTube</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 GlowCart — Premium Skincare Store
+    </div>
 
 </footer>
 
 <script>
 
-const API_URL =
-    "https://glowcart-backend-nrye.onrender.com";
+const products = [
+
+    {
+        name:"Vitamin C Brightening Face Cream",
+        brand:"GlowCart Essentials",
+        image:"https://www.gosupps.com/media/catalog/product/6/1/61rZRj5WTtL.jpg",
+        price:499,
+        oldPrice:699,
+        offer:"28% OFF",
+        rating:"★ 4.5",
+        category:"vitamin",
+        description:"A lightweight Vitamin C face cream designed for daily skincare."
+    },
+
+    {
+        name:"Aloe Vera Hydrating Face Cream",
+        brand:"GlowCart Essentials",
+        image:"https://f.nooncdn.com/p/pzsku/ZF78944DAAB86E95AFDA5Z/45/_/1708106666/f99950ae-7cc5-4a4b-9bf7-feaa9ba9396a.jpg?width=800",
+        price:349,
+        oldPrice:499,
+        offer:"30% OFF",
+        rating:"★ 4.4",
+        category:"cream",
+        description:"A soothing aloe vera based moisturizing face cream."
+    },
+
+    {
+        name:"Natural Aloe Vera Moisturizing Cream",
+        brand:"GlowCart Naturals",
+        image:"https://cdn2.primor.eu/media/catalog/product/cache/f3020b7489dcfc4d1d147cf4dad07b7f/5/9/5907747213821_0a45.webp",
+        price:299,
+        oldPrice:399,
+        offer:"25% OFF",
+        rating:"★ 4.3",
+        category:"natural",
+        description:"A natural-inspired moisturizing cream with aloe vera."
+    },
+
+    {
+        name:"Daily Hydration Face Cream",
+        brand:"GlowCart Skin",
+        image:"https://images.pexels.com/photos/7941454/pexels-photo-7941454.jpeg",
+        price:449,
+        oldPrice:559,
+        offer:"20% OFF",
+        rating:"★ 4.6",
+        category:"cream",
+        description:"A lightweight daily moisturizer for everyday skincare."
+    },
+
+    {
+        name:"Luxury Daily Face Moisturizer",
+        brand:"GlowCart Premium",
+        image:"https://images.pexels.com/photos/6963149/pexels-photo-6963149.jpeg",
+        price:599,
+        oldPrice:769,
+        offer:"22% OFF",
+        rating:"★ 4.7",
+        category:"cream",
+        description:"A premium daily moisturizer for soft and moisturized skin."
+    }
+
+];
+
+let selectedProduct = 0;
+
+let currentQuantity = 1;
+
+let cart = JSON.parse(
+    localStorage.getItem("glowcart")
+) || [];
 
 
-/* ================= REGISTER ================= */
-
-document
-    .getElementById("registrationForm")
-    .addEventListener("submit", async function(event) {
-
-        event.preventDefault();
-
-        const name =
-            document.getElementById("name").value.trim();
-
-        const email =
-            document.getElementById("email").value.trim().toLowerCase();
-
-        const mobile =
-            document.getElementById("mobile").value.trim();
-
-        const password =
-            document.getElementById("password").value;
-
-        const message =
-            document.getElementById("message");
-
-
-        /*
-         * Check browser storage first.
-         */
-
-        let users =
-            JSON.parse(
-                localStorage.getItem("glowcartUsers")
-            ) || [];
-
-
-        const existingUser =
-            users.find(
-                user => user.email === email
-            );
-
-
-        if (existingUser) {
-
-            message.style.color = "red";
-
-            message.innerText =
-                "You are already registered. Please login.";
-
-            setTimeout(function() {
-
-                window.location.href =
-                    "login.html";
-
-            }, 1500);
-
-            return;
-        }
-
-
-        /*
-         * Save user locally so the demo works
-         * immediately on GitHub Pages.
-         */
-
-        const newUser = {
-            name: name,
-            email: email,
-            mobile: mobile,
-            password: password
-        };
-
-
-        users.push(newUser);
-
-
-        localStorage.setItem(
-            "glowcartUsers",
-            JSON.stringify(users)
-        );
-
-
-        /*
-         * Also send registration to backend.
-         */
-
-        try {
-
-            await fetch(
-                API_URL + "/api/register",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        name: name,
-                        email: email,
-                        password: password
-                    })
-                }
-            );
-
-        } catch (error) {
-
-            console.log(
-                "Backend registration unavailable"
-            );
-
-        }
-
-
-        message.style.color = "green";
-
-        message.innerText =
-            "Registration successful! Redirecting to login...";
-
-
-        setTimeout(function() {
-
-            window.location.href =
-                "login.html";
-
-        }, 1500);
-
-    });
-
-
-/* ================= SHOPPING ================= */
+/* START SHOPPING */
 
 function startShopping() {
 
-    const loggedIn =
-        localStorage.getItem(
-            "glowcartLoggedIn"
+    document
+        .getElementById("productsSection")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* PRODUCT CLICK */
+
+function showProduct(index) {
+
+    selectedProduct = index;
+
+    const product = products[index];
+
+    const quantity =
+        prompt(
+            product.name +
+            "\n\nPrice: ₹" +
+            product.price +
+            "\n\nEnter quantity:",
+            "1"
         );
 
-
-    if (!loggedIn) {
-
-        alert(
-            "Please login or register first."
-        );
-
-        window.location.href =
-            "login.html";
-
+    if(quantity === null) {
         return;
     }
 
+    let qty = parseInt(quantity);
 
-    window.location.href =
-        "product.html";
+    if(isNaN(qty) || qty < 1) {
+        qty = 1;
+    }
+
+    addProductToCart(product, qty);
 
 }
 
 
-/* ================= LOGIN STATUS ================= */
+/* ADD PRODUCT */
 
-function checkLoginStatus() {
+function addProductToCart(product, quantity) {
 
-    const loggedIn =
-        JSON.parse(
-            localStorage.getItem(
-                "glowcartLoggedIn"
-            )
+    const existing =
+        cart.find(
+            item => item.name === product.name
         );
 
+    if(existing) {
 
-    if (loggedIn) {
+        existing.quantity += quantity;
 
-        document.getElementById(
-            "loginLink"
-        ).style.display = "none";
+    } else {
 
+        cart.push({
 
-        document.getElementById(
-            "registerLink"
-        ).style.display = "none";
+            name:product.name,
 
+            brand:product.brand,
 
-        document.getElementById(
-            "logoutButton"
-        ).style.display = "block";
+            image:product.image,
+
+            price:product.price,
+
+            quantity:quantity
+
+        });
 
     }
 
-}
-
-
-/* ================= LOGOUT ================= */
-
-function logout() {
-
-    localStorage.removeItem(
-        "glowcartLoggedIn"
+    localStorage.setItem(
+        "glowcart",
+        JSON.stringify(cart)
     );
+
+    updateCartCount();
 
     alert(
-        "You have been logged out of GlowCart."
+        product.name +
+        " added to cart successfully!"
     );
-
-    window.location.reload();
 
 }
 
 
-checkLoginStatus();
+/* CART COUNT */
+
+function updateCartCount() {
+
+    let total = 0;
+
+    cart.forEach(
+        item => total += item.quantity
+    );
+
+    document.getElementById(
+        "cartCount"
+    ).innerText = total;
+
+}
+
+
+/* OPEN CART */
+
+function openCart() {
+
+    window.location.href =
+        "cart.html";
+
+}
+
+
+/* LOGIN */
+
+function goLogin() {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* ORDERS */
+
+function openOrders() {
+
+    window.location.href =
+        "orders.html";
+
+}
+
+
+/* SEARCH */
+
+function searchProducts() {
+
+    const value =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const cards =
+        document.querySelectorAll(".product");
+
+    cards.forEach(card => {
+
+        const name =
+            card
+            .querySelector(".product-name")
+            .innerText
+            .toLowerCase();
+
+        card.style.display =
+            name.includes(value)
+            ? ""
+            : "none";
+
+    });
+
+}
+
+
+/* CATEGORY */
+
+function filterCategory(category) {
+
+    const cards =
+        document.querySelectorAll(".product");
+
+    cards.forEach(card => {
+
+        const productCategory =
+            card.dataset.category;
+
+        if(category === "cream") {
+
+            card.style.display =
+                productCategory === "cream"
+                ? ""
+                : "none";
+
+        } else {
+
+            card.style.display =
+                productCategory === category
+                ? ""
+                : "none";
+
+        }
+
+    });
+
+    scrollToProducts();
+
+}
+
+
+/* SHOW ALL */
+
+function showAllProducts() {
+
+    document
+        .querySelectorAll(".product")
+        .forEach(
+            card => card.style.display = ""
+        );
+
+}
+
+
+/* SCROLL */
+
+function scrollToProducts() {
+
+    document
+        .getElementById("productsSection")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* LOAD CART COUNT */
+
+updateCartCount();
 
 </script>
 
 </body>
+
 </html>
