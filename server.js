@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const path = require("path");
 const { Resend } = require("resend");
 
 const app = express();
@@ -8,14 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
+
 const EMAIL_FROM =
 process.env.EMAIL_FROM || "[onboarding@resend.dev](mailto:onboarding@resend.dev)";
 
-const resend =
-RESEND_API_KEY
+const resend = RESEND_API_KEY
 ? new Resend(RESEND_API_KEY)
 : null;
 
@@ -26,7 +27,7 @@ app.get("/", (req, res) => {
 ```
 res.json({
     success: true,
-    message: "GlowCart Backend is running successfully!"
+    message: "GlowCart Backend is running successfully! 💖"
 });
 ```
 
@@ -39,24 +40,31 @@ app.get("/api/products", (req, res) => {
 ```
 try {
 
-    const data =
-        fs.readFileSync(
-            "products.json",
-            "utf8"
-        );
+    const filePath = path.join(
+        __dirname,
+        "products.json"
+    );
 
-    const products =
-        JSON.parse(data);
+    const data = fs.readFileSync(
+        filePath,
+        "utf8"
+    );
+
+    const products = JSON.parse(data);
 
     res.json(products);
 
 } catch (error) {
 
-    console.error(error);
+    console.error("Products error:", error);
 
     res.status(500).json({
+
         success: false,
-        message: "Unable to load products"
+
+        message:
+            "Unable to load products"
+
     });
 
 }
@@ -64,30 +72,38 @@ try {
 
 });
 
+/* ================= SINGLE PRODUCT ================= */
+
 app.get("/api/products/:id", (req, res) => {
 
 ```
 try {
 
-    const data =
-        fs.readFileSync(
-            "products.json",
-            "utf8"
-        );
+    const filePath = path.join(
+        __dirname,
+        "products.json"
+    );
 
-    const products =
-        JSON.parse(data);
+    const data = fs.readFileSync(
+        filePath,
+        "utf8"
+    );
 
-    const product =
-        products.find(
-            p => p.id == req.params.id
-        );
+    const products = JSON.parse(data);
+
+    const product = products.find(
+        p => String(p.id) === String(req.params.id)
+    );
 
     if (!product) {
 
         return res.status(404).json({
+
             success: false,
-            message: "Product not found"
+
+            message:
+                "Product not found"
+
         });
 
     }
@@ -96,9 +112,15 @@ try {
 
 } catch (error) {
 
+    console.error(error);
+
     res.status(500).json({
+
         success: false,
-        message: "Server error"
+
+        message:
+            "Server error"
+
     });
 
 }
@@ -118,11 +140,16 @@ const {
     mobile
 } = req.body;
 
+
 if (!name || !email || !password) {
 
     return res.status(400).json({
+
         success: false,
-        message: "Name, email and password are required"
+
+        message:
+            "Name, email and password are required"
+
     });
 
 }
@@ -130,13 +157,11 @@ if (!name || !email || !password) {
 
 try {
 
-    /*
-     * Send welcome email.
-     */
+    let emailSent = false;
 
     if (resend) {
 
-        const { error } =
+        const result =
             await resend.emails.send({
 
                 from: EMAIL_FROM,
@@ -147,55 +172,97 @@ try {
                     "Welcome to GlowCart! 💖",
 
                 html: `
+
+                <div style="
+                    font-family:Arial,sans-serif;
+                    max-width:600px;
+                    margin:auto;
+                    padding:35px;
+                    background:#fff7fb;
+                    border-radius:20px;
+                    border:1px solid #f3d5e5;
+                ">
+
+                    <h1 style="
+                        color:#e91e63;
+                        text-align:center;
+                    ">
+                        Welcome to GlowCart! 💖
+                    </h1>
+
+                    <p>
+                        Hello <strong>${name}</strong>,
+                    </p>
+
+                    <p>
+                        Your GlowCart account has been
+                        registered successfully.
+                    </p>
+
                     <div style="
-                        font-family:Arial;
-                        max-width:600px;
-                        margin:auto;
-                        padding:30px;
+                        background:white;
+                        padding:20px;
                         border-radius:15px;
-                        background:#fff7fb;
+                        margin:20px 0;
                     ">
 
-                        <h1 style="
-                            color:#e91e63;
-                        ">
-                            Welcome to GlowCart, ${name}! 💖
-                        </h1>
-
                         <p>
-                            Your GlowCart account has been
-                            registered successfully.
+                            <strong>Email:</strong>
+                            ${email}
                         </p>
 
                         <p>
-                            Thank you for joining our
-                            premium skincare shopping experience.
+                            <strong>Mobile:</strong>
+                            ${mobile || "Not provided"}
                         </p>
-
-                        <hr>
-
-                        <p>
-                            Happy Shopping! 🛍️
-                        </p>
-
-                        <strong>
-                            GlowCart Team
-                        </strong>
 
                     </div>
+
+                    <p>
+                        You can now log in and start
+                        shopping for your favourite
+                        skincare products. 🛍️
+                    </p>
+
+                    <p>
+                        Thank you for choosing
+                        <strong>GlowCart</strong>.
+                    </p>
+
+                    <hr>
+
+                    <p style="
+                        text-align:center;
+                        color:#777;
+                    ">
+                        GlowCart Team 💕
+                    </p>
+
+                </div>
+
                 `
 
             });
 
 
-        if (error) {
+        if (result.error) {
 
             console.error(
                 "Registration email error:",
-                error
+                result.error
             );
 
+        } else {
+
+            emailSent = true;
+
         }
+
+    } else {
+
+        console.error(
+            "RESEND_API_KEY is missing"
+        );
 
     }
 
@@ -204,32 +271,45 @@ try {
 
         success: true,
 
-        message:
-            "Registration successful",
+        emailSent: emailSent,
+
+        message: emailSent
+            ? "Registration successful. Welcome email sent."
+            : "Registration successful, but email service is not configured.",
 
         user: {
+
             name,
             email,
             mobile
+
         }
 
     });
 
+
 } catch (error) {
 
-    console.error(error);
+    console.error(
+        "Registration error:",
+        error
+    );
 
     res.json({
 
         success: true,
 
+        emailSent: false,
+
         message:
-            "Registration successful, but email could not be sent",
+            "Registration successful, but email could not be sent.",
 
         user: {
+
             name,
             email,
             mobile
+
         }
 
     });
@@ -267,13 +347,11 @@ if (!email || !password) {
 
 try {
 
-    /*
-     * Send login notification email.
-     */
+    let emailSent = false;
 
     if (resend) {
 
-        const { error } =
+        const result =
             await resend.emails.send({
 
                 from: EMAIL_FROM,
@@ -284,52 +362,61 @@ try {
                     "GlowCart Login Successful 🔐",
 
                 html: `
-                    <div style="
-                        font-family:Arial;
-                        max-width:600px;
-                        margin:auto;
-                        padding:30px;
-                        background:#fff7fb;
-                        border-radius:15px;
+
+                <div style="
+                    font-family:Arial;
+                    max-width:600px;
+                    margin:auto;
+                    padding:35px;
+                    background:#fff7fb;
+                    border-radius:20px;
+                ">
+
+                    <h1 style="
+                        color:#9c27b0;
                     ">
+                        Login Successful 💖
+                    </h1>
 
-                        <h1 style="
-                            color:#9c27b0;
-                        ">
-                            Login Successful 💖
-                        </h1>
-
-                        <p>
-                            Hello ${name || "GlowCart Customer"},
-                        </p>
-
-                        <p>
-                            You have successfully logged
-                            into your GlowCart account.
-                        </p>
-
-                        <p>
-                            Welcome back! 🛍️
-                        </p>
-
-                        <hr>
-
+                    <p>
+                        Hello
                         <strong>
-                            GlowCart Team
-                        </strong>
+                            ${name || "GlowCart Customer"}
+                        </strong>,
+                    </p>
 
-                    </div>
+                    <p>
+                        You have successfully logged
+                        into your GlowCart account.
+                    </p>
+
+                    <p>
+                        Happy shopping! 🛍️✨
+                    </p>
+
+                    <hr>
+
+                    <strong>
+                        GlowCart Team
+                    </strong>
+
+                </div>
+
                 `
 
             });
 
 
-        if (error) {
+        if (result.error) {
 
             console.error(
                 "Login email error:",
-                error
+                result.error
             );
+
+        } else {
+
+            emailSent = true;
 
         }
 
@@ -340,32 +427,46 @@ try {
 
         success: true,
 
+        emailSent: emailSent,
+
         message:
             "Login successful",
 
         user: {
+
             name:
                 name || "GlowCart Customer",
+
             email
+
         }
 
     });
 
+
 } catch (error) {
 
-    console.error(error);
+    console.error(
+        "Login error:",
+        error
+    );
 
     res.json({
 
         success: true,
 
+        emailSent: false,
+
         message:
-            "Login successful, but email could not be sent",
+            "Login successful",
 
         user: {
+
             name:
                 name || "GlowCart Customer",
+
             email
+
         }
 
     });
@@ -389,7 +490,13 @@ const {
 } = req.body;
 
 
-if (!customer || !customer.email || !items) {
+if (
+    !customer ||
+    !customer.email ||
+    !items ||
+    !Array.isArray(items) ||
+    items.length === 0
+) {
 
     return res.status(400).json({
 
@@ -409,24 +516,23 @@ const finalOrderId =
 
 try {
 
-    /*
-     * Create product list for email.
-     */
-
     let productRows = "";
+
 
     items.forEach(item => {
 
         const price =
-            String(item.price)
-                .replace("₹", "")
-                .replace(",", "");
+            Number(
+                String(item.price)
+                    .replace("₹", "")
+                    .replace(",", "")
+            );
 
         const quantity =
             Number(item.quantity || 1);
 
         const itemTotal =
-            Number(price) * quantity;
+            price * quantity;
 
 
         productRows += `
@@ -434,14 +540,14 @@ try {
             <tr>
 
                 <td style="
-                    padding:10px;
+                    padding:12px;
                     border-bottom:1px solid #eee;
                 ">
                     ${item.name}
                 </td>
 
                 <td style="
-                    padding:10px;
+                    padding:12px;
                     border-bottom:1px solid #eee;
                     text-align:center;
                 ">
@@ -449,7 +555,7 @@ try {
                 </td>
 
                 <td style="
-                    padding:10px;
+                    padding:12px;
                     border-bottom:1px solid #eee;
                     text-align:right;
                 ">
@@ -463,13 +569,12 @@ try {
     });
 
 
-    /*
-     * Send order confirmation email.
-     */
+    let emailSent = false;
+
 
     if (resend) {
 
-        const { error } =
+        const result =
             await resend.emails.send({
 
                 from: EMAIL_FROM,
@@ -481,117 +586,132 @@ try {
 
                 html: `
 
-                    <div style="
-                        font-family:Arial;
-                        max-width:650px;
-                        margin:auto;
-                        padding:30px;
-                        background:#fff7fb;
-                        border-radius:15px;
+                <div style="
+                    font-family:Arial;
+                    max-width:650px;
+                    margin:auto;
+                    padding:35px;
+                    background:#fff7fb;
+                    border-radius:20px;
+                ">
+
+                    <h1 style="
+                        color:#e91e63;
+                    ">
+                        Order Confirmed! 🎉
+                    </h1>
+
+                    <p>
+                        Hello
+                        <strong>
+                            ${customer.name}
+                        </strong>,
+                    </p>
+
+                    <p>
+                        Your GlowCart order has been
+                        placed successfully.
+                    </p>
+
+                    <h3>
+                        Order ID:
+                        ${finalOrderId}
+                    </h3>
+
+                    <table style="
+                        width:100%;
+                        border-collapse:collapse;
+                        background:white;
                     ">
 
-                        <h1 style="
-                            color:#e91e63;
-                        ">
-                            Order Confirmed! 🎉
-                        </h1>
+                        <thead>
 
-                        <p>
-                            Hello ${customer.name},
-                        </p>
+                            <tr>
 
-                        <p>
-                            Thank you for shopping with GlowCart.
-                            Your order has been placed successfully.
-                        </p>
+                                <th style="padding:12px;">
+                                    Product
+                                </th>
+
+                                <th style="padding:12px;">
+                                    Qty
+                                </th>
+
+                                <th style="padding:12px;">
+                                    Total
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            ${productRows}
+
+                        </tbody>
+
+                    </table>
+
+                    <h2 style="
+                        text-align:right;
+                        color:#9c27b0;
+                    ">
+                        Total: ₹${total}
+                    </h2>
+
+                    <p>
+                        <strong>
+                            Payment:
+                        </strong>
+                        ${payment || "Cash on Delivery"}
+                    </p>
+
+                    <div style="
+                        background:white;
+                        padding:18px;
+                        border-radius:12px;
+                    ">
 
                         <h3>
-                            Order ID: ${finalOrderId}
+                            Delivery Address
                         </h3>
 
-                        <table style="
-                            width:100%;
-                            border-collapse:collapse;
-                            background:white;
-                            margin-top:20px;
-                        ">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th style="padding:10px;">
-                                        Product
-                                    </th>
-
-                                    <th style="padding:10px;">
-                                        Qty
-                                    </th>
-
-                                    <th style="padding:10px;">
-                                        Total
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody>
-
-                                ${productRows}
-
-                            </tbody>
-
-                        </table>
-
-                        <h2 style="
-                            text-align:right;
-                            color:#9c27b0;
-                        ">
-                            Total: ₹${total}
-                        </h2>
-
                         <p>
-                            Payment:
-                            <strong>
-                                ${payment || "Cash on Delivery"}
-                            </strong>
+                            ${customer.address || ""}<br>
+                            ${customer.city || ""} -
+                            ${customer.pincode || ""}<br>
+                            Phone:
+                            ${customer.phone || ""}
                         </p>
-
-                        <p>
-                            Delivery Address:
-                        </p>
-
-                        <p>
-                            ${customer.address}<br>
-                            ${customer.city} -
-                            ${customer.pincode}<br>
-                            Phone: ${customer.phone}
-                        </p>
-
-                        <hr>
-
-                        <p>
-                            Thank you for choosing GlowCart 💖
-                        </p>
-
-                        <strong>
-                            GlowCart Team
-                        </strong>
 
                     </div>
+
+                    <hr>
+
+                    <p style="
+                        text-align:center;
+                    ">
+                        Thank you for shopping
+                        with GlowCart 💖
+                    </p>
+
+                </div>
 
                 `
 
             });
 
 
-        if (error) {
+        if (result.error) {
 
             console.error(
                 "Order email error:",
-                error
+                result.error
             );
+
+        } else {
+
+            emailSent = true;
 
         }
 
@@ -601,6 +721,8 @@ try {
     res.json({
 
         success: true,
+
+        emailSent: emailSent,
 
         message:
             "Order placed successfully",
@@ -624,13 +746,19 @@ try {
 
     });
 
+
 } catch (error) {
 
-    console.error(error);
+    console.error(
+        "Order error:",
+        error
+    );
 
     res.json({
 
         success: true,
+
+        emailSent: false,
 
         message:
             "Order placed successfully, but email could not be sent",
@@ -661,12 +789,17 @@ try {
 
 /* ================= START SERVER ================= */
 
-app.listen(PORT, () => {
+app.listen(
+PORT,
+"0.0.0.0",
+() => {
 
 ```
-console.log(
-    `GlowCart backend running on port ${PORT}`
+    console.log(
+        `GlowCart backend running on 0.0.0.0:${PORT}`
+    );
+
+}
+```
+
 );
-```
-
-});
