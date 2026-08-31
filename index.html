@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,198 +11,229 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+    font-family:Arial,sans-serif;
 }
 
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth}
 
 body{
     background:#f7f7fb;
     color:#333;
 }
 
-button{
-    cursor:pointer;
+button,input,textarea,select{
+    font-family:Arial,sans-serif;
 }
+
+button{cursor:pointer}
+
+/* ================= HEADER ================= */
 
 header{
     height:72px;
-    background:rgba(255,255,255,.97);
+    background:#fff;
     display:flex;
     align-items:center;
     justify-content:space-between;
     padding:0 6%;
+    box-shadow:0 2px 15px rgba(0,0,0,.08);
     position:sticky;
     top:0;
     z-index:1000;
-    box-shadow:0 2px 15px rgba(0,0,0,.08);
 }
 
 .logo{
     font-size:29px;
-    font-weight:800;
+    font-weight:bold;
     color:#e91e63;
 }
 
-.logo span{
-    color:#7b1fa2;
-}
+.logo span{color:#7b1fa2}
 
 nav{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:24px;
 }
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+    cursor:pointer;
+}
+
+nav a:hover{color:#e91e63}
 
 .nav-btn{
-    border:0;
-    background:transparent;
-    padding:10px 15px;
-    font-weight:600;
-    color:#444;
-}
-
-.nav-btn:hover{
-    color:#e91e63;
-}
-
-.nav-main{
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:#fff;
+    padding:10px 19px;
     border-radius:25px;
+    color:white!important;
+    background:linear-gradient(135deg,#e91e63,#9c27b0);
 }
 
-.cart-nav{
+.cart-link{
     position:relative;
 }
 
 .cart-count{
     position:absolute;
-    top:-4px;
-    right:0;
+    top:-13px;
+    right:-14px;
+    width:21px;
+    height:21px;
+    border-radius:50%;
     background:#e91e63;
     color:white;
-    width:20px;
-    height:20px;
-    border-radius:50%;
     font-size:11px;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
 }
 
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
+/* ================= HOME ================= */
 
 .home{
     min-height:620px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     padding:70px 8%;
     background:
-    radial-gradient(circle at 80% 20%,#efd5ff 0%,transparent 30%),
-    radial-gradient(circle at 10% 80%,#ffd9e8 0%,transparent 30%),
-    linear-gradient(120deg,#fff2f7,#f4ecff);
+    radial-gradient(circle at 80% 20%,#f5d8ff 0%,transparent 30%),
+    radial-gradient(circle at 10% 80%,#ffdce9 0%,transparent 30%),
+    linear-gradient(120deg,#fff2f7,#f5edff);
 }
 
 .home-text{
-    max-width:600px;
+    max-width:570px;
 }
 
-.badge{
+.small-title{
     display:inline-block;
     background:white;
     color:#e91e63;
     padding:9px 18px;
-    border-radius:30px;
+    border-radius:25px;
     font-size:13px;
     font-weight:bold;
     margin-bottom:20px;
-    box-shadow:0 5px 15px rgba(0,0,0,.07);
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
 }
 
 .home h1{
-    font-size:56px;
+    font-size:55px;
     line-height:1.1;
     color:#6a1b9a;
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
-.home h1 span{
-    color:#e91e63;
-}
+.home h1 span{color:#e91e63}
 
 .home p{
-    color:#666;
     font-size:18px;
     line-height:1.8;
-    margin-bottom:28px;
+    color:#666;
+    margin-bottom:30px;
 }
 
-.primary-btn{
-    border:0;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:#fff;
-    padding:15px 28px;
+.shop-button{
+    border:none;
+    padding:15px 30px;
     border-radius:30px;
+    color:white;
     font-size:16px;
     font-weight:bold;
+    background:linear-gradient(135deg,#e91e63,#9c27b0);
     box-shadow:0 10px 25px rgba(156,39,176,.25);
-    transition:.3s;
 }
 
-.primary-btn:hover{
+.shop-button:hover{
     transform:translateY(-3px);
 }
 
-.hero-product{
-    width:440px;
-    height:440px;
+/* ================= HERO IMAGE ================= */
+
+.product-area{
+    width:470px;
+    height:470px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.product-circle{
+    width:400px;
+    height:400px;
     border-radius:50%;
-    background:rgba(255,255,255,.75);
+    background:rgba(255,255,255,.85);
     display:flex;
     align-items:center;
     justify-content:center;
-    box-shadow:0 30px 70px rgba(100,40,130,.15);
+    box-shadow:0 25px 60px rgba(130,60,150,.15);
 }
 
-.hero-product img{
-    width:310px;
-    height:310px;
+.product-circle img{
+    width:300px;
+    height:300px;
     object-fit:cover;
     border-radius:25px;
-    box-shadow:0 20px 35px rgba(0,0,0,.15);
+    filter:drop-shadow(0 20px 20px rgba(0,0,0,.18));
 }
 
-.features{
-    padding:55px 8%;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
+.floating-card{
+    position:absolute;
     background:white;
+    padding:15px 20px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+    font-weight:bold;
+    color:#6a1b9a;
+}
+
+.card-one{
+    top:55px;
+    right:0;
+}
+
+.card-two{
+    bottom:55px;
+    left:0;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+    background:white;
+    padding:55px 8%;
+    display:flex;
+    gap:25px;
+    justify-content:space-between;
+    text-align:center;
 }
 
 .feature{
-    text-align:center;
-    padding:25px;
+    width:25%;
+    padding:25px 15px;
     border-radius:18px;
-    transition:.3s;
 }
 
 .feature:hover{
     transform:translateY(-5px);
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 .feature-icon{
-    font-size:35px;
-    margin-bottom:15px;
+    width:65px;
+    height:65px;
+    margin:auto auto 15px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#fff0f6;
+    font-size:30px;
 }
 
 .feature h3{
@@ -211,39 +242,79 @@ nav{
 }
 
 .feature p{
-    color:#777;
-    line-height:1.5;
+    color:#666;
+    line-height:1.6;
 }
 
-.form-page{
-    min-height:calc(100vh - 72px);
-    padding:60px 20px;
-    display:flex;
-    justify-content:center;
+/* ================= PAGES ================= */
+
+.page{
+    display:none;
+    min-height:650px;
+    padding:60px 7%;
+}
+
+.page.active{
+    display:block;
+}
+
+.auth-page{
+    min-height:650px;
+    display:none;
     align-items:center;
-    background:linear-gradient(135deg,#fff0f6,#f4eaff);
+    justify-content:center;
+    padding:60px 20px;
+    background:linear-gradient(135deg,#fff0f6,#f5eaff);
 }
 
-.form-box{
-    width:470px;
-    max-width:100%;
-    background:white;
-    padding:40px;
-    border-radius:25px;
-    box-shadow:0 20px 55px rgba(0,0,0,.12);
+.auth-page.active{
+    display:flex;
 }
 
-.form-box h2{
+.title{
     text-align:center;
+    font-size:36px;
     color:#7b1fa2;
-    font-size:30px;
     margin-bottom:8px;
 }
 
 .subtitle{
     text-align:center;
     color:#777;
-    margin-bottom:28px;
+    margin-bottom:35px;
+}
+
+/* ================= AUTH ================= */
+
+.auth-box{
+    width:460px;
+    max-width:100%;
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 20px 60px rgba(0,0,0,.12);
+}
+
+.auth-logo{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    color:#e91e63;
+    margin-bottom:8px;
+}
+
+.auth-logo span{color:#7b1fa2}
+
+.auth-box h2{
+    text-align:center;
+    color:#7b1fa2;
+    margin-bottom:8px;
+}
+
+.auth-sub{
+    text-align:center;
+    color:#777;
+    margin-bottom:25px;
 }
 
 .form-group{
@@ -252,206 +323,160 @@ nav{
 
 .form-group label{
     display:block;
-    font-size:14px;
     font-weight:bold;
+    font-size:14px;
     margin-bottom:7px;
 }
 
 .form-group input,
-.form-group select,
-.form-group textarea{
+.form-group textarea,
+.form-group select{
     width:100%;
     padding:14px;
     border:1px solid #ddd;
     border-radius:11px;
     outline:none;
     font-size:15px;
-}
-
-.form-group textarea{
-    min-height:90px;
-    resize:vertical;
+    background:white;
 }
 
 .form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
+.form-group textarea:focus,
+.form-group select:focus{
     border-color:#e91e63;
     box-shadow:0 0 0 3px rgba(233,30,99,.08);
 }
 
-.full-btn{
+.primary-btn{
     width:100%;
     padding:14px;
-    border:0;
-    border-radius:12px;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
+    border:none;
+    border-radius:11px;
     color:white;
+    background:linear-gradient(135deg,#e91e63,#9c27b0);
     font-size:16px;
     font-weight:bold;
 }
 
-.switch-text{
+.switch{
     text-align:center;
     margin-top:20px;
     color:#777;
 }
 
-.switch-text button{
-    border:0;
-    background:none;
+.switch span{
     color:#e91e63;
     font-weight:bold;
+    cursor:pointer;
 }
 
-.shop-page{
-    padding:45px 6%;
-}
+/* ================= PRODUCTS ================= */
 
-.section-heading{
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.section-heading h2{
-    font-size:35px;
-    color:#6a1b9a;
-}
-
-.section-heading p{
-    color:#777;
-    margin-top:8px;
-}
-
-.product-grid{
+.products{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     gap:25px;
 }
 
 .product-card{
     background:white;
+    padding:18px;
     border-radius:20px;
-    padding:16px;
-    box-shadow:0 8px 25px rgba(0,0,0,.07);
+    box-shadow:0 8px 28px rgba(0,0,0,.07);
     transition:.3s;
-    position:relative;
-    overflow:hidden;
 }
 
 .product-card:hover{
-    transform:translateY(-7px);
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    transform:translateY(-6px);
+    box-shadow:0 15px 40px rgba(156,39,176,.15);
 }
 
 .product-card img{
     width:100%;
-    height:220px;
+    height:210px;
     object-fit:cover;
     border-radius:15px;
-    background:#fff4f8;
+    background:#fff5fa;
 }
 
 .product-card h3{
-    margin:15px 0 7px;
-    color:#444;
+    color:#6a1b9a;
+    margin:14px 0 7px;
 }
 
-.product-desc{
+.product-description{
     color:#777;
     font-size:14px;
-    min-height:40px;
-    line-height:1.4;
+    line-height:1.5;
+    min-height:42px;
 }
 
 .rating{
-    color:#f59e0b;
-    margin:8px 0;
+    color:#f5a623;
+    margin-top:8px;
 }
 
-.price-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:12px 0;
-}
-
-.price{
-    font-size:21px;
-    font-weight:bold;
-    color:#e91e63;
-}
-
-.old-price{
+.mrp{
     color:#999;
     text-decoration:line-through;
     font-size:13px;
+    margin-top:8px;
+}
+
+.price{
+    color:#e91e63;
+    font-size:22px;
+    font-weight:bold;
+    margin:5px 0;
+}
+
+.gst{
+    color:#666;
+    font-size:12px;
+    margin-bottom:12px;
 }
 
 .add-btn{
     width:100%;
     padding:12px;
-    border:0;
+    border:none;
     border-radius:10px;
-    background:#fce4ec;
-    color:#c2185b;
+    color:white;
+    background:linear-gradient(135deg,#e91e63,#9c27b0);
     font-weight:bold;
 }
 
-.add-btn:hover{
-    background:#e91e63;
-    color:white;
-}
+/* ================= CART ================= */
 
-.tag{
-    position:absolute;
-    top:25px;
-    left:25px;
-    background:#7b1fa2;
-    color:white;
-    padding:5px 9px;
-    border-radius:15px;
-    font-size:11px;
-    font-weight:bold;
-}
-
-.cart-page,
-.checkout-page,
-.orders-page{
-    padding:45px 7%;
-    min-height:calc(100vh - 72px);
-}
-
-.cart-layout{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:25px;
-}
-
-.card{
-    background:white;
-    border-radius:20px;
-    padding:25px;
-    box-shadow:0 8px 25px rgba(0,0,0,.07);
+.cart-wrap{
+    max-width:1000px;
+    margin:auto;
 }
 
 .cart-item{
-    display:grid;
-    grid-template-columns:90px 1fr auto auto;
-    gap:15px;
+    background:white;
+    padding:18px;
+    margin-bottom:16px;
+    border-radius:18px;
+    display:flex;
     align-items:center;
-    padding:15px 0;
-    border-bottom:1px solid #eee;
+    gap:20px;
+    box-shadow:0 7px 25px rgba(0,0,0,.06);
 }
 
 .cart-item img{
-    width:90px;
-    height:90px;
+    width:100px;
+    height:100px;
     object-fit:cover;
     border-radius:12px;
 }
 
-.cart-item h3{
+.cart-info{
+    flex:1;
+}
+
+.cart-info h3{
+    color:#6a1b9a;
     margin-bottom:8px;
 }
 
@@ -463,99 +488,182 @@ nav{
 .qty{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
 }
 
 .qty button{
-    width:30px;
-    height:30px;
-    border:0;
-    border-radius:50%;
-    background:#fce4ec;
-    color:#c2185b;
-    font-weight:bold;
+    width:32px;
+    height:32px;
+    border:none;
+    border-radius:8px;
+    background:#f5e5f8;
+    color:#7b1fa2;
+    font-size:18px;
 }
 
-.remove-btn{
-    border:0;
-    background:none;
-    color:#d32f2f;
+.remove{
+    border:none;
+    padding:9px 12px;
+    border-radius:8px;
+    color:#e91e63;
+    background:#ffe8ef;
 }
 
-.summary-row{
+.summary{
+    background:white;
+    margin-top:20px;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.row{
     display:flex;
     justify-content:space-between;
-    padding:12px 0;
+    margin-bottom:12px;
 }
 
-.summary-total{
-    border-top:1px solid #ddd;
-    margin-top:10px;
-    padding-top:18px;
-    display:flex;
-    justify-content:space-between;
-    font-size:21px;
+.grand-total{
+    border-top:1px solid #eee;
+    padding-top:15px;
+    font-size:24px;
     font-weight:bold;
     color:#7b1fa2;
 }
 
-.checkout-btn{
-    width:100%;
-    margin-top:20px;
-    padding:14px;
-    border:0;
-    border-radius:12px;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white;
-    font-weight:bold;
-    font-size:16px;
+/* ================= ADDRESS ================= */
+
+.address-list{
+    display:grid;
+    gap:15px;
+    margin-bottom:25px;
 }
 
-.address-box{
+.address-card{
+    background:white;
     border:2px solid #eee;
+    padding:18px;
     border-radius:15px;
-    padding:15px;
-    margin-bottom:12px;
     cursor:pointer;
 }
 
-.address-box.selected{
+.address-card.selected{
     border-color:#e91e63;
-    background:#fff5f9;
+    background:#fff7fb;
 }
 
-.address-box strong{
+.address-card strong{
     color:#7b1fa2;
+}
+
+.address-card p{
+    margin-top:7px;
+    color:#666;
+    line-height:1.5;
 }
 
 .address-actions{
+    margin-top:12px;
     display:flex;
     gap:8px;
-    margin-top:10px;
 }
 
 .small-btn{
-    border:0;
-    padding:7px 12px;
+    border:none;
+    padding:8px 12px;
     border-radius:8px;
-    background:#f3e5f5;
+    background:#f5e5f8;
     color:#7b1fa2;
 }
 
-.order-card{
+.delete-btn{
+    background:#ffe8ef;
+    color:#e91e63;
+}
+
+/* ================= CHECKOUT ================= */
+
+.checkout-box{
+    max-width:800px;
+    margin:auto;
     background:white;
-    padding:22px;
-    border-radius:20px;
+    padding:32px;
+    border-radius:22px;
+    box-shadow:0 15px 45px rgba(0,0,0,.1);
+}
+
+.checkout-section{
+    margin-bottom:30px;
+}
+
+.checkout-section h3{
+    color:#7b1fa2;
+    margin-bottom:17px;
+}
+
+.address-form{
+    display:none;
+    background:#fff8fb;
+    padding:20px;
+    border-radius:15px;
     margin-bottom:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.address-form.show{
+    display:block;
+}
+
+.two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.payment-options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.payment-option{
+    border:1px solid #ddd;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.payment-option:hover{
+    border-color:#e91e63;
+    background:#fff5fa;
+}
+
+.payment-option input{
+    margin-right:6px;
+}
+
+.checkout-summary{
+    background:#faf5fc;
+    padding:20px;
+    border-radius:15px;
+}
+
+/* ================= ORDERS ================= */
+
+.order-card{
+    max-width:900px;
+    margin:0 auto 20px;
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 8px 28px rgba(0,0,0,.07);
 }
 
 .order-header{
     display:flex;
     justify-content:space-between;
-    gap:15px;
-    padding-bottom:15px;
     border-bottom:1px solid #eee;
+    padding-bottom:14px;
+    margin-bottom:15px;
 }
 
 .order-id{
@@ -563,8 +671,12 @@ nav{
     font-weight:bold;
 }
 
-.order-status{
+.status{
+    background:#e8f5e9;
     color:#2e7d32;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
     font-weight:bold;
 }
 
@@ -572,38 +684,32 @@ nav{
     display:flex;
     align-items:center;
     gap:15px;
-    padding:12px 0;
+    padding:10px 0;
 }
 
 .order-product img{
-    width:70px;
-    height:70px;
+    width:65px;
+    height:65px;
     object-fit:cover;
     border-radius:10px;
 }
 
 .order-total{
     text-align:right;
-    color:#e91e63;
-    font-size:20px;
+    font-size:21px;
     font-weight:bold;
-    border-top:1px solid #eee;
-    padding-top:15px;
+    color:#e91e63;
+    margin-top:12px;
 }
 
-.payment-option{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    margin-bottom:10px;
-}
+/* ================= EMPTY ================= */
 
 .empty{
+    background:white;
     text-align:center;
-    padding:60px 20px;
+    padding:70px 20px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
 }
 
 .empty-icon{
@@ -611,33 +717,32 @@ nav{
     margin-bottom:15px;
 }
 
+/* ================= POPUP ================= */
+
 .popup{
     position:fixed;
-    top:90px;
+    top:25px;
     right:25px;
-    width:360px;
-    max-width:calc(100% - 40px);
+    width:350px;
+    max-width:calc(100% - 30px);
     background:white;
-    border-radius:20px;
     padding:22px;
-    box-shadow:0 20px 60px rgba(0,0,0,.2);
-    z-index:3000;
-    transform:translateX(450px);
-    transition:.4s;
+    border-radius:18px;
+    box-shadow:0 15px 50px rgba(0,0,0,.2);
+    z-index:5000;
+    display:none;
+    animation:slide .35s ease;
 }
 
-.popup.show{
-    transform:translateX(0);
-}
+.popup.show{display:block}
 
 .popup-icon{
-    font-size:38px;
-    margin-bottom:10px;
+    font-size:34px;
 }
 
 .popup h3{
     color:#7b1fa2;
-    margin-bottom:7px;
+    margin:6px 0;
 }
 
 .popup p{
@@ -645,52 +750,42 @@ nav{
     line-height:1.5;
 }
 
+@keyframes slide{
+    from{
+        transform:translateX(400px);
+        opacity:0;
+    }
+    to{
+        transform:translateX(0);
+        opacity:1;
+    }
+}
+
+/* ================= FOOTER ================= */
+
 footer{
     background:#211d24;
     color:white;
     text-align:center;
-    padding:30px;
+    padding:28px;
 }
 
-footer span{
-    color:#f06292;
-}
+footer span{color:#f06292}
 
-@media(max-width:1000px){
-    .product-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
+/* ================= MOBILE ================= */
 
-    .features{
-        grid-template-columns:repeat(2,1fr);
-    }
+@media(max-width:768px){
 
-    .home{
-        gap:30px;
-    }
-
-    .hero-product{
-        width:350px;
-        height:350px;
-    }
-
-    .hero-product img{
-        width:250px;
-        height:250px;
-    }
-}
-
-@media(max-width:760px){
     header{
-        padding:12px 20px;
+        padding:12px 18px;
+        height:auto;
     }
 
     nav{
-        gap:3px;
+        gap:9px;
     }
 
-    .nav-btn{
-        padding:8px;
+    nav a{
         font-size:12px;
     }
 
@@ -704,591 +799,785 @@ footer span{
         font-size:40px;
     }
 
-    .hero-product{
-        width:300px;
-        height:300px;
+    .product-area{
+        width:320px;
+        height:320px;
+        margin-top:35px;
     }
 
-    .hero-product img{
+    .product-circle{
+        width:280px;
+        height:280px;
+    }
+
+    .product-circle img{
         width:220px;
         height:220px;
     }
 
     .features{
-        grid-template-columns:1fr;
+        flex-direction:column;
     }
 
-    .product-grid{
-        grid-template-columns:1fr;
-    }
-
-    .cart-layout{
-        grid-template-columns:1fr;
+    .feature{
+        width:100%;
     }
 
     .cart-item{
-        grid-template-columns:70px 1fr;
+        flex-wrap:wrap;
     }
 
-    .cart-item .qty,
-    .cart-item .remove-btn{
-        grid-column:2;
+    .two{
+        grid-template-columns:1fr;
     }
 
-    .form-box{
+    .payment-options{
+        grid-template-columns:1fr;
+    }
+
+    .checkout-box{
+        padding:22px;
+    }
+
+    .auth-box{
         padding:28px 20px;
     }
 }
 </style>
-
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
-    <div class="logo">Glow<span>Cart</span></div>
 
-```
-<nav>
-    <button class="nav-btn" onclick="showHome()">Home</button>
-    <button class="nav-btn" onclick="showProducts()">Shop</button>
-    <button class="nav-btn" id="loginNav" onclick="showLogin()">Login</button>
-    <button class="nav-btn" id="registerNav" onclick="showRegister()">Register</button>
-    <button class="nav-btn" id="ordersNav" onclick="showOrders()" style="display:none;">Orders</button>
+    <div class="logo">
+        Glow<span>Cart</span>
+    </div>
 
-    <button class="nav-btn cart-nav" onclick="showCart()">
-        🛒
-        <span class="cart-count" id="cartCount">0</span>
-    </button>
+    <nav>
 
-    <button class="nav-btn nav-main" id="logoutNav" onclick="logout()" style="display:none;">
-        Logout
-    </button>
-</nav>
-```
+        <a onclick="showHome()">Home</a>
+
+        <a onclick="showProducts()">Shop</a>
+
+        <a onclick="showOrders()">Orders</a>
+
+        <a onclick="showCart()" class="cart-link">
+            🛒 Cart
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
+
+        <a id="loginNav"
+           class="nav-btn"
+           onclick="showLogin()">
+            Login
+        </a>
+
+        <a id="logoutNav"
+           class="nav-btn"
+           style="display:none"
+           onclick="logout()">
+            Logout
+        </a>
+
+    </nav>
 
 </header>
 
-<!-- HOME -->
 
-<div id="homePage" class="page active">
+<!-- ================= HOME ================= -->
 
-<section class="home">
+<section class="home" id="home">
 
-```
-<div class="home-text">
+    <div class="home-text">
 
-    <div class="badge">✨ PREMIUM SKINCARE COLLECTION</div>
+        <div class="small-title">
+            ✨ PREMIUM SKINCARE COLLECTION
+        </div>
 
-    <h1>
-        Beautiful Skin.<br>
-        <span>Natural Glow.</span>
-    </h1>
+        <h1>
+            Beautiful Skin.<br>
+            <span>Natural Glow.</span>
+        </h1>
 
-    <p>
-        Discover beautiful skincare products at affordable prices.
-        Shop face creams, moisturizers and everyday skincare
-        essentials with GlowCart.
-    </p>
+        <p>
+            Discover affordable premium face creams,
+            moisturizers and skincare essentials.
+            Shop safely and get your GlowCart order
+            delivered to your doorstep.
+        </p>
 
-    <button class="primary-btn" onclick="startShopping()">
-        Start Shopping →
-    </button>
+        <button class="shop-button"
+                onclick="showProducts()">
+            Start Shopping →
+        </button>
 
-</div>
+    </div>
 
-<div class="hero-product">
 
-    <img
-    src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=90"
-    alt="Premium skincare">
+    <div class="product-area">
 
-</div>
-```
+        <div class="product-circle">
+
+            <img
+                src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=90"
+                alt="GlowCart skincare">
+
+        </div>
+
+        <div class="floating-card card-one">
+            ✨ Premium Care
+        </div>
+
+        <div class="floating-card card-two">
+            💧 Deep Hydration
+        </div>
+
+    </div>
 
 </section>
+
+
+<!-- ================= FEATURES ================= -->
 
 <section class="features">
 
-```
-<div class="feature">
-    <div class="feature-icon">🌿</div>
-    <h3>Natural Care</h3>
-    <p>Carefully selected skincare for your daily routine.</p>
-</div>
+    <div class="feature">
+        <div class="feature-icon">🌿</div>
+        <h3>Natural Care</h3>
+        <p>Beautiful skincare products for your daily routine.</p>
+    </div>
 
-<div class="feature">
-    <div class="feature-icon">💧</div>
-    <h3>Deep Hydration</h3>
-    <p>Moisturizing products for soft and healthy-looking skin.</p>
-</div>
+    <div class="feature">
+        <div class="feature-icon">💧</div>
+        <h3>Deep Hydration</h3>
+        <p>Keep your skin feeling soft and moisturized.</p>
+    </div>
 
-<div class="feature">
-    <div class="feature-icon">💰</div>
-    <h3>Affordable Prices</h3>
-    <p>Beautiful skincare without expensive prices.</p>
-</div>
+    <div class="feature">
+        <div class="feature-icon">✨</div>
+        <h3>Healthy Glow</h3>
+        <p>Find products for a fresh-looking natural glow.</p>
+    </div>
 
-<div class="feature">
-    <div class="feature-icon">🚚</div>
-    <h3>Easy Shopping</h3>
-    <p>Simple cart, address and checkout experience.</p>
-</div>
-```
+    <div class="feature">
+        <div class="feature-icon">🚚</div>
+        <h3>Easy Delivery</h3>
+        <p>Order online and receive your products at home.</p>
+    </div>
 
 </section>
 
-</div>
 
-<!-- REGISTER -->
+<!-- ================= REGISTER ================= -->
 
-<div id="registerPage" class="page form-page">
+<section class="auth-page" id="registerPage">
 
-<div class="form-box">
+    <div class="auth-box">
 
-```
-<h2>Create Account</h2>
+        <div class="auth-logo">
+            Glow<span>Cart</span>
+        </div>
 
-<p class="subtitle">
-    Join GlowCart and start your skincare journey 💖
-</p>
+        <h2>Create Your Account ✨</h2>
 
-<form onsubmit="registerUser(event)">
+        <p class="auth-sub">
+            Join GlowCart and start shopping.
+        </p>
 
-    <div class="form-group">
-        <label>Full Name</label>
-        <input id="regName" type="text" required placeholder="Enter your full name">
+        <form onsubmit="registerUser(event)">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input id="regName"
+                       type="text"
+                       placeholder="Enter your full name"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input id="regEmail"
+                       type="email"
+                       placeholder="Enter your email"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input id="regMobile"
+                       type="tel"
+                       pattern="[0-9]{10}"
+                       placeholder="10 digit mobile number"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input id="regPassword"
+                       type="password"
+                       minlength="4"
+                       placeholder="Create password"
+                       required>
+            </div>
+
+            <button class="primary-btn">
+                Register Now 💖
+            </button>
+
+        </form>
+
+        <p class="switch">
+            Already registered?
+            <span onclick="showLogin()">Login here</span>
+        </p>
+
     </div>
 
-    <div class="form-group">
-        <label>Email Address</label>
-        <input id="regEmail" type="email" required placeholder="Enter your email">
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section class="auth-page" id="loginPage">
+
+    <div class="auth-box">
+
+        <div class="auth-logo">
+            Glow<span>Cart</span>
+        </div>
+
+        <h2>Welcome Back! 👋</h2>
+
+        <p class="auth-sub">
+            Login to continue shopping.
+        </p>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input id="loginEmail"
+                       type="email"
+                       placeholder="Enter your email"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input id="loginPassword"
+                       type="password"
+                       placeholder="Enter your password"
+                       required>
+            </div>
+
+            <button class="primary-btn">
+                Login to GlowCart 🔐
+            </button>
+
+        </form>
+
+        <p class="switch">
+            New to GlowCart?
+            <span onclick="showRegister()">Create Account</span>
+        </p>
+
     </div>
 
-    <div class="form-group">
-        <label>Mobile Number</label>
-        <input id="regMobile" type="tel" pattern="[0-9]{10}" required placeholder="10 digit mobile number">
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section class="page" id="productsPage">
+
+    <h2 class="title">
+        GlowCart Collection ✨
+    </h2>
+
+    <p class="subtitle">
+        Affordable skincare delivered to your door
+    </p>
+
+    <div class="products" id="products"></div>
+
+</section>
+
+
+<!-- ================= CART ================= -->
+
+<section class="page" id="cartPage">
+
+    <h2 class="title">
+        Your Shopping Cart 🛒
+    </h2>
+
+    <p class="subtitle">
+        Review your products before checkout.
+    </p>
+
+    <div class="cart-wrap">
+
+        <div id="cartItems"></div>
+
+        <div id="cartSummary"></div>
+
     </div>
 
-    <div class="form-group">
-        <label>Password</label>
-        <input id="regPassword" type="password" minlength="4" required placeholder="Create password">
+</section>
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<section class="page" id="checkoutPage">
+
+    <h2 class="title">
+        Secure Checkout 💖
+    </h2>
+
+    <p class="subtitle">
+        Choose your address and payment method.
+    </p>
+
+    <div class="checkout-box">
+
+        <!-- ADDRESS -->
+
+        <div class="checkout-section">
+
+            <h3>📍 Delivery Address</h3>
+
+            <div id="savedAddresses"
+                 class="address-list">
+            </div>
+
+            <button class="small-btn"
+                    onclick="toggleAddressForm()">
+                + Add Another Address
+            </button>
+
+        </div>
+
+
+        <!-- NEW ADDRESS -->
+
+        <div class="address-form"
+             id="addressForm">
+
+            <h3>➕ Add New Address</h3>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input id="addressName"
+                       placeholder="Receiver name">
+            </div>
+
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input id="addressPhone"
+                       maxlength="10"
+                       placeholder="10 digit mobile">
+            </div>
+
+            <div class="form-group">
+                <label>Complete Address</label>
+                <textarea id="addressText"
+                          placeholder="House no, street, area"></textarea>
+            </div>
+
+            <div class="two">
+
+                <div class="form-group">
+                    <label>City</label>
+                    <input id="addressCity"
+                           placeholder="City">
+                </div>
+
+                <div class="form-group">
+                    <label>Pincode</label>
+                    <input id="addressPincode"
+                           maxlength="6"
+                           placeholder="6 digit pincode">
+                </div>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="saveNewAddress()">
+                Save Address
+            </button>
+
+        </div>
+
+
+        <!-- PAYMENT -->
+
+        <div class="checkout-section">
+
+            <h3>💳 Payment Method</h3>
+
+            <div class="payment-options">
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment"
+                           value="Cash on Delivery"
+                           checked>
+                    💵 COD
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment"
+                           value="UPI">
+                    📱 UPI
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio"
+                           name="payment"
+                           value="Card">
+                    💳 Card
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="checkout-section">
+
+            <h3>🧾 Order Summary</h3>
+
+            <div class="checkout-summary"
+                 id="checkoutSummary">
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="placeOrder()">
+            Place Order 🚀
+        </button>
+
     </div>
 
-    <button class="full-btn" type="submit">
-        Create My GlowCart Account
-    </button>
+</section>
 
-</form>
 
-<div class="switch-text">
-    Already have an account?
-    <button onclick="showLogin()">Login</button>
-</div>
-```
+<!-- ================= ORDERS ================= -->
 
-</div>
+<section class="page" id="ordersPage">
 
-</div>
+    <h2 class="title">
+        My Orders 📦
+    </h2>
 
-<!-- LOGIN -->
+    <p class="subtitle">
+        Your GlowCart order history.
+    </p>
 
-<div id="loginPage" class="page form-page">
+    <div id="ordersList"></div>
 
-<div class="form-box">
+</section>
 
-```
-<h2>Welcome Back 💖</h2>
 
-<p class="subtitle">
-    Login to continue shopping
-</p>
-
-<form onsubmit="loginUser(event)">
-
-    <div class="form-group">
-        <label>Email Address</label>
-        <input id="loginEmail" type="email" required placeholder="Enter your email">
-    </div>
-
-    <div class="form-group">
-        <label>Password</label>
-        <input id="loginPassword" type="password" required placeholder="Enter your password">
-    </div>
-
-    <button class="full-btn" type="submit">
-        Login to GlowCart
-    </button>
-
-</form>
-
-<div class="switch-text">
-    New to GlowCart?
-    <button onclick="showRegister()">Create Account</button>
-</div>
-```
-
-</div>
-
-</div>
-
-<!-- PRODUCTS -->
-
-<div id="productsPage" class="page shop-page">
-
-<div class="section-heading">
-    <h2>GlowCart Beauty Store</h2>
-    <p>Affordable skincare products selected for you ✨</p>
-</div>
-
-<div class="product-grid" id="products"></div>
-
-</div>
-
-<!-- CART -->
-
-<div id="cartPage" class="page cart-page">
-
-<div class="section-heading">
-    <h2>Your Shopping Cart 🛒</h2>
-    <p>Review your products before checkout.</p>
-</div>
-
-<div class="cart-layout">
-
-```
-<div class="card">
-    <div id="cartItems"></div>
-</div>
-
-<div id="cartSummary"></div>
-```
-
-</div>
-
-</div>
-
-<!-- CHECKOUT -->
-
-<div id="checkoutPage" class="page checkout-page">
-
-<div class="section-heading">
-    <h2>Checkout</h2>
-    <p>Almost there! Complete your delivery details.</p>
-</div>
-
-<div class="cart-layout">
-
-<div class="card">
-
-```
-<h2 style="color:#7b1fa2;margin-bottom:20px;">
-    📍 Delivery Address
-</h2>
-
-<div id="savedAddresses"></div>
-
-<button
-    class="small-btn"
-    onclick="showAddressForm()">
-    + Add Another Address
-</button>
-
-<div id="addressForm" style="display:none;margin-top:20px;">
-
-    <div class="form-group">
-        <label>Address</label>
-        <textarea id="orderAddress" placeholder="House no, street, area"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>City</label>
-        <input id="orderCity" placeholder="Enter city">
-    </div>
-
-    <div class="form-group">
-        <label>State</label>
-        <input id="orderState" placeholder="Enter state">
-    </div>
-
-    <div class="form-group">
-        <label>Pincode</label>
-        <input id="orderPincode" maxlength="6" pattern="[0-9]{6}" placeholder="6 digit pincode">
-    </div>
-
-    <button class="small-btn" onclick="saveNewAddress()">
-        Save Address
-    </button>
-
-</div>
-
-<hr style="margin:25px 0;border:0;border-top:1px solid #eee;">
-
-<h2 style="color:#7b1fa2;margin-bottom:20px;">
-    👤 Customer Details
-</h2>
-
-<div class="form-group">
-    <label>Name</label>
-    <input id="orderName">
-</div>
-
-<div class="form-group">
-    <label>Mobile Number</label>
-    <input id="orderMobile" maxlength="10">
-</div>
-
-<h2 style="color:#7b1fa2;margin:25px 0 15px;">
-    💳 Payment Method
-</h2>
-
-<label class="payment-option">
-    <input type="radio" name="payment" value="Cash on Delivery" checked>
-    💵 Cash on Delivery
-</label>
-
-<label class="payment-option">
-    <input type="radio" name="payment" value="UPI">
-    📱 UPI
-</label>
-
-<label class="payment-option">
-    <input type="radio" name="payment" value="Card">
-    💳 Debit / Credit Card
-</label>
-```
-
-</div>
-
-<div class="card">
-
-```
-<h2 style="color:#7b1fa2;margin-bottom:20px;">
-    🧾 Order Summary
-</h2>
-
-<div id="checkoutSummary"></div>
-
-<button class="checkout-btn" onclick="placeOrder()">
-    🎉 Place Order
-</button>
-```
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ORDERS -->
-
-<div id="ordersPage" class="page orders-page">
-
-<div class="section-heading">
-    <h2>My Orders 📦</h2>
-    <p>Track your GlowCart purchases.</p>
-</div>
-
-<div id="ordersList"></div>
-
-</div>
-
-<!-- POPUP -->
+<!-- ================= POPUP ================= -->
 
 <div class="popup" id="popup">
 
-```
-<div class="popup-icon" id="popupIcon">💖</div>
+    <div class="popup-icon"
+         id="popupIcon">
+        ✅
+    </div>
 
-<h3 id="popupTitle">Success</h3>
+    <h3 id="popupTitle">
+        Success!
+    </h3>
 
-<p id="popupMessage">
-    Welcome to GlowCart.
-</p>
-```
+    <p id="popupMessage">
+        Done successfully.
+    </p>
 
 </div>
 
+
 <footer>
+
     <p>
-        © 2026 <span>GlowCart</span>. All Rights Reserved.
+        © 2026 <span>GlowCart</span>.
+        All Rights Reserved.
     </p>
+
 </footer>
+
 
 <script>
 
 /* =====================================================
    GLOWCART FRONTEND
-   Existing backend endpoints are NOT changed.
+   EXISTING BACKEND IS NOT MODIFIED
 ===================================================== */
 
-/*
-   IMPORTANT:
 
-   If index.html and server.js are running from the SAME
-   Node/Express server, keep this as "".
+/* ================= BACKEND ================= */
 
-   Example:
-   http://localhost:3000
-*/
-const API_BASE = "";
-
-
-/* ================= DATA ================= */
-
-let products = [
-    {
-        id:1,
-        name:"Glow Radiance Cream",
-        price:499,
-        oldPrice:699,
-        gst:18,
-        rating:4.7,
-        tag:"BEST SELLER",
-        image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80",
-        description:"Luxurious daily face cream for a natural-looking glow."
-    },
-    {
-        id:2,
-        name:"Vitamin C Face Cream",
-        price:599,
-        oldPrice:799,
-        gst:18,
-        rating:4.8,
-        tag:"POPULAR",
-        image:"https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=600&q=80",
-        description:"Lightweight Vitamin C skincare for everyday brightness."
-    },
-    {
-        id:3,
-        name:"Hydra Moisturizing Cream",
-        price:449,
-        oldPrice:649,
-        gst:18,
-        rating:4.6,
-        tag:"HYDRATION",
-        image:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80",
-        description:"Deep moisturizing cream for soft and comfortable skin."
-    },
-    {
-        id:4,
-        name:"Aloe Vera Face Cream",
-        price:399,
-        oldPrice:549,
-        gst:18,
-        rating:4.5,
-        tag:"VALUE PICK",
-        image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80",
-        description:"Refreshing aloe-based cream for everyday skincare."
-    },
-    {
-        id:5,
-        name:"Daily Glow Moisturizer",
-        price:249,
-        oldPrice:349,
-        gst:18,
-        rating:4.4,
-        tag:"LOW PRICE",
-        image:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80",
-        description:"Affordable lightweight moisturizer for daily use."
-    },
-    {
-        id:6,
-        name:"Rose Hydration Cream",
-        price:299,
-        oldPrice:399,
-        gst:18,
-        rating:4.5,
-        tag:"NEW",
-        image:"https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=600&q=80",
-        description:"Gentle rose-inspired moisturizing cream."
-    },
-    {
-        id:7,
-        name:"Soft Skin Night Cream",
-        price:349,
-        oldPrice:499,
-        gst:18,
-        rating:4.6,
-        tag:"NIGHT CARE",
-        image:"https://images.unsplash.com/photo-1570194065650-d99fb4b38c4e?auto=format&fit=crop&w=600&q=80",
-        description:"Comforting night cream for your evening routine."
-    },
-    {
-        id:8,
-        name:"Fresh Aloe Moisturizer",
-        price:199,
-        oldPrice:299,
-        gst:18,
-        rating:4.3,
-        tag:"BUDGET PICK",
-        image:"https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=600&q=80",
-        description:"Budget-friendly moisturizer with a fresh feel."
-    }
-];
-
-
-/* Try products.json first */
-
-fetch("products.json")
-.then(response => {
-    if(!response.ok) throw new Error("products.json unavailable");
-    return response.json();
-})
-.then(data => {
-
-    if(Array.isArray(data) && data.length){
-
-        data.forEach(p => {
-
-            const existing =
-                products.find(x => x.id == p.id);
-
-            if(existing){
-
-                existing.name = p.name;
-                existing.price = Number(p.price);
-                existing.image = p.image;
-
-            }
-
-        });
-
-    }
-
-    renderProducts();
-
-})
-.catch(() => {
-    renderProducts();
-});
+const API =
+    "https://glowcart-backend-nrye.onrender.com";
 
 
 /* ================= STORAGE ================= */
 
-let currentUser =
-    JSON.parse(localStorage.getItem("glowcart_user") || "null");
-
 let cart =
-    JSON.parse(localStorage.getItem("glowcart_cart") || "[]");
-
-let addresses =
-    JSON.parse(localStorage.getItem("glowcart_addresses") || "[]");
+    JSON.parse(localStorage.getItem("glowcart_cart")) || [];
 
 let orders =
-    JSON.parse(localStorage.getItem("glowcart_orders") || "[]");
+    JSON.parse(localStorage.getItem("glowcart_orders")) || [];
 
-let selectedAddressIndex =
-    Number(localStorage.getItem("glowcart_selected_address") || "0");
+let addresses =
+    JSON.parse(localStorage.getItem("glowcart_addresses")) || [];
+
+let currentUser =
+    JSON.parse(localStorage.getItem("glowcart_user")) || null;
+
+let registeredUser =
+    JSON.parse(
+        localStorage.getItem("glowcart_registered_user")
+    ) || null;
 
 
-/* ================= PAGE CONTROL ================= */
+/* ================= FALLBACK PRODUCTS ================= */
+
+const fallbackProducts = [
+
+    {
+        id:1,
+        name:"Glow Radiance Cream",
+        price:299,
+        mrp:399,
+        gst:18,
+        rating:4.5,
+        image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=85",
+        description:"Lightweight daily face cream for a fresh glow."
+    },
+
+    {
+        id:2,
+        name:"Vitamin C Face Cream",
+        price:349,
+        mrp:499,
+        gst:18,
+        rating:4.6,
+        image:"https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=600&q=85",
+        description:"Vitamin C skincare cream for bright-looking skin."
+    },
+
+    {
+        id:3,
+        name:"Aloe Vera Face Cream",
+        price:249,
+        mrp:349,
+        gst:18,
+        rating:4.4,
+        image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=85",
+        description:"Gentle aloe vera cream for everyday moisturization."
+    },
+
+    {
+        id:4,
+        name:"Hydra Moisturizing Cream",
+        price:279,
+        mrp:399,
+        gst:18,
+        rating:4.5,
+        image:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=85",
+        description:"Deep hydration for soft and moisturized skin."
+    },
+
+    {
+        id:5,
+        name:"Rose Glow Cream",
+        price:319,
+        mrp:449,
+        gst:18,
+        rating:4.3,
+        image:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=85",
+        description:"Rose-infused cream for a naturally radiant look."
+    },
+
+    {
+        id:6,
+        name:"Night Repair Cream",
+        price:399,
+        mrp:599,
+        gst:18,
+        rating:4.7,
+        image:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=85",
+        description:"Rich overnight moisturizer for your skincare routine."
+    },
+
+    {
+        id:7,
+        name:"Daily Moisture Cream",
+        price:199,
+        mrp:299,
+        gst:18,
+        rating:4.2,
+        image:"https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=85",
+        description:"Affordable daily moisturizer for soft skin."
+    },
+
+    {
+        id:8,
+        name:"Saffron Glow Cream",
+        price:369,
+        mrp:499,
+        gst:18,
+        rating:4.6,
+        image:"https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=600&q=85",
+        description:"Luxurious saffron skincare for a healthy-looking glow."
+    }
+
+];
+
+let products = [];
+
+
+/* ================= INITIAL LOAD ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        await loadProducts();
+
+        updateCartCount();
+        updateNavigation();
+
+    }
+);
+
+
+/* ================= LOAD PRODUCTS ================= */
+
+async function loadProducts(){
+
+    try{
+
+        const response =
+            await fetch(API + "/api/products");
+
+        if(!response.ok){
+            throw new Error("Product API error");
+        }
+
+        const data =
+            await response.json();
+
+        if(Array.isArray(data) && data.length){
+
+            products =
+                data.map(function(p){
+
+                    const fallback =
+                        fallbackProducts.find(
+                            x => x.id == p.id
+                        );
+
+                    return {
+
+                        id:p.id,
+
+                        name:p.name,
+
+                        price:Number(p.price) || 299,
+
+                        mrp:
+                            fallback
+                            ? fallback.mrp
+                            : Number(p.price) + 100,
+
+                        gst:
+                            fallback
+                            ? fallback.gst
+                            : 18,
+
+                        rating:
+                            fallback
+                            ? fallback.rating
+                            : 4.4,
+
+                        image:
+                            p.image ||
+                            (fallback
+                            ? fallback.image
+                            : fallbackProducts[0].image),
+
+                        description:
+                            p.description ||
+                            (fallback
+                            ? fallback.description
+                            : "Premium skincare product.")
+
+                    };
+
+                });
+
+            /* Add extra affordable products */
+            fallbackProducts.forEach(function(extra){
+
+                if(
+                    !products.some(
+                        p => p.id === extra.id
+                    )
+                ){
+                    products.push(extra);
+                }
+
+            });
+
+        }
+        else{
+
+            products = fallbackProducts;
+
+        }
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        products = fallbackProducts;
+
+    }
+
+    renderProducts();
+
+}
+
+
+/* ================= NAVIGATION ================= */
 
 function hideAllPages(){
 
-    document.querySelectorAll(".page")
-    .forEach(page => page.classList.remove("active"));
+    document.querySelector(".home").style.display="none";
+    document.querySelector(".features").style.display="none";
 
+    document.querySelectorAll(".page")
+        .forEach(
+            p => p.classList.remove("active")
+        );
+
+    document.querySelectorAll(".auth-page")
+        .forEach(
+            p => p.classList.remove("active")
+        );
 }
 
 
@@ -1296,8 +1585,8 @@ function showHome(){
 
     hideAllPages();
 
-    document.getElementById("homePage")
-    .classList.add("active");
+    document.querySelector(".home").style.display="flex";
+    document.querySelector(".features").style.display="flex";
 
     window.scrollTo(0,0);
 }
@@ -1307,8 +1596,9 @@ function showRegister(){
 
     hideAllPages();
 
-    document.getElementById("registerPage")
-    .classList.add("active");
+    document
+        .getElementById("registerPage")
+        .classList.add("active");
 
     window.scrollTo(0,0);
 }
@@ -1318,8 +1608,9 @@ function showLogin(){
 
     hideAllPages();
 
-    document.getElementById("loginPage")
-    .classList.add("active");
+    document
+        .getElementById("loginPage")
+        .classList.add("active");
 
     window.scrollTo(0,0);
 }
@@ -1329,31 +1620,13 @@ function showProducts(){
 
     hideAllPages();
 
-    document.getElementById("productsPage")
-    .classList.add("active");
+    document
+        .getElementById("productsPage")
+        .classList.add("active");
 
     renderProducts();
 
     window.scrollTo(0,0);
-}
-
-
-function startShopping(){
-
-    if(!currentUser){
-
-        showPopup(
-            "🔐",
-            "Login Required",
-            "Please login or create your GlowCart account before shopping."
-        );
-
-        setTimeout(showLogin,1200);
-
-        return;
-    }
-
-    showProducts();
 }
 
 
@@ -1364,16 +1637,32 @@ async function registerUser(event){
     event.preventDefault();
 
     const name =
-        document.getElementById("regName").value.trim();
+        document.getElementById("regName")
+        .value.trim();
 
     const email =
-        document.getElementById("regEmail").value.trim();
+        document.getElementById("regEmail")
+        .value.trim();
 
     const mobile =
-        document.getElementById("regMobile").value.trim();
+        document.getElementById("regMobile")
+        .value.trim();
 
     const password =
-        document.getElementById("regPassword").value;
+        document.getElementById("regPassword")
+        .value;
+
+
+    if(mobile.length !== 10){
+
+        showPopup(
+            "⚠️",
+            "Invalid Mobile",
+            "Please enter a valid 10 digit mobile number."
+        );
+
+        return;
+    }
 
 
     const user = {
@@ -1387,17 +1676,20 @@ async function registerUser(event){
     try{
 
         const response =
-            await fetch(API_BASE + "/api/register",{
+            await fetch(
+                API + "/api/register",
+                {
+                    method:"POST",
 
-                method:"POST",
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                headers:{
-                    "Content-Type":"application/json"
-                },
-
-                body:JSON.stringify(user)
-
-            });
+                    body:
+                        JSON.stringify(user)
+                }
+            );
 
 
         const data =
@@ -1406,68 +1698,65 @@ async function registerUser(event){
 
         if(!response.ok || data.success === false){
 
-            showPopup(
-                "❌",
-                "Registration Failed",
-                data.message || "Unable to create your account."
+            throw new Error(
+                data.message ||
+                "Registration failed"
             );
 
-            return;
         }
 
 
-        /*
-          Keep frontend login data because existing backend
-          does not provide a user authentication session.
-        */
+        /* Save registration locally */
 
         localStorage.setItem(
             "glowcart_registered_user",
             JSON.stringify(user)
         );
+
+        registeredUser = user;
+
+
+        document
+            .querySelector("#registerPage form")
+            .reset();
 
 
         showPopup(
             "🎉",
             "Registration Successful!",
-            "Your GlowCart account has been created. A registration confirmation has been sent to your email."
+            "Your account has been created. A welcome email has been sent to " +
+            email +
+            ". Please login to continue."
         );
 
 
-        event.target.reset();
+        /* IMPORTANT:
+           Registration does NOT directly login.
+           User must login again. */
 
+        setTimeout(
+            function(){
+                showLogin();
 
-        setTimeout(function(){
+                document
+                    .getElementById("loginEmail")
+                    .value = email;
 
-            showLogin();
-
-        },2200);
-
-
-    }catch(error){
-
-        /*
-          Fallback for static frontend testing.
-          Email requires the backend to be running.
-        */
-
-        localStorage.setItem(
-            "glowcart_registered_user",
-            JSON.stringify(user)
+            },
+            2200
         );
 
+    }
+    catch(error){
+
+        console.error(error);
 
         showPopup(
-            "⚠️",
-            "Account Saved",
-            "Your account was saved in this browser. Start the backend to send the registration email."
+            "❌",
+            "Registration Error",
+            "Unable to register right now. Please try again."
         );
 
-
-        event.target.reset();
-
-
-        setTimeout(showLogin,2200);
     }
 
 }
@@ -1480,33 +1769,50 @@ async function loginUser(event){
     event.preventDefault();
 
     const email =
-        document.getElementById("loginEmail").value.trim();
+        document
+            .getElementById("loginEmail")
+            .value.trim();
 
     const password =
-        document.getElementById("loginPassword").value;
+        document
+            .getElementById("loginPassword")
+            .value;
 
 
-    const registeredUser =
+    const savedUser =
         JSON.parse(
-            localStorage.getItem("glowcart_registered_user") || "null"
+            localStorage.getItem(
+                "glowcart_registered_user"
+            )
         );
 
 
-    if(!registeredUser){
+    if(!savedUser){
 
         showPopup(
             "⚠️",
             "Account Not Found",
-            "Please create your GlowCart account first."
+            "Please register for GlowCart first."
+        );
+
+        setTimeout(
+            showRegister,
+            1200
         );
 
         return;
     }
 
 
+    /*
+     * Frontend validation is used because
+     * the existing backend login endpoint
+     * does not actually validate stored users.
+     */
+
     if(
-        email !== registeredUser.email ||
-        password !== registeredUser.password
+        email !== savedUser.email ||
+        password !== savedUser.password
     ){
 
         showPopup(
@@ -1519,83 +1825,87 @@ async function loginUser(event){
     }
 
 
-    const loginData = {
-        name:registeredUser.name,
-        email:email,
-        password:password
-    };
-
-
     try{
 
         const response =
-            await fetch(API_BASE + "/api/login",{
+            await fetch(
+                API + "/api/login",
+                {
+                    method:"POST",
 
-                method:"POST",
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                headers:{
-                    "Content-Type":"application/json"
-                },
-
-                body:JSON.stringify(loginData)
-
-            });
+                    body:
+                        JSON.stringify({
+                            name:savedUser.name,
+                            email:email,
+                            password:password
+                        })
+                }
+            );
 
 
         const data =
             await response.json();
 
 
-        if(!response.ok || data.success === false){
+        if(!response.ok){
 
-            showPopup(
-                "❌",
-                "Login Failed",
-                data.message || "Unable to login."
+            throw new Error(
+                data.message ||
+                "Login failed"
             );
 
-            return;
         }
 
-    }catch(error){
 
-        /*
-          Local frontend fallback.
-          Backend must be running for login email.
-        */
+        currentUser = savedUser;
+
+
+        localStorage.setItem(
+            "glowcart_user",
+            JSON.stringify(savedUser)
+        );
+
+
+        updateNavigation();
+
+
+        showPopup(
+            "💖",
+            "Login Successful!",
+            "Welcome back, " +
+            savedUser.name +
+            "! Happy shopping at GlowCart."
+        );
+
+
+        document
+            .getElementById("loginPage")
+            .querySelector("form")
+            .reset();
+
+
+        setTimeout(
+            showProducts,
+            1600
+        );
 
     }
+    catch(error){
 
+        console.error(error);
 
-    currentUser = registeredUser;
+        showPopup(
+            "❌",
+            "Login Error",
+            "Unable to connect to GlowCart. Please try again."
+        );
 
-
-    localStorage.setItem(
-        "glowcart_user",
-        JSON.stringify(currentUser)
-    );
-
-
-    updateNavigation();
-
-
-    showPopup(
-        "💖",
-        "Login Successful!",
-        "Welcome back, " +
-        currentUser.name +
-        "! You can now start shopping."
-    );
-
-
-    event.target.reset();
-
-
-    setTimeout(function(){
-
-        showProducts();
-
-    },1600);
+    }
 
 }
 
@@ -1606,37 +1916,50 @@ function logout(){
 
     currentUser = null;
 
-    localStorage.removeItem("glowcart_user");
+    localStorage.removeItem(
+        "glowcart_user"
+    );
 
     updateNavigation();
 
     showPopup(
         "👋",
-        "Logged Out Successfully",
-        "Thank you for shopping with GlowCart. See you again soon!"
+        "Logged Out",
+        "Thank you for shopping with GlowCart!"
     );
 
-    setTimeout(showHome,1200);
+    setTimeout(
+        showHome,
+        1200
+    );
+
 }
 
 
-/* ================= NAVIGATION ================= */
+/* ================= NAVIGATION STATE ================= */
 
 function updateNavigation(){
 
-    document.getElementById("loginNav").style.display =
-        currentUser ? "none" : "block";
+    const login =
+        document.getElementById("loginNav");
 
-    document.getElementById("registerNav").style.display =
-        currentUser ? "none" : "block";
+    const logoutButton =
+        document.getElementById("logoutNav");
 
-    document.getElementById("logoutNav").style.display =
-        currentUser ? "block" : "none";
 
-    document.getElementById("ordersNav").style.display =
-        currentUser ? "block" : "none";
+    if(currentUser){
 
-    updateCartCount();
+        login.style.display="none";
+        logoutButton.style.display="block";
+
+    }
+    else{
+
+        login.style.display="block";
+        logoutButton.style.display="none";
+
+    }
+
 }
 
 
@@ -1654,59 +1977,55 @@ function renderProducts(){
 
     products.forEach(function(product){
 
+        const gstAmount =
+            product.price *
+            Number(product.gst || 18) /
+            100;
+
+
         container.innerHTML += `
 
-        <div class="product-card">
+            <div class="product-card">
 
-            <span class="tag">
-                ${product.tag || "SPECIAL"}
-            </span>
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                    onerror="this.src='https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=85'"
+                >
 
-            <img
-                src="${product.image}"
-                alt="${product.name}"
-            >
-
-            <h3>${product.name}</h3>
-
-            <div class="rating">
-                ★★★★★
-                <span style="color:#777;font-size:12px;">
-                    ${product.rating || 4.5}
-                </span>
-            </div>
-
-            <p class="product-desc">
-                ${product.description || "Quality skincare product from GlowCart."}
-            </p>
-
-            <div class="price-row">
-
-                <div>
-                    <span class="price">
-                        ₹${product.price}
-                    </span>
-
-                    <span class="old-price">
-                        ₹${product.oldPrice || product.price + 150}
-                    </span>
+                <div class="rating">
+                    ⭐ ${product.rating || 4.4}
                 </div>
 
+                <h3>
+                    ${product.name}
+                </h3>
+
+                <p class="product-description">
+                    ${product.description}
+                </p>
+
+                <div class="mrp">
+                    MRP ₹${product.mrp}
+                </div>
+
+                <div class="price">
+                    ₹${product.price}
+                </div>
+
+                <div class="gst">
+                    Inclusive of GST (${product.gst}%)
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addToCart(${product.id})">
+
+                    🛒 Add to Cart
+
+                </button>
+
             </div>
-
-            <small style="color:#777;">
-                GST ${product.gst || 18}% applicable
-            </small>
-
-            <button
-                class="add-btn"
-                onclick="addToCart(${product.id})">
-
-                🛒 Add to Cart
-
-            </button>
-
-        </div>
 
         `;
 
@@ -1715,7 +2034,7 @@ function renderProducts(){
 }
 
 
-/* ================= CART ================= */
+/* ================= ADD CART ================= */
 
 function addToCart(id){
 
@@ -1727,28 +2046,36 @@ function addToCart(id){
             "Please login before adding products to your cart."
         );
 
-        setTimeout(showLogin,1200);
+        setTimeout(
+            showLogin,
+            1200
+        );
 
         return;
     }
 
 
     const product =
-        products.find(p => p.id == id);
+        products.find(
+            p => p.id == id
+        );
 
 
     if(!product) return;
 
 
     const existing =
-        cart.find(item => item.id == id);
+        cart.find(
+            item => item.id == id
+        );
 
 
     if(existing){
 
         existing.quantity++;
 
-    }else{
+    }
+    else{
 
         cart.push({
 
@@ -1756,8 +2083,8 @@ function addToCart(id){
             name:product.name,
             price:Number(product.price),
             image:product.image,
-            gst:Number(product.gst || 18),
-            quantity:1
+            quantity:1,
+            gst:Number(product.gst || 18)
 
         });
 
@@ -1765,18 +2092,20 @@ function addToCart(id){
 
 
     saveCart();
-
     updateCartCount();
 
 
     showPopup(
         "🛒",
         "Added to Cart!",
-        product.name + " has been added to your shopping cart."
+        product.name +
+        " has been added to your cart."
     );
 
 }
 
+
+/* ================= CART STORAGE ================= */
 
 function saveCart(){
 
@@ -1788,17 +2117,21 @@ function saveCart(){
 }
 
 
+/* ================= CART COUNT ================= */
+
 function updateCartCount(){
 
     const count =
         cart.reduce(
             (total,item) =>
-            total + Number(item.quantity),
+                total + Number(item.quantity),
             0
         );
 
-    document.getElementById("cartCount")
-    .innerText = count;
+
+    document
+        .getElementById("cartCount")
+        .innerText = count;
 
 }
 
@@ -1812,10 +2145,13 @@ function showCart(){
         showPopup(
             "🔐",
             "Login Required",
-            "Please login to view your shopping cart."
+            "Please login to view your cart."
         );
 
-        setTimeout(showLogin,1000);
+        setTimeout(
+            showLogin,
+            900
+        );
 
         return;
     }
@@ -1823,12 +2159,14 @@ function showCart(){
 
     hideAllPages();
 
-    document.getElementById("cartPage")
-    .classList.add("active");
+    document
+        .getElementById("cartPage")
+        .classList.add("active");
 
     renderCart();
 
     window.scrollTo(0,0);
+
 }
 
 
@@ -1847,25 +2185,30 @@ function renderCart(){
 
         container.innerHTML = `
 
-        <div class="empty">
+            <div class="empty">
 
-            <div class="empty-icon">🛒</div>
+                <div class="empty-icon">
+                    🛒
+                </div>
 
-            <h2>Your cart is empty</h2>
+                <h2>Your cart is empty</h2>
 
-            <p style="color:#777;margin:12px 0 22px;">
-                Add some beautiful skincare products.
-            </p>
+                <p style="
+                    margin:10px 0 20px;
+                    color:#777;
+                ">
+                    Add some beautiful skincare products.
+                </p>
 
-            <button
-                class="primary-btn"
-                onclick="showProducts()">
+                <button
+                    class="shop-button"
+                    onclick="showProducts()">
 
-                Start Shopping
+                    Start Shopping
 
-            </button>
+                </button>
 
-        </div>
+            </div>
 
         `;
 
@@ -1878,47 +2221,60 @@ function renderCart(){
     container.innerHTML = "";
 
 
-    cart.forEach(function(item){
+    cart.forEach(function(item,index){
 
         container.innerHTML += `
 
-        <div class="cart-item">
+            <div class="cart-item">
 
-            <img src="${item.image}" alt="${item.name}">
+                <img
+                    src="${item.image}"
+                    alt="${item.name}"
+                >
 
-            <div>
+                <div class="cart-info">
 
-                <h3>${item.name}</h3>
+                    <h3>
+                        ${item.name}
+                    </h3>
 
-                <div class="cart-price">
-                    ₹${item.price}
+                    <div class="cart-price">
+                        ₹${item.price}
+                    </div>
+
+                    <small>
+                        GST: ${item.gst || 18}%
+                    </small>
+
                 </div>
 
-            </div>
+                <div class="qty">
 
-            <div class="qty">
+                    <button
+                        onclick="changeQuantity(${index},-1)">
+                        −
+                    </button>
 
-                <button onclick="changeQuantity(${item.id},-1)">
-                    −
+                    <strong>
+                        ${item.quantity}
+                    </strong>
+
+                    <button
+                        onclick="changeQuantity(${index},1)">
+                        +
+                    </button>
+
+                </div>
+
+                <button
+                    class="remove"
+                    onclick="removeFromCart(${index})">
+
+                    Remove
+
                 </button>
 
-                <strong>${item.quantity}</strong>
-
-                <button onclick="changeQuantity(${item.id},1)">
-                    +
-                </button>
-
             </div>
-
-            <button
-                class="remove-btn"
-                onclick="removeFromCart(${item.id})">
-
-                Remove
-
-            </button>
-
-        </div>
 
         `;
 
@@ -1926,30 +2282,13 @@ function renderCart(){
 
 
     const subtotal =
-        cart.reduce(
-            (sum,item) =>
-            sum + Number(item.price) * Number(item.quantity),
-            0
-        );
-
+        calculateSubtotal();
 
     const gst =
-        cart.reduce(
-            (sum,item) =>
-            sum +
-            (
-                Number(item.price) *
-                Number(item.quantity) *
-                Number(item.gst || 18) /
-                100
-            ),
-            0
-        );
-
+        calculateGST();
 
     const delivery =
         subtotal >= 499 ? 0 : 40;
-
 
     const total =
         subtotal + gst + delivery;
@@ -1957,119 +2296,135 @@ function renderCart(){
 
     summary.innerHTML = `
 
-    <div class="card">
+        <div class="summary">
 
-        <h2 style="color:#7b1fa2;margin-bottom:15px;">
-            Price Details
-        </h2>
+            <div class="row">
+                <span>Subtotal</span>
+                <strong>₹${subtotal.toFixed(2)}</strong>
+            </div>
 
-        <div class="summary-row">
-            <span>Items</span>
-            <strong>${cart.reduce((s,i)=>s+i.quantity,0)}</strong>
+            <div class="row">
+                <span>GST</span>
+                <strong>₹${gst.toFixed(2)}</strong>
+            </div>
+
+            <div class="row">
+                <span>Delivery</span>
+                <strong>
+                    ${delivery === 0
+                        ? "FREE"
+                        : "₹" + delivery}
+                </strong>
+            </div>
+
+            <div class="row grand-total">
+                <span>Total</span>
+                <strong>
+                    ₹${total.toFixed(2)}
+                </strong>
+            </div>
+
+            <button
+                class="primary-btn"
+                onclick="goCheckout()">
+
+                Proceed to Checkout →
+
+            </button>
+
         </div>
-
-        <div class="summary-row">
-            <span>Subtotal</span>
-            <strong>₹${subtotal.toFixed(2)}</strong>
-        </div>
-
-        <div class="summary-row">
-            <span>GST</span>
-            <strong>₹${gst.toFixed(2)}</strong>
-        </div>
-
-        <div class="summary-row">
-            <span>Delivery</span>
-
-            <strong style="color:#2e7d32;">
-                ${delivery === 0 ? "FREE" : "₹"+delivery}
-            </strong>
-        </div>
-
-        <div class="summary-total">
-            <span>Total</span>
-            <span>₹${total.toFixed(2)}</span>
-        </div>
-
-        <button
-            class="checkout-btn"
-            onclick="goToCheckout()">
-
-            Proceed to Checkout →
-
-        </button>
-
-    </div>
 
     `;
 
 }
 
 
+/* ================= CART CALCULATIONS ================= */
+
+function calculateSubtotal(){
+
+    return cart.reduce(
+        (sum,item) =>
+            sum +
+            Number(item.price) *
+            Number(item.quantity),
+        0
+    );
+
+}
+
+
+function calculateGST(){
+
+    return cart.reduce(
+        (sum,item) => {
+
+            const itemSubtotal =
+                Number(item.price) *
+                Number(item.quantity);
+
+            const gstRate =
+                Number(item.gst || 18);
+
+            return sum +
+                itemSubtotal *
+                gstRate /
+                100;
+
+        },
+        0
+    );
+
+}
+
+
 /* ================= QUANTITY ================= */
 
-function changeQuantity(id,change){
+function changeQuantity(index,change){
 
-    const item =
-        cart.find(i => i.id == id);
-
-    if(!item) return;
+    cart[index].quantity += change;
 
 
-    item.quantity += change;
+    if(cart[index].quantity <= 0){
 
-
-    if(item.quantity <= 0){
-
-        cart =
-            cart.filter(i => i.id != id);
+        cart.splice(index,1);
 
     }
 
 
     saveCart();
-
     updateCartCount();
-
     renderCart();
+
 }
 
 
 /* ================= REMOVE ================= */
 
-function removeFromCart(id){
+function removeFromCart(index){
 
-    const item =
-        cart.find(i => i.id == id);
+    const name =
+        cart[index].name;
 
-
-    cart =
-        cart.filter(i => i.id != id);
-
+    cart.splice(index,1);
 
     saveCart();
-
     updateCartCount();
-
     renderCart();
 
 
-    if(item){
-
-        showPopup(
-            "🗑️",
-            "Removed from Cart",
-            item.name + " was removed from your cart."
-        );
-
-    }
+    showPopup(
+        "🗑️",
+        "Removed",
+        name + " was removed from your cart."
+    );
 
 }
 
 
 /* ================= CHECKOUT ================= */
 
-function goToCheckout(){
+function goCheckout(){
 
     if(cart.length === 0){
 
@@ -2083,66 +2438,127 @@ function goToCheckout(){
     }
 
 
-    hideAllPages();
+    if(!currentUser){
 
-    document.getElementById("checkoutPage")
-    .classList.add("active");
+        showLogin();
 
-
-    if(currentUser){
-
-        document.getElementById("orderName").value =
-            currentUser.name || "";
-
-        document.getElementById("orderMobile").value =
-            currentUser.mobile || "";
-
+        return;
     }
 
 
-    renderAddresses();
+    hideAllPages();
 
+    document
+        .getElementById("checkoutPage")
+        .classList.add("active");
+
+
+    renderAddresses();
     renderCheckoutSummary();
 
     window.scrollTo(0,0);
+
 }
 
 
 /* ================= ADDRESS ================= */
 
-function showAddressForm(){
+function getUserAddresses(){
 
-    document.getElementById("addressForm")
-    .style.display = "block";
+    if(!currentUser){
+        return [];
+    }
+
+
+    return addresses.filter(
+        a =>
+            a.email ===
+            currentUser.email
+    );
+
+}
+
+
+function saveAddresses(){
+
+    localStorage.setItem(
+        "glowcart_addresses",
+        JSON.stringify(addresses)
+    );
+
+}
+
+
+function toggleAddressForm(){
+
+    const form =
+        document.getElementById("addressForm");
+
+    form.classList.toggle("show");
 
 }
 
 
 function saveNewAddress(){
 
+    if(!currentUser){
+
+        showLogin();
+
+        return;
+    }
+
+
+    const name =
+        document
+            .getElementById("addressName")
+            .value.trim();
+
+    const phone =
+        document
+            .getElementById("addressPhone")
+            .value.trim();
+
     const address =
-        document.getElementById("orderAddress")
-        .value.trim();
+        document
+            .getElementById("addressText")
+            .value.trim();
 
     const city =
-        document.getElementById("orderCity")
-        .value.trim();
-
-    const state =
-        document.getElementById("orderState")
-        .value.trim();
+        document
+            .getElementById("addressCity")
+            .value.trim();
 
     const pincode =
-        document.getElementById("orderPincode")
-        .value.trim();
+        document
+            .getElementById("addressPincode")
+            .value.trim();
 
 
-    if(!address || !city || !state){
+    if(
+        !name ||
+        !phone ||
+        !address ||
+        !city ||
+        !pincode
+    ){
 
         showPopup(
             "⚠️",
-            "Address Required",
-            "Please enter your complete address."
+            "Incomplete Address",
+            "Please fill all address fields."
+        );
+
+        return;
+    }
+
+
+    if(!/^[0-9]{10}$/.test(phone)){
+
+        showPopup(
+            "⚠️",
+            "Invalid Mobile",
+            "Enter a valid 10 digit mobile number."
         );
 
         return;
@@ -2154,7 +2570,7 @@ function saveNewAddress(){
         showPopup(
             "⚠️",
             "Invalid Pincode",
-            "Please enter a valid 6 digit pincode."
+            "Enter a valid 6 digit pincode."
         );
 
         return;
@@ -2163,9 +2579,17 @@ function saveNewAddress(){
 
     const newAddress = {
 
+        id:
+            "ADDR" +
+            Date.now(),
+
+        email:
+            currentUser.email,
+
+        name,
+        phone,
         address,
         city,
-        state,
         pincode
 
     };
@@ -2173,31 +2597,33 @@ function saveNewAddress(){
 
     addresses.push(newAddress);
 
-
-    selectedAddressIndex =
-        addresses.length - 1;
+    saveAddresses();
 
 
-    localStorage.setItem(
-        "glowcart_addresses",
-        JSON.stringify(addresses)
-    );
+    document
+        .getElementById("addressForm")
+        .classList.remove("show");
 
 
-    localStorage.setItem(
-        "glowcart_selected_address",
-        selectedAddressIndex
-    );
+    document
+        .getElementById("addressName")
+        .value = "";
 
+    document
+        .getElementById("addressPhone")
+        .value = "";
 
-    document.getElementById("addressForm")
-    .style.display = "none";
+    document
+        .getElementById("addressText")
+        .value = "";
 
+    document
+        .getElementById("addressCity")
+        .value = "";
 
-    document.getElementById("orderAddress").value = "";
-    document.getElementById("orderCity").value = "";
-    document.getElementById("orderState").value = "";
-    document.getElementById("orderPincode").value = "";
+    document
+        .getElementById("addressPincode")
+        .value = "";
 
 
     renderAddresses();
@@ -2205,35 +2631,44 @@ function saveNewAddress(){
 
     showPopup(
         "📍",
-        "Address Saved",
-        "Your delivery address has been saved permanently in this browser."
+        "Address Saved!",
+        "Your address has been saved permanently on this browser."
     );
 
 }
 
 
+/* ================= RENDER ADDRESSES ================= */
+
 function renderAddresses(){
 
     const container =
-        document.getElementById("savedAddresses");
+        document.getElementById(
+            "savedAddresses"
+        );
+
+    const userAddresses =
+        getUserAddresses();
 
 
-    if(addresses.length === 0){
+    if(userAddresses.length === 0){
 
         container.innerHTML = `
 
-        <div style="
-            background:#fff5f9;
-            padding:15px;
-            border-radius:12px;
-            color:#777;
-            margin-bottom:15px;
-        ">
+            <div class="empty"
+                 style="padding:30px">
 
-            No saved address yet.
-            Please add your delivery address.
+                <div style="font-size:40px">
+                    📍
+                </div>
 
-        </div>
+                <h3>No saved address</h3>
+
+                <p style="color:#777;margin-top:8px">
+                    Add your delivery address below.
+                </p>
+
+            </div>
 
         `;
 
@@ -2241,46 +2676,67 @@ function renderAddresses(){
     }
 
 
+    const selectedId =
+        localStorage.getItem(
+            "glowcart_selected_address"
+        );
+
+
     container.innerHTML = "";
 
 
-    addresses.forEach(function(addr,index){
+    userAddresses.forEach(function(addr){
+
+        const selected =
+            selectedId === addr.id;
+
 
         container.innerHTML += `
 
-        <div
-            class="address-box
-            ${index === selectedAddressIndex ? "selected" : ""}"
-            onclick="selectAddress(${index})">
+            <div
+                class="address-card
+                ${selected ? "selected" : ""}"
+                onclick="selectAddress('${addr.id}')">
 
-            <strong>
-                ${index === 0 ? "📍 Default Address" : "📌 Address "+(index+1)}
-            </strong>
+                <strong>
+                    📍 ${addr.name}
+                </strong>
 
-            <p style="margin-top:8px;color:#666;">
-                ${addr.address}<br>
-                ${addr.city}, ${addr.state} - ${addr.pincode}
-            </p>
+                <p>
+                    ${addr.address}<br>
+                    ${addr.city} -
+                    ${addr.pincode}<br>
+                    📞 ${addr.phone}
+                </p>
 
-            <div class="address-actions">
+                <div class="address-actions">
 
-                ${
-                    index === selectedAddressIndex
-                    ? '<span style="color:#2e7d32;font-weight:bold;">✓ Selected</span>'
-                    : '<span style="color:#777;">Click to select</span>'
-                }
+                    ${
+                        selected
+                        ? `<button
+                            class="small-btn"
+                            type="button">
+                            ✓ Selected
+                           </button>`
+                        : `<button
+                            class="small-btn"
+                            type="button">
+                            Select Address
+                           </button>`
+                    }
 
-                <button
-                    class="small-btn"
-                    onclick="event.stopPropagation();deleteAddress(${index})">
+                    <button
+                        class="small-btn delete-btn"
+                        onclick="event.stopPropagation();
+                                 deleteAddress('${addr.id}')">
 
-                    Delete
+                        Delete
 
-                </button>
+                    </button>
+
+                </div>
 
             </div>
-
-        </div>
 
         `;
 
@@ -2289,19 +2745,16 @@ function renderAddresses(){
 }
 
 
-function selectAddress(index){
+/* ================= SELECT ADDRESS ================= */
 
-    selectedAddressIndex = index;
-
+function selectAddress(id){
 
     localStorage.setItem(
         "glowcart_selected_address",
-        index
+        id
     );
 
-
     renderAddresses();
-
 
     showPopup(
         "📍",
@@ -2312,32 +2765,56 @@ function selectAddress(index){
 }
 
 
-function deleteAddress(index){
+/* ================= DELETE ADDRESS ================= */
 
-    addresses.splice(index,1);
+function deleteAddress(id){
+
+    addresses =
+        addresses.filter(
+            a => a.id !== id
+        );
 
 
-    if(selectedAddressIndex >= addresses.length){
+    saveAddresses();
 
-        selectedAddressIndex =
-            Math.max(0,addresses.length-1);
+
+    const selected =
+        localStorage.getItem(
+            "glowcart_selected_address"
+        );
+
+
+    if(selected === id){
+
+        localStorage.removeItem(
+            "glowcart_selected_address"
+        );
 
     }
 
 
-    localStorage.setItem(
-        "glowcart_addresses",
-        JSON.stringify(addresses)
-    );
-
-
-    localStorage.setItem(
-        "glowcart_selected_address",
-        selectedAddressIndex
-    );
-
-
     renderAddresses();
+
+}
+
+
+/* ================= GET SELECTED ADDRESS ================= */
+
+function getSelectedAddress(){
+
+    const selectedId =
+        localStorage.getItem(
+            "glowcart_selected_address"
+        );
+
+
+    const userAddresses =
+        getUserAddresses();
+
+
+    return userAddresses.find(
+        a => a.id === selectedId
+    );
 
 }
 
@@ -2347,90 +2824,77 @@ function deleteAddress(index){
 function renderCheckoutSummary(){
 
     const container =
-        document.getElementById("checkoutSummary");
+        document.getElementById(
+            "checkoutSummary"
+        );
 
 
     const subtotal =
-        cart.reduce(
-            (sum,item) =>
-            sum + item.price * item.quantity,
-            0
-        );
-
+        calculateSubtotal();
 
     const gst =
-        cart.reduce(
-            (sum,item) =>
-            sum +
-            item.price *
-            item.quantity *
-            (item.gst || 18) / 100,
-            0
-        );
-
+        calculateGST();
 
     const delivery =
         subtotal >= 499 ? 0 : 40;
-
 
     const total =
         subtotal + gst + delivery;
 
 
-    let html = "";
+    container.innerHTML = `
 
+        ${cart.map(
+            item => `
 
-    cart.forEach(function(item){
+                <div class="row">
 
-        html += `
+                    <span>
+                        ${item.name}
+                        × ${item.quantity}
+                    </span>
 
-        <div class="summary-row">
+                    <strong>
+                        ₹${(
+                            item.price *
+                            item.quantity
+                        ).toFixed(2)}
+                    </strong>
 
-            <span>
-                ${item.name} × ${item.quantity}
-            </span>
+                </div>
 
-            <strong>
-                ₹${(item.price * item.quantity).toFixed(2)}
-            </strong>
+            `
+        ).join("")}
 
+        <hr style="margin:15px 0;border:none;border-top:1px solid #ddd">
+
+        <div class="row">
+            <span>Subtotal</span>
+            <strong>₹${subtotal.toFixed(2)}</strong>
         </div>
 
-        `;
+        <div class="row">
+            <span>GST</span>
+            <strong>₹${gst.toFixed(2)}</strong>
+        </div>
 
-    });
+        <div class="row">
+            <span>Delivery</span>
+            <strong>
+                ${delivery === 0
+                    ? "FREE"
+                    : "₹" + delivery}
+            </strong>
+        </div>
 
-
-    html += `
-
-    <hr style="border:0;border-top:1px solid #eee;margin:10px 0;">
-
-    <div class="summary-row">
-        <span>Subtotal</span>
-        <strong>₹${subtotal.toFixed(2)}</strong>
-    </div>
-
-    <div class="summary-row">
-        <span>GST</span>
-        <strong>₹${gst.toFixed(2)}</strong>
-    </div>
-
-    <div class="summary-row">
-        <span>Delivery</span>
-        <strong>
-            ${delivery === 0 ? "FREE" : "₹"+delivery}
-        </strong>
-    </div>
-
-    <div class="summary-total">
-        <span>Total</span>
-        <span>₹${total.toFixed(2)}</span>
-    </div>
+        <div class="row grand-total">
+            <span>Total</span>
+            <strong>
+                ₹${total.toFixed(2)}
+            </strong>
+        </div>
 
     `;
-
-
-    container.innerHTML = html;
 
 }
 
@@ -2439,59 +2903,20 @@ function renderCheckoutSummary(){
 
 async function placeOrder(){
 
+    if(!currentUser){
+
+        showLogin();
+
+        return;
+    }
+
+
     if(cart.length === 0){
 
         showPopup(
             "🛒",
             "Cart Empty",
-            "Please add products first."
-        );
-
-        return;
-    }
-
-
-    if(addresses.length === 0){
-
-        showPopup(
-            "📍",
-            "Address Required",
-            "Please add at least one delivery address."
-        );
-
-        showAddressForm();
-
-        return;
-    }
-
-
-    const name =
-        document.getElementById("orderName")
-        .value.trim();
-
-    const mobile =
-        document.getElementById("orderMobile")
-        .value.trim();
-
-
-    if(!name){
-
-        showPopup(
-            "⚠️",
-            "Name Required",
-            "Please enter your name."
-        );
-
-        return;
-    }
-
-
-    if(!/^[0-9]{10}$/.test(mobile)){
-
-        showPopup(
-            "⚠️",
-            "Invalid Mobile",
-            "Please enter a valid 10 digit mobile number."
+            "Please add products before placing an order."
         );
 
         return;
@@ -2499,7 +2924,7 @@ async function placeOrder(){
 
 
     const address =
-        addresses[selectedAddressIndex];
+        getSelectedAddress();
 
 
     if(!address){
@@ -2507,7 +2932,7 @@ async function placeOrder(){
         showPopup(
             "📍",
             "Select Address",
-            "Please select a delivery address."
+            "Please select or add a delivery address."
         );
 
         return;
@@ -2521,27 +2946,13 @@ async function placeOrder(){
 
 
     const subtotal =
-        cart.reduce(
-            (sum,item) =>
-            sum + item.price * item.quantity,
-            0
-        );
-
+        calculateSubtotal();
 
     const gst =
-        cart.reduce(
-            (sum,item) =>
-            sum +
-            item.price *
-            item.quantity *
-            (item.gst || 18) / 100,
-            0
-        );
-
+        calculateGST();
 
     const delivery =
         subtotal >= 499 ? 0 : 40;
-
 
     const total =
         subtotal + gst + delivery;
@@ -2549,194 +2960,186 @@ async function placeOrder(){
 
     const orderId =
         "GC" +
-        Date.now().toString().slice(-8);
+        Date.now();
 
 
-    /*
-       This object matches the existing backend.
-       server.js expects:
-       customer, items, total, orderId, payment
-    */
+    const customer = {
 
-    const backendOrder = {
+        name:
+            address.name,
 
-        customer:{
+        email:
+            currentUser.email,
 
-            name:name,
+        phone:
+            address.phone,
 
-            email:currentUser.email,
+        address:
+            address.address,
 
-            phone:mobile,
+        city:
+            address.city,
 
-            address:address.address,
-
-            city:address.city,
-
-            state:address.state,
-
-            pincode:address.pincode
-
-        },
-
-        items:cart.map(item => ({
-
-            id:item.id,
-
-            name:item.name,
-
-            price:item.price,
-
-            image:item.image,
-
-            quantity:item.quantity
-
-        })),
-
-        total:total.toFixed(2),
-
-        orderId:orderId,
-
-        payment:payment
+        pincode:
+            address.pincode
 
     };
 
 
-    let backendSuccess = false;
+    const items =
+        cart.map(function(item){
+
+            return {
+
+                id:item.id,
+
+                name:item.name,
+
+                price:
+                    "₹" +
+                    item.price,
+
+                quantity:
+                    item.quantity
+
+            };
+
+        });
+
+
+    const orderData = {
+
+        customer,
+
+        items,
+
+        total:
+            total.toFixed(2),
+
+        orderId,
+
+        payment
+
+    };
 
 
     try{
 
+        showPopup(
+            "⏳",
+            "Placing Order...",
+            "Please wait while we confirm your order."
+        );
+
+
         const response =
-            await fetch(API_BASE + "/api/orders",{
+            await fetch(
+                API + "/api/orders",
+                {
+                    method:"POST",
 
-                method:"POST",
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                headers:{
-                    "Content-Type":"application/json"
-                },
-
-                body:JSON.stringify(backendOrder)
-
-            });
+                    body:
+                        JSON.stringify(orderData)
+                }
+            );
 
 
         const data =
             await response.json();
 
 
-        if(!response.ok || data.success === false){
+        if(!response.ok ||
+           data.success === false){
 
-            showPopup(
-                "❌",
-                "Order Failed",
-                data.message || "Unable to place the order."
+            throw new Error(
+                data.message ||
+                "Order failed"
             );
 
-            return;
         }
 
 
-        backendSuccess = true;
+        const savedOrder = {
+
+            id:orderId,
+
+            customer,
+
+            items,
+
+            subtotal:
+                subtotal.toFixed(2),
+
+            gst:
+                gst.toFixed(2),
+
+            delivery,
+
+            total:
+                total.toFixed(2),
+
+            payment,
+
+            status:
+                "Order Placed",
+
+            date:
+                new Date().toLocaleString()
+
+        };
 
 
-    }catch(error){
-
-        /*
-          If frontend is opened directly or GitHub Pages is used,
-          backend cannot be reached.
-
-          We still save the order locally for testing.
-        */
-
-        backendSuccess = false;
-
-    }
+        orders.unshift(savedOrder);
 
 
-    const localOrder = {
-
-        orderId:orderId,
-
-        date:new Date().toLocaleString(),
-
-        customerName:name,
-
-        email:currentUser.email,
-
-        mobile:mobile,
-
-        address:
-            address.address +
-            ", " +
-            address.city +
-            ", " +
-            address.state +
-            " - " +
-            address.pincode,
-
-        payment:payment,
-
-        items:[...cart],
-
-        subtotal:subtotal,
-
-        gst:gst,
-
-        delivery:delivery,
-
-        total:total,
-
-        status:"Order Confirmed"
-
-    };
+        localStorage.setItem(
+            "glowcart_orders",
+            JSON.stringify(orders)
+        );
 
 
-    orders.unshift(localOrder);
+        /* Clear cart */
 
+        cart = [];
 
-    localStorage.setItem(
-        "glowcart_orders",
-        JSON.stringify(orders)
-    );
+        saveCart();
 
+        updateCartCount();
 
-    cart = [];
-
-
-    saveCart();
-
-    updateCartCount();
-
-
-    if(backendSuccess){
 
         showPopup(
             "🎉",
             "Order Placed Successfully!",
             "Order " +
             orderId +
-            " has been confirmed. Your order confirmation email has been sent to " +
-            currentUser.email + "."
+            " has been placed. Your confirmation email will be sent to " +
+            currentUser.email +
+            "."
         );
 
-    }else{
 
-        showPopup(
-            "🎉",
-            "Order Saved Successfully!",
-            "Order " +
-            orderId +
-            " is saved in My Orders. Start your backend server to send the confirmation email."
+        setTimeout(
+            showOrders,
+            2200
         );
 
     }
+    catch(error){
 
+        console.error(error);
 
-    setTimeout(function(){
+        showPopup(
+            "❌",
+            "Order Failed",
+            "We could not place your order. Please try again."
+        );
 
-        showOrders();
-
-    },2200);
+    }
 
 }
 
@@ -2753,7 +3156,10 @@ function showOrders(){
             "Please login to view your orders."
         );
 
-        showLogin();
+        setTimeout(
+            showLogin,
+            1000
+        );
 
         return;
     }
@@ -2761,44 +3167,65 @@ function showOrders(){
 
     hideAllPages();
 
-    document.getElementById("ordersPage")
-    .classList.add("active");
+    document
+        .getElementById("ordersPage")
+        .classList.add("active");
+
 
     renderOrders();
 
     window.scrollTo(0,0);
+
 }
 
+
+/* ================= RENDER ORDERS ================= */
 
 function renderOrders(){
 
     const container =
-        document.getElementById("ordersList");
+        document.getElementById(
+            "ordersList"
+        );
 
 
-    if(orders.length === 0){
+    const userOrders =
+        orders.filter(
+            order =>
+                order.customer &&
+                order.customer.email ===
+                currentUser.email
+        );
+
+
+    if(userOrders.length === 0){
 
         container.innerHTML = `
 
-        <div class="card empty">
+            <div class="empty">
 
-            <div class="empty-icon">📦</div>
+                <div class="empty-icon">
+                    📦
+                </div>
 
-            <h2>No Orders Yet</h2>
+                <h2>No Orders Yet</h2>
 
-            <p style="color:#777;margin:12px 0 22px;">
-                Your placed orders will appear here.
-            </p>
+                <p style="
+                    margin:10px 0 20px;
+                    color:#777;
+                ">
+                    Your placed orders will appear here.
+                </p>
 
-            <button
-                class="primary-btn"
-                onclick="showProducts()">
+                <button
+                    class="shop-button"
+                    onclick="showProducts()">
 
-                Shop Now
+                    Start Shopping
 
-            </button>
+                </button>
 
-        </div>
+            </div>
 
         `;
 
@@ -2809,96 +3236,114 @@ function renderOrders(){
     container.innerHTML = "";
 
 
-    orders.forEach(function(order){
-
-        let productsHTML = "";
-
-
-        order.items.forEach(function(item){
-
-            productsHTML += `
-
-            <div class="order-product">
-
-                <img
-                    src="${item.image}"
-                    alt="${item.name}"
-                >
-
-                <div>
-
-                    <strong>
-                        ${item.name}
-                    </strong>
-
-                    <div style="color:#777;">
-                        Qty: ${item.quantity}
-                    </div>
-
-                    <div style="color:#e91e63;">
-                        ₹${(item.price * item.quantity).toFixed(2)}
-                    </div>
-
-                </div>
-
-            </div>
-
-            `;
-
-        });
-
+    userOrders.forEach(function(order){
 
         container.innerHTML += `
 
-        <div class="order-card">
+            <div class="order-card">
 
-            <div class="order-header">
+                <div class="order-header">
 
-                <div>
+                    <div>
 
-                    <div class="order-id">
-                        Order #${order.orderId}
+                        <div class="order-id">
+                            Order ID: ${order.id}
+                        </div>
+
+                        <small>
+                            ${order.date}
+                        </small>
+
                     </div>
 
-                    <small style="color:#777;">
-                        ${order.date}
-                    </small>
+                    <div class="status">
+                        ${order.status}
+                    </div>
 
                 </div>
 
-                <div class="order-status">
-                    ✓ ${order.status}
+
+                ${order.items.map(
+                    item => `
+
+                        <div class="order-product">
+
+                            <img
+                                src="${item.image || products.find(p => p.id == item.id)?.image || fallbackProducts[0].image}"
+                                alt="${item.name}"
+                            >
+
+                            <div style="flex:1">
+
+                                <strong>
+                                    ${item.name}
+                                </strong>
+
+                                <div style="color:#777">
+                                    Qty: ${item.quantity}
+                                </div>
+
+                            </div>
+
+                            <strong>
+                                ${item.price}
+                            </strong>
+
+                        </div>
+
+                    `
+                ).join("")}
+
+
+                <div style="
+                    margin-top:15px;
+                    padding-top:15px;
+                    border-top:1px solid #eee;
+                ">
+
+                    <div class="row">
+                        <span>GST</span>
+                        <strong>
+                            ₹${order.gst}
+                        </strong>
+                    </div>
+
+                    <div class="row">
+                        <span>Delivery</span>
+                        <strong>
+                            ${
+                                order.delivery === 0
+                                ? "FREE"
+                                : "₹" + order.delivery
+                            }
+                        </strong>
+                    </div>
+
+                    <div class="order-total">
+                        Total: ₹${order.total}
+                    </div>
+
+                    <p style="
+                        margin-top:10px;
+                        color:#777;
+                    ">
+                        💳 Payment:
+                        ${order.payment}
+                    </p>
+
+                    <p style="
+                        margin-top:8px;
+                        color:#777;
+                    ">
+                        📍
+                        ${order.customer.address},
+                        ${order.customer.city} -
+                        ${order.customer.pincode}
+                    </p>
+
                 </div>
 
             </div>
-
-            ${productsHTML}
-
-            <div style="
-                margin-top:15px;
-                color:#666;
-                line-height:1.7;
-            ">
-
-                <strong>Delivery Address:</strong><br>
-
-                ${order.address}
-
-                <br><br>
-
-                <strong>Payment:</strong>
-                ${order.payment}
-
-            </div>
-
-            <div class="order-total">
-
-                Total:
-                ₹${Number(order.total).toFixed(2)}
-
-            </div>
-
-        </div>
 
         `;
 
@@ -2909,45 +3354,54 @@ function renderOrders(){
 
 /* ================= POPUP ================= */
 
-function showPopup(icon,title,message){
+let popupTimer;
+
+
+function showPopup(
+    icon,
+    title,
+    message
+){
 
     const popup =
         document.getElementById("popup");
 
 
-    document.getElementById("popupIcon")
-    .innerText = icon;
+    document
+        .getElementById("popupIcon")
+        .innerText = icon;
 
 
-    document.getElementById("popupTitle")
-    .innerText = title;
+    document
+        .getElementById("popupTitle")
+        .innerText = title;
 
 
-    document.getElementById("popupMessage")
-    .innerText = message;
+    document
+        .getElementById("popupMessage")
+        .innerText = message;
 
 
     popup.classList.add("show");
 
 
-    setTimeout(function(){
+    clearTimeout(popupTimer);
 
-        popup.classList.remove("show");
 
-    },5000);
+    popupTimer =
+        setTimeout(
+            function(){
+
+                popup.classList.remove("show");
+
+            },
+            4500
+        );
 
 }
-
-
-/* ================= INITIALISE ================= */
-
-updateNavigation();
-
-updateCartCount();
-
-renderProducts();
 
 </script>
 
 </body>
 </html>
+```
