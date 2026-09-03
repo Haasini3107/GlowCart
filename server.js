@@ -59,12 +59,8 @@ try {
     console.error("Products error:", error);
 
     res.status(500).json({
-
         success: false,
-
-        message:
-            "Unable to load products"
-
+        message: "Unable to load products"
     });
 
 }
@@ -98,12 +94,8 @@ try {
     if (!product) {
 
         return res.status(404).json({
-
             success: false,
-
-            message:
-                "Product not found"
-
+            message: "Product not found"
         });
 
     }
@@ -115,12 +107,8 @@ try {
     console.error(error);
 
     res.status(500).json({
-
         success: false,
-
-        message:
-            "Server error"
-
+        message: "Server error"
     });
 
 }
@@ -140,20 +128,15 @@ const {
     mobile
 } = req.body;
 
-
 if (!name || !email || !password) {
 
     return res.status(400).json({
-
         success: false,
-
         message:
             "Name, email and password are required"
-
     });
 
 }
-
 
 try {
 
@@ -169,10 +152,9 @@ try {
                 to: [email],
 
                 subject:
-                    "Welcome to GlowCart! 💖",
+                    "GlowCart Registration Successful 💖",
 
                 html: `
-
                 <div style="
                     font-family:Arial,sans-serif;
                     max-width:600px;
@@ -189,6 +171,12 @@ try {
                     ">
                         Welcome to GlowCart! 💖
                     </h1>
+
+                    <h2 style="
+                        color:#9c27b0;
+                    ">
+                        Registration Successful
+                    </h2>
 
                     <p>
                         Hello <strong>${name}</strong>,
@@ -225,8 +213,7 @@ try {
                     </p>
 
                     <p>
-                        Thank you for choosing
-                        <strong>GlowCart</strong>.
+                        Thank you for joining GlowCart.
                     </p>
 
                     <hr>
@@ -239,11 +226,8 @@ try {
                     </p>
 
                 </div>
-
                 `
-
             });
-
 
         if (result.error) {
 
@@ -266,7 +250,6 @@ try {
 
     }
 
-
     res.json({
 
         success: true,
@@ -274,19 +257,16 @@ try {
         emailSent: emailSent,
 
         message: emailSent
-            ? "Registration successful. Welcome email sent."
+            ? "Registration successful. Email sent."
             : "Registration successful, but email service is not configured.",
 
         user: {
-
             name,
             email,
             mobile
-
         }
 
     });
-
 
 } catch (error) {
 
@@ -305,11 +285,9 @@ try {
             "Registration successful, but email could not be sent.",
 
         user: {
-
             name,
             email,
             mobile
-
         }
 
     });
@@ -330,7 +308,6 @@ const {
     password
 } = req.body;
 
-
 if (!email || !password) {
 
     return res.status(400).json({
@@ -343,7 +320,6 @@ if (!email || !password) {
     });
 
 }
-
 
 try {
 
@@ -362,7 +338,6 @@ try {
                     "GlowCart Login Successful 🔐",
 
                 html: `
-
                 <div style="
                     font-family:Arial;
                     max-width:600px;
@@ -391,7 +366,7 @@ try {
                     </p>
 
                     <p>
-                        Happy shopping! 🛍️✨
+                        Welcome back! 🛍️✨
                     </p>
 
                     <hr>
@@ -401,11 +376,8 @@ try {
                     </strong>
 
                 </div>
-
                 `
-
             });
-
 
         if (result.error) {
 
@@ -421,7 +393,6 @@ try {
         }
 
     }
-
 
     res.json({
 
@@ -442,7 +413,6 @@ try {
         }
 
     });
-
 
 } catch (error) {
 
@@ -489,7 +459,6 @@ const {
     payment
 } = req.body;
 
-
 if (
     !customer ||
     !customer.email ||
@@ -509,15 +478,12 @@ if (
 
 }
 
-
 const finalOrderId =
     orderId || "GC" + Date.now();
-
 
 try {
 
     let productRows = "";
-
 
     items.forEach(item => {
 
@@ -533,7 +499,6 @@ try {
 
         const itemTotal =
             price * quantity;
-
 
         productRows += `
 
@@ -568,9 +533,7 @@ try {
 
     });
 
-
     let emailSent = false;
-
 
     if (resend) {
 
@@ -598,7 +561,7 @@ try {
                     <h1 style="
                         color:#e91e63;
                     ">
-                        Order Confirmed! 🎉
+                        Order Placed Successfully! 🎉
                     </h1>
 
                     <p>
@@ -614,8 +577,7 @@ try {
                     </p>
 
                     <h3>
-                        Order ID:
-                        ${finalOrderId}
+                        Order ID: ${finalOrderId}
                     </h3>
 
                     <table style="
@@ -688,19 +650,15 @@ try {
 
                     <hr>
 
-                    <p style="
-                        text-align:center;
-                    ">
-                        Thank you for shopping
-                        with GlowCart 💖
+                    <p style="text-align:center;">
+                        Thank you for shopping with
+                        <strong>GlowCart</strong> 💖
                     </p>
 
                 </div>
 
                 `
-
             });
-
 
         if (result.error) {
 
@@ -716,7 +674,6 @@ try {
         }
 
     }
-
 
     res.json({
 
@@ -745,7 +702,6 @@ try {
         }
 
     });
-
 
 } catch (error) {
 
@@ -796,7 +752,7 @@ PORT,
 
 ```
     console.log(
-        `GlowCart backend running on 0.0.0.0:${PORT}`
+        `GlowCart backend running on port ${PORT}`
     );
 
 }
