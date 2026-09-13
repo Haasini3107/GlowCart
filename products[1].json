@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Glow Radiance Cream",
+    "price": 299,
+    "mrp": 499,
+    "rating": 4.6,
+    "description": "Lightweight daily cream for a fresh, radiant glow.",
+    "image": "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "id": 2,
+    "name": "Vitamin C Face Cream",
+    "price": 349,
+    "mrp": 599,
+    "rating": 4.7,
+    "description": "Brightening skincare with a smooth, non-sticky feel.",
+    "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "id": 3,
+    "name": "Hydra Moisturizing Cream",
+    "price": 279,
+    "mrp": 449,
+    "rating": 4.5,
+    "description": "Deep everyday hydration for soft, comfortable skin.",
+    "image": "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "id": 4,
+    "name": "Aloe Vera Face Cream",
+    "price": 249,
+    "mrp": 399,
+    "rating": 4.4,
+    "description": "Cooling aloe care for a calm and hydrated finish.",
+    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "id": 5,
+    "name": "Rose Glow Cream",
+    "price": 319,
+    "mrp": 549,
+    "rating": 4.6,
+    "description": "Soft rose-inspired moisturization for a healthy look.",
+    "image": "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "id": 6,
+    "name": "Night Repair Cream",
+    "price": 399,
+    "mrp": 699,
+    "rating": 4.8,
+    "description": "Rich night moisturizer for your evening skincare routine.",
+    "image": "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?auto=format&fit=crop&w=700&q=80"
+  }
+]
