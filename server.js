@@ -9,80 +9,64 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 
 
-/* =====================================================
+/* =========================
    CORS
-===================================================== */
+========================= */
 
-app.use(
-    cors({
-        origin: [
-            "https://haasini3107.github.io",
-            "http://localhost:3000",
-            "http://localhost:5500",
-            "http://127.0.0.1:5500"
-        ],
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"]
-    })
-);
-
-app.options("*", cors());
-
-
-/* =====================================================
-   BODY PARSER
-===================================================== */
-
-app.use(express.json());
-
-app.use(express.urlencoded({
-    extended: true
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 
-/* =====================================================
-   HOME / HEALTH CHECK
-===================================================== */
+/* =========================
+   BODY PARSER
+========================= */
+
+app.use(express.json());
+
+
+/* =========================
+   HOME
+========================= */
 
 app.get("/", (req, res) => {
 
     res.json({
         success: true,
-        message: "GlowCart backend is running! 💗",
+        message: "GlowCart backend is running!",
         status: "online"
     });
 
 });
 
 
-/* =====================================================
+/* =========================
    PRODUCTS
-===================================================== */
+========================= */
 
 app.get("/api/products", (req, res) => {
 
     try {
 
-        const filePath =
-            path.join(__dirname, "products.json");
+        const filePath = path.join(
+            __dirname,
+            "products.json"
+        );
 
-        const data =
-            fs.readFileSync(
-                filePath,
-                "utf8"
-            );
+        const fileData = fs.readFileSync(
+            filePath,
+            "utf8"
+        );
 
-        const products =
-            JSON.parse(data);
+        const products = JSON.parse(fileData);
 
         res.json(products);
 
     } catch (error) {
 
-        console.error(
-            "Products error:",
-            error
-        );
+        console.error("Products error:", error);
 
         res.status(500).json({
             success: false,
@@ -94,32 +78,32 @@ app.get("/api/products", (req, res) => {
 });
 
 
-/* =====================================================
+/* =========================
    SINGLE PRODUCT
-===================================================== */
+========================= */
 
 app.get("/api/products/:id", (req, res) => {
 
     try {
 
-        const filePath =
-            path.join(__dirname, "products.json");
+        const filePath = path.join(
+            __dirname,
+            "products.json"
+        );
 
-        const data =
-            fs.readFileSync(
-                filePath,
-                "utf8"
-            );
+        const fileData = fs.readFileSync(
+            filePath,
+            "utf8"
+        );
 
-        const products =
-            JSON.parse(data);
+        const products = JSON.parse(fileData);
 
-        const product =
-            products.find(
-                p =>
-                    String(p.id) ===
-                    String(req.params.id)
-            );
+        const product = products.find(
+            item =>
+                String(item.id) ===
+                String(req.params.id)
+        );
+
 
         if (!product) {
 
@@ -130,11 +114,12 @@ app.get("/api/products/:id", (req, res) => {
 
         }
 
+
         res.json(product);
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Product error:", error);
 
         res.status(500).json({
             success: false,
@@ -146,9 +131,9 @@ app.get("/api/products/:id", (req, res) => {
 });
 
 
-/* =====================================================
+/* =========================
    REGISTER
-===================================================== */
+========================= */
 
 app.post("/api/register", (req, res) => {
 
@@ -170,24 +155,18 @@ app.post("/api/register", (req, res) => {
         ) {
 
             return res.status(400).json({
-
                 success: false,
-
-                message:
-                    "Please fill all fields."
-
+                message: "Please fill all fields."
             });
 
         }
 
 
-        /*
-          Demo registration.
+        console.log(
+            "New user registered:",
+            email
+        );
 
-          For your current project we return
-          the user immediately so the frontend
-          can continue to login.
-        */
 
         const user = {
 
@@ -202,23 +181,15 @@ app.post("/api/register", (req, res) => {
         };
 
 
-        console.log(
-            "New registration:",
-            email
-        );
-
-
         res.status(201).json({
 
             success: true,
 
-            message:
-                "Registration successful!",
+            message: "Registration successful!",
 
             user: user
 
         });
-
 
     } catch (error) {
 
@@ -231,8 +202,7 @@ app.post("/api/register", (req, res) => {
 
             success: false,
 
-            message:
-                "Registration failed."
+            message: "Registration failed."
 
         });
 
@@ -241,9 +211,9 @@ app.post("/api/register", (req, res) => {
 });
 
 
-/* =====================================================
+/* =========================
    LOGIN
-===================================================== */
+========================= */
 
 app.post("/api/login", (req, res) => {
 
@@ -269,41 +239,33 @@ app.post("/api/login", (req, res) => {
         }
 
 
-        /*
-          Demo login for current project.
-          Database authentication can be added later.
-        */
+        console.log(
+            "User login:",
+            email
+        );
+
 
         const user = {
 
             id: Date.now(),
 
             name:
-                email
-                    .split("@")[0],
+                email.split("@")[0],
 
             email: email
 
         };
 
 
-        console.log(
-            "Login:",
-            email
-        );
-
-
         res.json({
 
             success: true,
 
-            message:
-                "Login successful!",
+            message: "Login successful!",
 
             user: user
 
         });
-
 
     } catch (error) {
 
@@ -316,8 +278,7 @@ app.post("/api/login", (req, res) => {
 
             success: false,
 
-            message:
-                "Login failed."
+            message: "Login failed."
 
         });
 
@@ -326,16 +287,15 @@ app.post("/api/login", (req, res) => {
 });
 
 
-/* =====================================================
+/* =========================
    ORDERS
-===================================================== */
+========================= */
 
 app.post("/api/orders", (req, res) => {
 
     try {
 
-        const order =
-            req.body;
+        const order = req.body;
 
 
         if (!order) {
@@ -344,8 +304,7 @@ app.post("/api/orders", (req, res) => {
 
                 success: false,
 
-                message:
-                    "Order data is missing."
+                message: "Order data is missing."
 
             });
 
@@ -362,13 +321,11 @@ app.post("/api/orders", (req, res) => {
 
             success: true,
 
-            message:
-                "Order placed successfully!",
+            message: "Order placed successfully!",
 
             order: order
 
         });
-
 
     } catch (error) {
 
@@ -381,8 +338,7 @@ app.post("/api/orders", (req, res) => {
 
             success: false,
 
-            message:
-                "Unable to place order."
+            message: "Unable to place order."
 
         });
 
@@ -391,19 +347,15 @@ app.post("/api/orders", (req, res) => {
 });
 
 
-/* =====================================================
+/* =========================
    START SERVER
-===================================================== */
+========================= */
 
-app.listen(
-    PORT,
-    "0.0.0.0",
-    () => {
+app.listen(PORT, "0.0.0.0", () => {
 
-        console.log(
-            `GlowCart server running on port ${PORT}`
-        );
+    console.log(
+        "GlowCart server running on port " + PORT
+    );
 
-    }
-);
+});
 ```
