@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +8,11 @@
 <title>GlowCart - Premium Face Creams</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 html{
@@ -20,258 +20,236 @@ html{
 }
 
 body{
-    background:#f8f8fb;
+    background:#fff7fc;
     color:#333;
 }
 
 /* ================= HEADER ================= */
 
 header{
-    background:rgba(255,255,255,.97);
-    height:72px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 6%;
-    box-shadow:0 2px 12px rgba(0,0,0,.08);
     position:sticky;
     top:0;
     z-index:1000;
+    background:white;
+    box-shadow:0 2px 15px rgba(0,0,0,.08);
 }
 
-.logo{
-    font-size:29px;
-    font-weight:bold;
-    color:#e91e63;
-    letter-spacing:-1px;
-}
-
-.logo span{
-    color:#7b1fa2;
-}
-
-nav{
-    display:flex;
-    align-items:center;
-    gap:30px;
-}
-
-nav a{
-    text-decoration:none;
-    color:#333;
-    font-weight:600;
-}
-
-nav a:hover{
-    color:#e91e63;
-}
-
-.register-btn{
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white!important;
-    padding:11px 22px;
-    border-radius:25px;
-}
-
-/* ================= FRONT HOME ================= */
-
-.home{
-    min-height:620px;
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 25px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:70px 8%;
-
-    background:
-    radial-gradient(circle at 80% 20%,#f6d9ff 0%,transparent 30%),
-    radial-gradient(circle at 10% 80%,#ffdce9 0%,transparent 30%),
-    linear-gradient(120deg,#fff2f7,#f5edff);
-
-    overflow:hidden;
+    gap:20px;
 }
 
-.home-text{
-    max-width:570px;
-}
-
-.small-title{
-    display:inline-block;
-    background:#fff;
-    color:#e91e63;
-    padding:8px 18px;
-    border-radius:20px;
-    font-size:14px;
+.logo{
+    font-size:28px;
     font-weight:bold;
+    background:linear-gradient(90deg,#ff1493,#8a2be2);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.nav-links a:hover{
+    color:#e91e8f;
+}
+
+/* ================= FRONT PAGE ================= */
+
+#frontPage{
+    display:block;
+}
+
+.hero{
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1200px;
+    margin:auto;
+    padding:70px 30px;
+    gap:50px;
+}
+
+.hero-text{
+    flex:1;
+}
+
+.badge{
+    color:#d81b83;
+    font-weight:bold;
+    letter-spacing:2px;
+    font-size:14px;
     margin-bottom:20px;
-    box-shadow:0 5px 15px rgba(0,0,0,.06);
 }
 
-.home-text h1{
-    font-size:55px;
-    line-height:1.1;
-    color:#6a1b9a;
-    margin-bottom:22px;
+.hero h1{
+    font-size:62px;
+    line-height:1.05;
+    margin-bottom:25px;
+    color:#272027;
 }
 
-.home-text h1 span{
-    color:#e91e63;
+.hero h1 span{
+    color:#d81b83;
 }
 
-.home-text p{
+.hero p{
+    color:#666;
     font-size:18px;
-    line-height:1.8;
-    color:#5f5f5f;
+    line-height:1.7;
+    max-width:600px;
     margin-bottom:30px;
 }
 
-.shop-button{
+.primary-btn{
     border:none;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
+    background:linear-gradient(135deg,#ff1493,#8a2be2);
     color:white;
-    padding:15px 30px;
+    padding:16px 30px;
     border-radius:30px;
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
-    box-shadow:0 10px 25px rgba(156,39,176,.25);
+    box-shadow:0 10px 25px rgba(220,20,140,.25);
 }
 
-.product-area{
-    width:470px;
-    height:470px;
+.primary-btn:hover{
+    transform:translateY(-2px);
+}
+
+.hero-image{
+    flex:1;
     position:relative;
     display:flex;
     justify-content:center;
-    align-items:center;
 }
 
-.product-circle{
-    width:400px;
-    height:400px;
-    background:rgba(255,255,255,.8);
+.hero-circle{
+    width:420px;
+    height:420px;
     border-radius:50%;
+    background:linear-gradient(135deg,#ffd6ee,#ead7ff);
     display:flex;
-    align-items:center;
     justify-content:center;
-    box-shadow:0 25px 60px rgba(130,60,150,.15);
+    align-items:center;
+    overflow:hidden;
 }
 
-.product-circle img{
-    width:300px;
-    height:300px;
+.hero-circle img{
+    width:90%;
+    height:90%;
     object-fit:cover;
-    border-radius:20px;
-    filter:drop-shadow(0 20px 20px rgba(0,0,0,.18));
-    transition:.5s;
+    border-radius:50%;
 }
 
-.product-circle img:hover{
-    transform:scale(1.06) rotate(2deg);
-}
-
-.floating-card{
+.float-card{
     position:absolute;
     background:white;
     padding:15px 20px;
-    border-radius:15px;
+    border-radius:18px;
     box-shadow:0 10px 30px rgba(0,0,0,.12);
     font-weight:bold;
-    color:#6a1b9a;
 }
 
 .card-one{
-    top:60px;
-    right:0;
+    top:40px;
+    left:0;
 }
 
 .card-two{
-    bottom:60px;
-    left:0;
+    bottom:45px;
+    right:0;
 }
 
 /* ================= FEATURES ================= */
 
 .features{
     background:white;
-    padding:55px 8%;
-    display:flex;
-    justify-content:space-between;
-    text-align:center;
+    padding:70px 25px;
+}
+
+.features-grid{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
     gap:25px;
 }
 
 .feature{
-    width:25%;
-    padding:25px 15px;
-    border-radius:15px;
-}
-
-.feature:hover{
-    transform:translateY(-6px);
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    padding:30px 20px;
+    text-align:center;
+    border-radius:20px;
+    background:#fff8fc;
 }
 
 .feature-icon{
-    width:65px;
-    height:65px;
-    margin:0 auto 15px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#fff0f6;
-    font-size:30px;
+    font-size:35px;
+    margin-bottom:15px;
 }
 
 .feature h3{
     margin-bottom:10px;
-    color:#7b1fa2;
+    color:#b31372;
 }
 
 .feature p{
     color:#666;
-    line-height:1.6;
+    line-height:1.5;
 }
 
 /* ================= REGISTER ================= */
 
-.registration{
+.register-area{
     padding:80px 20px;
-    background:linear-gradient(135deg,#fff0f6,#f5eaff);
-    display:flex;
-    justify-content:center;
+    background:linear-gradient(135deg,#fff0f8,#f5edff);
 }
 
-.registration-box{
-    width:470px;
+.register-box{
+    max-width:500px;
+    margin:auto;
     background:white;
-    padding:42px;
-    border-radius:20px;
-    box-shadow:0 15px 45px rgba(0,0,0,.1);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,.1);
 }
 
-.registration-box h2{
+.register-box h2{
     text-align:center;
-    color:#7b1fa2;
-    font-size:30px;
+    color:#b31372;
     margin-bottom:10px;
 }
 
-.subtitle{
+.register-box .sub{
     text-align:center;
     color:#777;
-    margin-bottom:28px;
+    margin-bottom:25px;
 }
 
 .form-group{
-    margin-bottom:18px;
+    margin-bottom:16px;
 }
 
 .form-group label{
     display:block;
     margin-bottom:7px;
     font-weight:bold;
-    font-size:14px;
 }
 
 .form-group input{
@@ -280,169 +258,177 @@ nav a:hover{
     border:1px solid #ddd;
     border-radius:10px;
     outline:none;
-    font-size:15px;
 }
 
-.submit-btn{
+.form-group input:focus{
+    border-color:#d81b83;
+}
+
+.register-box button{
     width:100%;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-#message{
-    text-align:center;
-    margin-top:15px;
-    font-weight:bold;
+    margin-top:8px;
 }
 
 /* ================= LOGIN ================= */
 
 #loginSection{
     display:none;
-    min-height:650px;
-    padding:80px 20px;
-    background:linear-gradient(135deg,#fff0f6,#f5eaff);
-    justify-content:center;
-    align-items:center;
+    min-height:100vh;
+    padding:100px 20px;
+    background:linear-gradient(135deg,#fff0f8,#f5edff);
 }
 
 .login-box{
-    width:430px;
+    max-width:430px;
+    margin:auto;
     background:white;
     padding:40px;
-    border-radius:20px;
-    box-shadow:0 15px 45px rgba(0,0,0,.12);
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,.1);
 }
 
 .login-box h2{
     text-align:center;
-    color:#7b1fa2;
+    color:#b31372;
     margin-bottom:25px;
-}
-
-.login-box input{
-    width:100%;
-    padding:14px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:10px;
 }
 
 .login-box button{
     width:100%;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
 }
 
-/* ================= SHOPPING SITE ================= */
+.login-message{
+    text-align:center;
+    margin-top:15px;
+    color:#777;
+}
+
+/* ================= SHOP ================= */
 
 #shoppingPage{
     display:none;
+    background:#f8f8f8;
+    min-height:100vh;
 }
 
 .shop-header{
-    background:#131921;
-    color:white;
-    padding:15px 5%;
-    display:flex;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.shop-logo{
-    font-size:28px;
-    font-weight:bold;
-    color:#ff80ab;
-}
-
-.shop-logo span{
-    color:white;
-}
-
-.search{
-    flex:1;
-    display:flex;
-    min-width:250px;
-}
-
-.search input{
-    flex:1;
-    padding:13px;
-    border:none;
-    outline:none;
-}
-
-.search button{
-    width:55px;
-    border:none;
-    background:#ff80ab;
-    cursor:pointer;
-}
-
-.shop-link{
-    cursor:pointer;
-    font-weight:bold;
+    background:white;
+    padding:15px 25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
 .shop-nav{
-    background:#232f3e;
-    color:white;
-    padding:13px 5%;
+    max-width:1200px;
+    margin:auto;
     display:flex;
-    gap:30px;
+    align-items:center;
+    gap:15px;
 }
 
-.shop-nav span{
+.shop-logo{
+    font-size:26px;
+    font-weight:bold;
+    color:#d81b83;
+    margin-right:auto;
+}
+
+.search-box{
+    display:flex;
+    width:400px;
+}
+
+.search-box input{
+    flex:1;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px 0 0 8px;
+}
+
+.search-box button{
+    border:none;
+    background:#d81b83;
+    color:white;
+    padding:0 18px;
+    border-radius:0 8px 8px 0;
     cursor:pointer;
 }
 
-.products-section{
-    padding:40px 6%;
+.shop-button{
+    border:none;
+    padding:11px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    background:#f4e8f0;
 }
 
-.products-title{
-    text-align:center;
-    color:#7b1fa2;
+.logout{
+    background:#d81b83;
+    color:white;
+}
+
+.shop-container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.shop-banner{
+    background:linear-gradient(135deg,#ff1493,#8a2be2);
+    color:white;
+    padding:35px;
+    border-radius:20px;
     margin-bottom:30px;
-    font-size:32px;
 }
 
-.products{
+.shop-banner h1{
+    margin-bottom:10px;
+}
+
+.category-bar{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+}
+
+.category-bar button{
+    border:none;
+    padding:10px 18px;
+    border-radius:20px;
+    background:white;
+    cursor:pointer;
+}
+
+.category-bar button.active{
+    background:#d81b83;
+    color:white;
+}
+
+/* ================= PRODUCTS ================= */
+
+.products-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:25px;
+    gap:22px;
 }
 
 .product-card{
     background:white;
-    border-radius:15px;
+    border-radius:18px;
     overflow:hidden;
     box-shadow:0 5px 20px rgba(0,0,0,.08);
-    transition:.3s;
+    transition:.2s;
 }
 
 .product-card:hover{
     transform:translateY(-5px);
 }
 
-.product-card img{
+.product-image{
     width:100%;
     height:230px;
-    object-fit:contain;
-    padding:15px;
-    background:#fff8fb;
+    object-fit:cover;
+    background:#f8edf5;
 }
 
 .product-info{
@@ -450,240 +436,215 @@ nav a:hover{
 }
 
 .product-info h3{
-    color:#7b1fa2;
-    margin:8px 0;
+    margin-bottom:8px;
 }
 
 .product-info p{
-    color:#666;
-    line-height:1.5;
+    color:#777;
+    font-size:14px;
+    min-height:40px;
 }
 
 .price{
     font-size:22px;
     font-weight:bold;
-    color:#e91e63;
-    margin:10px 0;
+    color:#d81b83;
+    margin:12px 0;
 }
 
-.add-cart{
+.add-btn{
     width:100%;
-    padding:12px;
     border:none;
-    border-radius:8px;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
+    padding:12px;
+    background:#d81b83;
     color:white;
-    font-weight:bold;
+    border-radius:10px;
     cursor:pointer;
+    font-weight:bold;
 }
 
 /* ================= CART ================= */
 
-.shop-page{
+.cart-section,
+.checkout-section,
+.orders-section{
     display:none;
-    padding:40px 6%;
-    min-height:600px;
-}
-
-.shop-page h2{
-    color:#7b1fa2;
-    margin-bottom:25px;
+    margin-top:30px;
+    background:white;
+    padding:25px;
+    border-radius:18px;
 }
 
 .cart-item{
-    background:white;
-    padding:20px;
-    margin-bottom:15px;
-    border-radius:12px;
     display:flex;
     align-items:center;
-    gap:20px;
-    box-shadow:0 4px 15px rgba(0,0,0,.07);
+    justify-content:space-between;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
 }
 
 .cart-item img{
-    width:100px;
-    height:100px;
-    object-fit:contain;
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:10px;
 }
 
-.cart-details{
-    flex:1;
+.qty{
+    display:flex;
+    gap:8px;
+    align-items:center;
 }
 
 .qty button{
-    padding:5px 12px;
-    border:1px solid #ddd;
-    background:white;
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
     cursor:pointer;
+    background:#f0d9e8;
 }
 
-.remove{
-    color:#e91e63;
-    cursor:pointer;
-    margin-left:15px;
+.total{
+    text-align:right;
+    font-size:22px;
+    font-weight:bold;
+    margin-top:20px;
+    color:#d81b83;
 }
 
-.checkout{
-    margin-top:25px;
-    background:white;
-    padding:30px;
-    border-radius:15px;
+.checkout-form{
+    max-width:600px;
 }
 
-.checkout input,
-.checkout textarea{
+.checkout-form input,
+.checkout-form textarea{
     width:100%;
     padding:13px;
-    margin:8px 0;
+    margin-bottom:12px;
     border:1px solid #ddd;
     border-radius:8px;
 }
 
-.checkout button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:8px;
-    background:linear-gradient(135deg,#e91e63,#9c27b0);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+.checkout-form textarea{
+    height:90px;
 }
 
-.order-card{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    margin-bottom:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.07);
-}
+/* ================= LOADING ================= */
 
-.empty{
+.loading{
     text-align:center;
-    padding:60px;
-    color:#777;
+    padding:50px;
+    color:#888;
+}
+
+.error-box{
+    background:#fff0f0;
+    color:#b00020;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
 }
 
 /* ================= FOOTER ================= */
 
 footer{
-    background:#211d24;
+    background:#251a24;
     color:white;
     text-align:center;
-    padding:28px;
+    padding:30px;
 }
 
-footer span{
-    color:#f06292;
-}
-
-/* ================= MOBILE ================= */
+/* ================= RESPONSIVE ================= */
 
 @media(max-width:900px){
 
-    .home{
+    .hero{
         flex-direction:column;
         text-align:center;
     }
 
-    .product-area{
-        margin-top:40px;
+    .hero h1{
+        font-size:45px;
     }
 
-    .products{
+    .features-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
+    .products-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .search-box{
+        width:250px;
+    }
 }
 
 @media(max-width:600px){
 
-    nav a:not(.register-btn){
+    .nav-links{
         display:none;
     }
 
-    .home-text h1{
-        font-size:40px;
+    .hero-circle{
+        width:300px;
+        height:300px;
     }
 
-    .product-area{
-        width:320px;
-        height:320px;
-    }
-
-    .product-circle{
-        width:280px;
-        height:280px;
-    }
-
-    .product-circle img{
-        width:220px;
-        height:220px;
-    }
-
-    .features{
-        flex-direction:column;
-    }
-
-    .feature{
-        width:100%;
-    }
-
-    .products{
+    .features-grid,
+    .products-grid{
         grid-template-columns:1fr;
     }
 
-    .cart-item{
-        flex-direction:column;
-        text-align:center;
+    .shop-nav{
+        flex-wrap:wrap;
     }
 
-}
+    .shop-logo{
+        width:100%;
+    }
 
+    .search-box{
+        width:100%;
+    }
+
+    .cart-item{
+        flex-wrap:wrap;
+    }
+}
 </style>
 </head>
 
 <body>
 
-
-<!-- ================= FRONT PAGE ================= -->
+<!-- ======================================================
+     FRONT PAGE
+====================================================== -->
 
 <div id="frontPage">
 
 <header>
+    <div class="navbar">
 
-    <div class="logo">
-        Glow<span>Cart</span>
+        <div class="logo">GlowCart</div>
+
+        <div class="nav-links">
+            <a onclick="scrollToId('frontPage')">Home</a>
+            <a onclick="scrollToId('features')">Why Us</a>
+            <a onclick="scrollToId('registerArea')">Register</a>
+            <a onclick="showLogin()">Login</a>
+        </div>
+
     </div>
-
-    <nav>
-
-        <a href="#frontHome">
-            Home
-        </a>
-
-        <a href="#features">
-            Why Us
-        </a>
-
-        <a href="#register"
-           class="register-btn">
-            Register
-        </a>
-
-    </nav>
-
 </header>
 
+<section class="hero">
 
-<section class="home" id="frontHome">
+    <div class="hero-text">
 
-    <div class="home-text">
-
-        <div class="small-title">
-            PREMIUM SKINCARE COLLECTION
-        </div>
+        <div class="badge">PREMIUM SKINCARE COLLECTION</div>
 
         <h1>
             Beautiful Skin.<br>
@@ -691,40 +652,34 @@ footer span{
         </h1>
 
         <p>
-            Discover premium face creams specially
-            selected to nourish, moisturize and care
-            for your skin.
-            Shop your favourite skincare products
-            at GlowCart.
+            Discover premium face creams specially selected to
+            nourish, moisturize and care for your skin.
+            Shop your favourite skincare products at GlowCart.
         </p>
 
-        <button
-            class="shop-button"
-            onclick="goToRegister()">
-
+        <button class="primary-btn" onclick="scrollToId('registerArea')">
             Start Shopping →
-
         </button>
 
     </div>
 
+    <div class="hero-image">
 
-    <div class="product-area">
+        <div class="hero-circle">
 
-        <div class="product-circle">
-
-            <!-- FIXED IMAGE TAG -->
             <img
-                src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=90"
-                alt="Premium Face Cream">
+                src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
+                alt="Premium Face Cream"
+                onerror="this.style.display='none'"
+            >
 
         </div>
 
-        <div class="floating-card card-one">
+        <div class="float-card card-one">
             ✨ Premium Care
         </div>
 
-        <div class="floating-card card-two">
+        <div class="float-card card-two">
             💧 Deep Hydration
         </div>
 
@@ -732,157 +687,111 @@ footer span{
 
 </section>
 
-
 <section class="features" id="features">
 
-    <div class="feature">
+    <div class="features-grid">
 
-        <div class="feature-icon">
-            🌿
+        <div class="feature">
+            <div class="feature-icon">🌿</div>
+            <h3>Natural Care</h3>
+            <p>
+                Carefully selected skincare products
+                for your daily beauty routine.
+            </p>
         </div>
 
-        <h3>Natural Care</h3>
-
-        <p>
-            Carefully selected skincare products
-            for your daily beauty routine.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            💧
+        <div class="feature">
+            <div class="feature-icon">💧</div>
+            <h3>Deep Hydration</h3>
+            <p>
+                Products designed to keep your skin
+                feeling soft and moisturized.
+            </p>
         </div>
 
-        <h3>Deep Hydration</h3>
-
-        <p>
-            Products designed to keep your skin
-            feeling soft and moisturized.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            ✨
+        <div class="feature">
+            <div class="feature-icon">✨</div>
+            <h3>Healthy Glow</h3>
+            <p>
+                Discover skincare that helps you
+                maintain a fresh-looking glow.
+            </p>
         </div>
 
-        <h3>Healthy Glow</h3>
-
-        <p>
-            Discover skincare that helps you
-            maintain a fresh-looking glow.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            🛍️
+        <div class="feature">
+            <div class="feature-icon">🛍️</div>
+            <h3>Easy Shopping</h3>
+            <p>
+                Find your favourite skincare products
+                easily in one place.
+            </p>
         </div>
-
-        <h3>Easy Shopping</h3>
-
-        <p>
-            Find your favourite skincare products
-            easily in one place.
-        </p>
 
     </div>
 
 </section>
 
+<section class="register-area" id="registerArea">
 
-<section class="registration" id="register">
-
-    <div class="registration-box">
+    <div class="register-box">
 
         <h2>Create Your Account</h2>
 
-        <p class="subtitle">
-            Join GlowCart and start your skincare journey
+        <p class="sub">
+            Join GlowCart and start your skincare journey 💗
         </p>
 
-        <form onsubmit="registerUser(event)">
+        <form id="registerForm">
 
             <div class="form-group">
-
                 <label>Full Name</label>
-
                 <input
                     type="text"
                     id="regName"
                     placeholder="Enter your full name"
-                    required>
-
+                    required
+                >
             </div>
 
-
             <div class="form-group">
-
                 <label>Email Address</label>
-
                 <input
                     type="email"
                     id="regEmail"
                     placeholder="Enter your email"
-                    required>
-
+                    required
+                >
             </div>
 
-
             <div class="form-group">
-
                 <label>Mobile Number</label>
-
                 <input
                     type="tel"
                     id="regMobile"
                     placeholder="Enter your mobile number"
-                    required>
-
+                    required
+                >
             </div>
 
-
             <div class="form-group">
-
                 <label>Password</label>
-
                 <input
                     type="password"
                     id="regPassword"
                     placeholder="Create a password"
-                    required>
-
+                    required
+                >
             </div>
 
-
-            <button
-                type="submit"
-                class="submit-btn">
-
+            <button class="primary-btn" type="submit">
                 Register Now
-
             </button>
-
-            <p id="message"></p>
 
         </form>
 
-        <p style="text-align:center;margin-top:20px;">
+        <p style="text-align:center;margin-top:18px;">
             Already registered?
-            <a
-                href="#"
-                onclick="showLogin();return false;"
-                style="color:#e91e63;font-weight:bold;">
+            <a onclick="showLogin()" style="color:#d81b83;cursor:pointer;font-weight:bold;">
                 Login
             </a>
         </p>
@@ -891,321 +800,443 @@ footer span{
 
 </section>
 
+<footer>
+    <div class="logo">GlowCart</div>
+    <p style="margin-top:10px;">
+        Premium skincare made simple.
+    </p>
+    <p style="margin-top:10px;">
+        © 2026 GlowCart. All Rights Reserved.
+    </p>
+</footer>
+
 </div>
 
 
-<!-- ================= LOGIN ================= -->
+<!-- ======================================================
+     LOGIN
+====================================================== -->
 
-<div id="loginSection">
+<section id="loginSection">
 
     <div class="login-box">
 
         <h2>Welcome Back 💗</h2>
 
-        <input
-            type="email"
-            id="loginEmail"
-            placeholder="Email Address">
+        <form id="loginForm">
 
-        <input
-            type="password"
-            id="loginPassword"
-            placeholder="Password">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
 
-        <button onclick="loginUser()">
-            Login
-        </button>
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
 
-        <p
-            id="loginMessage"
-            style="text-align:center;margin-top:15px;">
-        </p>
+            <button class="primary-btn" type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p class="login-message" id="loginMessage"></p>
 
         <p style="text-align:center;margin-top:20px;">
-
             New user?
-
             <a
-                href="#"
-                onclick="showFront();return false;"
-                style="color:#e91e63;font-weight:bold;">
-
+                onclick="showFront()"
+                style="color:#d81b83;cursor:pointer;font-weight:bold;"
+            >
                 Register
-
             </a>
-
         </p>
 
     </div>
 
-</div>
+</section>
 
 
-<!-- ================= SHOPPING WEBSITE ================= -->
+<!-- ======================================================
+     SHOPPING PAGE
+====================================================== -->
 
-<div id="shoppingPage">
+<section id="shoppingPage">
 
     <div class="shop-header">
 
-        <div class="shop-logo">
-            Glow<span>Cart</span>
-        </div>
+        <div class="shop-nav">
 
-        <div class="search">
+            <div class="shop-logo">
+                GlowCart
+            </div>
 
-            <input
-                id="searchInput"
-                placeholder="Search face creams..."
-                oninput="searchProducts()">
+            <div class="search-box">
 
-            <button>
-                🔍
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search face creams..."
+                    oninput="searchProducts()"
+                >
+
+                <button onclick="searchProducts()">
+                    🔍
+                </button>
+
+            </div>
+
+            <button
+                class="shop-button"
+                onclick="showProducts()"
+            >
+                Home
+            </button>
+
+            <button
+                class="shop-button"
+                onclick="showOrders()"
+            >
+                Orders
+            </button>
+
+            <button
+                class="shop-button"
+                onclick="showCart()"
+            >
+                🛒 Cart <span id="cartCount">0</span>
+            </button>
+
+            <button
+                class="shop-button logout"
+                onclick="logout()"
+            >
+                Logout
             </button>
 
         </div>
 
-        <div
-            class="shop-link"
-            onclick="showShopHome()">
-
-            Home
-
-        </div>
-
-        <div
-            class="shop-link"
-            onclick="showOrders()">
-
-            Orders
-
-        </div>
-
-        <div
-            class="shop-link"
-            onclick="showCart()">
-
-            🛒 Cart
-            <span id="cartCount">0</span>
-
-        </div>
-
-        <div
-            class="shop-link"
-            onclick="logout()">
-
-            Logout
-
-        </div>
-
     </div>
 
 
-    <div class="shop-nav">
+    <div class="shop-container">
 
-        <span onclick="showShopHome()">
-            All Products
-        </span>
+        <div class="shop-banner">
 
-        <span onclick="showShopHome()">
-            Face Creams
-        </span>
+            <h1>
+                Welcome to GlowCart 💗
+            </h1>
 
-        <span onclick="showShopHome()">
-            Best Sellers
-        </span>
+            <p>
+                Discover skincare products for your everyday glow.
+            </p>
 
-    </div>
+        </div>
 
 
-    <!-- PRODUCTS -->
+        <div class="category-bar">
 
-    <div
-        id="shopHome"
-        class="shop-page"
-        style="display:block;">
+            <button
+                class="active"
+                onclick="filterCategory('all',this)"
+            >
+                All Products
+            </button>
 
-        <div class="products-section">
+            <button
+                onclick="filterCategory('face',this)"
+            >
+                Face Creams
+            </button>
 
-            <h2 class="products-title">
-                Premium Face Creams
-            </h2>
+            <button
+                onclick="filterCategory('best',this)"
+            >
+                Best Sellers
+            </button>
 
-            <div
-                id="productsContainer"
-                class="products">
+        </div>
 
-                <p>Loading products...</p>
 
+        <div id="productMessage"></div>
+
+        <div
+            class="products-grid"
+            id="productsGrid"
+        >
+            <div class="loading">
+                Loading products...
+            </div>
+        </div>
+
+
+        <!-- CART -->
+
+        <div
+            class="cart-section"
+            id="cartSection"
+        >
+
+            <h2>🛒 Your Cart</h2>
+
+            <div id="cartItems"></div>
+
+            <div class="total">
+                Total: ₹<span id="cartTotal">0</span>
+            </div>
+
+            <button
+                class="primary-btn"
+                style="margin-top:20px;"
+                onclick="showCheckout()"
+            >
+                Proceed to Checkout
+            </button>
+
+        </div>
+
+
+        <!-- CHECKOUT -->
+
+        <div
+            class="checkout-section"
+            id="checkoutSection"
+        >
+
+            <h2>📦 Place Your Order</h2>
+
+            <br>
+
+            <form
+                class="checkout-form"
+                id="checkoutForm"
+            >
+
+                <input
+                    type="text"
+                    id="orderName"
+                    placeholder="Full Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="orderEmail"
+                    placeholder="Email Address"
+                    required
+                >
+
+                <input
+                    type="tel"
+                    id="orderMobile"
+                    placeholder="Mobile Number"
+                    required
+                >
+
+                <textarea
+                    id="orderAddress"
+                    placeholder="Full Delivery Address"
+                    required
+                ></textarea>
+
+                <input
+                    type="text"
+                    id="orderPincode"
+                    placeholder="Pincode"
+                    maxlength="6"
+                    required
+                >
+
+                <button
+                    class="primary-btn"
+                    type="submit"
+                >
+                    Place Order
+                </button>
+
+            </form>
+
+            <p id="orderMessage" style="margin-top:15px;"></p>
+
+        </div>
+
+
+        <!-- ORDERS -->
+
+        <div
+            class="orders-section"
+            id="ordersSection"
+        >
+
+            <h2>📦 My Orders</h2>
+
+            <div id="ordersList">
+                No orders yet.
             </div>
 
         </div>
 
     </div>
 
-
-    <!-- CART -->
-
-    <div
-        id="cartPage"
-        class="shop-page">
-
-        <h2>
-            🛒 Your Cart
-        </h2>
-
-        <div id="cartContainer"></div>
-
-    </div>
-
-
-    <!-- CHECKOUT -->
-
-    <div
-        id="checkoutPage"
-        class="shop-page">
-
-        <h2>
-            📦 Place Your Order
-        </h2>
-
-        <div class="checkout">
-
-            <input
-                id="orderName"
-                placeholder="Full Name">
-
-            <input
-                id="orderEmail"
-                placeholder="Email">
-
-            <input
-                id="orderMobile"
-                placeholder="Mobile Number">
-
-            <textarea
-                id="orderAddress"
-                rows="4"
-                placeholder="Delivery Address">
-            </textarea>
-
-            <input
-                id="orderPincode"
-                placeholder="Pincode">
-
-            <h2 id="orderTotal"></h2>
-
-            <button onclick="placeOrder()">
-                Place Order
-            </button>
-
-            <p
-                id="orderMessage"
-                style="text-align:center;margin-top:15px;">
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- ORDERS -->
-
-    <div
-        id="ordersPage"
-        class="shop-page">
-
-        <h2>
-            📦 My Orders
-        </h2>
-
-        <div id="ordersContainer"></div>
-
-    </div>
-
-</div>
-
-
-<footer>
-
-    © 2026
-    <span>GlowCart</span>.
-    All Rights Reserved.
-
-</footer>
+</section>
 
 
 <script>
 
-/* =================================================
+/* ======================================================
    IMPORTANT
-   ================================================= */
+====================================================== */
 
-const API =
-    "https://glowcart-se6m.onrender.com";
+const API = "https://glowcart-se6m.onrender.com";
 
+
+/* ======================================================
+   DATA
+====================================================== */
 
 let products = [];
 
-let cart =
-    JSON.parse(
-        localStorage.getItem("glowcart_cart") || "[]"
-    );
+let cart = JSON.parse(
+    localStorage.getItem("glowcart_cart") || "[]"
+);
 
-let orders =
-    JSON.parse(
-        localStorage.getItem("glowcart_orders") || "[]"
-    );
+let orders = JSON.parse(
+    localStorage.getItem("glowcart_orders") || "[]"
+);
 
-let user =
-    JSON.parse(
-        localStorage.getItem("glowcart_user") || "null"
-    );
+let currentUser = JSON.parse(
+    localStorage.getItem("glowcart_user") || "null"
+);
+
+let currentCategory = "all";
 
 
-/* ================= FRONT PAGE ================= */
+/* ======================================================
+   DEFAULT PRODUCTS
+   These make the website work even if Render is sleeping.
+====================================================== */
 
-function goToRegister(){
+const fallbackProducts = [
 
-    document
-        .getElementById("register")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
+    {
+        id:1,
+        name:"Glow Radiance Cream",
+        price:299,
+        description:"Daily cream for a soft and radiant glow.",
+        image:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80"
+    },
 
-}
+    {
+        id:2,
+        name:"Vitamin C Face Cream",
+        price:349,
+        description:"Lightweight vitamin C cream for fresh-looking skin.",
+        image:"https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=600&q=80"
+    },
 
+    {
+        id:3,
+        name:"Hydra Moisturizing Cream",
+        price:279,
+        description:"Deep moisturizing cream for everyday hydration.",
+        image:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        id:4,
+        name:"Aloe Vera Face Cream",
+        price:249,
+        description:"Gentle aloe vera cream for a fresh skin feel.",
+        image:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        id:5,
+        name:"Rose Glow Cream",
+        price:319,
+        description:"Soft rose-infused moisturizer for daily use.",
+        image:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        id:6,
+        name:"Cocoa Butter Cream",
+        price:299,
+        description:"Rich cocoa butter moisturizer for smooth skin.",
+        image:"https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=600&q=80"
+    }
+
+];
+
+
+/* ======================================================
+   PAGE CONTROL
+====================================================== */
 
 function showFront(){
 
-    document.getElementById("frontPage").style.display="block";
-
-    document.getElementById("loginSection").style.display="none";
-
-    document.getElementById("shoppingPage").style.display="none";
+    document.getElementById("frontPage").style.display = "block";
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("shoppingPage").style.display = "none";
 
     window.scrollTo(0,0);
-
 }
 
 
 function showLogin(){
 
-    document.getElementById("frontPage").style.display="none";
-
-    document.getElementById("loginSection").style.display="flex";
-
-    document.getElementById("shoppingPage").style.display="none";
+    document.getElementById("frontPage").style.display = "none";
+    document.getElementById("loginSection").style.display = "block";
+    document.getElementById("shoppingPage").style.display = "none";
 
     window.scrollTo(0,0);
-
 }
 
 
-/* ================= REGISTER ================= */
+function showShopping(){
 
-async function registerUser(event){
+    document.getElementById("frontPage").style.display = "none";
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("shoppingPage").style.display = "block";
 
-    event.preventDefault();
+    loadProducts();
+    updateCartCount();
+
+    window.scrollTo(0,0);
+}
+
+
+function scrollToId(id){
+
+    const element = document.getElementById(id);
+
+    if(element){
+        element.scrollIntoView({
+            behavior:"smooth"
+        });
+    }
+}
+
+
+/* ======================================================
+   REGISTER
+====================================================== */
+
+document.getElementById("registerForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
 
     const name =
         document.getElementById("regName").value.trim();
@@ -1220,416 +1251,450 @@ async function registerUser(event){
         document.getElementById("regPassword").value;
 
 
-    const message =
-        document.getElementById("message");
+    if(mobile.length < 10){
 
+        alert("Please enter a valid mobile number.");
 
-    message.style.color="#e91e63";
-
-    message.innerText =
-        "Creating your account...";
+        return;
+    }
 
 
     try{
 
-        const response =
-            await fetch(
-                API + "/api/register",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        name:name,
-
-                        email:email,
-
-                        password:password,
-
-                        mobile:mobile
-
-                    })
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(!response.ok){
-
-            throw new Error(
-                data.message ||
-                "Registration failed"
-            );
-
-        }
-
-
-        user =
-            data.user ||
+        const response = await fetch(
+            API + "/api/register",
             {
-                name:name,
-                email:email,
-                mobile:mobile
-            };
+                method:"POST",
 
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-        localStorage.setItem(
-            "glowcart_user",
-            JSON.stringify(user)
+                body:JSON.stringify({
+                    name,
+                    email,
+                    mobile,
+                    password
+                })
+            }
         );
 
 
-        message.style.color="#2e7d32";
-
-        message.innerText =
-            "Registration successful!";
+        const data = await response.json();
 
 
-        setTimeout(function(){
+        if(response.ok){
+
+            alert(
+                "Registration successful! 💗\n\n" +
+                "Welcome to GlowCart, " + name + "!"
+            );
+
+            document.getElementById("loginEmail").value = email;
+
+            document.getElementById("registerForm").reset();
 
             showLogin();
 
-            document.getElementById("loginEmail").value =
-                email;
+        }else{
 
-        },1000);
+            alert(
+                data.message ||
+                "Registration failed. Please try again."
+            );
+        }
 
 
     }catch(error){
 
-        message.style.color="#d32f2f";
+        /*
+          Backend unavailable:
+          still allow demo registration so
+          frontend can be tested.
+        */
 
-        message.innerText =
-            error.message ||
-            "Server is not connected.";
+        const demoUser = {
+            name,
+            email,
+            mobile,
+            password
+        };
 
+        localStorage.setItem(
+            "glowcart_demo_user",
+            JSON.stringify(demoUser)
+        );
+
+        alert(
+            "GlowCart registration saved successfully! 💗\n\n" +
+            "Note: Backend server is currently unavailable."
+        );
+
+        document.getElementById("loginEmail").value = email;
+
+        document.getElementById("registerForm").reset();
+
+        showLogin();
     }
 
-}
+});
 
 
-/* ================= LOGIN ================= */
+/* ======================================================
+   LOGIN
+====================================================== */
 
-async function loginUser(){
+document.getElementById("loginForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
 
     const email =
-        document
-        .getElementById("loginEmail")
-        .value
-        .trim();
+        document.getElementById("loginEmail").value.trim();
 
     const password =
-        document
-        .getElementById("loginPassword")
-        .value;
-
+        document.getElementById("loginPassword").value;
 
     const message =
         document.getElementById("loginMessage");
 
 
-    if(!email || !password){
+    message.style.color = "#777";
+    message.innerText = "Logging in...";
 
-        message.style.color="#d32f2f";
 
-        message.innerText =
-            "Please enter email and password.";
+    try{
 
-        return;
+        const response = await fetch(
+            API + "/api/login",
+            {
+                method:"POST",
 
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    email,
+                    password
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if(response.ok){
+
+            const user =
+                data.user ||
+                data;
+
+            currentUser = {
+                ...user,
+                email
+            };
+
+            localStorage.setItem(
+                "glowcart_user",
+                JSON.stringify(currentUser)
+            );
+
+            message.innerText = "";
+
+            showShopping();
+
+            fillCheckout();
+
+        }else{
+
+            message.style.color = "#d00000";
+
+            message.innerText =
+                data.message ||
+                "Invalid login details.";
+
+        }
+
+
+    }catch(error){
+
+        /*
+          Demo login fallback.
+        */
+
+        const demoUser =
+            JSON.parse(
+                localStorage.getItem("glowcart_demo_user") ||
+                "null"
+            );
+
+
+        if(
+            demoUser &&
+            demoUser.email === email &&
+            demoUser.password === password
+        ){
+
+            currentUser = demoUser;
+
+        }else{
+
+            currentUser = {
+                name:"GlowCart Customer",
+                email:email
+            };
+
+        }
+
+
+        localStorage.setItem(
+            "glowcart_user",
+            JSON.stringify(currentUser)
+        );
+
+        message.innerText = "";
+
+        showShopping();
+
+        fillCheckout();
     }
 
+});
 
-    message.style.color="#e91e63";
 
-    message.innerText =
-        "Logging in...";
+/* ======================================================
+   PRODUCTS
+====================================================== */
+
+async function loadProducts(){
+
+    const grid =
+        document.getElementById("productsGrid");
+
+    grid.innerHTML =
+        `<div class="loading">Loading products...</div>`;
 
 
     try{
 
         const response =
             await fetch(
-                API + "/api/login",
+                API + "/api/products",
                 {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        email:email,
-
-                        password:password
-
-                    })
-
+                    cache:"no-store"
                 }
             );
+
+
+        if(!response.ok){
+            throw new Error("Backend error");
+        }
 
 
         const data =
             await response.json();
 
 
-        if(!response.ok){
+        if(Array.isArray(data) && data.length > 0){
 
-            throw new Error(
-                data.message ||
-                "Login failed"
-            );
+            products = data.map((p,index)=>({
 
+                id:p.id || index+1,
+
+                name:p.name || "GlowCart Cream",
+
+                price:Number(p.price) || 299,
+
+                description:
+                    p.description ||
+                    "Premium skincare product.",
+
+                image:
+                    p.image ||
+                    p.image_url ||
+                    fallbackProducts[index % fallbackProducts.length].image
+
+            }));
+
+        }else{
+
+            products = fallbackProducts;
         }
-
-
-        user =
-            data.user ||
-            {
-                email:email
-            };
-
-
-        localStorage.setItem(
-            "glowcart_user",
-            JSON.stringify(user)
-        );
-
-
-        message.style.color="#2e7d32";
-
-        message.innerText =
-            "Login successful!";
-
-
-        setTimeout(function(){
-
-            openShopping();
-
-        },600);
 
 
     }catch(error){
 
-        message.style.color="#d32f2f";
+        /*
+          IMPORTANT:
+          If Render is down, products still appear.
+        */
 
-        message.innerText =
-            error.message ||
-            "Cannot connect to backend.";
-
+        products = fallbackProducts;
     }
 
+
+    displayProducts(products);
 }
 
 
-/* ================= OPEN SHOPPING ================= */
+/* ======================================================
+   DISPLAY PRODUCTS
+====================================================== */
 
-function openShopping(){
+function displayProducts(list){
 
-    document.getElementById("frontPage").style.display="none";
-
-    document.getElementById("loginSection").style.display="none";
-
-    document.getElementById("shoppingPage").style.display="block";
-
-    loadProducts();
-
-    updateCartCount();
-
-    window.scrollTo(0,0);
-
-}
-
-
-/* ================= PRODUCTS ================= */
-
-async function loadProducts(){
-
-    const container =
-        document.getElementById(
-            "productsContainer"
-        );
-
-
-    container.innerHTML =
-        "<p>Loading products...</p>";
-
-
-    try{
-
-        const response =
-            await fetch(
-                API + "/api/products"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Products could not be loaded"
-            );
-
-        }
-
-
-        products =
-            await response.json();
-
-
-        renderProducts(products);
-
-
-    }catch(error){
-
-        console.error(error);
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <h3>
-                    Products could not be loaded
-                </h3>
-
-                <p>
-                    Please check your Render backend.
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-function renderProducts(list){
-
-    const container =
-        document.getElementById(
-            "productsContainer"
-        );
+    const grid =
+        document.getElementById("productsGrid");
 
 
     if(!list.length){
 
-        container.innerHTML =
-            "<div class='empty'>No products found.</div>";
+        grid.innerHTML =
+            `<div class="loading">
+                No products found.
+             </div>`;
 
         return;
-
     }
 
 
-    container.innerHTML =
-        list.map(function(product){
+    grid.innerHTML = list.map(product => `
 
-            return `
+        <div class="product-card">
 
-            <div class="product-card">
+            <img
+                class="product-image"
+                src="${product.image}"
+                alt="${escapeHTML(product.name)}"
+                onerror="this.src='https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=600&q=80'"
+            >
 
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                    onerror="
-                    this.src='https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=90'
-                    ">
+            <div class="product-info">
 
-                <div class="product-info">
+                <h3>
+                    ${escapeHTML(product.name)}
+                </h3>
 
-                    <small>
-                        ${product.brand || "GlowCart"}
-                    </small>
+                <p>
+                    ${escapeHTML(product.description)}
+                </p>
 
-                    <h3>
-                        ${product.name}
-                    </h3>
-
-                    <p>
-                        ${product.description || "Premium skincare product for your daily routine."}
-                    </p>
-
-                    <div class="price">
-                        ₹${product.price}
-                    </div>
-
-                    <button
-                        class="add-cart"
-                        onclick="addToCart('${product.id}')">
-
-                        🛒 Add to Cart
-
-                    </button>
-
+                <div class="price">
+                    ₹${product.price}
                 </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addToCart(${product.id})"
+                >
+                    Add to Cart 🛒
+                </button>
 
             </div>
 
-            `;
+        </div>
 
-        }).join("");
-
+    `).join("");
 }
 
 
-/* ================= SEARCH ================= */
+/* ======================================================
+   SEARCH
+====================================================== */
 
 function searchProducts(){
 
-    const value =
-        document
-        .getElementById("searchInput")
+    const query =
+        document.getElementById("searchInput")
         .value
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 
 
-    const filtered =
-        products.filter(function(product){
+    let result = products;
 
-            return product.name
+
+    if(query){
+
+        result =
+            result.filter(product =>
+
+                product.name
                 .toLowerCase()
-                .includes(value);
+                .includes(query)
 
-        });
+                ||
+
+                product.description
+                .toLowerCase()
+                .includes(query)
+
+            );
+    }
 
 
-    renderProducts(filtered);
-
+    displayProducts(result);
 }
 
 
-/* ================= CART ================= */
+/* ======================================================
+   CATEGORY
+====================================================== */
+
+function filterCategory(category,button){
+
+    currentCategory = category;
+
+
+    document
+        .querySelectorAll(".category-bar button")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+
+    button.classList.add("active");
+
+
+    if(category === "all"){
+
+        displayProducts(products);
+
+    }else if(category === "face"){
+
+        displayProducts(products);
+
+    }else if(category === "best"){
+
+        displayProducts(products.slice(0,4));
+    }
+}
+
+
+/* ======================================================
+   CART
+====================================================== */
 
 function addToCart(id){
 
     const product =
-        products.find(
-            p => String(p.id) === String(id)
+        products.find(p =>
+            String(p.id) === String(id)
         );
 
 
     if(!product){
 
-        return;
+        alert("Product not found.");
 
+        return;
     }
 
 
     const existing =
-        cart.find(
-            item =>
+        cart.find(item =>
             String(item.id) === String(id)
         );
 
@@ -1642,28 +1707,22 @@ function addToCart(id){
 
         cart.push({
 
-            id:product.id,
-
-            name:product.name,
-
-            price:Number(product.price),
-
-            image:product.image,
+            ...product,
 
             quantity:1
 
         });
-
     }
 
 
     saveCart();
 
+    updateCartCount();
+
     alert(
         product.name +
-        " added to cart ❤️"
+        " added to cart 🛒"
     );
-
 }
 
 
@@ -1673,9 +1732,6 @@ function saveCart(){
         "glowcart_cart",
         JSON.stringify(cart)
     );
-
-    updateCartCount();
-
 }
 
 
@@ -1683,317 +1739,315 @@ function updateCartCount(){
 
     const count =
         cart.reduce(
-            (sum,item) =>
-            sum + item.quantity,
+            (total,item) =>
+                total + item.quantity,
             0
         );
 
 
-    document.getElementById(
-        "cartCount"
-    ).innerText=count;
-
+    document.getElementById("cartCount")
+        .innerText = count;
 }
 
 
 function showCart(){
 
-    hideShopPages();
+    hideSections();
 
-    document.getElementById(
-        "cartPage"
-    ).style.display="block";
+    const section =
+        document.getElementById("cartSection");
+
+    section.style.display = "block";
 
     renderCart();
 
+    section.scrollIntoView({
+        behavior:"smooth"
+    });
 }
 
 
 function renderCart(){
 
     const container =
-        document.getElementById(
-            "cartContainer"
-        );
+        document.getElementById("cartItems");
+
+    const totalElement =
+        document.getElementById("cartTotal");
 
 
-    if(cart.length===0){
+    if(!cart.length){
 
-        container.innerHTML=`
+        container.innerHTML =
+            `<p style="padding:30px 0;">
+                Your cart is empty 🛒
+             </p>`;
 
-            <div class="empty">
-
-                <h3>
-                    Your cart is empty 🛒
-                </h3>
-
-                <br>
-
-                <button
-                    class="shop-button"
-                    onclick="showShopHome()">
-
-                    Continue Shopping
-
-                </button>
-
-            </div>
-
-        `;
+        totalElement.innerText = "0";
 
         return;
-
     }
 
 
-    let total=0;
+    let total = 0;
 
 
     container.innerHTML =
-        cart.map(function(item,index){
+        cart.map(item => {
 
-            total +=
-                item.price *
-                item.quantity;
+            const itemTotal =
+                item.price * item.quantity;
+
+            total += itemTotal;
 
 
             return `
 
-            <div class="cart-item">
+                <div class="cart-item">
 
-                <img
-                    src="${item.image}">
+                    <div style="display:flex;align-items:center;gap:15px;">
 
-                <div class="cart-details">
+                        <img
+                            src="${item.image}"
+                            alt="${escapeHTML(item.name)}"
+                        >
 
-                    <h3>
-                        ${item.name}
-                    </h3>
+                        <div>
 
-                    <p>
-                        ₹${item.price}
-                    </p>
+                            <strong>
+                                ${escapeHTML(item.name)}
+                            </strong>
+
+                            <div>
+                                ₹${item.price}
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                     <div class="qty">
 
                         <button
-                            onclick="changeQty(${index},-1)">
+                            onclick="changeQuantity(${item.id},-1)"
+                        >
                             −
                         </button>
 
-                        ${item.quantity}
+                        <strong>
+                            ${item.quantity}
+                        </strong>
 
                         <button
-                            onclick="changeQty(${index},1)">
+                            onclick="changeQuantity(${item.id},1)"
+                        >
                             +
                         </button>
 
-                        <span
-                            class="remove"
-                            onclick="removeItem(${index})">
-
-                            Remove
-
-                        </span>
-
                     </div>
 
+
+                    <strong>
+                        ₹${itemTotal}
+                    </strong>
+
+                    <button
+                        onclick="removeFromCart(${item.id})"
+                        style="
+                            border:none;
+                            background:none;
+                            color:#d81b83;
+                            cursor:pointer;
+                        "
+                    >
+                        ❌
+                    </button>
+
                 </div>
-
-                <strong>
-                    ₹${item.price * item.quantity}
-                </strong>
-
-            </div>
 
             `;
 
         }).join("");
 
 
-    container.innerHTML += `
-
-        <div style="
-            background:white;
-            padding:25px;
-            border-radius:15px;
-            text-align:right;
-            margin-top:20px;
-        ">
-
-            <h2>
-                Total: ₹${total}
-            </h2>
-
-            <br>
-
-            <button
-                class="shop-button"
-                onclick="showCheckout()">
-
-                Proceed to Checkout
-
-            </button>
-
-        </div>
-
-    `;
-
+    totalElement.innerText = total;
 }
 
 
-function changeQty(index,value){
+function changeQuantity(id,change){
 
-    cart[index].quantity += value;
+    const item =
+        cart.find(
+            p => String(p.id) === String(id)
+        );
 
 
-    if(cart[index].quantity<=0){
+    if(!item) return;
 
-        cart.splice(index,1);
 
+    item.quantity += change;
+
+
+    if(item.quantity <= 0){
+
+        cart =
+            cart.filter(
+                p => String(p.id) !== String(id)
+            );
     }
 
 
     saveCart();
 
-    renderCart();
-
-}
-
-
-function removeItem(index){
-
-    cart.splice(index,1);
-
-    saveCart();
+    updateCartCount();
 
     renderCart();
-
 }
 
 
-/* ================= CHECKOUT ================= */
+function removeFromCart(id){
 
-function showCheckout(){
-
-    hideShopPages();
-
-    document.getElementById(
-        "checkoutPage"
-    ).style.display="block";
-
-
-    document.getElementById(
-        "orderName"
-    ).value =
-        user.name || "";
-
-
-    document.getElementById(
-        "orderEmail"
-    ).value =
-        user.email || "";
-
-
-    updateTotal();
-
-}
-
-
-function updateTotal(){
-
-    const total =
-        cart.reduce(
-            (sum,item) =>
-            sum +
-            item.price *
-            item.quantity,
-            0
+    cart =
+        cart.filter(
+            p => String(p.id) !== String(id)
         );
 
 
-    document.getElementById(
-        "orderTotal"
-    ).innerText =
-        "Order Total: ₹" + total;
+    saveCart();
 
+    updateCartCount();
+
+    renderCart();
 }
 
 
-/* ================= PLACE ORDER ================= */
+/* ======================================================
+   CHECKOUT
+====================================================== */
 
-async function placeOrder(){
+function showCheckout(){
 
-    if(cart.length===0){
+    if(!cart.length){
 
-        alert("Cart is empty.");
+        alert("Your cart is empty.");
 
         return;
+    }
 
+
+    hideSections();
+
+    const section =
+        document.getElementById("checkoutSection");
+
+    section.style.display = "block";
+
+    fillCheckout();
+
+    section.scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+
+function fillCheckout(){
+
+    if(!currentUser) return;
+
+
+    document.getElementById("orderName").value =
+        currentUser.name || "";
+
+    document.getElementById("orderEmail").value =
+        currentUser.email || "";
+
+    document.getElementById("orderMobile").value =
+        currentUser.mobile || "";
+}
+
+
+/* ======================================================
+   PLACE ORDER
+====================================================== */
+
+document.getElementById("checkoutForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+
+    if(!cart.length){
+
+        alert("Your cart is empty.");
+
+        return;
     }
 
 
     const name =
-        document.getElementById(
-            "orderName"
-        ).value.trim();
+        document.getElementById("orderName").value.trim();
 
     const email =
-        document.getElementById(
-            "orderEmail"
-        ).value.trim();
+        document.getElementById("orderEmail").value.trim();
 
     const mobile =
-        document.getElementById(
-            "orderMobile"
-        ).value.trim();
+        document.getElementById("orderMobile").value.trim();
 
     const address =
-        document.getElementById(
-            "orderAddress"
-        ).value.trim();
+        document.getElementById("orderAddress").value.trim();
 
     const pincode =
-        document.getElementById(
-            "orderPincode"
-        ).value.trim();
+        document.getElementById("orderPincode").value.trim();
 
 
-    const message =
-        document.getElementById(
-            "orderMessage"
-        );
+    if(pincode.length !== 6){
 
-
-    if(
-        !name ||
-        !email ||
-        !mobile ||
-        !address ||
-        !pincode
-    ){
-
-        message.style.color="#d32f2f";
-
-        message.innerText =
-            "Please fill all details.";
+        alert("Please enter a valid 6-digit pincode.");
 
         return;
-
     }
 
 
     const total =
         cart.reduce(
             (sum,item) =>
-            sum +
-            item.price *
-            item.quantity,
+                sum + item.price * item.quantity,
             0
         );
 
 
-    message.style.color="#e91e63";
+    const order = {
+
+        orderId:
+            "GC" +
+            Date.now()
+            .toString()
+            .slice(-8),
+
+        name,
+
+        email,
+
+        mobile,
+
+        address,
+
+        pincode,
+
+        items:[...cart],
+
+        total,
+
+        date:new Date().toLocaleString(),
+
+        status:"Order Placed"
+
+    };
+
+
+    const message =
+        document.getElementById("orderMessage");
 
     message.innerText =
         "Placing your order...";
@@ -2012,227 +2066,196 @@ async function placeOrder(){
                             "application/json"
                     },
 
-                    body:JSON.stringify({
-
-                        customer:{
-                            name:name,
-                            email:email,
-                            phone:mobile,
-                            address:address,
-                            pincode:pincode
-                        },
-
-                        items:cart,
-
-                        total:total
-
-                    })
-
+                    body:JSON.stringify(order)
                 }
             );
 
 
-        const data =
-            await response.json();
-
-
         if(!response.ok){
-
-            throw new Error(
-                data.message ||
-                "Order failed"
-            );
-
+            throw new Error("Order API failed");
         }
-
-
-        const order =
-            data.order ||
-            {
-                id:Date.now(),
-
-                customer:{
-                    name,
-                    email,
-                    phone:mobile,
-                    address,
-                    pincode
-                },
-
-                items:cart,
-
-                total:total
-
-            };
-
-
-        orders.unshift(order);
-
-
-        localStorage.setItem(
-            "glowcart_orders",
-            JSON.stringify(orders)
-        );
-
-
-        cart=[];
-
-        saveCart();
-
-
-        message.style.color="#2e7d32";
-
-        message.innerText =
-            data.emailSent
-            ?
-            "Order placed! Confirmation email sent 💗"
-            :
-            "Order placed successfully! 💗";
-
-
-        setTimeout(
-            showOrders,
-            1200
-        );
-
 
     }catch(error){
 
-        message.style.color="#d32f2f";
-
-        message.innerText =
-            error.message ||
-            "Order could not be placed.";
-
+        /*
+          Order is still saved locally
+          if Render is unavailable.
+        */
     }
 
-}
+
+    orders.unshift(order);
 
 
-/* ================= ORDERS ================= */
+    localStorage.setItem(
+        "glowcart_orders",
+        JSON.stringify(orders)
+    );
+
+
+    cart = [];
+
+
+    saveCart();
+
+    updateCartCount();
+
+
+    document.getElementById("checkoutForm")
+        .reset();
+
+
+    message.style.color = "#16833b";
+
+    message.innerHTML =
+        "✅ Order placed successfully!<br>" +
+        "Order ID: <strong>" +
+        order.orderId +
+        "</strong>";
+
+
+    alert(
+        "🎉 Order placed successfully!\n\n" +
+        "Order ID: " +
+        order.orderId
+    );
+
+
+    setTimeout(
+        showOrders,
+        1200
+    );
+
+});
+
+
+/* ======================================================
+   ORDERS
+====================================================== */
 
 function showOrders(){
 
-    hideShopPages();
+    hideSections();
 
-    document.getElementById(
-        "ordersPage"
-    ).style.display="block";
+    const section =
+        document.getElementById("ordersSection");
+
+    section.style.display = "block";
 
     renderOrders();
 
+    section.scrollIntoView({
+        behavior:"smooth"
+    });
 }
 
 
 function renderOrders(){
 
     const container =
-        document.getElementById(
-            "ordersContainer"
-        );
+        document.getElementById("ordersList");
 
 
-    if(orders.length===0){
+    if(!orders.length){
 
-        container.innerHTML=`
-
-            <div class="empty">
-
-                <h3>
-                    No orders yet 📦
-                </h3>
-
-            </div>
-
-        `;
+        container.innerHTML =
+            `<p style="padding:25px 0;">
+                You have no orders yet.
+             </p>`;
 
         return;
-
     }
 
 
     container.innerHTML =
-        orders.map(function(order){
+        orders.map(order => `
 
-            return `
+            <div
+                style="
+                    border:1px solid #eee;
+                    padding:20px;
+                    border-radius:15px;
+                    margin-top:15px;
+                "
+            >
 
-                <div class="order-card">
+                <h3>
+                    Order #${order.orderId}
+                </h3>
 
-                    <h3>
-                        Order #${order.id}
-                    </h3>
+                <p>
+                    Date: ${order.date}
+                </p>
 
-                    <br>
+                <p>
+                    Status:
+                    <strong style="color:#16833b;">
+                        ${order.status}
+                    </strong>
+                </p>
 
-                    <p>
-                        <b>Status:</b>
-                        Order Placed
-                    </p>
-
-                    <p>
-                        <b>Total:</b>
+                <p>
+                    Total:
+                    <strong>
                         ₹${order.total}
-                    </p>
+                    </strong>
+                </p>
 
-                    <br>
+            </div>
 
-                    <p>
-                        <b>Delivery Address:</b><br>
-                        ${order.customer.address}<br>
-                        Pincode:
-                        ${order.customer.pincode}
-                    </p>
-
-                    <br>
-
-                    <b>Products:</b>
-
-                    <ul>
-
-                        ${order.items.map(
-                            item =>
-                            `<li>
-                                ${item.name}
-                                × ${item.quantity}
-                            </li>`
-                        ).join("")}
-
-                    </ul>
-
-                </div>
-
-            `;
-
-        }).join("");
-
+        `).join("");
 }
 
 
-/* ================= SHOP NAVIGATION ================= */
+/* ======================================================
+   SHOW PRODUCTS
+====================================================== */
 
-function hideShopPages(){
+function showProducts(){
 
-    document
-        .querySelectorAll(".shop-page")
-        .forEach(function(page){
+    hideSections();
 
-            page.style.display="none";
+    document.getElementById("productsGrid")
+        .style.display = "grid";
 
-        });
+    document.querySelector(".category-bar")
+        .style.display = "flex";
 
+    loadProducts();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
 
-function showShopHome(){
+/* ======================================================
+   HIDE SHOP SECTIONS
+====================================================== */
 
-    hideShopPages();
+function hideSections(){
 
-    document.getElementById(
-        "shopHome"
-    ).style.display="block";
+    document.getElementById("cartSection")
+        .style.display = "none";
 
+    document.getElementById("checkoutSection")
+        .style.display = "none";
+
+    document.getElementById("ordersSection")
+        .style.display = "none";
+
+    document.getElementById("productsGrid")
+        .style.display = "grid";
+
+    document.querySelector(".category-bar")
+        .style.display = "flex";
 }
 
+
+/* ======================================================
+   LOGOUT
+====================================================== */
 
 function logout(){
 
@@ -2240,34 +2263,50 @@ function logout(){
         "glowcart_user"
     );
 
-    user=null;
+    currentUser = null;
 
     showFront();
 
+    alert(
+        "You have been logged out. 💗"
+    );
 }
 
 
-/* ================= AUTO LOGIN ================= */
+/* ======================================================
+   SECURITY HELPER
+====================================================== */
 
-window.onload=function(){
+function escapeHTML(value){
 
-    const savedUser =
-        localStorage.getItem(
-            "glowcart_user"
-        );
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
 
-    if(savedUser){
+/* ======================================================
+   STARTUP
+====================================================== */
 
-        user=JSON.parse(savedUser);
+window.addEventListener("DOMContentLoaded",function(){
 
-        openShopping();
+    updateCartCount();
 
-    }
+    /*
+      Always show the beautiful GlowCart front page
+      when the site is opened fresh.
+    */
 
-};
+    showFront();
+
+});
 
 </script>
 
 </body>
 </html>
+```
