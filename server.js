@@ -1,4 +1,4 @@
-```javascript
+
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
@@ -358,4 +358,3 @@ app.listen(PORT, "0.0.0.0", () => {
     );
 
 });
-```
