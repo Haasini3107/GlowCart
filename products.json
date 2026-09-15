@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Glow Radiance Cream",
+    "price": 499,
+    "image": "https://images.unsplash.com/photo-1556228578-8c89e6adf883"
+  },
+  {
+    "id": 2,
+    "name": "Vitamin C Face Cream",
+    "price": 599,
+    "image": "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd"
+  },
+  {
+    "id": 3,
+    "name": "Hydra Moisturizing Cream",
+    "price": 449,
+    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be"
+  },
+  {
+    "id": 4,
+    "name": "Aloe Vera Face Cream",
+    "price": 399,
+    "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b"
+  }
+]

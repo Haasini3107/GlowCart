@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>GlowCart - My Orders</title>
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            #ffe0ec,
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            #eadcff,
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fff8fb,
+            #f8f3ff
+        );
+
+    color: #333;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+
+    height: 75px;
+
+    background: rgba(255,255,255,0.97);
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 7%;
+
+    gap: 25px;
+
+    box-shadow:
+        0 3px 18px rgba(0,0,0,0.08);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+}
+
+
+.logo {
+
+    text-decoration: none;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    letter-spacing: -1px;
+
+    color: #e91e63;
+
+    margin-right: auto;
+}
+
+
+.logo span {
+
+    color: #7b1fa2;
+
+}
+
+
+.nav-link {
+
+    text-decoration: none;
+
+    color: #555;
+
+    font-weight: bold;
+
+    padding: 10px 17px;
+
+    border-radius: 22px;
+
+    transition: 0.3s;
+}
+
+
+.nav-link:hover {
+
+    color: #e91e63;
+
+    background: #fff0f6;
+
+}
+
+
+/* ================= ORDERS AREA ================= */
+
+.orders-container {
+
+    max-width: 1050px;
+
+    margin: 55px auto;
+
+    padding: 0 25px;
+}
+
+
+.orders-title {
+
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+
+.orders-title h1 {
+
+    font-size: 40px;
+
+    color: #6a1b9a;
+
+    margin-bottom: 10px;
+}
+
+
+.orders-title p {
+
+    color: #777;
+
+    font-size: 16px;
+}
+
+
+/* ================= ORDER CARD ================= */
+
+.order-card {
+
+    background: white;
+
+    border-radius: 22px;
+
+    margin-bottom: 25px;
+
+    padding: 25px;
+
+    border: 1px solid #f0e5ef;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.07);
+
+    transition: 0.3s;
+}
+
+
+.order-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(156,39,176,0.12);
+}
+
+
+/* ================= ORDER HEADER ================= */
+
+.order-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 10px;
+}
+
+
+.order-id {
+
+    color: #6a1b9a;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+
+.order-status {
+
+    background: #e8f5e9;
+
+    color: #2e7d32;
+
+    padding: 7px 15px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.order-date {
+
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 18px;
+}
+
+
+/* ================= PRODUCTS ================= */
+
+.order-products {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin: 20px 0;
+}
+
+
+.order-product {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7fa,
+            #faf5ff
+        );
+
+    border: 1px solid #f4eaf2;
+}
+
+
+.order-product-image {
+
+    width: 90px;
+
+    height: 90px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+.order-product-image img {
+
+    width: 75px;
+
+    height: 75px;
+
+    object-fit: contain;
+
+    transition: 0.3s;
+}
+
+
+.order-product-image img:hover {
+
+    transform: scale(1.08);
+}
+
+
+.order-product-details {
+
+    flex: 1;
+}
+
+
+.order-product-details h3 {
+
+    color: #6a1b9a;
+
+    font-size: 17px;
+
+    margin-bottom: 8px;
+}
+
+
+.order-product-details p {
+
+    color: #777;
+
+    font-size: 14px;
+
+    margin: 5px 0;
+}
+
+
+.product-price {
+
+    color: #e91e63 !important;
+
+    font-weight: bold;
+
+    font-size: 15px !important;
+}
+
+
+/* ================= DELIVERY ================= */
+
+.delivery-box {
+
+    background: #fff7fa;
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+    margin-top: 20px;
+}
+
+
+.delivery-box h3 {
+
+    color: #6a1b9a;
+
+    font-size: 16px;
+
+    margin-bottom: 8px;
+}
+
+
+.delivery-box p {
+
+    color: #666;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+/* ================= PAYMENT ================= */
+
+.payment-box {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 18px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #eee;
+}
+
+
+.payment-method {
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+.payment-method strong {
+
+    color: #6a1b9a;
+}
+
+
+.order-total {
+
+    color: #e91e63;
+
+    font-size: 19px;
+
+    font-weight: bold;
+}
+
+
+/* ================= EMPTY ORDERS ================= */
+
+.empty-orders {
+
+    background: white;
+
+    padding: 70px 30px;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.08);
+}
+
+
+.empty-icon {
+
+    font-size: 65px;
+
+    margin-bottom: 20px;
+}
+
+
+.empty-orders h2 {
+
+    color: #6a1b9a;
+
+    margin-bottom: 10px;
+}
+
+
+.empty-orders p {
+
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+.shop-button {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e91e63,
+            #9c27b0
+        );
+
+    padding: 14px 28px;
+
+    border-radius: 30px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 20px rgba(156,39,176,0.2);
+
+    transition: 0.3s;
+}
+
+
+.shop-button:hover {
+
+    transform: translateY(-3px);
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+
+    margin-top: 80px;
+
+    background: #211d24;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+
+footer span {
+
+    color: #f06292;
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 650px) {
+
+    .header {
+
+        height: auto;
+
+        padding: 15px 20px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .logo {
+
+        width: 100%;
+
+        margin-bottom: 5px;
+    }
+
+
+    .nav-link {
+
+        padding: 8px 10px;
+
+        font-size: 13px;
+    }
+
+
+    .orders-container {
+
+        margin: 30px auto;
+
+        padding: 0 15px;
+    }
+
+
+    .orders-title h1 {
+
+        font-size: 31px;
+    }
+
+
+    .order-card {
+
+        padding: 18px;
+    }
+
+
+    .order-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .order-product {
+
+        align-items: flex-start;
+    }
+
+
+    .order-product-image {
+
+        width: 75px;
+
+        height: 75px;
+    }
+
+
+    .order-product-image img {
+
+        width: 62px;
+
+        height: 62px;
+    }
+
+
+    .payment-box {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<a href="home.html"
+class="logo">
+
+Glow<span>Cart</span>
+
+</a>
+
+
+<a href="products.html"
+class="nav-link">
+
+Continue Shopping
+
+</a>
+
+
+<a href="cart.html"
+class="nav-link">
+
+🛒 Cart
+
+</a>
+
+</header>
+
+
+
+<!-- ================= ORDERS ================= -->
+
+<div class="orders-container">
+
+
+<div class="orders-title">
+
+<h1>
+My Orders 🛍️
+</h1>
+
+<p>
+Track your GlowCart skincare purchases
+</p>
+
+</div>
+
+
+<div id="ordersList">
+</div>
+
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<p>
+
+© 2026
+<span>GlowCart</span>
+· Premium Skincare Shopping
+
+</p>
+
+</footer>
+
+
+
+<script>
+
+
+/* ================= GET ORDERS ================= */
+
+let orders =
+JSON.parse(
+localStorage.getItem("orders")
+) || [];
+
+
+let container =
+document.getElementById("ordersList");
+
+
+
+/* ================= EMPTY ORDERS ================= */
+
+if(orders.length === 0) {
+
+container.innerHTML = `
+
+<div class="empty-orders">
+
+<div class="empty-icon">
+🛍️
+</div>
+
+<h2>
+No Orders Yet
+</h2>
+
+<p>
+You haven't placed any orders yet.
+<br>
+Your favourite skincare products are waiting for you!
+</p>
+
+<a
+href="products.html"
+class="shop-button">
+
+Start Shopping →
+
+</a>
+
+</div>
+
+`;
+
+}
+
+
+
+/* ================= DISPLAY ORDERS ================= */
+
+else {
+
+
+orders
+.slice()
+.reverse()
+.forEach(function(order) {
+
+
+let items = "";
+
+let orderTotal = 0;
+
+
+
+/* ================= PRODUCTS ================= */
+
+order.items.forEach(function(item) {
+
+
+let price =
+parseInt(
+item.price
+.replace("₹","")
+.replace(",","")
+);
+
+
+let itemTotal =
+price * item.quantity;
+
+
+orderTotal += itemTotal;
+
+
+
+items += `
+
+<div class="order-product">
+
+
+<div class="order-product-image">
+
+<img
+src="${item.image}"
+alt="${item.name}">
+
+</div>
+
+
+<div class="order-product-details">
+
+<h3>
+${item.name}
+</h3>
+
+<p>
+Quantity: ${item.quantity}
+</p>
+
+<p class="product-price">
+${item.price} × ${item.quantity}
+</p>
+
+</div>
+
+
+</div>
+
+`;
+
+});
+
+
+
+/* ================= PAYMENT ================= */
+
+let payment =
+order.payment || "Cash on Delivery";
+
+
+
+/* ================= ORDER CARD ================= */
+
+container.innerHTML += `
+
+<div class="order-card">
+
+
+<div class="order-header">
+
+<div class="order-id">
+
+Order ID:
+${order.id}
+
+</div>
+
+
+<div class="order-status">
+
+✓ ${order.status}
+
+</div>
+
+</div>
+
+
+<div class="order-date">
+
+📅 Order Date:
+${order.date}
+
+</div>
+
+
+<hr>
+
+
+
+<div class="order-products">
+
+${items}
+
+</div>
+
+
+
+<div class="delivery-box">
+
+<h3>
+📍 Delivery Address
+</h3>
+
+<p>
+
+${order.name}<br>
+
+${order.address}<br>
+
+${order.city} -
+${order.pincode}<br>
+
+📱 ${order.phone}
+
+</p>
+
+</div>
+
+
+
+<div class="payment-box">
+
+<div class="payment-method">
+
+💳 Payment:
+<strong>
+${payment}
+</strong>
+
+</div>
+
+
+<div class="order-total">
+
+Total: ₹${orderTotal}
+
+</div>
+
+</div>
+
+
+</div>
+
+`;
+
+});
+
+}
+
+</script>
+
+
+</body>
+
+</html>
