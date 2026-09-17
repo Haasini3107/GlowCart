@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
@@ -28,15 +27,119 @@ app.use(express.json());
 
 
 /* =========================
+   EMAIL FUNCTION - RESEND
+========================= */
+
+async function sendEmail(to, subject, html) {
+
+    try {
+
+        if (!process.env.RESEND_API_KEY) {
+
+            console.log("RESEND_API_KEY is not configured.");
+
+            return {
+                success: false,
+                message: "Email service is not configured."
+            };
+
+        }
+
+        const fromEmail =
+            process.env.EMAIL_FROM ||
+            "onboarding@resend.dev";
+
+
+        const response = await fetch(
+            "https://api.resend.com/emails",
+            {
+                method: "POST",
+
+                headers: {
+                    "Authorization":
+                        `Bearer ${process.env.RESEND_API_KEY}`,
+
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    from: `GlowCart <${fromEmail}>`,
+
+                    to: [to],
+
+                    subject: subject,
+
+                    html: html
+
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Resend error:",
+                data
+            );
+
+            return {
+                success: false,
+                data: data
+            };
+
+        }
+
+
+        console.log(
+            "Email sent successfully to:",
+            to
+        );
+
+
+        return {
+            success: true,
+            data: data
+        };
+
+
+    } catch (error) {
+
+        console.error(
+            "Email sending error:",
+            error
+        );
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
+
+
+/* =========================
    HOME
 ========================= */
 
 app.get("/", (req, res) => {
 
     res.json({
+
         success: true,
-        message: "GlowCart backend is running!",
+
+        message:
+            "GlowCart backend is running!",
+
         status: "online"
+
     });
 
 });
@@ -50,27 +153,42 @@ app.get("/api/products", (req, res) => {
 
     try {
 
-        const filePath = path.join(
-            __dirname,
-            "products.json"
-        );
+        const filePath =
+            path.join(
+                __dirname,
+                "products.json"
+            );
 
-        const fileData = fs.readFileSync(
-            filePath,
-            "utf8"
-        );
 
-        const products = JSON.parse(fileData);
+        const fileData =
+            fs.readFileSync(
+                filePath,
+                "utf8"
+            );
+
+
+        const products =
+            JSON.parse(fileData);
+
 
         res.json(products);
 
+
     } catch (error) {
 
-        console.error("Products error:", error);
+        console.error(
+            "Products error:",
+            error
+        );
+
 
         res.status(500).json({
+
             success: false,
-            message: "Unable to load products"
+
+            message:
+                "Unable to load products"
+
         });
 
     }
@@ -86,30 +204,41 @@ app.get("/api/products/:id", (req, res) => {
 
     try {
 
-        const filePath = path.join(
-            __dirname,
-            "products.json"
-        );
+        const filePath =
+            path.join(
+                __dirname,
+                "products.json"
+            );
 
-        const fileData = fs.readFileSync(
-            filePath,
-            "utf8"
-        );
 
-        const products = JSON.parse(fileData);
+        const fileData =
+            fs.readFileSync(
+                filePath,
+                "utf8"
+            );
 
-        const product = products.find(
-            item =>
-                String(item.id) ===
-                String(req.params.id)
-        );
+
+        const products =
+            JSON.parse(fileData);
+
+
+        const product =
+            products.find(
+                item =>
+                    String(item.id) ===
+                    String(req.params.id)
+            );
 
 
         if (!product) {
 
             return res.status(404).json({
+
                 success: false,
-                message: "Product not found"
+
+                message:
+                    "Product not found"
+
             });
 
         }
@@ -117,13 +246,22 @@ app.get("/api/products/:id", (req, res) => {
 
         res.json(product);
 
+
     } catch (error) {
 
-        console.error("Product error:", error);
+        console.error(
+            "Product error:",
+            error
+        );
+
 
         res.status(500).json({
+
             success: false,
-            message: "Server error"
+
+            message:
+                "Server error"
+
         });
 
     }
@@ -135,7 +273,7 @@ app.get("/api/products/:id", (req, res) => {
    REGISTER
 ========================= */
 
-app.post("/api/register", (req, res) => {
+app.post("/api/register", async (req, res) => {
 
     try {
 
@@ -155,8 +293,12 @@ app.post("/api/register", (req, res) => {
         ) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Please fill all fields."
+
+                message:
+                    "Please fill all fields."
+
             });
 
         }
@@ -181,15 +323,86 @@ app.post("/api/register", (req, res) => {
         };
 
 
+        /* =========================
+           REGISTRATION EMAIL
+        ========================= */
+
+        await sendEmail(
+
+            email,
+
+            "Welcome to GlowCart 💗",
+
+            `
+            <div style="
+                font-family:Arial,sans-serif;
+                max-width:600px;
+                margin:auto;
+                padding:30px;
+                border:1px solid #eee;
+                border-radius:15px;
+            ">
+
+                <h1 style="color:#d81b83;">
+                    Welcome to GlowCart 💗
+                </h1>
+
+                <p>Hello <b>${name}</b>,</p>
+
+                <p>
+                    Your GlowCart account has been
+                    registered successfully.
+                </p>
+
+                <p>
+                    You can now login and start
+                    shopping for your favourite
+                    skincare products.
+                </p>
+
+                <div style="
+                    background:#fff0f7;
+                    padding:15px;
+                    border-radius:10px;
+                    margin-top:20px;
+                ">
+
+                    <b>Registered Email:</b>
+                    ${email}
+
+                    <br><br>
+
+                    <b>Mobile:</b>
+                    ${mobile}
+
+                </div>
+
+                <p style="margin-top:25px;">
+                    Thank you for choosing
+                    <b>GlowCart</b> ✨
+                </p>
+
+                <p>
+                    Premium skincare made simple.
+                </p>
+
+            </div>
+            `
+
+        );
+
+
         res.status(201).json({
 
             success: true,
 
-            message: "Registration successful!",
+            message:
+                "Registration successful! Confirmation email sent.",
 
             user: user
 
         });
+
 
     } catch (error) {
 
@@ -198,11 +411,13 @@ app.post("/api/register", (req, res) => {
             error
         );
 
+
         res.status(500).json({
 
             success: false,
 
-            message: "Registration failed."
+            message:
+                "Registration failed."
 
         });
 
@@ -215,7 +430,7 @@ app.post("/api/register", (req, res) => {
    LOGIN
 ========================= */
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
 
     try {
 
@@ -257,15 +472,78 @@ app.post("/api/login", (req, res) => {
         };
 
 
+        /* =========================
+           LOGIN EMAIL
+        ========================= */
+
+        await sendEmail(
+
+            email,
+
+            "GlowCart Login Successful 💗",
+
+            `
+            <div style="
+                font-family:Arial,sans-serif;
+                max-width:600px;
+                margin:auto;
+                padding:30px;
+                border:1px solid #eee;
+                border-radius:15px;
+            ">
+
+                <h1 style="color:#d81b83;">
+                    Login Successful 💗
+                </h1>
+
+                <p>
+                    Hello <b>${user.name}</b>,
+                </p>
+
+                <p>
+                    You have successfully logged
+                    in to your GlowCart account.
+                </p>
+
+                <div style="
+                    background:#fff0f7;
+                    padding:15px;
+                    border-radius:10px;
+                    margin-top:20px;
+                ">
+
+                    <b>Email:</b>
+                    ${email}
+
+                    <br><br>
+
+                    <b>Status:</b>
+                    Login successful ✅
+
+                </div>
+
+                <p style="margin-top:25px;">
+                    Happy shopping with
+                    <b>GlowCart</b> 🛍️
+                </p>
+
+            </div>
+            `
+
+        );
+
+
         res.json({
 
             success: true,
 
-            message: "Login successful!",
+            message:
+                "Login successful! Login email sent.",
 
             user: user
 
         });
+
 
     } catch (error) {
 
@@ -274,11 +552,13 @@ app.post("/api/login", (req, res) => {
             error
         );
 
+
         res.status(500).json({
 
             success: false,
 
-            message: "Login failed."
+            message:
+                "Login failed."
 
         });
 
@@ -291,7 +571,7 @@ app.post("/api/login", (req, res) => {
    ORDERS
 ========================= */
 
-app.post("/api/orders", (req, res) => {
+app.post("/api/orders", async (req, res) => {
 
     try {
 
@@ -304,7 +584,8 @@ app.post("/api/orders", (req, res) => {
 
                 success: false,
 
-                message: "Order data is missing."
+                message:
+                    "Order data is missing."
 
             });
 
@@ -317,15 +598,138 @@ app.post("/api/orders", (req, res) => {
         );
 
 
+        /* =========================
+           GET CUSTOMER DETAILS
+        ========================= */
+
+        const customerEmail =
+            order.email ||
+            order.customerEmail;
+
+
+        const customerName =
+            order.name ||
+            order.customerName ||
+            "GlowCart Customer";
+
+
+        /* =========================
+           ORDER EMAIL
+        ========================= */
+
+        if (customerEmail) {
+
+            await sendEmail(
+
+                customerEmail,
+
+                "GlowCart Order Confirmed 📦💗",
+
+                `
+                <div style="
+                    font-family:Arial,sans-serif;
+                    max-width:600px;
+                    margin:auto;
+                    padding:30px;
+                    border:1px solid #eee;
+                    border-radius:15px;
+                ">
+
+                    <h1 style="color:#d81b83;">
+                        Order Confirmed 📦💗
+                    </h1>
+
+                    <p>
+                        Hello <b>${customerName}</b>,
+                    </p>
+
+                    <p>
+                        Thank you for shopping with
+                        <b>GlowCart</b>.
+                    </p>
+
+                    <p>
+                        Your order has been received
+                        successfully.
+                    </p>
+
+                    <div style="
+                        background:#fff0f7;
+                        padding:20px;
+                        border-radius:10px;
+                        margin-top:20px;
+                    ">
+
+                        <h3>
+                            📦 Order Details
+                        </h3>
+
+                        ${
+                            order.orderId
+                            ?
+                            `<p><b>Order ID:</b> ${order.orderId}</p>`
+                            :
+                            ""
+                        }
+
+                        ${
+                            order.total
+                            ?
+                            `<p><b>Total:</b> ₹${order.total}</p>`
+                            :
+                            ""
+                        }
+
+                        ${
+                            order.address
+                            ?
+                            `<p><b>Delivery Address:</b><br>${order.address}</p>`
+                            :
+                            ""
+                        }
+
+                        <p>
+                            <b>Status:</b>
+                            Order Received ✅
+                        </p>
+
+                    </div>
+
+                    <p style="margin-top:25px;">
+                        We will process your order
+                        soon. 🛍️
+                    </p>
+
+                    <p>
+                        Thank you for choosing
+                        <b>GlowCart</b> ✨
+                    </p>
+
+                </div>
+                `
+
+            );
+
+        } else {
+
+            console.log(
+                "No customer email found in order."
+            );
+
+        }
+
+
         res.status(201).json({
 
             success: true,
 
-            message: "Order placed successfully!",
+            message:
+                "Order placed successfully! Confirmation email sent.",
 
             order: order
 
         });
+
 
     } catch (error) {
 
@@ -334,11 +738,13 @@ app.post("/api/orders", (req, res) => {
             error
         );
 
+
         res.status(500).json({
 
             success: false,
 
-            message: "Unable to place order."
+            message:
+                "Unable to place order."
 
         });
 
@@ -351,10 +757,15 @@ app.post("/api/orders", (req, res) => {
    START SERVER
 ========================= */
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
 
-    console.log(
-        "GlowCart server running on port " + PORT
-    );
+        console.log(
+            "GlowCart server running on port " +
+            PORT
+        );
 
-});
+    }
+);
