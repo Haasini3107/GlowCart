@@ -7,7 +7,6 @@ const app = express();
 
 const PORT = process.env.PORT || 10000;
 
-
 /* =========================
    CORS
 ========================= */
@@ -18,16 +17,10 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-
-/* =========================
-   BODY PARSER
-========================= */
-
 app.use(express.json());
 
-
 /* =========================
-   EMAIL FUNCTION - RESEND
+   EMAIL FUNCTION
 ========================= */
 
 async function sendEmail(to, subject, html) {
@@ -36,19 +29,20 @@ async function sendEmail(to, subject, html) {
 
         if (!process.env.RESEND_API_KEY) {
 
-            console.log("RESEND_API_KEY is not configured.");
+            console.error("RESEND_API_KEY is missing.");
 
             return {
                 success: false,
-                message: "Email service is not configured."
+                message: "RESEND_API_KEY is not configured."
             };
-
         }
 
         const fromEmail =
-            process.env.EMAIL_FROM ||
-            "onboarding@resend.dev";
+            process.env.EMAIL_FROM || "onboarding@resend.dev";
 
+        console.log("Trying to send email...");
+        console.log("To:", to);
+        console.log("From:", fromEmail);
 
         const response = await fetch(
             "https://api.resend.com/emails",
@@ -64,54 +58,43 @@ async function sendEmail(to, subject, html) {
                 },
 
                 body: JSON.stringify({
-
                     from: `GlowCart <${fromEmail}>`,
-
                     to: [to],
-
                     subject: subject,
-
                     html: html
-
                 })
             }
         );
 
-
         const data = await response.json();
 
+        console.log("Resend HTTP status:", response.status);
+        console.log("Resend response:", data);
 
         if (!response.ok) {
 
-            console.error(
-                "Resend error:",
-                data
-            );
+            console.error("RESEND EMAIL FAILED:", data);
 
             return {
                 success: false,
                 data: data
             };
-
         }
 
-
         console.log(
-            "Email sent successfully to:",
+            "EMAIL SENT SUCCESSFULLY:",
             to
         );
-
 
         return {
             success: true,
             data: data
         };
 
-
     } catch (error) {
 
         console.error(
-            "Email sending error:",
+            "EMAIL SENDING ERROR:",
             error
         );
 
@@ -119,11 +102,8 @@ async function sendEmail(to, subject, html) {
             success: false,
             error: error.message
         };
-
     }
-
 }
-
 
 /* =========================
    HOME
@@ -132,18 +112,93 @@ async function sendEmail(to, subject, html) {
 app.get("/", (req, res) => {
 
     res.json({
-
         success: true,
-
-        message:
-            "GlowCart backend is running!",
-
+        message: "GlowCart backend is running!",
         status: "online"
-
     });
 
 });
 
+/* =========================
+   EMAIL TEST
+========================= */
+
+app.post("/api/test-email", async (req, res) => {
+
+    try {
+
+        const { email } = req.body;
+
+        if (!email) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Email is required."
+            });
+
+        }
+
+        const result = await sendEmail(
+            email,
+            "GlowCart Email Test 💗",
+            `
+            <div style="
+                font-family:Arial,sans-serif;
+                max-width:600px;
+                margin:auto;
+                padding:30px;
+                border:1px solid #eee;
+                border-radius:15px;
+            ">
+
+                <h1 style="color:#d41483;">
+                    GlowCart Email Test 💗
+                </h1>
+
+                <p>
+                    Congratulations!
+                </p>
+
+                <p>
+                    Your GlowCart email system is working successfully.
+                </p>
+
+                <p>
+                    This is a test email from your GlowCart backend.
+                </p>
+
+            </div>
+            `
+        );
+
+        if (!result.success) {
+
+            return res.status(500).json({
+                success: false,
+                message: "Email could not be sent.",
+                error: result.data || result.error || result.message
+            });
+        }
+
+        res.json({
+            success: true,
+            message: "Test email sent successfully.",
+            emailId: result.data?.id || null
+        });
+
+    } catch (error) {
+
+        console.error("Test email error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Test email failed.",
+            error: error.message
+        });
+
+    }
+
+});
 
 /* =========================
    PRODUCTS
@@ -154,47 +209,28 @@ app.get("/api/products", (req, res) => {
     try {
 
         const filePath =
-            path.join(
-                __dirname,
-                "products.json"
-            );
-
+            path.join(__dirname, "products.json");
 
         const fileData =
-            fs.readFileSync(
-                filePath,
-                "utf8"
-            );
-
+            fs.readFileSync(filePath, "utf8");
 
         const products =
             JSON.parse(fileData);
 
-
         res.json(products);
-
 
     } catch (error) {
 
-        console.error(
-            "Products error:",
-            error
-        );
-
+        console.error("Products error:", error);
 
         res.status(500).json({
-
             success: false,
-
-            message:
-                "Unable to load products"
-
+            message: "Unable to load products"
         });
 
     }
 
 });
-
 
 /* =========================
    SINGLE PRODUCT
@@ -205,22 +241,13 @@ app.get("/api/products/:id", (req, res) => {
     try {
 
         const filePath =
-            path.join(
-                __dirname,
-                "products.json"
-            );
-
+            path.join(__dirname, "products.json");
 
         const fileData =
-            fs.readFileSync(
-                filePath,
-                "utf8"
-            );
-
+            fs.readFileSync(filePath, "utf8");
 
         const products =
             JSON.parse(fileData);
-
 
         const product =
             products.find(
@@ -229,45 +256,29 @@ app.get("/api/products/:id", (req, res) => {
                     String(req.params.id)
             );
 
-
         if (!product) {
 
             return res.status(404).json({
-
                 success: false,
-
-                message:
-                    "Product not found"
-
+                message: "Product not found"
             });
 
         }
 
-
         res.json(product);
-
 
     } catch (error) {
 
-        console.error(
-            "Product error:",
-            error
-        );
-
+        console.error("Product error:", error);
 
         res.status(500).json({
-
             success: false,
-
-            message:
-                "Server error"
-
+            message: "Server error"
         });
 
     }
 
 });
-
 
 /* =========================
    REGISTER
@@ -281,53 +292,49 @@ app.post("/api/register", async (req, res) => {
             name,
             email,
             mobile,
-            password
+            password,
+            address,
+            pincode,
+            address2,
+            pincode2
         } = req.body;
-
 
         if (
             !name ||
             !email ||
             !mobile ||
-            !password
+            !password ||
+            !address ||
+            !pincode
         ) {
 
             return res.status(400).json({
-
                 success: false,
-
-                message:
-                    "Please fill all fields."
-
+                message: "Please fill all required fields."
             });
 
         }
 
-
-        console.log(
-            "New user registered:",
-            email
-        );
-
+        console.log("");
+        console.log("=================================");
+        console.log("NEW GLOWCART REGISTRATION");
+        console.log("Name:", name);
+        console.log("Email:", email);
+        console.log("Mobile:", mobile);
+        console.log("=================================");
 
         const user = {
-
             id: Date.now(),
-
-            name: name,
-
-            email: email,
-
-            mobile: mobile
-
+            name,
+            email,
+            mobile
         };
-
 
         /* =========================
            REGISTRATION EMAIL
         ========================= */
 
-        await sendEmail(
+        const emailResult = await sendEmail(
 
             email,
 
@@ -341,13 +348,16 @@ app.post("/api/register", async (req, res) => {
                 padding:30px;
                 border:1px solid #eee;
                 border-radius:15px;
+                background:#ffffff;
             ">
 
-                <h1 style="color:#d81b83;">
+                <h1 style="color:#d41483;">
                     Welcome to GlowCart 💗
                 </h1>
 
-                <p>Hello <b>${name}</b>,</p>
+                <p>
+                    Hello <b>${name}</b>,
+                </p>
 
                 <p>
                     Your GlowCart account has been
@@ -375,6 +385,11 @@ app.post("/api/register", async (req, res) => {
                     <b>Mobile:</b>
                     ${mobile}
 
+                    <br><br>
+
+                    <b>Delivery Pincode:</b>
+                    ${pincode}
+
                 </div>
 
                 <p style="margin-top:25px;">
@@ -388,9 +403,42 @@ app.post("/api/register", async (req, res) => {
 
             </div>
             `
-
         );
 
+        /* =========================
+           EMAIL FAILED
+        ========================= */
+
+        if (!emailResult.success) {
+
+            console.error(
+                "REGISTRATION EMAIL FAILED:",
+                emailResult
+            );
+
+            return res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Registration email could not be sent.",
+
+                error:
+                    emailResult.data ||
+                    emailResult.error ||
+                    emailResult.message
+
+            });
+
+        }
+
+        /* =========================
+           SUCCESS
+        ========================= */
+
+        console.log(
+            "REGISTRATION COMPLETED SUCCESSFULLY"
+        );
 
         res.status(201).json({
 
@@ -399,10 +447,14 @@ app.post("/api/register", async (req, res) => {
             message:
                 "Registration successful! Confirmation email sent.",
 
+            emailSent: true,
+
+            emailId:
+                emailResult.data?.id || null,
+
             user: user
 
         });
-
 
     } catch (error) {
 
@@ -411,20 +463,21 @@ app.post("/api/register", async (req, res) => {
             error
         );
 
-
         res.status(500).json({
 
             success: false,
 
             message:
-                "Registration failed."
+                "Registration failed.",
+
+            error:
+                error.message
 
         });
 
     }
 
 });
-
 
 /* =========================
    LOGIN
@@ -439,7 +492,6 @@ app.post("/api/login", async (req, res) => {
             password
         } = req.body;
 
-
         if (!email || !password) {
 
             return res.status(400).json({
@@ -453,12 +505,10 @@ app.post("/api/login", async (req, res) => {
 
         }
 
-
         console.log(
             "User login:",
             email
         );
-
 
         const user = {
 
@@ -471,12 +521,7 @@ app.post("/api/login", async (req, res) => {
 
         };
 
-
-        /* =========================
-           LOGIN EMAIL
-        ========================= */
-
-        await sendEmail(
+        const emailResult = await sendEmail(
 
             email,
 
@@ -492,7 +537,7 @@ app.post("/api/login", async (req, res) => {
                 border-radius:15px;
             ">
 
-                <h1 style="color:#d81b83;">
+                <h1 style="color:#d41483;">
                     Login Successful 💗
                 </h1>
 
@@ -529,21 +574,23 @@ app.post("/api/login", async (req, res) => {
 
             </div>
             `
-
         );
-
 
         res.json({
 
             success: true,
 
             message:
-                "Login successful! Login email sent.",
+                emailResult.success
+                ? "Login successful! Login email sent."
+                : "Login successful, but email could not be sent.",
+
+            emailSent:
+                emailResult.success,
 
             user: user
 
         });
-
 
     } catch (error) {
 
@@ -551,7 +598,6 @@ app.post("/api/login", async (req, res) => {
             "Login error:",
             error
         );
-
 
         res.status(500).json({
 
@@ -566,7 +612,6 @@ app.post("/api/login", async (req, res) => {
 
 });
 
-
 /* =========================
    ORDERS
 ========================= */
@@ -576,7 +621,6 @@ app.post("/api/orders", async (req, res) => {
     try {
 
         const order = req.body;
-
 
         if (!order) {
 
@@ -591,35 +635,25 @@ app.post("/api/orders", async (req, res) => {
 
         }
 
-
         console.log(
             "New order:",
             order
         );
 
-
-        /* =========================
-           GET CUSTOMER DETAILS
-        ========================= */
-
         const customerEmail =
             order.email ||
             order.customerEmail;
-
 
         const customerName =
             order.name ||
             order.customerName ||
             "GlowCart Customer";
 
-
-        /* =========================
-           ORDER EMAIL
-        ========================= */
+        let emailSent = false;
 
         if (customerEmail) {
 
-            await sendEmail(
+            const emailResult = await sendEmail(
 
                 customerEmail,
 
@@ -635,7 +669,7 @@ app.post("/api/orders", async (req, res) => {
                     border-radius:15px;
                 ">
 
-                    <h1 style="color:#d81b83;">
+                    <h1 style="color:#d41483;">
                         Order Confirmed 📦💗
                     </h1>
 
@@ -665,9 +699,9 @@ app.post("/api/orders", async (req, res) => {
                         </h3>
 
                         ${
-                            order.orderId
+                            order.id
                             ?
-                            `<p><b>Order ID:</b> ${order.orderId}</p>`
+                            `<p><b>Order ID:</b> ${order.id}</p>`
                             :
                             ""
                         }
@@ -696,8 +730,7 @@ app.post("/api/orders", async (req, res) => {
                     </div>
 
                     <p style="margin-top:25px;">
-                        We will process your order
-                        soon. 🛍️
+                        We will process your order soon. 🛍️
                     </p>
 
                     <p>
@@ -707,29 +740,26 @@ app.post("/api/orders", async (req, res) => {
 
                 </div>
                 `
-
             );
 
-        } else {
-
-            console.log(
-                "No customer email found in order."
-            );
+            emailSent = emailResult.success;
 
         }
-
 
         res.status(201).json({
 
             success: true,
 
+            emailSent: emailSent,
+
             message:
-                "Order placed successfully! Confirmation email sent.",
+                emailSent
+                ? "Order placed successfully! Confirmation email sent."
+                : "Order placed successfully, but confirmation email could not be sent.",
 
             order: order
 
         });
-
 
     } catch (error) {
 
@@ -737,7 +767,6 @@ app.post("/api/orders", async (req, res) => {
             "Order error:",
             error
         );
-
 
         res.status(500).json({
 
@@ -751,7 +780,6 @@ app.post("/api/orders", async (req, res) => {
     }
 
 });
-
 
 /* =========================
    START SERVER
