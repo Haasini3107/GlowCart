@@ -18,7 +18,7 @@ body{
     color:#333;
 }
 
-button,input,textarea{
+button,input,textarea,select{
     font-family:inherit;
 }
 
@@ -117,6 +117,11 @@ header{
     font-size:16px;
     font-weight:bold;
     box-shadow:0 8px 25px rgba(216,20,131,.25);
+}
+
+.mainBtn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 .heroImage{
@@ -478,6 +483,11 @@ header{
     border:1px solid #ddd;
     border-radius:8px;
     margin-bottom:12px;
+    outline:none;
+}
+
+.checkoutField:focus{
+    border-color:#d41483;
 }
 
 .checkoutArea{
@@ -499,6 +509,99 @@ header{
 .addressCard label{
     display:flex;
     gap:10px;
+}
+
+.paymentBox{
+    margin-top:20px;
+    padding:20px;
+    border-radius:15px;
+    background:#fff7fc;
+    border:1px solid #f0d5e5;
+}
+
+.paymentBox h3{
+    color:#b31372;
+    margin-bottom:15px;
+}
+
+.paymentOption{
+    background:#fff;
+    border:2px solid #eee;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:10px;
+    transition:.2s;
+}
+
+.paymentOption:hover{
+    border-color:#e7a6cc;
+}
+
+.paymentOption.selected{
+    border-color:#d41483;
+    background:#fff0f8;
+}
+
+.paymentOption label{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.paymentOption input{
+    accent-color:#d41483;
+    width:18px;
+    height:18px;
+}
+
+.paymentIcon{
+    font-size:25px;
+}
+
+.paymentDetails{
+    margin-top:12px;
+    padding-left:35px;
+}
+
+.paymentDetails input,
+.paymentDetails select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    background:#fff;
+}
+
+.billBox{
+    margin-top:20px;
+    padding:20px;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:15px;
+}
+
+.billRow{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 0;
+    color:#555;
+}
+
+.billRow.totalRow{
+    border-top:2px solid #eee;
+    margin-top:8px;
+    padding-top:15px;
+    color:#d41483;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.gstNote{
+    font-size:12px;
+    color:#888;
 }
 
 .order{
@@ -767,6 +870,7 @@ Premium skincare made simple.
 
 </div>
 
+
 <div id="loginPage">
 
 <div class="loginBox">
@@ -802,6 +906,7 @@ New user?
 
 </div>
 
+
 <div id="shopPage">
 
 <div class="shopNav">
@@ -815,7 +920,7 @@ New user?
 <input
 id="search"
 placeholder="Search face creams..."
-oninput="searchProducts"
+oninput="searchProducts()"
 >
 
 <button onclick="searchProducts()">🔍</button>
@@ -842,6 +947,7 @@ Logout
 
 </div>
 
+
 <div class="shopContainer">
 
 <div class="banner">
@@ -853,6 +959,7 @@ Beautiful skincare at affordable prices.
 </p>
 
 </div>
+
 
 <div class="categories">
 
@@ -870,7 +977,9 @@ Best Sellers
 
 </div>
 
+
 <div id="products" class="products"></div>
+
 
 <div id="cartPanel" class="panel">
 
@@ -879,7 +988,7 @@ Best Sellers
 <div id="cartItems"></div>
 
 <div class="total">
-Total: ₹<span id="total">0</span>
+Subtotal: ₹<span id="total">0.00</span>
 </div>
 
 <button
@@ -891,6 +1000,7 @@ Proceed to Checkout
 </button>
 
 </div>
+
 
 <div id="checkoutPanel" class="panel">
 
@@ -932,6 +1042,7 @@ Save Address
 
 </div>
 
+
 <div class="checkoutArea">
 
 <input
@@ -966,8 +1077,184 @@ maxlength="6"
 placeholder="Pincode"
 >
 
+
+<!-- PAYMENT METHODS -->
+
+<div class="paymentBox">
+
+<h3>💳 Select Payment Method</h3>
+
+
+<div class="paymentOption selected" id="upiOption">
+
+<label>
+
+<input
+type="radio"
+name="paymentMethod"
+value="UPI"
+checked
+onchange="selectPayment('UPI')"
+>
+
+<span class="paymentIcon">📱</span>
+
+<span>UPI</span>
+
+</label>
+
+<div
+class="paymentDetails"
+id="upiDetails"
+>
+
+<input
+id="upiId"
+placeholder="Enter UPI ID e.g. name@upi"
+>
+
+</div>
+
+</div>
+
+
+<div class="paymentOption" id="netBankingOption">
+
+<label>
+
+<input
+type="radio"
+name="paymentMethod"
+value="Net Banking"
+onchange="selectPayment('Net Banking')"
+>
+
+<span class="paymentIcon">🏦</span>
+
+<span>Net Banking</span>
+
+</label>
+
+<div
+class="paymentDetails"
+id="netBankingDetails"
+style="display:none"
+>
+
+<select id="bankName">
+
+<option value="">Select Your Bank</option>
+<option>State Bank of India</option>
+<option>HDFC Bank</option>
+<option>ICICI Bank</option>
+<option>Axis Bank</option>
+<option>Kotak Mahindra Bank</option>
+<option>Bank of Baroda</option>
+<option>Punjab National Bank</option>
+<option>Canara Bank</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="paymentOption" id="codOption">
+
+<label>
+
+<input
+type="radio"
+name="paymentMethod"
+value="Cash on Delivery"
+onchange="selectPayment('Cash on Delivery')"
+>
+
+<span class="paymentIcon">💵</span>
+
+<span>Cash on Delivery</span>
+
+</label>
+
+<div
+class="paymentDetails"
+id="codDetails"
+style="display:none"
+>
+
+<p style="color:#666;font-size:14px;">
+Pay the amount in cash when your order is delivered.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- BILL -->
+
+<div class="billBox">
+
+<h3 style="color:#b31372;margin-bottom:10px;">
+🧾 Order Summary
+</h3>
+
+<div class="billRow">
+
+<span>Subtotal</span>
+
+<strong>
+₹<span id="checkoutSubtotal">0.00</span>
+</strong>
+
+</div>
+
+
+<div class="billRow">
+
+<span>
+GST
+<span class="gstNote">(18%)</span>
+</span>
+
+<strong>
+₹<span id="checkoutGST">0.00</span>
+</strong>
+
+</div>
+
+
+<div class="billRow totalRow">
+
+<span>Total Amount</span>
+
+<strong>
+₹<span id="checkoutGrandTotal">0.00</span>
+</strong>
+
+</div>
+
+<p
+style="
+margin-top:12px;
+font-size:13px;
+color:#777;
+text-align:right;
+"
+>
+Amount payable including GST
+</p>
+
+</div>
+
+
 <button
 class="mainBtn"
+id="placeOrderButton"
+style="width:100%;margin-top:20px"
 onclick="placeOrder()"
 >
 Place Order
@@ -978,6 +1265,7 @@ Place Order
 <div id="orderMessage" class="message"></div>
 
 </div>
+
 
 <div id="ordersPanel" class="panel">
 
@@ -991,14 +1279,22 @@ Place Order
 
 </div>
 
+
 <script>
 
 /* =====================================================
-   IMPORTANT: YOUR CURRENT RENDER BACKEND
+   GLOWCART BACKEND
 ===================================================== */
 
 const API_BASE =
 "https://glowcart-fxwp.onrender.com";
+
+
+/* =====================================================
+   GST
+===================================================== */
+
+const GST_RATE = 0.18;
 
 
 /* =====================================================
@@ -1164,7 +1460,7 @@ showProducts();
 
 
 /* =====================================================
-   REGISTER — FIXED
+   REGISTER
 ===================================================== */
 
 document
@@ -1245,20 +1541,12 @@ return;
 }
 
 
-/* =========================
-   SHOW LOADING
-========================= */
-
 button.disabled=true;
 button.textContent="Registering...";
 
 msg.style.color="#d41483";
 msg.textContent="Creating your account...";
 
-
-/* =========================
-   SEND TO RENDER BACKEND
-========================= */
 
 try{
 
@@ -1275,19 +1563,12 @@ headers:{
 body:JSON.stringify({
 
 name:name,
-
 email:email,
-
 mobile:mobile,
-
 password:password,
-
 address:address,
-
 pincode:pincode,
-
 address2:address2,
-
 pincode2:pincode2
 
 })
@@ -1296,32 +1577,16 @@ pincode2:pincode2
 );
 
 
-const data=
-await response.json();
+const data=await response.json();
 
-
-console.log(
-"GlowCart registration response:",
-data
-);
-
-
-/* =========================
-   BACKEND EMAIL FAILED
-========================= */
 
 if(!response.ok || !data.success){
-
-console.error(
-"Registration failed:",
-data
-);
 
 msg.style.color="red";
 
 msg.textContent=
 data.message ||
-"Registration failed. Please try again.";
+"Registration failed.";
 
 button.disabled=false;
 button.textContent="Register Now";
@@ -1330,10 +1595,6 @@ return;
 
 }
 
-
-/* =========================
-   SAVE LOCAL USER
-========================= */
 
 const user={
 
@@ -1365,9 +1626,7 @@ if(address2){
 user.addresses.push({
 
 id:Date.now()+1,
-
 address:address2,
-
 pincode:pincode2
 
 });
@@ -1382,10 +1641,6 @@ localStorage.setItem(
 JSON.stringify(users)
 );
 
-
-/* =========================
-   SUCCESS
-========================= */
 
 msg.style.color="green";
 
@@ -1413,16 +1668,12 @@ openLogin();
 
 }catch(error){
 
-console.error(
-"Connection error:",
-error
-);
+console.error(error);
 
 msg.style.color="red";
 
-msg.innerHTML=
-"Unable to connect to GlowCart server.<br>"+
-"Please try again.";
+msg.textContent=
+"Unable to connect to GlowCart server.";
 
 button.disabled=false;
 button.textContent="Register Now";
@@ -1623,6 +1874,7 @@ const existing=cart.find(
 p=>p.id===id
 );
 
+
 if(existing){
 
 existing.qty++;
@@ -1635,6 +1887,7 @@ qty:1
 });
 
 }
+
 
 saveCart();
 
@@ -1667,6 +1920,31 @@ cart.reduce(
 }
 
 
+function getSubtotal(){
+
+return cart.reduce(
+(sum,item)=>
+sum+(item.price*item.qty),
+0
+);
+
+}
+
+
+function getGST(){
+
+return getSubtotal()*GST_RATE;
+
+}
+
+
+function getGrandTotal(){
+
+return getSubtotal()+getGST();
+
+}
+
+
 function showCart(){
 
 hidePanels();
@@ -1684,6 +1962,7 @@ function renderCart(){
 
 const box=
 document.getElementById("cartItems");
+
 
 if(!cart.length){
 
@@ -1707,7 +1986,7 @@ Continue Shopping
 
 `;
 
-document.getElementById("total").textContent="0";
+document.getElementById("total").textContent="0.00";
 
 return;
 
@@ -1745,7 +2024,7 @@ box.innerHTML=cart.map((item,index)=>`
 </div>
 
 <strong>
-₹${item.price*item.qty}
+₹${(item.price*item.qty).toFixed(2)}
 </strong>
 
 <button
@@ -1760,12 +2039,10 @@ style="border:0;background:none;color:red;font-size:18px"
 `).join("");
 
 
-const total=cart.reduce(
-(sum,item)=>sum+(item.price*item.qty),
-0
-);
+const subtotal=getSubtotal();
 
-document.getElementById("total").textContent=total;
+document.getElementById("total").textContent=
+subtotal.toFixed(2);
 
 }
 
@@ -1816,6 +2093,7 @@ return;
 
 }
 
+
 hidePanels();
 
 document.getElementById(
@@ -1839,10 +2117,118 @@ document.getElementById(
 "orderMobile"
 ).value=currentUser.mobile;
 
+
 showAddresses();
+
+updateCheckoutBill();
 
 }
 
+
+/* =====================================================
+   BILL
+===================================================== */
+
+function updateCheckoutBill(){
+
+const subtotal=getSubtotal();
+
+const gst=getGST();
+
+const grandTotal=getGrandTotal();
+
+
+document.getElementById(
+"checkoutSubtotal"
+).textContent=
+subtotal.toFixed(2);
+
+
+document.getElementById(
+"checkoutGST"
+).textContent=
+gst.toFixed(2);
+
+
+document.getElementById(
+"checkoutGrandTotal"
+).textContent=
+grandTotal.toFixed(2);
+
+}
+
+
+/* =====================================================
+   PAYMENT METHOD
+===================================================== */
+
+function selectPayment(method){
+
+document
+.querySelectorAll(".paymentOption")
+.forEach(option=>{
+option.classList.remove("selected");
+});
+
+
+document.getElementById("upiOption")
+.classList.remove("selected");
+
+document.getElementById("netBankingOption")
+.classList.remove("selected");
+
+document.getElementById("codOption")
+.classList.remove("selected");
+
+
+document.getElementById("upiDetails")
+.style.display="none";
+
+document.getElementById("netBankingDetails")
+.style.display="none";
+
+document.getElementById("codDetails")
+.style.display="none";
+
+
+if(method==="UPI"){
+
+document.getElementById("upiOption")
+.classList.add("selected");
+
+document.getElementById("upiDetails")
+.style.display="block";
+
+}
+
+
+if(method==="Net Banking"){
+
+document.getElementById("netBankingOption")
+.classList.add("selected");
+
+document.getElementById("netBankingDetails")
+.style.display="block";
+
+}
+
+
+if(method==="Cash on Delivery"){
+
+document.getElementById("codOption")
+.classList.add("selected");
+
+document.getElementById("codDetails")
+.style.display="block";
+
+}
+
+}
+
+
+/* =====================================================
+   SAVED ADDRESSES
+===================================================== */
 
 function showAddresses(){
 
@@ -1918,6 +2304,7 @@ currentUser.addresses[index];
 
 if(!address)return;
 
+
 document.getElementById(
 "orderAddress"
 ).value=address.address;
@@ -1925,6 +2312,7 @@ document.getElementById(
 document.getElementById(
 "orderPincode"
 ).value=address.pincode;
+
 
 document
 .querySelectorAll(".addressCard")
@@ -1969,6 +2357,7 @@ return;
 
 }
 
+
 if(!/^\d{6}$/.test(pincode)){
 
 alert("Enter a valid 6-digit pincode.");
@@ -1981,8 +2370,8 @@ return;
 currentUser.addresses.push({
 
 id:Date.now(),
-address,
-pincode
+address:address,
+pincode:pincode
 
 });
 
@@ -2013,9 +2402,11 @@ document.getElementById(
 "newPincode"
 ).value="";
 
+
 document.getElementById(
 "newAddressBox"
 ).style.display="none";
+
 
 showAddresses();
 
@@ -2081,47 +2472,146 @@ return;
 }
 
 
-const total=cart.reduce(
-(sum,item)=>sum+(item.price*item.qty),
-0
-);
+/* PAYMENT */
 
+const paymentMethod=
+document.querySelector(
+'input[name="paymentMethod"]:checked'
+).value;
+
+
+let paymentDetails="";
+
+
+if(paymentMethod==="UPI"){
+
+const upiId=
+document.getElementById("upiId")
+.value
+.trim();
+
+
+if(!upiId){
+
+alert("Please enter your UPI ID.");
+
+return;
+
+}
+
+
+if(!upiId.includes("@")){
+
+alert("Please enter a valid UPI ID.");
+
+return;
+
+}
+
+
+paymentDetails=upiId;
+
+}
+
+
+if(paymentMethod==="Net Banking"){
+
+const bankName=
+document.getElementById("bankName")
+.value;
+
+
+if(!bankName){
+
+alert("Please select your bank.");
+
+return;
+
+}
+
+
+paymentDetails=bankName;
+
+}
+
+
+if(paymentMethod==="Cash on Delivery"){
+
+paymentDetails="Pay cash on delivery";
+
+}
+
+
+/* BILL */
+
+const subtotal=getSubtotal();
+
+const gst=getGST();
+
+const grandTotal=getGrandTotal();
+
+
+/* ORDER */
 
 const order={
 
 id:"GC"+Date.now(),
 
+orderId:"GC"+Date.now(),
+
 date:new Date().toLocaleString(),
 
-name,
-email,
-mobile,
-address,
-pincode,
+name:name,
+
+email:email,
+
+mobile:mobile,
+
+address:address,
+
+pincode:pincode,
 
 items:[...cart],
 
-total,
+subtotal:Number(subtotal.toFixed(2)),
+
+gst:Number(gst.toFixed(2)),
+
+gstRate:18,
+
+total:Number(grandTotal.toFixed(2)),
+
+paymentMethod:paymentMethod,
+
+paymentDetails:paymentDetails,
 
 status:"Order Placed"
 
 };
 
 
-/* =========================
-   SEND ORDER TO BACKEND
-========================= */
-
 const orderMessage=
 document.getElementById(
 "orderMessage"
 );
 
+const placeButton=
+document.getElementById(
+"placeOrderButton"
+);
+
+
+placeButton.disabled=true;
+
+placeButton.textContent="Placing Order...";
+
 orderMessage.style.color="#d41483";
 
 orderMessage.textContent=
-"Placing your order...";
+"Processing your order...";
 
+
+/* SEND TO BACKEND */
 
 try{
 
@@ -2146,7 +2636,7 @@ await response.json();
 
 
 console.log(
-"Order response:",
+"GlowCart order response:",
 data
 );
 
@@ -2159,12 +2649,16 @@ orderMessage.textContent=
 data.message ||
 "Unable to place order.";
 
+placeButton.disabled=false;
+
+placeButton.textContent="Place Order";
+
 return;
 
 }
 
 
-/* SAVE LOCAL ORDER */
+/* SAVE ORDER */
 
 orders.unshift(order);
 
@@ -2172,6 +2666,7 @@ localStorage.setItem(
 "glowcart_orders",
 JSON.stringify(orders)
 );
+
 
 cart=[];
 
@@ -2182,23 +2677,33 @@ updateCount();
 
 orderMessage.style.color="green";
 
+
 orderMessage.innerHTML=
-data.emailSent
-?
-"🎉 Order placed successfully! Confirmation email sent.<br>Order ID: <b>"+
+"🎉 Order placed successfully!<br>"+
+"Confirmation email sent to <b>"+
+email+
+"</b><br><br>"+
+"📦 Order ID: <b>"+
 order.id+
-"</b>"
-:
-"🎉 Order placed successfully!<br>Order ID: <b>"+
-order.id+
-"</b><br>Email could not be sent.";
+"</b><br>"+
+"💳 Payment: <b>"+
+paymentMethod+
+"</b><br>"+
+"💰 Total: <b>₹"+
+grandTotal.toFixed(2)+
+"</b>";
+
+
+placeButton.disabled=false;
+
+placeButton.textContent="Place Order";
 
 
 setTimeout(function(){
 
 showOrders();
 
-},1800);
+},2200);
 
 
 }catch(error){
@@ -2208,10 +2713,16 @@ console.error(
 error
 );
 
+
 orderMessage.style.color="red";
 
 orderMessage.textContent=
 "Unable to connect to GlowCart server.";
+
+
+placeButton.disabled=false;
+
+placeButton.textContent="Place Order";
 
 }
 
@@ -2305,11 +2816,12 @@ ${o.date}
 
 </div>
 
-<strong style="color:#d41483">
-₹${o.total}
+<strong style="color:#d41483;font-size:20px">
+₹${Number(o.total || 0).toFixed(2)}
 </strong>
 
 </div>
+
 
 <div style="margin-top:15px">
 
@@ -2323,14 +2835,72 @@ ${item.name} × ${item.qty}
 
 </div>
 
+
+<div
+style="
+margin-top:15px;
+padding:15px;
+background:#fff7fc;
+border-radius:10px;
+"
+>
+
+<div class="billRow">
+
+<span>Subtotal</span>
+
+<strong>
+₹${Number(o.subtotal || 0).toFixed(2)}
+</strong>
+
+</div>
+
+
+<div class="billRow">
+
+<span>GST (${o.gstRate || 18}%)</span>
+
+<strong>
+₹${Number(o.gst || 0).toFixed(2)}
+</strong>
+
+</div>
+
+
+<div class="billRow">
+
+<span>Payment</span>
+
+<strong>
+${o.paymentMethod || "Not specified"}
+</strong>
+
+</div>
+
+
+<div class="billRow totalRow">
+
+<span>Total</span>
+
+<strong>
+₹${Number(o.total || 0).toFixed(2)}
+</strong>
+
+</div>
+
+</div>
+
+
 <div class="status">
 ✓ ${o.status}
 </div>
+
 
 <p style="margin-top:12px;color:#666">
 📍 ${o.address}<br>
 Pincode: ${o.pincode}
 </p>
+
 
 </div>
 
