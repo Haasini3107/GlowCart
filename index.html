@@ -9,7 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -31,9 +30,9 @@ button{
 }
 
 header{
-    background:linear-gradient(135deg,#ff4fa3,#8b45ff);
+    background:linear-gradient(135deg,#8e2de2,#ff4ecd);
     color:white;
-    padding:18px 7%;
+    padding:15px 6%;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -44,1172 +43,869 @@ header{
 }
 
 .logo{
-    font-size:28px;
+    font-size:27px;
     font-weight:bold;
 }
 
-.navButtons{
+nav{
     display:flex;
     gap:10px;
+    align-items:center;
 }
 
-.navButtons button{
+nav button{
+    background:transparent;
     border:none;
+    color:white;
+    font-size:15px;
+    padding:10px 13px;
+    border-radius:20px;
+}
+
+nav button:hover{
+    background:rgba(255,255,255,.2);
+}
+
+.cart-count{
     background:white;
-    color:#9b2cff;
-    padding:10px 18px;
-    border-radius:22px;
+    color:#d62cff;
+    border-radius:50%;
+    padding:2px 7px;
+    font-size:12px;
     font-weight:bold;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
 }
 
 .hero{
-    min-height:430px;
+    min-height:500px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:55px 8%;
+    padding:60px 8%;
     background:
-        linear-gradient(
-            135deg,
-            #fff0f8,
-            #f0e7ff
-        );
+    radial-gradient(circle at top right,#ffd6f6,transparent 35%),
+    linear-gradient(135deg,#fff0fb,#f7eaff);
 }
 
-.heroText{
-    max-width:580px;
+.hero-content{
+    max-width:600px;
 }
 
-.heroText h1{
+.hero h1{
     font-size:52px;
-    color:#8d24aa;
-    margin-bottom:15px;
+    color:#7a1fd1;
+    margin-bottom:20px;
 }
 
-.heroText p{
+.hero h1 span{
+    color:#f02da8;
+}
+
+.hero p{
     font-size:19px;
     line-height:1.7;
     margin-bottom:25px;
 }
 
-.heroButton{
+.primary-btn{
     border:none;
-    padding:14px 28px;
-    border-radius:28px;
-    background:linear-gradient(
-        135deg,
-        #ff3f9f,
-        #8b42ff
-    );
+    background:linear-gradient(135deg,#8e2de2,#ff2fb3);
     color:white;
+    padding:13px 25px;
+    border-radius:25px;
     font-size:16px;
     font-weight:bold;
+    box-shadow:0 5px 15px rgba(183,45,226,.3);
 }
 
-.heroCircle{
-    width:280px;
-    height:280px;
+.primary-btn:hover{
+    transform:translateY(-2px);
+}
+
+.hero-card{
+    width:320px;
+    height:320px;
     border-radius:50%;
-    background:
-        linear-gradient(
-            135deg,
-            #ffb1d8,
-            #c6a5ff
-        );
+    background:linear-gradient(135deg,#d7a0ff,#ffb6e8);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:110px;
-    box-shadow:0 20px 45px rgba(150,50,150,.2);
+    font-size:100px;
+    box-shadow:0 20px 50px rgba(174,57,219,.25);
 }
 
 .section{
     padding:45px 7%;
 }
 
-.sectionTitle{
+.section-title{
     text-align:center;
+    color:#7a1fd1;
     font-size:32px;
-    color:#8d24aa;
     margin-bottom:30px;
 }
 
-.hidden{
-    display:none !important;
-}
-
-/* AUTH */
-
-.authBox{
+.form-box{
     width:100%;
     max-width:500px;
     margin:40px auto;
     background:white;
     padding:35px;
-    border-radius:22px;
-    box-shadow:0 10px 35px rgba(0,0,0,.1);
+    border-radius:20px;
+    box-shadow:0 8px 30px rgba(0,0,0,.1);
 }
 
-.authBox h2{
+.form-box h2{
     text-align:center;
-    color:#8d24aa;
+    color:#8e2de2;
     margin-bottom:25px;
 }
 
-.formGroup{
-    margin-bottom:15px;
+.input-group{
+    margin-bottom:16px;
 }
 
-.formGroup label{
+.input-group label{
     display:block;
+    margin-bottom:6px;
     font-weight:bold;
-    margin-bottom:7px;
+    color:#555;
 }
 
-.formGroup input,
-.formGroup select,
-.formGroup textarea{
+.input-group input,
+.input-group textarea,
+.input-group select{
     width:100%;
-    padding:13px;
+    padding:12px;
     border:1px solid #ddd;
     border-radius:10px;
     outline:none;
+    font-size:15px;
 }
 
-.formGroup input:focus,
-.formGroup select:focus,
-.formGroup textarea:focus{
-    border-color:#b42fff;
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus{
+    border-color:#b72de2;
 }
 
-.primaryButton{
+.form-box .primary-btn{
     width:100%;
-    border:none;
-    padding:14px;
-    border-radius:12px;
-    background:linear-gradient(
-        135deg,
-        #ff3f9f,
-        #8b42ff
-    );
-    color:white;
-    font-weight:bold;
-    font-size:16px;
+    margin-top:8px;
 }
 
 .message{
-    margin-top:15px;
     text-align:center;
+    margin-top:15px;
     font-weight:bold;
 }
 
-/* SHOP */
-
-.shopTop{
+.search-box{
     display:flex;
-    gap:15px;
+    justify-content:center;
     margin-bottom:30px;
-    flex-wrap:wrap;
 }
 
-.searchBox{
-    flex:1;
-    min-width:250px;
-    padding:14px;
+.search-box input{
+    width:100%;
+    max-width:550px;
+    padding:15px 20px;
     border:1px solid #ddd;
-    border-radius:12px;
-}
-
-.cartButton{
-    border:none;
-    background:#8b42ff;
-    color:white;
-    padding:12px 22px;
-    border-radius:12px;
-    font-weight:bold;
+    border-radius:30px;
+    font-size:16px;
+    outline:none;
 }
 
 .products{
     display:grid;
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(230px,1fr)
-        );
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     gap:25px;
 }
 
 .product{
     background:white;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 8px 25px rgba(0,0,0,.09);
-    transition:.25s;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    transition:.3s;
 }
 
 .product:hover{
     transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(174,45,226,.18);
 }
 
-.productImage{
-    height:220px;
+.product-img{
+    height:180px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#f7d9ff,#ffd9f2);
     display:flex;
-    align-items:center;
     justify-content:center;
-    background:
-        linear-gradient(
-            135deg,
-            #ffe1f0,
-            #e9ddff
-        );
-    font-size:85px;
+    align-items:center;
+    font-size:70px;
+    margin-bottom:15px;
 }
 
-.productContent{
-    padding:20px;
-}
-
-.productContent h3{
-    color:#7e249e;
+.product h3{
+    color:#711dc1;
     margin-bottom:8px;
 }
 
-.productContent p{
-    color:#666;
-    min-height:45px;
+.product p{
+    color:#777;
+    margin-bottom:10px;
 }
 
 .price{
-    font-size:22px;
+    color:#ed269d;
+    font-size:21px;
     font-weight:bold;
-    color:#ff3097;
-    margin:12px 0;
-}
-
-.addButton{
-    width:100%;
-    border:none;
-    padding:12px;
-    border-radius:10px;
-    color:white;
-    background:linear-gradient(
-        135deg,
-        #ff3f9f,
-        #8b42ff
-    );
-}
-
-/* CART */
-
-.cartContainer{
-    max-width:1000px;
-    margin:auto;
-}
-
-.cartItem{
-    background:white;
-    padding:18px;
-    border-radius:15px;
     margin-bottom:15px;
+}
+
+.product-actions{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    box-shadow:0 5px 18px rgba(0,0,0,.07);
+    gap:8px;
 }
 
-.cartInfo h3{
-    color:#7e249e;
-}
-
-.qtyBox{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.qtyBox button{
+.small-btn{
+    flex:1;
     border:none;
-    width:32px;
-    height:32px;
-    border-radius:50%;
-    background:#eee;
-}
-
-.removeButton{
-    border:none;
-    background:#ff3d72;
-    color:white;
-    padding:8px 13px;
-    border-radius:8px;
-}
-
-.summary{
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 7px 25px rgba(0,0,0,.08);
-    margin-top:20px;
-}
-
-.summaryRow{
-    display:flex;
-    justify-content:space-between;
-    margin:12px 0;
-}
-
-.summaryTotal{
-    font-size:24px;
+    padding:10px;
+    border-radius:20px;
     font-weight:bold;
-    color:#d21c8b;
-    border-top:1px solid #ddd;
-    padding-top:15px;
 }
 
-/* CHECKOUT */
+.add-btn{
+    background:#8e2de2;
+    color:white;
+}
 
-.checkout{
+.details-btn{
+    background:#ffe5f7;
+    color:#a51fc5;
+}
+
+.cart-box{
     max-width:900px;
     margin:auto;
 }
 
-.checkoutCard{
+.cart-item{
     background:white;
-    padding:28px;
-    border-radius:20px;
-    margin-bottom:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
-
-.checkoutCard h3{
-    color:#8d24aa;
-    margin-bottom:18px;
-}
-
-.checkoutField{
-    width:100%;
-    padding:13px;
-    margin-bottom:12px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    background:#fafafa;
-}
-
-.addressBox{
-    border:2px solid #eee;
-    border-radius:15px;
-    padding:15px;
-    margin-bottom:12px;
-}
-
-.addressBox.selected{
-    border-color:#a72cff;
-    background:#faf2ff;
-}
-
-.addressBox button{
-    border:none;
-    background:#8b42ff;
-    color:white;
-    padding:8px 14px;
-    border-radius:8px;
-    margin-top:8px;
-}
-
-.paymentOption{
-    padding:15px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    margin-bottom:10px;
-}
-
-.paymentOption label{
-    font-weight:bold;
-}
-
-.paymentExtra{
-    margin-top:12px;
-}
-
-.orderTotalBox{
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f8,
-            #f2eaff
-        );
-    padding:20px;
-    border-radius:15px;
-}
-
-.checkoutSummaryRow{
-    display:flex;
-    justify-content:space-between;
-    margin:10px 0;
-}
-
-.checkoutGrandTotal{
-    border-top:2px solid #ddd;
-    padding-top:14px;
-    margin-top:14px;
-    font-size:26px;
-    font-weight:bold;
-    color:#d21c8b;
-}
-
-/* ORDERS */
-
-.orderCard{
-    background:white;
-    border-radius:18px;
-    padding:22px;
-    margin-bottom:18px;
-    box-shadow:0 6px 22px rgba(0,0,0,.08);
-}
-
-.orderHeader{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
+    padding:18px;
     margin-bottom:15px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
 }
 
-.orderStatus{
-    color:green;
+.cart-info{
+    flex:1;
+}
+
+.cart-info h3{
+    color:#771bc7;
+}
+
+.qty-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.qty-box button{
+    border:none;
+    background:#ead2ff;
+    color:#7014bb;
+    width:30px;
+    height:30px;
+    border-radius:50%;
     font-weight:bold;
 }
 
-.orderProducts{
-    margin:15px 0;
+.remove-btn{
+    border:none;
+    background:#ffe0ed;
+    color:#d62275;
+    padding:8px 12px;
+    border-radius:15px;
 }
 
-.orderProduct{
-    padding:8px 0;
+.summary{
+    background:white;
+    margin-top:25px;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
     border-bottom:1px solid #eee;
 }
 
-footer{
-    margin-top:50px;
-    padding:30px;
-    text-align:center;
-    background:#22152d;
-    color:white;
+.summary-row.total{
+    border-bottom:none;
+    font-size:22px;
+    font-weight:bold;
+    color:#861fd0;
 }
 
-/* MOBILE */
+.checkout{
+    max-width:850px;
+    margin:auto;
+}
 
-@media(max-width:700px){
+.checkout-card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 6px 25px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}
 
+.checkout-card h3{
+    color:#7a1fd1;
+    margin-bottom:20px;
+}
+
+.address-box{
+    background:#faf1ff;
+    border:1px solid #e5c8ff;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.address-box label{
+    font-weight:bold;
+    color:#6e19b8;
+}
+
+.payment-option{
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.payment-option:hover{
+    border-color:#a72de0;
+    background:#fff8ff;
+}
+
+.payment-option input{
+    margin-right:8px;
+}
+
+.hidden{
+    display:none;
+}
+
+.orders{
+    max-width:900px;
+    margin:auto;
+}
+
+.order-card{
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    margin-bottom:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.order-card h3{
+    color:#7c1bd0;
+    margin-bottom:10px;
+}
+
+.order-status{
+    display:inline-block;
+    background:#e9d4ff;
+    color:#7513b8;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:2000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-content{
+    background:white;
+    max-width:500px;
+    width:100%;
+    border-radius:20px;
+    padding:30px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-size:28px;
+    cursor:pointer;
+    color:#777;
+}
+
+footer{
+    background:#351047;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:50px;
+}
+
+.empty{
+    text-align:center;
+    background:white;
+    padding:40px;
+    border-radius:18px;
+    color:#777;
+}
+
+@media(max-width:800px){
     header{
-        padding:15px;
         flex-direction:column;
-        gap:12px;
+        gap:10px;
+    }
+
+    nav{
+        flex-wrap:wrap;
+        justify-content:center;
     }
 
     .hero{
         flex-direction:column;
         text-align:center;
-        gap:35px;
+        gap:40px;
     }
 
-    .heroText h1{
-        font-size:38px;
+    .hero h1{
+        font-size:40px;
     }
 
-    .heroCircle{
-        width:200px;
-        height:200px;
-        font-size:75px;
+    .hero-card{
+        width:230px;
+        height:230px;
+        font-size:70px;
     }
 
-    .cartItem{
+    .cart-item{
         flex-direction:column;
         align-items:flex-start;
     }
-
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
+    <div class="logo">✨ GlowCart</div>
 
-    <div class="logo">
-        ✨ GlowCart
-    </div>
-
-    <div class="navButtons">
-
-        <button
-            onclick="showHome()">
-            Home
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('shop')">Shop</button>
+        <button onclick="showPage('cart')">
+            Cart 🛒 <span id="cartCount" class="cart-count">0</span>
         </button>
-
-        <button
-            onclick="showShop()">
-            Shop
-        </button>
-
-        <button
-            onclick="showCart()">
-            🛒 Cart
-            (<span id="cartCount">0</span>)
-        </button>
-
-        <button
-            onclick="showOrders()">
-            Orders
-        </button>
-
-        <button
-            onclick="logout()">
-            Logout
-        </button>
-
-    </div>
-
+        <button onclick="showPage('orders')">Orders</button>
+        <button id="loginNav" onclick="showPage('login')">Login</button>
+        <button id="logoutNav" onclick="logout()" style="display:none;">Logout</button>
+    </nav>
 </header>
 
-
-<!-- =====================================================
-     HOME
-===================================================== -->
-
-<section
-    id="homePage"
-    class="hero">
-
-    <div class="heroText">
-
-        <h1>
-            GlowCart
-        </h1>
-
-        <p>
-            Premium face creams for healthy,
-            beautiful and glowing skin.
-        </p>
-
-        <button
-            class="heroButton"
-            onclick="showShop()">
-            Shop Now ✨
-        </button>
-
-    </div>
-
-    <div class="heroCircle">
-        🧴
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     REGISTER
-===================================================== -->
-
-<section
-    id="registerPage"
-    class="section">
-
-    <div class="authBox">
-
-        <h2>
-            Create Your GlowCart Account
-        </h2>
-
-        <div class="formGroup">
-
-            <label>
-                Full Name
-            </label>
-
-            <input
-                id="regName"
-                type="text"
-                placeholder="Enter your full name">
-
-        </div>
-
-
-        <div class="formGroup">
-
-            <label>
-                Email
-            </label>
-
-            <input
-                id="regEmail"
-                type="email"
-                placeholder="Enter your email">
-
-        </div>
-
-
-        <div class="formGroup">
-
-            <label>
-                Mobile
-            </label>
-
-            <input
-                id="regMobile"
-                type="tel"
-                maxlength="10"
-                placeholder="10 digit mobile">
-
-        </div>
-
-
-        <div class="formGroup">
-
-            <label>
-                Password
-            </label>
-
-            <input
-                id="regPassword"
-                type="password"
-                placeholder="Create password">
-
-        </div>
-
-
-        <div class="formGroup">
-
-            <label>
-                Permanent Address
-            </label>
-
-            <textarea
-                id="regAddress"
-                placeholder="Enter your permanent address"></textarea>
-
-        </div>
-
-
-        <div class="formGroup">
-
-            <label>
-                Pincode
-            </label>
-
-            <input
-                id="regPincode"
-                maxlength="6"
-                placeholder="6 digit pincode">
-
-        </div>
-
-
-        <div class="formGroup">
-
-            <label>
-                Second Address (Optional)
-            </label>
-
-            <textarea
-                id="regAddress2"
-                placeholder="Optional second address"></textarea>
-
-        </div>
-
-
-        <div class="formGroup">
-
-            <label>
-                Second Pincode (Optional)
-            </label>
-
-            <input
-                id="regPincode2"
-                maxlength="6"
-                placeholder="Optional pincode">
-
-        </div>
-
-
-        <button
-            class="primaryButton"
-            onclick="registerUser()">
-
-            Register
-
-        </button>
-
-
-        <div
-            id="registerMessage"
-            class="message">
-        </div>
-
-
-        <p
-            style="text-align:center;margin-top:18px;">
-
-            Already registered?
-
-            <button
-                onclick="showLogin()"
-                style="
-                    border:none;
-                    background:none;
-                    color:#8b42ff;
-                    font-weight:bold;
-                ">
-
-                Login
-
+<!-- HOME -->
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Glow Naturally with <span>GlowCart</span></h1>
+
+            <p>
+                Discover premium face creams for healthy, glowing and
+                beautiful skin. Shop your favourite skincare products
+                at affordable prices.
+            </p>
+
+            <button class="primary-btn" onclick="showPage('shop')">
+                Shop Now 🛍️
             </button>
+        </div>
 
+        <div class="hero-card">
+            🧴✨
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Why GlowCart?</h2>
+
+        <div class="products">
+            <div class="product">
+                <div class="product-img">🌸</div>
+                <h3>Premium Products</h3>
+                <p>Carefully selected skincare products.</p>
+            </div>
+
+            <div class="product">
+                <div class="product-img">💰</div>
+                <h3>Affordable Prices</h3>
+                <p>Quality skincare without expensive prices.</p>
+            </div>
+
+            <div class="product">
+                <div class="product-img">🚚</div>
+                <h3>Easy Shopping</h3>
+                <p>Simple and convenient online ordering.</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- REGISTER -->
+<section id="register" class="page">
+
+    <div class="form-box">
+
+        <h2>Create GlowCart Account</h2>
+
+        <div class="input-group">
+            <label>Full Name</label>
+            <input id="regName" type="text" placeholder="Enter your full name">
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input id="regEmail" type="email" placeholder="Enter your email">
+        </div>
+
+        <div class="input-group">
+            <label>Mobile Number</label>
+            <input id="regMobile" type="tel" placeholder="Enter mobile number">
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input id="regPassword" type="password" placeholder="Create password">
+        </div>
+
+        <div class="input-group">
+            <label>Permanent Address</label>
+            <textarea id="regAddress" rows="3"
+            placeholder="Enter your permanent address"></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Pincode</label>
+            <input id="regPincode" type="text" maxlength="6"
+            placeholder="Enter 6 digit pincode">
+        </div>
+
+        <button class="primary-btn" onclick="registerUser()">
+            Register
+        </button>
+
+        <div id="registerMessage" class="message"></div>
+
+        <p style="text-align:center;margin-top:15px;">
+            Already have an account?
+            <a href="#" onclick="showPage('login')">Login</a>
         </p>
 
     </div>
 
 </section>
 
+<!-- LOGIN -->
+<section id="login" class="page">
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+    <div class="form-box">
 
-<section
-    id="loginPage"
-    class="section hidden">
+        <h2>Welcome Back 💜</h2>
 
-    <div class="authBox">
-
-        <h2>
-            Login to GlowCart
-        </h2>
-
-
-        <div class="formGroup">
-
-            <label>
-                Email
-            </label>
-
-            <input
-                id="loginEmail"
-                type="email"
-                placeholder="Enter email">
-
+        <div class="input-group">
+            <label>Email</label>
+            <input id="loginEmail" type="email"
+            placeholder="Enter your email">
         </div>
 
-
-        <div class="formGroup">
-
-            <label>
-                Password
-            </label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                placeholder="Enter password">
-
+        <div class="input-group">
+            <label>Password</label>
+            <input id="loginPassword" type="password"
+            placeholder="Enter your password">
         </div>
 
-
-        <button
-            class="primaryButton"
-            onclick="loginUser()">
-
+        <button class="primary-btn" onclick="loginUser()">
             Login
-
         </button>
 
+        <div id="loginMessage" class="message"></div>
 
-        <div
-            id="loginMessage"
-            class="message">
+        <p style="text-align:center;margin-top:15px;">
+            Don't have an account?
+            <a href="#" onclick="showPage('register')">Register</a>
+        </p>
+
+    </div>
+
+</section>
+
+<!-- SHOP -->
+<section id="shop" class="page">
+
+    <div class="section">
+
+        <h2 class="section-title">Premium Face Creams 🧴</h2>
+
+        <div class="search-box">
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search face creams..."
+                oninput="filterProducts()"
+            >
+        </div>
+
+        <div id="productsContainer" class="products">
+            <div class="empty">Loading products...</div>
         </div>
 
     </div>
 
 </section>
 
+<!-- CART -->
+<section id="cart" class="page">
 
-<!-- =====================================================
-     SHOP
-===================================================== -->
+    <div class="section">
 
-<section
-    id="shopPage"
-    class="section hidden">
+        <h2 class="section-title">Your Shopping Cart 🛒</h2>
 
-    <h2 class="sectionTitle">
-        Premium Face Creams
-    </h2>
+        <div class="cart-box">
 
+            <div id="cartContainer"></div>
 
-    <div class="shopTop">
+            <div id="cartSummary" class="summary" style="display:none;">
 
-        <input
-            id="searchInput"
-            class="searchBox"
-            placeholder="Search face creams..."
-            oninput="filterProducts()">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong id="cartSubtotal">₹0.00</strong>
+                </div>
 
+                <div class="summary-row">
+                    <span>GST (18%)</span>
+                    <strong id="cartGST">₹0.00</strong>
+                </div>
 
-        <button
-            class="cartButton"
-            onclick="showCart()">
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <strong id="cartTotal">₹0.00</strong>
+                </div>
 
-            🛒 Cart
-            (<span id="shopCartCount">0</span>)
+                <button
+                    class="primary-btn"
+                    style="width:100%;margin-top:20px;"
+                    onclick="goCheckout()">
+                    Proceed to Checkout →
+                </button>
 
-        </button>
-
-    </div>
-
-
-    <div
-        id="products"
-        class="products">
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CART
-===================================================== -->
-
-<section
-    id="cartPage"
-    class="section hidden">
-
-    <h2 class="sectionTitle">
-        Your Cart 🛒
-    </h2>
-
-
-    <div
-        id="cartItems"
-        class="cartContainer">
-    </div>
-
-
-    <div
-        id="cartSummary"
-        class="summary">
-
-        <div class="summaryRow">
-
-            <span>
-                Subtotal
-            </span>
-
-            <strong id="cartSubtotal">
-                ₹0.00
-            </strong>
-
-        </div>
-
-
-        <div class="summaryRow">
-
-            <span>
-                GST (18%)
-            </span>
-
-            <strong id="cartGST">
-                ₹0.00
-            </strong>
-
-        </div>
-
-
-        <div
-            class="summaryRow summaryTotal">
-
-            <span>
-                Total
-            </span>
-
-            <strong id="cartTotal">
-                ₹0.00
-            </strong>
-
-        </div>
-
-
-        <button
-            class="primaryButton"
-            onclick="goCheckout()">
-
-            Proceed to Checkout
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CHECKOUT
-===================================================== -->
-
-<section
-    id="checkoutPage"
-    class="section hidden">
-
-    <div class="checkout">
-
-        <h2 class="sectionTitle">
-            Checkout
-        </h2>
-
-
-        <!-- CUSTOMER -->
-
-        <div class="checkoutCard">
-
-            <h3>
-                👤 Customer Details
-            </h3>
-
-
-            <input
-                id="orderName"
-                class="checkoutField"
-                placeholder="Full Name">
-
-
-            <input
-                id="orderEmail"
-                class="checkoutField"
-                type="email"
-                placeholder="Email">
-
-
-            <input
-                id="orderMobile"
-                class="checkoutField"
-                placeholder="Mobile"
-                maxlength="10">
-
-        </div>
-
-
-        <!-- ADDRESS -->
-
-        <div class="checkoutCard">
-
-            <h3>
-                📍 Delivery Address
-            </h3>
-
-
-            <input
-                id="orderAddress"
-                class="checkoutField"
-                placeholder="Delivery Address"
-                readonly>
-
-
-            <input
-                id="orderPincode"
-                class="checkoutField"
-                placeholder="Pincode"
-                readonly>
-
-
-            <div id="savedAddresses">
             </div>
 
         </div>
 
+    </div>
 
-        <!-- PAYMENT -->
+</section>
 
-        <div class="checkoutCard">
+<!-- CHECKOUT -->
+<section id="checkout" class="page">
 
-            <h3>
-                💳 Payment Method
-            </h3>
+    <div class="section">
 
+        <h2 class="section-title">Checkout 💳</h2>
 
-            <div class="paymentOption">
+        <div class="checkout">
 
-                <label>
+            <!-- CUSTOMER -->
+            <div class="checkout-card">
+
+                <h3>Customer Details</h3>
+
+                <div class="input-group">
+                    <label>Name</label>
+                    <input id="orderName" type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input id="orderEmail" type="email">
+                </div>
+
+                <div class="input-group">
+                    <label>Mobile</label>
+                    <input id="orderMobile" type="tel">
+                </div>
+
+            </div>
+
+            <!-- ADDRESS -->
+            <div class="checkout-card">
+
+                <h3>Delivery Address</h3>
+
+                <div class="address-box">
+                    <label>Saved Address</label>
+
+                    <p id="savedAddress"
+                       style="margin-top:8px;line-height:1.6;">
+                    </p>
+
+                    <p style="margin-top:8px;">
+                        <strong>Pincode:</strong>
+                        <span id="savedPincode"></span>
+                    </p>
+                </div>
+
+                <div class="input-group">
+                    <label>Delivery Address</label>
+
+                    <textarea
+                        id="orderAddress"
+                        rows="4"
+                        placeholder="Enter delivery address">
+                    </textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Pincode</label>
 
                     <input
+                        id="orderPincode"
+                        type="text"
+                        maxlength="6"
+                        placeholder="Enter 6 digit pincode">
+                </div>
+
+            </div>
+
+            <!-- PAYMENT -->
+            <div class="checkout-card">
+
+                <h3>Payment Method</h3>
+
+                <label class="payment-option">
+                    <input
                         type="radio"
-                        name="paymentMethod"
+                        name="payment"
                         value="UPI"
                         onchange="paymentChanged()">
-
                     UPI
-
                 </label>
 
-
-                <div
-                    id="upiBox"
-                    class="paymentExtra hidden">
-
+                <div id="upiBox" class="input-group hidden">
+                    <label>UPI ID</label>
                     <input
                         id="upiId"
-                        class="checkoutField"
+                        type="text"
                         placeholder="example@upi">
-
                 </div>
 
-            </div>
-
-
-            <div class="paymentOption">
-
-                <label>
-
+                <label class="payment-option">
                     <input
                         type="radio"
-                        name="paymentMethod"
+                        name="payment"
                         value="Net Banking"
                         onchange="paymentChanged()">
-
                     Net Banking
-
                 </label>
 
+                <div id="bankBox" class="input-group hidden">
+                    <label>Select Bank</label>
 
-                <div
-                    id="bankBox"
-                    class="paymentExtra hidden">
-
-                    <select
-                        id="bankName"
-                        class="checkoutField">
-
-                        <option value="">
-                            Select Bank
-                        </option>
-
-                        <option>
-                            SBI
-                        </option>
-
-                        <option>
-                            HDFC Bank
-                        </option>
-
-                        <option>
-                            ICICI Bank
-                        </option>
-
-                        <option>
-                            Axis Bank
-                        </option>
-
-                        <option>
-                            Andhra Bank
-                        </option>
-
+                    <select id="bankName">
+                        <option value="">Select Bank</option>
+                        <option>State Bank of India</option>
+                        <option>HDFC Bank</option>
+                        <option>ICICI Bank</option>
+                        <option>Axis Bank</option>
+                        <option>Canara Bank</option>
+                        <option>Bank of Baroda</option>
                     </select>
-
                 </div>
 
-            </div>
-
-
-            <div class="paymentOption">
-
-                <label>
-
+                <label class="payment-option">
                     <input
                         type="radio"
-                        name="paymentMethod"
+                        name="payment"
                         value="Cash on Delivery"
                         onchange="paymentChanged()">
-
                     Cash on Delivery
-
                 </label>
 
             </div>
 
-        </div>
+            <!-- ORDER SUMMARY -->
+            <div class="checkout-card">
 
+                <h3>Order Summary</h3>
 
-        <!-- TOTAL -->
-
-        <div class="checkoutCard">
-
-            <h3>
-                🧾 Order Summary
-            </h3>
-
-
-            <div class="orderTotalBox">
-
-                <div class="checkoutSummaryRow">
-
-                    <span>
-                        Subtotal
-                    </span>
-
-                    <strong id="checkoutSubtotal">
-                        ₹0.00
-                    </strong>
-
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong id="checkoutSubtotal">₹0.00</strong>
                 </div>
 
-
-                <div class="checkoutSummaryRow">
-
-                    <span>
-                        GST (18%)
-                    </span>
-
-                    <strong id="checkoutGST">
-                        ₹0.00
-                    </strong>
-
+                <div class="summary-row">
+                    <span>GST (18%)</span>
+                    <strong id="checkoutGST">₹0.00</strong>
                 </div>
 
-
-                <div
-                    class="checkoutSummaryRow checkoutGrandTotal">
-
-                    <span>
-                        Total Amount
-                    </span>
-
-                    <strong id="checkoutTotal">
-                        ₹0.00
-                    </strong>
-
+                <div class="summary-row total">
+                    <span>Grand Total</span>
+                    <strong id="checkoutTotal">₹0.00</strong>
                 </div>
 
-            </div>
+                <button
+                    id="placeOrderButton"
+                    class="primary-btn"
+                    style="width:100%;margin-top:20px;"
+                    onclick="placeOrder()">
+                    Place Order
+                </button>
 
+                <div id="orderMessage" class="message"></div>
 
-            <button
-                id="placeOrderButton"
-                class="primaryButton"
-                onclick="placeOrder()">
-
-                Place Order
-
-            </button>
-
-
-            <div
-                id="orderMessage"
-                class="message">
             </div>
 
         </div>
@@ -1218,442 +914,905 @@ footer{
 
 </section>
 
+<!-- ORDERS -->
+<section id="orders" class="page">
 
-<!-- =====================================================
-     ORDERS
-===================================================== -->
+    <div class="section">
 
-<section
-    id="ordersPage"
-    class="section hidden">
+        <h2 class="section-title">My Orders 📦</h2>
 
-    <h2 class="sectionTitle">
-        My Orders 📦
-    </h2>
+        <div id="ordersContainer" class="orders"></div>
 
-
-    <div
-        id="ordersList"
-        class="cartContainer">
     </div>
 
 </section>
 
+<!-- PRODUCT MODAL -->
+<div id="productModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal()">×</span>
+
+        <h2 id="modalName" style="color:#7a1fd1;"></h2>
+
+        <p id="modalDescription"
+           style="margin-top:15px;line-height:1.7;">
+        </p>
+
+        <p id="modalPrice"
+           style="font-size:23px;font-weight:bold;
+           color:#ed269d;margin-top:20px;">
+        </p>
+
+        <button
+            class="primary-btn"
+            style="margin-top:20px;width:100%;"
+            onclick="addModalProduct()">
+            Add to Cart
+        </button>
+
+    </div>
+
+</div>
 
 <footer>
-
-    © 2026 GlowCart
-    <br>
-    Premium Face Creams
-
+    <p>© 2026 GlowCart - Premium Face Creams</p>
+    <p style="margin-top:8px;">Glow beautifully. Shop confidently. ✨</p>
 </footer>
-
 
 <script>
 
-/* =====================================================
-   CONFIG
-===================================================== */
+/* =========================================================
+   GLOWCART CONFIGURATION
+========================================================= */
 
-const API_BASE =
-    "https://glowcart-fxwp.onrender.com";
+const API_BASE = "https://glowcart-fxwp.onrender.com";
 
+const EMAILJS_WELCOME_TEMPLATE = "template_giqmpm9";
+const EMAILJS_ORDER_TEMPLATE = "template_ykzf36";
 
-const WELCOME_TEMPLATE =
-    "template_giqmpm9";
-
-
-const ORDER_TEMPLATE =
-    "template_ykzf36";
-
-
-let EMAILJS_CONFIG = {
-
-    publicKey:"",
-    serviceId:"",
-    welcomeTemplateId:
-        WELCOME_TEMPLATE,
-    orderTemplateId:
-        ORDER_TEMPLATE
-
-};
-
-
-/* =====================================================
-   STATE
-===================================================== */
+let EMAILJS_PUBLIC_KEY = "";
+let EMAILJS_SERVICE_ID = "";
 
 let products = [];
-
-let cart =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_cart"
-        ) || "[]"
-    );
-
-let orders =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_orders"
-        ) || "[]"
-    );
-
-let currentUser =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_user"
-        ) || "null"
-    );
-
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function(){
-
-        updateCount();
-
-        await loadEmailJSConfig();
-
-        await loadProducts();
-
-        if(currentUser){
-
-            showShop();
-
-        }else{
-
-            showRegister();
-
-        }
-
-    }
+let cart = JSON.parse(localStorage.getItem("glowcart_cart") || "[]");
+let currentUser = JSON.parse(
+    localStorage.getItem("glowcart_user") || "null"
 );
 
+let modalProduct = null;
 
-/* =====================================================
+
+/* =========================================================
+   DEFAULT PRODUCTS
+========================================================= */
+
+const fallbackProducts = [
+    {
+        id:1,
+        name:"Glow Radiance Cream",
+        price:499,
+        description:"Brightening face cream for a natural radiant glow."
+    },
+    {
+        id:2,
+        name:"Vitamin C Face Cream",
+        price:599,
+        description:"Vitamin C enriched cream for fresh and glowing skin."
+    },
+    {
+        id:3,
+        name:"Hydra Moisturizing Cream",
+        price:449,
+        description:"Deep moisturizing cream for soft and hydrated skin."
+    },
+    {
+        id:4,
+        name:"Aloe Vera Face Cream",
+        price:399,
+        description:"Soothing aloe vera cream suitable for daily skincare."
+    }
+];
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(pageId){
+
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    const page = document.getElementById(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    if(pageId === "shop"){
+        loadProducts();
+    }
+
+    if(pageId === "cart"){
+        renderCart();
+    }
+
+    if(pageId === "checkout"){
+        prepareCheckout();
+    }
+
+    if(pageId === "orders"){
+        renderOrders();
+    }
+
+    updateNavigation();
+}
+
+
+/* =========================================================
+   NAVIGATION STATUS
+========================================================= */
+
+function updateNavigation(){
+
+    const loginNav = document.getElementById("loginNav");
+    const logoutNav = document.getElementById("logoutNav");
+
+    if(currentUser){
+
+        loginNav.style.display = "none";
+        logoutNav.style.display = "inline-block";
+
+    }else{
+
+        loginNav.style.display = "inline-block";
+        logoutNav.style.display = "none";
+
+    }
+
+    updateCartCount();
+}
+
+
+/* =========================================================
    EMAILJS CONFIG
-===================================================== */
+========================================================= */
 
-async function loadEmailJSConfig(){
+async function loadEmailJS(){
 
     try{
 
-        const response =
-            await fetch(
-                API_BASE +
-                "/api/emailjs-config"
-            );
+        const response = await fetch(
+            API_BASE + "/api/emailjs-config"
+        );
 
+        if(response.ok){
 
-        if(!response.ok){
+            const data = await response.json();
 
-            console.log(
-                "EmailJS config unavailable."
-            );
-
-            return;
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(data.success){
-
-            EMAILJS_CONFIG.publicKey =
+            EMAILJS_PUBLIC_KEY =
                 data.publicKey || "";
 
-            EMAILJS_CONFIG.serviceId =
+            EMAILJS_SERVICE_ID =
                 data.serviceId || "";
-
-            EMAILJS_CONFIG.welcomeTemplateId =
-                data.welcomeTemplateId ||
-                WELCOME_TEMPLATE;
-
-            EMAILJS_CONFIG.orderTemplateId =
-                data.orderTemplateId ||
-                ORDER_TEMPLATE;
-
-
-            if(
-                EMAILJS_CONFIG.publicKey &&
-                typeof emailjs !== "undefined"
-            ){
-
-                emailjs.init({
-
-                    publicKey:
-                        EMAILJS_CONFIG.publicKey
-
-                });
-
-            }
 
         }
 
     }catch(error){
 
         console.log(
-            "EmailJS configuration error:",
+            "EmailJS config could not be loaded:",
             error
         );
 
     }
 
-}
+    /*
+       If Render environment variables are not configured,
+       put your EmailJS Public Key and Service ID here.
 
+       Example:
 
-/* =====================================================
-   PAGE FUNCTIONS
-===================================================== */
+       EMAILJS_PUBLIC_KEY = "your_public_key";
+       EMAILJS_SERVICE_ID = "service_xxxxx";
+    */
 
-function hideAllPages(){
+    if(
+        EMAILJS_PUBLIC_KEY &&
+        typeof emailjs !== "undefined"
+    ){
 
-    document
-        .getElementById("homePage")
-        .classList.add("hidden");
+        emailjs.init({
+            publicKey:EMAILJS_PUBLIC_KEY
+        });
 
-    document
-        .getElementById("registerPage")
-        .classList.add("hidden");
-
-    document
-        .getElementById("loginPage")
-        .classList.add("hidden");
-
-    document
-        .getElementById("shopPage")
-        .classList.add("hidden");
-
-    document
-        .getElementById("cartPage")
-        .classList.add("hidden");
-
-    document
-        .getElementById("checkoutPage")
-        .classList.add("hidden");
-
-    document
-        .getElementById("ordersPage")
-        .classList.add("hidden");
+    }
 
 }
 
 
-function showHome(){
+/* =========================================================
+   LOAD PRODUCTS
+========================================================= */
 
-    hideAllPages();
+async function loadProducts(){
 
-    document
-        .getElementById("homePage")
-        .classList.remove("hidden");
+    const container =
+        document.getElementById("productsContainer");
+
+    container.innerHTML =
+        '<div class="empty">Loading products...</div>';
+
+    try{
+
+        const response = await fetch(
+            API_BASE + "/api/products"
+        );
+
+        if(!response.ok){
+            throw new Error("Product API failed");
+        }
+
+        const data = await response.json();
+
+        if(Array.isArray(data) && data.length > 0){
+
+            products = data;
+
+        }else{
+
+            products = fallbackProducts;
+
+        }
+
+    }catch(error){
+
+        console.log("Using fallback products:",error);
+
+        products = fallbackProducts;
+
+    }
+
+    renderProducts(products);
+}
+
+
+/* =========================================================
+   RENDER PRODUCTS
+========================================================= */
+
+function renderProducts(list){
+
+    const container =
+        document.getElementById("productsContainer");
+
+    if(!list || list.length === 0){
+
+        container.innerHTML =
+            '<div class="empty">No products found.</div>';
+
+        return;
+    }
+
+    container.innerHTML = list.map(product=>`
+
+        <div class="product">
+
+            <div class="product-img">
+                🧴
+            </div>
+
+            <h3>${escapeHtml(product.name)}</h3>
+
+            <p>
+                ${escapeHtml(
+                    product.description ||
+                    "Premium skincare product."
+                )}
+            </p>
+
+            <div class="price">
+                ₹${Number(product.price).toFixed(2)}
+            </div>
+
+            <div class="product-actions">
+
+                <button
+                    class="small-btn details-btn"
+                    onclick="showDetails(${product.id})">
+                    Details
+                </button>
+
+                <button
+                    class="small-btn add-btn"
+                    onclick="addToCart(${product.id})">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function filterProducts(){
+
+    const query =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const filtered = products.filter(product=>
+
+        String(product.name || "")
+        .toLowerCase()
+        .includes(query)
+
+        ||
+
+        String(product.description || "")
+        .toLowerCase()
+        .includes(query)
+
+    );
+
+    renderProducts(filtered);
+}
+
+
+/* =========================================================
+   PRODUCT DETAILS
+========================================================= */
+
+function showDetails(id){
+
+    const product =
+        products.find(p=>String(p.id) === String(id));
+
+    if(!product){
+        return;
+    }
+
+    modalProduct = product;
+
+    document.getElementById("modalName").textContent =
+        product.name;
+
+    document.getElementById("modalDescription").textContent =
+        product.description ||
+        "Premium skincare product.";
+
+    document.getElementById("modalPrice").textContent =
+        "₹" + Number(product.price).toFixed(2);
+
+    document.getElementById("productModal")
+        .classList.add("show");
+}
+
+
+function closeModal(){
+
+    document.getElementById("productModal")
+        .classList.remove("show");
 
 }
 
 
-function showRegister(){
+function addModalProduct(){
 
-    hideAllPages();
+    if(modalProduct){
 
-    document
-        .getElementById("registerPage")
-        .classList.remove("hidden");
+        addToCart(modalProduct.id);
 
-}
+        closeModal();
 
-
-function showLogin(){
-
-    hideAllPages();
-
-    document
-        .getElementById("loginPage")
-        .classList.remove("hidden");
+    }
 
 }
 
 
-function showShop(){
+/* =========================================================
+   CART
+========================================================= */
 
-    if(!currentUser){
+function saveCart(){
 
-        showLogin();
+    localStorage.setItem(
+        "glowcart_cart",
+        JSON.stringify(cart)
+    );
 
+    updateCartCount();
+}
+
+
+function updateCartCount(){
+
+    const count =
+        cart.reduce(
+            (sum,item)=>
+                sum + Number(item.qty || item.quantity || 1),
+            0
+        );
+
+    document.getElementById("cartCount")
+        .textContent = count;
+
+}
+
+
+function addToCart(id){
+
+    const product =
+        products.find(p=>String(p.id) === String(id))
+        ||
+        fallbackProducts.find(
+            p=>String(p.id) === String(id)
+        );
+
+    if(!product){
+
+        alert("Product not found.");
         return;
 
     }
 
-    hideAllPages();
+    const existing =
+        cart.find(
+            item=>String(item.id) === String(product.id)
+        );
 
-    document
-        .getElementById("shopPage")
-        .classList.remove("hidden");
+    if(existing){
 
-    loadProducts();
+        existing.qty =
+            Number(existing.qty || 1) + 1;
 
-}
+    }else{
 
-
-function showCart(){
-
-    if(!currentUser){
-
-        showLogin();
-
-        return;
+        cart.push({
+            id:product.id,
+            name:product.name,
+            price:Number(product.price),
+            description:product.description || "",
+            qty:1
+        });
 
     }
 
-    hideAllPages();
+    saveCart();
 
-    document
-        .getElementById("cartPage")
-        .classList.remove("hidden");
+    alert(product.name + " added to cart!");
 
     renderCart();
 
 }
 
 
-function showOrders(){
+function increaseQty(id){
 
-    if(!currentUser){
+    const item =
+        cart.find(
+            p=>String(p.id) === String(id)
+        );
 
-        showLogin();
+    if(item){
 
-        return;
+        item.qty =
+            Number(item.qty || 1) + 1;
+
+        saveCart();
+        renderCart();
 
     }
-
-    hideAllPages();
-
-    document
-        .getElementById("ordersPage")
-        .classList.remove("hidden");
-
-    renderOrders();
 
 }
 
 
-/* =====================================================
+function decreaseQty(id){
+
+    const item =
+        cart.find(
+            p=>String(p.id) === String(id)
+        );
+
+    if(!item){
+        return;
+    }
+
+    item.qty =
+        Number(item.qty || 1) - 1;
+
+    if(item.qty <= 0){
+
+        cart =
+            cart.filter(
+                p=>String(p.id) !== String(id)
+            );
+
+    }
+
+    saveCart();
+    renderCart();
+
+}
+
+
+function removeFromCart(id){
+
+    cart =
+        cart.filter(
+            p=>String(p.id) !== String(id)
+        );
+
+    saveCart();
+    renderCart();
+
+}
+
+
+/* =========================================================
+   PRICE CALCULATIONS
+========================================================= */
+
+function getSubtotal(){
+
+    return cart.reduce((total,item)=>{
+
+        const qty =
+            Number(item.qty || item.quantity || 1);
+
+        const price =
+            Number(item.price || 0);
+
+        return total + price * qty;
+
+    },0);
+
+}
+
+
+function getGST(){
+
+    return getSubtotal() * 0.18;
+
+}
+
+
+function getGrandTotal(){
+
+    return getSubtotal() + getGST();
+
+}
+
+
+/* =========================================================
+   CART RENDER
+========================================================= */
+
+function renderCart(){
+
+    const container =
+        document.getElementById("cartContainer");
+
+    const summary =
+        document.getElementById("cartSummary");
+
+    if(!cart.length){
+
+        container.innerHTML = `
+            <div class="empty">
+
+                <h3>Your cart is empty 🛒</h3>
+
+                <p style="margin-top:10px;">
+                    Add some beautiful skincare products.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    style="margin-top:20px;"
+                    onclick="showPage('shop')">
+                    Start Shopping
+                </button>
+
+            </div>
+        `;
+
+        summary.style.display = "none";
+
+        return;
+
+    }
+
+    container.innerHTML =
+        cart.map(item=>`
+
+        <div class="cart-item">
+
+            <div class="cart-info">
+
+                <h3>${escapeHtml(item.name)}</h3>
+
+                <p style="margin-top:6px;">
+                    ₹${Number(item.price).toFixed(2)} each
+                </p>
+
+            </div>
+
+            <div class="qty-box">
+
+                <button
+                    onclick="decreaseQty(${item.id})">
+                    −
+                </button>
+
+                <strong>
+                    ${Number(item.qty || 1)}
+                </strong>
+
+                <button
+                    onclick="increaseQty(${item.id})">
+                    +
+                </button>
+
+            </div>
+
+            <strong style="color:#8e2de2;">
+                ₹${(
+                    Number(item.price) *
+                    Number(item.qty || 1)
+                ).toFixed(2)}
+            </strong>
+
+            <button
+                class="remove-btn"
+                onclick="removeFromCart(${item.id})">
+                Remove
+            </button>
+
+        </div>
+
+    `).join("");
+
+    summary.style.display = "block";
+
+    updateCartTotals();
+
+}
+
+
+function updateCartTotals(){
+
+    const subtotal = getSubtotal();
+    const gst = getGST();
+    const total = getGrandTotal();
+
+    document.getElementById("cartSubtotal")
+        .textContent = "₹" + subtotal.toFixed(2);
+
+    document.getElementById("cartGST")
+        .textContent = "₹" + gst.toFixed(2);
+
+    document.getElementById("cartTotal")
+        .textContent = "₹" + total.toFixed(2);
+
+}
+
+
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
+function goCheckout(){
+
+    if(!currentUser){
+
+        alert("Please login before placing an order.");
+
+        showPage("login");
+
+        return;
+
+    }
+
+    if(!cart.length){
+
+        alert("Your cart is empty.");
+
+        showPage("shop");
+
+        return;
+
+    }
+
+    showPage("checkout");
+
+    prepareCheckout();
+
+}
+
+
+function prepareCheckout(){
+
+    if(!currentUser){
+        return;
+    }
+
+    document.getElementById("orderName").value =
+        currentUser.name || "";
+
+    document.getElementById("orderEmail").value =
+        currentUser.email || "";
+
+    document.getElementById("orderMobile").value =
+        currentUser.mobile || "";
+
+    document.getElementById("orderAddress").value =
+        currentUser.address || "";
+
+    document.getElementById("orderPincode").value =
+        currentUser.pincode || "";
+
+    document.getElementById("savedAddress").textContent =
+        currentUser.address ||
+        "No saved address.";
+
+    document.getElementById("savedPincode").textContent =
+        currentUser.pincode ||
+        "Not available";
+
+    updateCheckoutTotals();
+
+}
+
+
+function updateCheckoutTotals(){
+
+    const subtotal = getSubtotal();
+    const gst = getGST();
+    const total = getGrandTotal();
+
+    document.getElementById("checkoutSubtotal")
+        .textContent =
+        "₹" + subtotal.toFixed(2);
+
+    document.getElementById("checkoutGST")
+        .textContent =
+        "₹" + gst.toFixed(2);
+
+    document.getElementById("checkoutTotal")
+        .textContent =
+        "₹" + total.toFixed(2);
+
+}
+
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+function paymentChanged(){
+
+    const selected =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+    const upiBox =
+        document.getElementById("upiBox");
+
+    const bankBox =
+        document.getElementById("bankBox");
+
+    upiBox.classList.add("hidden");
+    bankBox.classList.add("hidden");
+
+    if(!selected){
+        return;
+    }
+
+    if(selected.value === "UPI"){
+
+        upiBox.classList.remove("hidden");
+
+    }
+
+    if(selected.value === "Net Banking"){
+
+        bankBox.classList.remove("hidden");
+
+    }
+
+}
+
+
+/* =========================================================
    REGISTER
-===================================================== */
+========================================================= */
 
 async function registerUser(){
 
     const name =
-        document
-        .getElementById("regName")
-        .value
-        .trim();
+        document.getElementById("regName")
+        .value.trim();
 
     const email =
-        document
-        .getElementById("regEmail")
-        .value
-        .trim()
+        document.getElementById("regEmail")
+        .value.trim()
         .toLowerCase();
 
     const mobile =
-        document
-        .getElementById("regMobile")
-        .value
-        .trim();
+        document.getElementById("regMobile")
+        .value.trim();
 
     const password =
-        document
-        .getElementById("regPassword")
+        document.getElementById("regPassword")
         .value;
 
     const address =
-        document
-        .getElementById("regAddress")
-        .value
-        .trim();
+        document.getElementById("regAddress")
+        .value.trim();
 
     const pincode =
-        document
-        .getElementById("regPincode")
-        .value
-        .trim();
-
-    const address2 =
-        document
-        .getElementById("regAddress2")
-        .value
-        .trim();
-
-    const pincode2 =
-        document
-        .getElementById("regPincode2")
-        .value
-        .trim();
-
+        document.getElementById("regPincode")
+        .value.trim();
 
     const message =
-        document
-        .getElementById("registerMessage");
+        document.getElementById("registerMessage");
 
 
-    if(
-        !name ||
-        !email ||
-        !mobile ||
-        !password ||
-        !address ||
-        !pincode
-    ){
+    if(!name || !email || !mobile ||
+       !password || !address || !pincode){
 
         message.style.color = "red";
-
         message.textContent =
-            "Please fill all required fields.";
+            "Please fill all fields.";
 
         return;
 
     }
-
-
-    if(!/^\d{10}$/.test(mobile)){
-
-        message.style.color = "red";
-
-        message.textContent =
-            "Enter a valid 10-digit mobile number.";
-
-        return;
-
-    }
-
 
     if(!/^\d{6}$/.test(pincode)){
 
         message.style.color = "red";
-
         message.textContent =
-            "Enter a valid 6-digit pincode.";
+            "Pincode must contain 6 digits.";
 
         return;
 
     }
 
+    if(!/^\S+@\S+\.\S+$/.test(email)){
+
+        message.style.color = "red";
+        message.textContent =
+            "Enter a valid email.";
+
+        return;
+
+    }
 
     try{
 
         const response =
             await fetch(
-                API_BASE +
-                "/api/register",
+                API_BASE + "/api/register",
                 {
-
                     method:"POST",
 
                     headers:{
@@ -1662,165 +1821,153 @@ async function registerUser(){
                     },
 
                     body:JSON.stringify({
-
                         name,
                         email,
                         mobile,
                         password,
                         address,
-                        pincode,
-                        address2,
-                        pincode2
-
+                        pincode
                     })
-
                 }
             );
-
 
         const data =
             await response.json();
 
+        if(!response.ok){
 
-        if(!response.ok || !data.success){
+            message.style.color = "red";
 
-            throw new Error(
+            message.textContent =
                 data.message ||
-                "Registration failed."
-            );
+                "Registration failed.";
+
+            return;
 
         }
 
-
-        message.style.color =
-            "green";
+        message.style.color = "green";
 
         message.textContent =
-            "Registration successful!";
+            "Registration successful! Welcome email is being sent...";
 
+        await sendWelcomeEmail({
+            name,
+            email,
+            mobile
+        });
 
-        /*
-          SEND WELCOME EMAIL
-          Email failure does NOT
-          cancel registration.
-        */
+        setTimeout(()=>{
 
-        try{
+            document.getElementById("regName").value = "";
+            document.getElementById("regEmail").value = "";
+            document.getElementById("regMobile").value = "";
+            document.getElementById("regPassword").value = "";
+            document.getElementById("regAddress").value = "";
+            document.getElementById("regPincode").value = "";
 
-            if(
-                EMAILJS_CONFIG.publicKey &&
-                EMAILJS_CONFIG.serviceId &&
-                typeof emailjs !== "undefined"
-            ){
+            showPage("login");
 
-                await emailjs.send(
-
-                    EMAILJS_CONFIG.serviceId,
-
-                    EMAILJS_CONFIG
-                        .welcomeTemplateId,
-
-                    {
-
-                        to_email:email,
-
-                        email:email,
-
-                        recipient_email:email,
-
-                        name:name,
-
-                        user_name:name,
-
-                        mobile:mobile,
-
-                        company_name:
-                            "GlowCart",
-
-                        website_link:
-                            "https://haasini3107.github.io/GlowCart/"
-
-                    }
-
-                );
-
-            }
-
-        }catch(emailError){
-
-            console.log(
-                "Welcome email failed:",
-                emailError
-            );
-
-        }
-
-
-        setTimeout(
-            function(){
-
-                document
-                    .getElementById(
-                        "loginEmail"
-                    )
-                    .value =
-                    email;
-
-                showLogin();
-
-            },
-            1200
-        );
-
+        },1200);
 
     }catch(error){
 
-        console.error(
-            "Registration error:",
-            error
-        );
+        console.error(error);
 
-        message.style.color =
-            "red";
+        message.style.color = "red";
 
         message.textContent =
-            error.message ||
-            "Registration failed.";
+            "Server connection failed. Please check Render.";
 
     }
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   WELCOME EMAIL
+========================================================= */
+
+async function sendWelcomeEmail(user){
+
+    try{
+
+        if(
+            typeof emailjs === "undefined" ||
+            !EMAILJS_PUBLIC_KEY ||
+            !EMAILJS_SERVICE_ID
+        ){
+
+            console.log(
+                "EmailJS not configured."
+            );
+
+            return;
+
+        }
+
+        const params = {
+
+            to_email:user.email,
+            email:user.email,
+            recipient_email:user.email,
+
+            name:user.name,
+            user_name:user.name,
+
+            mobile:user.mobile,
+
+            company_name:"GlowCart",
+
+            website_link:
+                "https://haasini3107.github.io/GlowCart/"
+
+        };
+
+        await emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_WELCOME_TEMPLATE,
+            params
+        );
+
+        console.log(
+            "Welcome email sent."
+        );
+
+    }catch(error){
+
+        console.error(
+            "Welcome email failed:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 async function loginUser(){
 
     const email =
-        document
-        .getElementById("loginEmail")
-        .value
-        .trim()
+        document.getElementById("loginEmail")
+        .value.trim()
         .toLowerCase();
 
     const password =
-        document
-        .getElementById("loginPassword")
+        document.getElementById("loginPassword")
         .value;
 
-
     const message =
-        document
-        .getElementById("loginMessage");
+        document.getElementById("loginMessage");
 
 
     if(!email || !password){
 
-        message.style.color =
-            "red";
-
+        message.style.color = "red";
         message.textContent =
             "Enter email and password.";
 
@@ -1833,10 +1980,8 @@ async function loginUser(){
 
         const response =
             await fetch(
-                API_BASE +
-                "/api/login",
+                API_BASE + "/api/login",
                 {
-
                     method:"POST",
 
                     headers:{
@@ -1845,1178 +1990,112 @@ async function loginUser(){
                     },
 
                     body:JSON.stringify({
-
                         email,
                         password
-
                     })
-
                 }
             );
-
 
         const data =
             await response.json();
 
+        if(!response.ok){
 
-        if(!response.ok || !data.success){
+            message.style.color = "red";
 
-            throw new Error(
+            message.textContent =
                 data.message ||
-                "Invalid login."
-            );
+                "Invalid email or password.";
+
+            return;
 
         }
 
-
         currentUser =
-            data.user;
-
+            data.user || data;
 
         localStorage.setItem(
             "glowcart_user",
-            JSON.stringify(
-                currentUser
-            )
+            JSON.stringify(currentUser)
         );
 
-
-        message.style.color =
-            "green";
+        message.style.color = "green";
 
         message.textContent =
-            "Login successful!";
+            "Login successful! Welcome to GlowCart 💜";
 
+        updateNavigation();
 
-        setTimeout(
-            function(){
+        setTimeout(()=>{
 
-                showShop();
+            showPage("shop");
 
-            },
-            700
-        );
-
+        },700);
 
     }catch(error){
 
-        console.error(
-            "Login error:",
-            error
-        );
+        console.error(error);
 
-        message.style.color =
-            "red";
+        message.style.color = "red";
 
         message.textContent =
-            error.message ||
-            "Login failed.";
+            "Unable to connect to server.";
 
     }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    LOGOUT
-===================================================== */
+========================================================= */
 
 function logout(){
 
-    currentUser =
-        null;
+    currentUser = null;
 
     localStorage.removeItem(
         "glowcart_user"
     );
 
-    showLogin();
+    alert("You have been logged out.");
+
+    showPage("home");
 
 }
 
 
-/* =====================================================
-   PRODUCTS
-===================================================== */
+/* =========================================================
+   PLACE ORDER
+========================================================= */
 
-async function loadProducts(){
+async function placeOrder(){
 
-    try{
+    const button =
+        document.getElementById("placeOrderButton");
 
-        const response =
-            await fetch(
-                API_BASE +
-                "/api/products"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Unable to load products."
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        products =
-            Array.isArray(data)
-            ? data
-            : data.products || [];
-
-
-        renderProducts();
-
-
-    }catch(error){
-
-        console.error(
-            "Product error:",
-            error
-        );
-
-
-        /*
-          FALLBACK PRODUCTS
-          So GlowCart still displays
-          products if backend temporarily
-          has a product API issue.
-        */
-
-        products = [
-
-            {
-                id:1,
-                name:
-                    "Glow Radiance Cream",
-                price:499,
-                description:
-                    "Brightening face cream for radiant skin.",
-                image:"🧴"
-            },
-
-            {
-                id:2,
-                name:
-                    "Vitamin C Face Cream",
-                price:599,
-                description:
-                    "Vitamin C cream for fresh glowing skin.",
-                image:"🍊"
-            },
-
-            {
-                id:3,
-                name:
-                    "Hydra Moisturizing Cream",
-                price:449,
-                description:
-                    "Deep hydration for soft skin.",
-                image:"💧"
-            },
-
-            {
-                id:4,
-                name:
-                    "Aloe Vera Face Cream",
-                price:399,
-                description:
-                    "Soothing aloe vera cream.",
-                image:"🌿"
-            }
-
-        ];
-
-
-        renderProducts();
-
-    }
-
-}
-
-
-/* =====================================================
-   PRODUCT IMAGE
-===================================================== */
-
-function productImage(product){
-
-    if(product.image){
-
-        if(
-            String(product.image)
-                .startsWith("http") ||
-            String(product.image)
-                .startsWith("data:")
-        ){
-
-            return `
-                <img
-                    src="${product.image}"
-                    alt="${escapeHTML(product.name)}"
-                    style="
-                        width:100%;
-                        height:100%;
-                        object-fit:contain;
-                    "
-                >
-            `;
-
-        }
-
-        return `
-            <div style="font-size:85px;">
-                ${escapeHTML(product.image)}
-            </div>
-        `;
-
-    }
-
-
-    return "🧴";
-
-}
-
-
-/* =====================================================
-   RENDER PRODUCTS
-===================================================== */
-
-function renderProducts(){
-
-    const container =
-        document
-        .getElementById("products");
-
-
-    if(!container){
-
-        return;
-
-    }
-
-
-    if(!products.length){
-
-        container.innerHTML =
-            "<p>No products available.</p>";
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        products.map(
-            product => `
-
-                <div class="product">
-
-                    <div class="productImage">
-
-                        ${productImage(product)}
-
-                    </div>
-
-                    <div class="productContent">
-
-                        <h3>
-                            ${escapeHTML(
-                                product.name
-                            )}
-                        </h3>
-
-                        <p>
-                            ${escapeHTML(
-                                product.description ||
-                                "Premium skincare product."
-                            )}
-                        </p>
-
-                        <div class="price">
-                            ₹${Number(
-                                product.price || 0
-                            ).toFixed(2)}
-                        </div>
-
-                        <button
-                            class="addButton"
-                            onclick="addToCart('${String(product.id)}')">
-
-                            Add to Cart 🛒
-
-                        </button>
-
-                    </div>
-
-                </div>
-            `
-        )
-        .join("");
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function filterProducts(){
-
-    const search =
-        document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
-
-
-    const filtered =
-        products.filter(
-            product =>
-                String(product.name)
-                    .toLowerCase()
-                    .includes(search)
-        );
-
-
-    const container =
-        document
-        .getElementById("products");
-
-
-    container.innerHTML =
-        filtered.map(
-            product => `
-
-                <div class="product">
-
-                    <div class="productImage">
-
-                        ${productImage(product)}
-
-                    </div>
-
-                    <div class="productContent">
-
-                        <h3>
-                            ${escapeHTML(
-                                product.name
-                            )}
-                        </h3>
-
-                        <p>
-                            ${escapeHTML(
-                                product.description ||
-                                "Premium skincare product."
-                            )}
-                        </p>
-
-                        <div class="price">
-                            ₹${Number(
-                                product.price || 0
-                            ).toFixed(2)}
-                        </div>
-
-                        <button
-                            class="addButton"
-                            onclick="addToCart('${String(product.id)}')">
-
-                            Add to Cart 🛒
-
-                        </button>
-
-                    </div>
-
-                </div>
-            `
-        )
-        .join("");
-
-}
-
-
-/* =====================================================
-   CART
-===================================================== */
-
-function addToCart(id){
-
-    const product =
-        products.find(
-            p =>
-                String(p.id) ===
-                String(id)
-        );
-
-
-    if(!product){
-
-        alert(
-            "Product not found."
-        );
-
-        return;
-
-    }
-
-
-    const existing =
-        cart.find(
-            item =>
-                String(item.id) ===
-                String(id)
-        );
-
-
-    if(existing){
-
-        existing.qty =
-            Number(existing.qty || 0) + 1;
-
-    }else{
-
-        cart.push({
-
-            id:
-                product.id,
-
-            name:
-                product.name,
-
-            price:
-                Number(product.price) || 0,
-
-            qty:
-                1,
-
-            image:
-                product.image || ""
-
-        });
-
-    }
-
-
-    saveCart();
-
-    updateCount();
-
-    alert(
-        product.name +
-        " added to cart!"
-    );
-
-}
-
-
-function saveCart(){
-
-    localStorage.setItem(
-        "glowcart_cart",
-        JSON.stringify(cart)
-    );
-
-}
-
-
-function updateCount(){
-
-    const count =
-        cart.reduce(
-            (total,item) =>
-                total +
-                Number(item.qty || 0),
-            0
-        );
-
-
-    const cartCount =
-        document.getElementById(
-            "cartCount"
-        );
-
-    const shopCartCount =
-        document.getElementById(
-            "shopCartCount"
-        );
-
-
-    if(cartCount){
-
-        cartCount.textContent =
-            count;
-
-    }
-
-
-    if(shopCartCount){
-
-        shopCartCount.textContent =
-            count;
-
-    }
-
-}
-
-
-/* =====================================================
-   CART TOTALS
-===================================================== */
-
-function getSubtotal(){
-
-    return cart.reduce(
-
-        (total,item) => {
-
-            const price =
-                Number(item.price) || 0;
-
-            const qty =
-                Number(item.qty) || 1;
-
-            return total +
-                price * qty;
-
-        },
-
-        0
-
-    );
-
-}
-
-
-function getGST(){
-
-    const subtotal =
-        getSubtotal();
-
-
-    return subtotal * 0.18;
-
-}
-
-
-function getGrandTotal(){
-
-    return getSubtotal() +
-        getGST();
-
-}
-
-
-/* =====================================================
-   RENDER CART
-===================================================== */
-
-function renderCart(){
-
-    const container =
-        document
-        .getElementById("cartItems");
-
-
-    const summary =
-        document
-        .getElementById("cartSummary");
-
-
-    if(!cart.length){
-
-        container.innerHTML = `
-
-            <div class="summary">
-
-                <h3>
-                    Your cart is empty 🛒
-                </h3>
-
-                <br>
-
-                <button
-                    class="primaryButton"
-                    onclick="showShop()">
-
-                    Continue Shopping
-
-                </button>
-
-            </div>
-
-        `;
-
-
-        summary.classList.add(
-            "hidden"
-        );
-
-        return;
-
-    }
-
-
-    summary.classList.remove(
-        "hidden"
-    );
-
-
-    container.innerHTML =
-        cart.map(
-            (item,index) => `
-
-                <div class="cartItem">
-
-                    <div class="cartInfo">
-
-                        <h3>
-                            ${escapeHTML(
-                                item.name
-                            )}
-                        </h3>
-
-                        <p>
-                            ₹${Number(
-                                item.price
-                            ).toFixed(2)}
-                            each
-                        </p>
-
-                    </div>
-
-
-                    <div class="qtyBox">
-
-                        <button
-                            onclick="changeQty(
-                                ${index},
-                                -1
-                            )">
-
-                            −
-
-                        </button>
-
-                        <strong>
-                            ${Number(
-                                item.qty || 1
-                            )}
-                        </strong>
-
-                        <button
-                            onclick="changeQty(
-                                ${index},
-                                1
-                            )">
-
-                            +
-
-                        </button>
-
-                    </div>
-
-
-                    <strong>
-                        ₹${(
-                            Number(item.price || 0) *
-                            Number(item.qty || 1)
-                        ).toFixed(2)}
-                    </strong>
-
-
-                    <button
-                        class="removeButton"
-                        onclick="removeCartItem(${index})">
-
-                        Remove
-
-                    </button>
-
-                </div>
-            `
-        )
-        .join("");
-
-
-    updateCartSummary();
-
-}
-
-
-function changeQty(index,change){
-
-    if(!cart[index]){
-
-        return;
-
-    }
-
-
-    cart[index].qty =
-        Number(cart[index].qty || 1) +
-        change;
-
-
-    if(cart[index].qty <= 0){
-
-        cart.splice(index,1);
-
-    }
-
-
-    saveCart();
-
-    updateCount();
-
-    renderCart();
-
-}
-
-
-function removeCartItem(index){
-
-    cart.splice(
-        index,
-        1
-    );
-
-    saveCart();
-
-    updateCount();
-
-    renderCart();
-
-}
-
-
-/* =====================================================
-   CART SUMMARY
-===================================================== */
-
-function updateCartSummary(){
-
-    const subtotal =
-        getSubtotal();
-
-    const gst =
-        getGST();
-
-    const total =
-        getGrandTotal();
-
-
-    document
-        .getElementById(
-            "cartSubtotal"
-        )
-        .textContent =
-        "₹" +
-        subtotal.toFixed(2);
-
-
-    document
-        .getElementById(
-            "cartGST"
-        )
-        .textContent =
-        "₹" +
-        gst.toFixed(2);
-
-
-    document
-        .getElementById(
-            "cartTotal"
-        )
-        .textContent =
-        "₹" +
-        total.toFixed(2);
-
-}
-
-
-/* =====================================================
-   CHECKOUT
-===================================================== */
-
-function goCheckout(){
-
-    if(!cart.length){
-
-        alert(
-            "Your cart is empty."
-        );
-
-        return;
-
-    }
+    const message =
+        document.getElementById("orderMessage");
 
 
     if(!currentUser){
 
-        showLogin();
+        message.style.color = "red";
+
+        message.textContent =
+            "Please login first.";
 
         return;
 
     }
 
-
-    hideAllPages();
-
-
-    document
-        .getElementById(
-            "checkoutPage"
-        )
-        .classList.remove(
-            "hidden"
-        );
-
-
-    document
-        .getElementById(
-            "orderName"
-        )
-        .value =
-        currentUser.name || "";
-
-
-    document
-        .getElementById(
-            "orderEmail"
-        )
-        .value =
-        currentUser.email || "";
-
-
-    document
-        .getElementById(
-            "orderMobile"
-        )
-        .value =
-        currentUser.mobile || "";
-
-
-    renderSavedAddresses();
-
-    updateCheckoutTotals();
-
-}
-
-
-/* =====================================================
-   SAVED ADDRESSES
-===================================================== */
-
-function renderSavedAddresses(){
-
-    const container =
-        document
-        .getElementById(
-            "savedAddresses"
-        );
-
-
-    const addresses = [];
-
-
-    if(
-        currentUser.address &&
-        currentUser.pincode
-    ){
-
-        addresses.push({
-
-            address:
-                currentUser.address,
-
-            pincode:
-                currentUser.pincode,
-
-            title:
-                "Permanent Address"
-
-        });
-
-    }
-
-
-    if(
-        currentUser.address2 &&
-        currentUser.pincode2
-    ){
-
-        addresses.push({
-
-            address:
-                currentUser.address2,
-
-            pincode:
-                currentUser.pincode2,
-
-            title:
-                "Second Address"
-
-        });
-
-    }
-
-
-    if(!addresses.length){
-
-        container.innerHTML =
-            "<p>No saved addresses found.</p>";
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        addresses.map(
-            (item,index) => `
-
-                <div
-                    class="addressBox"
-                    id="addressBox${index}">
-
-                    <strong>
-                        ${item.title}
-                    </strong>
-
-                    <p style="margin-top:8px;">
-                        ${escapeHTML(
-                            item.address
-                        )}
-                    </p>
-
-                    <p>
-                        Pincode:
-                        ${escapeHTML(
-                            item.pincode
-                        )}
-                    </p>
-
-                    <button
-                        onclick="selectAddress(
-                            ${index}
-                        )">
-
-                        Use This Address
-
-                    </button>
-
-                </div>
-            `
-        )
-        .join("");
-
-}
-
-
-/* =====================================================
-   SELECT ADDRESS
-===================================================== */
-
-function selectAddress(index){
-
-    let address = "";
-    let pincode = "";
-
-
-    if(index === 0){
-
-        address =
-            currentUser.address || "";
-
-        pincode =
-            currentUser.pincode || "";
-
-    }
-
-
-    if(index === 1){
-
-        address =
-            currentUser.address2 || "";
-
-        pincode =
-            currentUser.pincode2 || "";
-
-    }
-
-
-    document
-        .getElementById(
-            "orderAddress"
-        )
-        .value =
-        address;
-
-
-    document
-        .getElementById(
-            "orderPincode"
-        )
-        .value =
-        pincode;
-
-
-    document
-        .querySelectorAll(
-            ".addressBox"
-        )
-        .forEach(
-            box =>
-                box.classList.remove(
-                    "selected"
-                )
-        );
-
-
-    const selected =
-        document.getElementById(
-            "addressBox" +
-            index
-        );
-
-
-    if(selected){
-
-        selected.classList.add(
-            "selected"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   PAYMENT
-===================================================== */
-
-function paymentChanged(){
-
-    const selected =
-        document.querySelector(
-            'input[name="paymentMethod"]:checked'
-        );
-
-
-    const upiBox =
-        document.getElementById(
-            "upiBox"
-        );
-
-    const bankBox =
-        document.getElementById(
-            "bankBox"
-        );
-
-
-    upiBox.classList.add(
-        "hidden"
-    );
-
-    bankBox.classList.add(
-        "hidden"
-    );
-
-
-    if(!selected){
-
-        return;
-
-    }
-
-
-    if(
-        selected.value ===
-        "UPI"
-    ){
-
-        upiBox.classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    if(
-        selected.value ===
-        "Net Banking"
-    ){
-
-        bankBox.classList.remove(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   CHECKOUT TOTALS
-===================================================== */
-
-function updateCheckoutTotals(){
-
-    const subtotal =
-        getSubtotal();
-
-    const gst =
-        getGST();
-
-    const total =
-        getGrandTotal();
-
-
-    document
-        .getElementById(
-            "checkoutSubtotal"
-        )
-        .textContent =
-        "₹" +
-        subtotal.toFixed(2);
-
-
-    document
-        .getElementById(
-            "checkoutGST"
-        )
-        .textContent =
-        "₹" +
-        gst.toFixed(2);
-
-
-    document
-        .getElementById(
-            "checkoutTotal"
-        )
-        .textContent =
-        "₹" +
-        total.toFixed(2);
-
-}
-
-
-/* =====================================================
-   PLACE ORDER
-===================================================== */
-
-async function placeOrder(){
 
     if(!cart.length){
 
-        alert(
-            "Your cart is empty."
-        );
+        message.style.color = "red";
+
+        message.textContent =
+            "Your cart is empty.";
 
         return;
 
@@ -3024,82 +2103,40 @@ async function placeOrder(){
 
 
     const name =
-        document
-        .getElementById(
-            "orderName"
-        )
-        .value
-        .trim();
-
+        document.getElementById("orderName")
+        .value.trim();
 
     const email =
-        document
-        .getElementById(
-            "orderEmail"
-        )
-        .value
-        .trim()
+        document.getElementById("orderEmail")
+        .value.trim()
         .toLowerCase();
 
-
     const mobile =
-        document
-        .getElementById(
-            "orderMobile"
-        )
-        .value
-        .trim();
-
+        document.getElementById("orderMobile")
+        .value.trim();
 
     const address =
-        document
-        .getElementById(
-            "orderAddress"
-        )
-        .value
-        .trim();
-
+        document.getElementById("orderAddress")
+        .value.trim();
 
     const pincode =
-        document
-        .getElementById(
-            "orderPincode"
-        )
-        .value
-        .trim();
+        document.getElementById("orderPincode")
+        .value.trim();
 
 
-    if(
-        !name ||
-        !email ||
-        !mobile
-    ){
-
-        showOrderError(
-            "Please complete customer details."
+    const payment =
+        document.querySelector(
+            'input[name="payment"]:checked'
         );
 
-        return;
 
-    }
+    if(!name || !email || !mobile ||
+       !address || !pincode){
 
+        message.style.color = "red";
 
-    if(!address){
-
-        showOrderError(
-            "Please select a delivery address."
-        );
-
-        return;
-
-    }
-
-
-    if(!/^\d{10}$/.test(mobile)){
-
-        showOrderError(
-            "Enter a valid 10-digit mobile number."
-        );
+        message.textContent =
+            "Please fill all delivery details.";
 
         return;
 
@@ -3108,602 +2145,285 @@ async function placeOrder(){
 
     if(!/^\d{6}$/.test(pincode)){
 
-        showOrderError(
-            "Enter a valid 6-digit pincode."
-        );
+        message.style.color = "red";
+
+        message.textContent =
+            "Pincode must contain 6 digits.";
 
         return;
 
     }
 
 
-    const selectedPayment =
-        document.querySelector(
-            'input[name="paymentMethod"]:checked'
-        );
+    if(!payment){
 
+        message.style.color = "red";
 
-    if(!selectedPayment){
-
-        showOrderError(
-            "Please select a payment method."
-        );
+        message.textContent =
+            "Please select a payment method.";
 
         return;
 
     }
-
-
-    const paymentMethod =
-        selectedPayment.value;
 
 
     let paymentDetails = "";
 
 
-    if(paymentMethod === "UPI"){
+    if(payment.value === "UPI"){
 
         const upi =
-            document
-            .getElementById(
-                "upiId"
-            )
-            .value
-            .trim();
-
+            document.getElementById("upiId")
+            .value.trim();
 
         if(!upi){
 
-            showOrderError(
-                "Please enter your UPI ID."
-            );
+            message.style.color = "red";
+
+            message.textContent =
+                "Please enter your UPI ID.";
 
             return;
 
         }
 
-
-        if(!upi.includes("@")){
-
-            showOrderError(
-                "Enter a valid UPI ID."
-            );
-
-            return;
-
-        }
-
-
-        paymentDetails =
-            upi;
+        paymentDetails = upi;
 
     }
 
 
-    if(
-        paymentMethod ===
-        "Net Banking"
-    ){
+    if(payment.value === "Net Banking"){
 
         const bank =
-            document
-            .getElementById(
-                "bankName"
-            )
+            document.getElementById("bankName")
             .value;
-
 
         if(!bank){
 
-            showOrderError(
-                "Please select your bank."
-            );
+            message.style.color = "red";
+
+            message.textContent =
+                "Please select your bank.";
 
             return;
 
         }
 
-
-        paymentDetails =
-            bank;
+        paymentDetails = bank;
 
     }
 
 
-    if(
-        paymentMethod ===
-        "Cash on Delivery"
-    ){
-
-        paymentDetails =
-            "Pay on delivery";
-
-    }
-
-
-    const subtotal =
-        Number(
-            getSubtotal()
-                .toFixed(2)
-        );
-
-
-    const gst =
-        Number(
-            getGST()
-                .toFixed(2)
-        );
-
-
-    const total =
-        Number(
-            getGrandTotal()
-                .toFixed(2)
-        );
+    const subtotal = getSubtotal();
+    const gst = getGST();
+    const total = getGrandTotal();
 
 
     const orderId =
         "GC" +
-        Date.now();
+        Date.now().toString().slice(-8);
 
 
-    const order = {
+    const orderDate =
+        new Date().toLocaleString("en-IN");
 
-        id:
-            orderId,
 
-        orderId:
-            orderId,
+    const orderItems =
+        cart.map(item=>
+            `${item.name} x ${item.qty || 1} = ₹${(
+                Number(item.price) *
+                Number(item.qty || 1)
+            ).toFixed(2)}`
+        ).join(", ");
 
-        date:
-            new Date().toLocaleString(
-                "en-IN"
-            ),
 
-        name:
-            name,
+    const orderData = {
 
-        email:
-            email,
+        order_id:orderId,
 
-        mobile:
-            mobile,
+        name:name,
 
-        address:
-            address,
+        email:email,
 
-        pincode:
-            pincode,
+        mobile:mobile,
 
-        items:
-            cart.map(
-                item => ({
+        address:address,
 
-                    id:
-                        item.id,
+        pincode:pincode,
 
-                    name:
-                        item.name,
+        payment_method:payment.value,
 
-                    price:
-                        Number(
-                            item.price
-                        ),
+        payment_details:paymentDetails,
 
-                    qty:
-                        Number(
-                            item.qty
-                        ) || 1,
+        items:cart.map(item=>({
 
-                    quantity:
-                        Number(
-                            item.qty
-                        ) || 1,
+            id:item.id,
 
-                    image:
-                        item.image || ""
+            name:item.name,
 
-                })
-            ),
+            price:Number(item.price),
 
-        subtotal:
-            subtotal,
+            qty:Number(item.qty || 1),
 
-        gst:
-            gst,
+            quantity:Number(item.qty || 1),
 
-        gstRate:
-            18,
+            total:
+                Number(item.price) *
+                Number(item.qty || 1)
 
-        total:
-            total,
+        })),
 
-        paymentMethod:
-            paymentMethod,
+        subtotal:Number(subtotal.toFixed(2)),
 
-        paymentDetails:
-            paymentDetails,
+        gst:Number(gst.toFixed(2)),
 
-        status:
-            "Order Placed"
+        gst_rate:18,
+
+        total:Number(total.toFixed(2)),
+
+        order_date:orderDate
 
     };
 
 
-    updateCheckoutTotals();
-
-
-    const button =
-        document.getElementById(
-            "placeOrderButton"
-        );
-
-
-    button.disabled =
-        true;
-
+    button.disabled = true;
 
     button.textContent =
         "Placing Order...";
 
+    message.style.color = "#7a1fd1";
 
-    const message =
-        document.getElementById(
-            "orderMessage"
-        );
-
-
-    message.style.color =
-        "#8b42ff";
-
-
-    message.innerHTML =
-        "⏳ Processing your order...";
+    message.textContent =
+        "Please wait...";
 
 
     try{
 
-        /*
-          STEP 1
-          SAVE ORDER TO BACKEND
-        */
-
         const response =
             await fetch(
-                API_BASE +
-                "/api/orders",
+                API_BASE + "/api/orders",
                 {
-
-                    method:
-                        "POST",
+                    method:"POST",
 
                     headers:{
                         "Content-Type":
                             "application/json"
                     },
 
-                    body:
-                        JSON.stringify(
-                            order
-                        )
-
+                    body:JSON.stringify(orderData)
                 }
             );
 
 
-        let data = null;
-
+        let data = {};
 
         try{
 
-            data =
-                await response.json();
+            data = await response.json();
 
-        }catch(error){
+        }catch(e){
 
-            data = null;
+            data = {};
 
         }
 
 
-        console.log(
-            "ORDER SERVER RESPONSE:",
-            data
-        );
-
-
-        if(
-            !response.ok ||
-            !data ||
-            !data.success
-        ){
+        if(!response.ok){
 
             throw new Error(
-                data &&
-                data.message
-                    ? data.message
-                    : "Order could not be placed."
+                data.message ||
+                "Order placement failed."
             );
 
         }
 
 
         /*
-          STEP 2
-          SAVE LOCALLY TOO
+          Save order locally so the Orders page
+          immediately shows the new order.
         */
 
-        orders.unshift(
-            order
-        );
+        const savedOrders =
+            JSON.parse(
+                localStorage.getItem(
+                    "glowcart_orders"
+                ) || "[]"
+            );
+
+
+        savedOrders.unshift(orderData);
 
 
         localStorage.setItem(
             "glowcart_orders",
-            JSON.stringify(
-                orders
-            )
+            JSON.stringify(savedOrders)
         );
 
 
         /*
-          STEP 3
-          TRY EMAILJS
-          EMAIL FAILURE DOES NOT
-          CANCEL ORDER
+          Send order confirmation email.
+          Email failure WILL NOT cancel the order.
         */
 
-        let emailSent =
-            false;
-
-
-        try{
-
-            if(
-                typeof emailjs !==
-                "undefined" &&
-                EMAILJS_CONFIG.publicKey &&
-                EMAILJS_CONFIG.serviceId
-            ){
-
-                const itemsText =
-                    order.items
-                    .map(
-                        item =>
-                            item.name +
-                            " x " +
-                            item.qty +
-                            " - ₹" +
-                            (
-                                Number(
-                                    item.price
-                                ) *
-                                Number(
-                                    item.qty
-                                )
-                            ).toFixed(2)
-                    )
-                    .join("\n");
-
-
-                await emailjs.send(
-
-                    EMAILJS_CONFIG.serviceId,
-
-                    EMAILJS_CONFIG.orderTemplateId,
-
-                    {
-
-                        to_email:
-                            order.email,
-
-                        email:
-                            order.email,
-
-                        recipient_email:
-                            order.email,
-
-                        name:
-                            order.name,
-
-                        user_name:
-                            order.name,
-
-                        mobile:
-                            order.mobile,
-
-                        order_id:
-                            order.orderId,
-
-                        order_date:
-                            order.date,
-
-                        order_items:
-                            itemsText,
-
-                        payment_method:
-                            order.paymentMethod,
-
-                        payment_details:
-                            order.paymentDetails,
-
-                        subtotal:
-                            order.subtotal
-                                .toFixed(2),
-
-                        gst:
-                            order.gst
-                                .toFixed(2),
-
-                        gst_rate:
-                            "18%",
-
-                        total:
-                            order.total
-                                .toFixed(2),
-
-                        address:
-                            order.address,
-
-                        pincode:
-                            order.pincode,
-
-                        company_name:
-                            "GlowCart",
-
-                        website_link:
-                            "https://haasini3107.github.io/GlowCart/"
-
-                    }
-
-                );
-
-
-                emailSent =
-                    true;
-
-            }
-
-        }catch(emailError){
-
-            console.error(
-                "EMAILJS ERROR:",
-                emailError
-            );
-
-            emailSent =
-                false;
-
-        }
+        await sendOrderEmail(orderData);
 
 
         /*
-          STEP 4
-          CLEAR CART ONLY AFTER
-          ORDER WAS SUCCESSFULLY SAVED
+          Clear cart only after backend order
+          was successfully created.
         */
 
         cart = [];
 
-
         saveCart();
 
-        updateCount();
 
-
-        /*
-          STEP 5
-          SUCCESS
-        */
-
-        message.style.color =
-            "green";
-
+        message.style.color = "green";
 
         message.innerHTML =
-
-            "🎉 <b>Order placed successfully!</b>" +
-
-            "<br><br>" +
-
-            "📦 Order ID: <b>" +
-            escapeHTML(
-                order.orderId
-            ) +
-            "</b>" +
-
-            "<br>" +
-
-            "💳 Payment: <b>" +
-            escapeHTML(
-                order.paymentMethod
-            ) +
-            "</b>" +
-
-            "<br>" +
-
-            "🧾 Subtotal: <b>₹" +
-            order.subtotal.toFixed(2) +
-            "</b>" +
-
-            "<br>" +
-
-            "GST (18%): <b>₹" +
-            order.gst.toFixed(2) +
-            "</b>" +
-
-            "<br>" +
-
-            "💰 Total: <b>₹" +
-            order.total.toFixed(2) +
-            "</b>" +
-
-            "<br><br>" +
-
-            (
-                emailSent
-
-                ?
-
-                "📧 Confirmation email sent to <b>" +
-                escapeHTML(
-                    order.email
-                ) +
-                "</b>"
-
-                :
-
-                "📧 Order saved successfully. Email confirmation could not be sent right now."
-
-            );
-
-
-        button.disabled =
-            false;
+            `
+            <strong>🎉 Order Placed Successfully!</strong><br>
+            Order ID: ${orderId}<br>
+            Total: ₹${total.toFixed(2)}
+            `;
 
 
         button.textContent =
-            "Place Order";
+            "Order Placed ✓";
 
 
-        /*
-          SHOW ORDERS AFTER 3 SECONDS
-        */
+        setTimeout(()=>{
 
-        setTimeout(
-            function(){
+            showPage("orders");
 
-                showOrders();
+            button.disabled = false;
 
-            },
-            3000
-        );
+            button.textContent =
+                "Place Order";
+
+        },1800);
 
 
     }catch(error){
 
         console.error(
-            "FINAL PLACE ORDER ERROR:",
+            "PLACE ORDER ERROR:",
             error
         );
 
 
-        message.style.color =
-            "red";
-
+        message.style.color = "red";
 
         message.innerHTML =
-            "❌ <b>" +
-            escapeHTML(
-                error.message ||
-                "Unable to place order."
-            ) +
-            "</b>";
+            `
+            <strong>Order failed.</strong><br>
+            ${escapeHtml(error.message)}
+            <br><br>
+            Please check whether your Render backend is running.
+            `;
 
 
-        button.disabled =
-            false;
-
+        button.disabled = false;
 
         button.textContent =
             "Place Order";
@@ -3713,74 +2433,184 @@ async function placeOrder(){
 }
 
 
-/* =====================================================
-   ORDER ERROR
-===================================================== */
+/* =========================================================
+   ORDER EMAIL
+========================================================= */
 
-function showOrderError(text){
+async function sendOrderEmail(order){
 
-    const message =
-        document.getElementById(
-            "orderMessage"
+    try{
+
+        if(
+            typeof emailjs === "undefined" ||
+            !EMAILJS_PUBLIC_KEY ||
+            !EMAILJS_SERVICE_ID
+        ){
+
+            console.log(
+                "EmailJS not configured."
+            );
+
+            return;
+
+        }
+
+
+        const params = {
+
+            to_email:order.email,
+
+            email:order.email,
+
+            recipient_email:order.email,
+
+            name:order.name,
+
+            user_name:order.name,
+
+            mobile:order.mobile,
+
+            order_id:order.order_id,
+
+            order_date:order.order_date,
+
+            order_items:
+                order.items.map(item=>
+                    `${item.name} x ${item.qty || 1}`
+                ).join(", "),
+
+            payment_method:
+                order.payment_method,
+
+            payment_details:
+                order.payment_details,
+
+            subtotal:
+                "₹" +
+                Number(order.subtotal)
+                .toFixed(2),
+
+            gst:
+                "₹" +
+                Number(order.gst)
+                .toFixed(2),
+
+            gst_rate:
+                order.gst_rate + "%",
+
+            total:
+                "₹" +
+                Number(order.total)
+                .toFixed(2),
+
+            address:
+                order.address,
+
+            pincode:
+                order.pincode,
+
+            company_name:
+                "GlowCart",
+
+            website_link:
+                "https://haasini3107.github.io/GlowCart/"
+
+        };
+
+
+        await emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_ORDER_TEMPLATE,
+            params
         );
 
 
-    message.style.color =
-        "red";
+        console.log(
+            "Order confirmation email sent."
+        );
 
 
-    message.textContent =
-        text;
+    }catch(error){
+
+        console.error(
+            "Order email failed:",
+            error
+        );
+
+    }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    ORDERS
-===================================================== */
+========================================================= */
 
 function renderOrders(){
 
     const container =
-        document.getElementById(
-            "ordersList"
+        document.getElementById("ordersContainer");
+
+
+    if(!currentUser){
+
+        container.innerHTML = `
+            <div class="empty">
+
+                <h3>Please login to view orders.</h3>
+
+                <button
+                    class="primary-btn"
+                    style="margin-top:20px;"
+                    onclick="showPage('login')">
+                    Login
+                </button>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const allOrders =
+        JSON.parse(
+            localStorage.getItem(
+                "glowcart_orders"
+            ) || "[]"
         );
 
 
     const userOrders =
-        orders.filter(
-            order =>
-                String(
-                    order.email
-                ).toLowerCase() ===
-                String(
-                    currentUser.email
-                ).toLowerCase()
+        allOrders.filter(order=>
+            String(order.email || "")
+            .toLowerCase()
+            ===
+            String(currentUser.email || "")
+            .toLowerCase()
         );
 
 
     if(!userOrders.length){
 
         container.innerHTML = `
+            <div class="empty">
 
-            <div class="summary">
+                <h3>No orders yet 📦</h3>
 
-                <h3>
-                    No orders yet 📦
-                </h3>
-
-                <br>
+                <p style="margin-top:10px;">
+                    Your placed orders will appear here.
+                </p>
 
                 <button
-                    class="primaryButton"
-                    onclick="showShop()">
-
-                    Start Shopping
-
+                    class="primary-btn"
+                    style="margin-top:20px;"
+                    onclick="showPage('shop')">
+                    Shop Now
                 </button>
 
             </div>
-
         `;
 
         return;
@@ -3789,192 +2619,137 @@ function renderOrders(){
 
 
     container.innerHTML =
-        userOrders
-        .map(
-            order => `
+        userOrders.map(order=>`
 
-                <div class="orderCard">
+        <div class="order-card">
 
-                    <div class="orderHeader">
+            <span class="order-status">
+                Order Placed
+            </span>
 
-                        <div>
+            <h3>
+                Order ID: ${escapeHtml(order.order_id)}
+            </h3>
 
-                            <strong>
-                                Order ID:
-                            </strong>
+            <p>
+                <strong>Date:</strong>
+                ${escapeHtml(order.order_date)}
+            </p>
 
-                            ${escapeHTML(
-                                order.orderId
-                            )}
+            <p style="margin-top:8px;">
+                <strong>Payment:</strong>
+                ${escapeHtml(order.payment_method)}
+            </p>
 
-                        </div>
+            <p style="margin-top:8px;">
+                <strong>Address:</strong>
+                ${escapeHtml(order.address)}
+            </p>
 
-                        <div class="orderStatus">
+            <div style="
+                margin-top:15px;
+                background:#faf3ff;
+                padding:15px;
+                border-radius:12px;
+            ">
 
-                            ${escapeHTML(
-                                order.status ||
-                                "Order Placed"
-                            )}
+                <strong>Items</strong>
 
-                        </div>
+                <ul style="
+                    margin-top:10px;
+                    padding-left:20px;
+                ">
 
-                    </div>
+                    ${
+                        order.items.map(item=>`
 
+                        <li style="margin-bottom:6px;">
 
-                    <p>
-                        Date:
-                        ${escapeHTML(
-                            order.date
-                        )}
-                    </p>
+                            ${escapeHtml(item.name)}
+                            × ${item.qty || item.quantity || 1}
 
-
-                    <div class="orderProducts">
-
-                        ${
-                            (order.items || [])
-                            .map(
-                                item => `
-
-                                    <div class="orderProduct">
-
-                                        ${escapeHTML(
-                                            item.name
-                                        )}
-
-                                        ×
-                                        ${Number(
-                                            item.qty ||
-                                            item.quantity ||
-                                            1
-                                        )}
-
-                                        —
-                                        ₹${(
-                                            Number(
-                                                item.price
-                                            ) *
-                                            Number(
-                                                item.qty ||
-                                                item.quantity ||
-                                                1
-                                            )
-                                        ).toFixed(2)}
-
-                                    </div>
-
-                                `
-                            )
-                            .join("")
-                        }
-
-                    </div>
-
-
-                    <p>
-                        Subtotal:
-                        <strong>
-                            ₹${Number(
-                                order.subtotal || 0
+                            -
+                            ₹${(
+                                Number(item.price) *
+                                Number(item.qty || item.quantity || 1)
                             ).toFixed(2)}
-                        </strong>
-                    </p>
 
+                        </li>
 
-                    <p>
-                        GST (18%):
-                        <strong>
-                            ₹${Number(
-                                order.gst || 0
-                            ).toFixed(2)}
-                        </strong>
-                    </p>
+                        `).join("")
+                    }
 
+                </ul>
 
-                    <p>
-                        Payment:
-                        <strong>
-                            ${escapeHTML(
-                                order.paymentMethod ||
-                                ""
-                            )}
-                        </strong>
-                    </p>
+            </div>
 
+            <div class="summary"
+                 style="margin-top:15px;">
 
-                    <p>
-                        Delivery:
-                        ${escapeHTML(
-                            order.address ||
-                            ""
-                        )}
-                    </p>
-
-
-                    <p>
-                        Pincode:
-                        ${escapeHTML(
-                            order.pincode ||
-                            ""
-                        )}
-                    </p>
-
-
-                    <div
-                        style="
-                            margin-top:15px;
-                            font-size:22px;
-                            color:#d21c8b;
-                            font-weight:bold;
-                        ">
-
-                        Total:
-                        ₹${Number(
-                            order.total || 0
-                        ).toFixed(2)}
-
-                    </div>
-
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong>
+                        ₹${Number(order.subtotal).toFixed(2)}
+                    </strong>
                 </div>
 
-            `
-        )
-        .join("");
+                <div class="summary-row">
+                    <span>GST (18%)</span>
+                    <strong>
+                        ₹${Number(order.gst).toFixed(2)}
+                    </strong>
+                </div>
+
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <strong>
+                        ₹${Number(order.total).toFixed(2)}
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    `).join("");
 
 }
 
 
-/* =====================================================
+/* =========================================================
    ESCAPE HTML
-===================================================== */
+========================================================= */
 
-function escapeHTML(value){
+function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        updateNavigation();
+
+        renderCart();
+
+        await loadEmailJS();
+
+        await loadProducts();
+
+    }
+);
 
 </script>
 
