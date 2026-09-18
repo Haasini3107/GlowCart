@@ -16,10 +16,10 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: "2mb" }));
 
 // =====================================================
-// FILE PATHS
+// FILES
 // =====================================================
 
 const productsFile = path.join(__dirname, "products.json");
@@ -27,20 +27,16 @@ const ordersFile = path.join(__dirname, "place.json");
 const usersFile = path.join(__dirname, "users.json");
 
 // =====================================================
-// CREATE FILES IF MISSING
+// CREATE FILE IF MISSING
 // =====================================================
 
-function createFileIfMissing(file, defaultData) {
-
+function createFileIfMissing(file, data) {
     if (!fs.existsSync(file)) {
-
         fs.writeFileSync(
             file,
-            JSON.stringify(defaultData, null, 2)
+            JSON.stringify(data, null, 2)
         );
-
     }
-
 }
 
 createFileIfMissing(productsFile, []);
@@ -48,124 +44,96 @@ createFileIfMissing(ordersFile, []);
 createFileIfMissing(usersFile, []);
 
 // =====================================================
-// FILE HELPERS
+// JSON HELPERS
 // =====================================================
 
 function readJson(file) {
-
     try {
-
-        const data =
-            fs.readFileSync(file, "utf8");
-
-        if (!data.trim()) {
+        if (!fs.existsSync(file)) {
             return [];
         }
 
-        return JSON.parse(data);
+        const content = fs.readFileSync(
+            file,
+            "utf8"
+        );
+
+        if (!content.trim()) {
+            return [];
+        }
+
+        const data = JSON.parse(content);
+
+        return Array.isArray(data) ? data : [];
 
     } catch (error) {
 
         console.error(
-            "Error reading file:",
+            "JSON READ ERROR:",
             file,
-            error
+            error.message
         );
 
         return [];
-
     }
-
 }
 
 function writeJson(file, data) {
-
     fs.writeFileSync(
         file,
         JSON.stringify(data, null, 2)
     );
-
 }
 
 // =====================================================
-// EMAILJS CONFIGURATION
-// =====================================================
-// These values come from Render Environment Variables.
-//
-// EMAILJS_SERVICE_ID
-// EMAILJS_PUBLIC_KEY
-// EMAILJS_WELCOME_TEMPLATE_ID
-// EMAILJS_ORDER_TEMPLATE_ID
-//
-// They are sent to index.html through this endpoint.
-// No EmailJS private key is exposed.
+// HOME / HEALTH CHECK
 // =====================================================
 
-app.get("/api/emailjs-config", (req, res) => {
+app.get("/", (req, res) => {
 
-    const serviceId =
-        process.env.EMAILJS_SERVICE_ID || "";
-
-    const publicKey =
-        process.env.EMAILJS_PUBLIC_KEY || "";
-
-    const welcomeTemplateId =
-        process.env.EMAILJS_WELCOME_TEMPLATE_ID || "";
-
-    const orderTemplateId =
-        process.env.EMAILJS_ORDER_TEMPLATE_ID || "";
-
-    if (
-        !serviceId ||
-        !publicKey ||
-        !welcomeTemplateId ||
-        !orderTemplateId
-    ) {
-
-        return res.status(500).json({
-
-            success: false,
-
-            message:
-                "EmailJS environment variables are not configured in Render."
-
-        });
-
-    }
-
-    return res.json({
-
+    res.status(200).json({
         success: true,
-
-        serviceId: serviceId,
-
-        publicKey: publicKey,
-
-        welcomeTemplateId:
-            welcomeTemplateId,
-
-        orderTemplateId:
-            orderTemplateId
-
+        message: "GlowCart backend is running!",
+        status: "online"
     });
 
 });
 
 // =====================================================
-// HOME
+// HEALTH
 // =====================================================
 
-app.get("/", (req, res) => {
+app.get("/api/health", (req, res) => {
+
+    res.status(200).json({
+        success: true,
+        message: "GlowCart API is healthy"
+    });
+
+});
+
+// =====================================================
+// EMAILJS CONFIG
+// =====================================================
+
+app.get("/api/emailjs-config", (req, res) => {
 
     res.json({
-
         success: true,
 
-        message:
-            "GlowCart backend is running!",
+        publicKey:
+            process.env.EMAILJS_PUBLIC_KEY || "",
 
-        status: "online"
+        serviceId:
+            process.env.EMAILJS_SERVICE_ID || "",
 
+        welcomeTemplateId:
+            process.env.EMAILJS_WELCOME_TEMPLATE_ID ||
+            "template_giqmpm9",
+
+        orderTemplateId:
+            process.env.EMAILJS_ORDER_TEMPLATE_ID ||
+            "template_ykzf36"
     });
 
 });
@@ -176,10 +144,26 @@ app.get("/", (req, res) => {
 
 app.get("/api/products", (req, res) => {
 
-    const products =
-        readJson(productsFile);
+    try {
 
-    res.json(products);
+        const products =
+            readJson(productsFile);
+
+        res.status(200).json(products);
+
+    } catch (error) {
+
+        console.error(
+            "Products error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to load products."
+        });
+
+    }
 
 });
 
@@ -189,30 +173,42 @@ app.get("/api/products", (req, res) => {
 
 app.get("/api/products/:id", (req, res) => {
 
-    const products =
-        readJson(productsFile);
+    try {
 
-    const product =
-        products.find(
-            p =>
-                String(p.id) ===
-                String(req.params.id)
+        const products =
+            readJson(productsFile);
+
+        const product =
+            products.find(
+                p =>
+                    String(p.id) ===
+                    String(req.params.id)
+            );
+
+        if (!product) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Product not found."
+            });
+
+        }
+
+        res.json(product);
+
+    } catch (error) {
+
+        console.error(
+            "Single product error:",
+            error
         );
 
-    if (!product) {
-
-        return res.status(404).json({
-
+        res.status(500).json({
             success: false,
-
-            message:
-                "Product not found"
-
+            message: "Unable to load product."
         });
 
     }
-
-    res.json(product);
 
 });
 
@@ -235,10 +231,6 @@ app.post("/api/register", (req, res) => {
             pincode2
         } = req.body;
 
-        // ---------------------------------------------
-        // VALIDATION
-        // ---------------------------------------------
-
         if (
             !name ||
             !email ||
@@ -249,88 +241,97 @@ app.post("/api/register", (req, res) => {
         ) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message:
                     "Please fill all required fields."
-
             });
 
         }
 
-        // ---------------------------------------------
-        // READ USERS
-        // ---------------------------------------------
+        if (!/^\d{10}$/.test(String(mobile))) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Enter a valid 10-digit mobile number."
+            });
+
+        }
+
+        if (!/^\d{6}$/.test(String(pincode))) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Enter a valid 6-digit pincode."
+            });
+
+        }
 
         const users =
             readJson(usersFile);
 
-        // ---------------------------------------------
-        // CHECK EXISTING EMAIL
-        // ---------------------------------------------
+        const emailLower =
+            String(email)
+                .trim()
+                .toLowerCase();
 
-        const existingUser =
+        const existing =
             users.find(
-                user =>
-                    user.email.toLowerCase() ===
-                    email.toLowerCase()
+                u =>
+                    String(u.email)
+                        .toLowerCase() ===
+                    emailLower
             );
 
-        if (existingUser) {
+        if (existing) {
 
             return res.status(409).json({
-
                 success: false,
-
                 message:
                     "Email is already registered."
-
             });
 
         }
 
-        // ---------------------------------------------
-        // CREATE USER
-        // ---------------------------------------------
-
         const newUser = {
 
             id:
-                "USER" + Date.now(),
+                "USER" +
+                Date.now(),
 
             name:
-                name,
+                String(name).trim(),
 
             email:
-                email.toLowerCase(),
+                emailLower,
 
             mobile:
-                mobile,
+                String(mobile).trim(),
 
             password:
-                password,
+                String(password),
 
             address:
-                address,
+                String(address).trim(),
 
             pincode:
-                pincode,
+                String(pincode).trim(),
 
             address2:
-                address2 || "",
+                address2
+                    ? String(address2).trim()
+                    : "",
 
             pincode2:
-                pincode2 || "",
+                pincode2
+                    ? String(pincode2).trim()
+                    : "",
 
             registeredAt:
                 new Date().toISOString()
 
         };
-
-        // ---------------------------------------------
-        // SAVE USER
-        // ---------------------------------------------
 
         users.push(newUser);
 
@@ -339,52 +340,37 @@ app.post("/api/register", (req, res) => {
             users
         );
 
-        console.log("--------------------------------");
-        console.log("NEW USER REGISTERED");
-        console.log("Name:", name);
-        console.log("Email:", email);
-        console.log("Mobile:", mobile);
-        console.log("--------------------------------");
+        console.log(
+            "USER REGISTERED:",
+            newUser.email
+        );
 
-        // ---------------------------------------------
-        // RETURN SUCCESS
-        // ---------------------------------------------
-        // EmailJS is now handled by index.html.
-        // The backend only creates the account.
-        // ---------------------------------------------
-
-        return res.status(201).json({
+        res.status(201).json({
 
             success: true,
 
             message:
-                "Registration successful! Your GlowCart account has been created.",
+                "Registration successful!",
+
+            emailSent: false,
 
             user: {
 
-                id:
-                    newUser.id,
+                id: newUser.id,
 
-                name:
-                    newUser.name,
+                name: newUser.name,
 
-                email:
-                    newUser.email,
+                email: newUser.email,
 
-                mobile:
-                    newUser.mobile,
+                mobile: newUser.mobile,
 
-                address:
-                    newUser.address,
+                address: newUser.address,
 
-                pincode:
-                    newUser.pincode,
+                pincode: newUser.pincode,
 
-                address2:
-                    newUser.address2,
+                address2: newUser.address2,
 
-                pincode2:
-                    newUser.pincode2
+                pincode2: newUser.pincode2
 
             }
 
@@ -393,11 +379,11 @@ app.post("/api/register", (req, res) => {
     } catch (error) {
 
         console.error(
-            "Registration error:",
+            "REGISTER ERROR:",
             error
         );
 
-        return res.status(500).json({
+        res.status(500).json({
 
             success: false,
 
@@ -439,14 +425,19 @@ app.post("/api/login", (req, res) => {
         const users =
             readJson(usersFile);
 
+        const emailLower =
+            String(email)
+                .trim()
+                .toLowerCase();
+
         const user =
             users.find(
-
                 u =>
-                    u.email.toLowerCase() ===
-                        email.toLowerCase() &&
-                    u.password === password
-
+                    String(u.email)
+                        .toLowerCase() ===
+                    emailLower &&
+                    String(u.password) ===
+                    String(password)
             );
 
         if (!user) {
@@ -462,7 +453,7 @@ app.post("/api/login", (req, res) => {
 
         }
 
-        return res.json({
+        res.json({
 
             success: true,
 
@@ -471,29 +462,23 @@ app.post("/api/login", (req, res) => {
 
             user: {
 
-                id:
-                    user.id,
+                id: user.id,
 
-                name:
-                    user.name,
+                name: user.name,
 
-                email:
-                    user.email,
+                email: user.email,
 
-                mobile:
-                    user.mobile,
+                mobile: user.mobile,
 
-                address:
-                    user.address,
+                address: user.address,
 
-                pincode:
-                    user.pincode,
+                pincode: user.pincode,
 
                 address2:
-                    user.address2,
+                    user.address2 || "",
 
                 pincode2:
-                    user.pincode2
+                    user.pincode2 || ""
 
             }
 
@@ -502,11 +487,11 @@ app.post("/api/login", (req, res) => {
     } catch (error) {
 
         console.error(
-            "Login error:",
+            "LOGIN ERROR:",
             error
         );
 
-        return res.status(500).json({
+        res.status(500).json({
 
             success: false,
 
@@ -521,6 +506,9 @@ app.post("/api/login", (req, res) => {
 
 // =====================================================
 // PLACE ORDER
+// IMPORTANT:
+// SAVE ORDER FIRST.
+// NO EMAIL SERVICE HERE.
 // =====================================================
 
 app.post("/api/orders", (req, res) => {
@@ -530,20 +518,55 @@ app.post("/api/orders", (req, res) => {
         const order =
             req.body;
 
-        console.log("--------------------------------");
-        console.log("NEW ORDER");
-        console.log(order);
-        console.log("--------------------------------");
+        console.log(
+            "================================"
+        );
 
-        // ---------------------------------------------
-        // VALIDATION
-        // ---------------------------------------------
+        console.log(
+            "NEW ORDER RECEIVED"
+        );
+
+        console.log(
+            order
+        );
+
+        console.log(
+            "================================"
+        );
+
+        // -------------------------------
+        // BASIC VALIDATION
+        // -------------------------------
+
+        if (!order) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Order data is missing."
+
+            });
+
+        }
+
+        if (!order.email) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Customer email is required."
+
+            });
+
+        }
 
         if (
-            !order ||
-            !order.email ||
-            !order.items ||
-            !order.items.length
+            !Array.isArray(order.items) ||
+            order.items.length === 0
         ) {
 
             return res.status(400).json({
@@ -551,137 +574,199 @@ app.post("/api/orders", (req, res) => {
                 success: false,
 
                 message:
-                    "Invalid order details."
+                    "Your cart is empty."
 
             });
 
         }
 
-        // ---------------------------------------------
+        if (!order.address) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Delivery address is required."
+
+            });
+
+        }
+
+        if (
+            !order.pincode ||
+            !/^\d{6}$/.test(
+                String(order.pincode)
+            )
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Valid 6-digit pincode is required."
+
+            });
+
+        }
+
+        // -------------------------------
         // ORDER ID
-        // ---------------------------------------------
+        // -------------------------------
 
-        if (!order.id) {
+        const orderId =
+            order.orderId ||
+            order.id ||
+            "GC" + Date.now();
 
-            order.id =
-                "GC" + Date.now();
+        // -------------------------------
+        // DATE
+        // -------------------------------
 
-        }
+        const orderDate =
+            order.date ||
+            new Date().toLocaleString(
+                "en-IN"
+            );
 
-        if (!order.orderId) {
+        // -------------------------------
+        // CALCULATE SUBTOTAL
+        // SUPPORT qty AND quantity
+        // -------------------------------
 
-            order.orderId =
-                order.id;
+        let subtotal = 0;
 
-        }
+        order.items.forEach(item => {
 
-        if (!order.date) {
+            const price =
+                Number(item.price) || 0;
 
-            order.date =
-                new Date().toLocaleString();
-
-        }
-
-        // ---------------------------------------------
-        // SUBTOTAL
-        // ---------------------------------------------
-
-        let subtotal =
-            Number(order.subtotal || 0);
-
-        if (!subtotal) {
-
-            subtotal =
-                order.items.reduce(
-
-                    (sum, item) => {
-
-                        const price =
-                            Number(item.price) || 0;
-
-                        const quantity =
-                            Number(
-                                item.qty ||
-                                item.quantity ||
-                                1
-                            );
-
-                        return sum +
-                            (price * quantity);
-
-                    },
-
-                    0
-
+            const quantity =
+                Number(
+                    item.qty ??
+                    item.quantity ??
+                    1
                 );
 
-        }
+            subtotal +=
+                price *
+                Math.max(
+                    1,
+                    quantity
+                );
 
-        // ---------------------------------------------
+        });
+
+        subtotal =
+            Number(
+                subtotal.toFixed(2)
+            );
+
+        // -------------------------------
         // GST
-        // ---------------------------------------------
+        // -------------------------------
 
-        let gst =
-            Number(order.gst || 0);
+        const gstRate = 18;
 
-        if (!gst) {
+        const gst =
+            Number(
+                (
+                    subtotal *
+                    gstRate /
+                    100
+                ).toFixed(2)
+            );
 
-            gst =
-                subtotal * 0.18;
-
-        }
-
-        // ---------------------------------------------
+        // -------------------------------
         // TOTAL
-        // ---------------------------------------------
+        // -------------------------------
 
         const total =
             Number(
-                order.total ||
-                (subtotal + gst)
+                (
+                    subtotal +
+                    gst
+                ).toFixed(2)
             );
 
-        // ---------------------------------------------
-        // SAVE ORDER
-        // ---------------------------------------------
+        // -------------------------------
+        // FINAL ORDER
+        // -------------------------------
+
+        const savedOrder = {
+
+            id:
+                orderId,
+
+            orderId:
+                orderId,
+
+            date:
+                orderDate,
+
+            createdAt:
+                new Date().toISOString(),
+
+            name:
+                order.name || "",
+
+            email:
+                String(order.email)
+                    .trim()
+                    .toLowerCase(),
+
+            mobile:
+                order.mobile || "",
+
+            address:
+                order.address || "",
+
+            pincode:
+                order.pincode || "",
+
+            items:
+                order.items,
+
+            subtotal:
+                subtotal,
+
+            gst:
+                gst,
+
+            gstRate:
+                gstRate,
+
+            total:
+                total,
+
+            paymentMethod:
+                order.paymentMethod ||
+                "Cash on Delivery",
+
+            paymentDetails:
+                order.paymentDetails ||
+                "",
+
+            status:
+                "Order Placed"
+
+        };
+
+        // -------------------------------
+        // READ ORDERS
+        // -------------------------------
 
         const orders =
             readJson(ordersFile);
 
-        const savedOrder = {
+        // -------------------------------
+        // SAVE ORDER
+        // -------------------------------
 
-            ...order,
-
-            subtotal:
-                Number(
-                    subtotal.toFixed(2)
-                ),
-
-            gst:
-                Number(
-                    gst.toFixed(2)
-                ),
-
-            total:
-                Number(
-                    total.toFixed(2)
-                ),
-
-            gstRate:
-                Number(
-                    order.gstRate || 18
-                ),
-
-            status:
-                order.status ||
-                "Order Placed",
-
-            createdAt:
-                new Date().toISOString()
-
-        };
-
-        orders.push(savedOrder);
+        orders.push(
+            savedOrder
+        );
 
         writeJson(
             ordersFile,
@@ -689,16 +774,13 @@ app.post("/api/orders", (req, res) => {
         );
 
         console.log(
-            "ORDER SAVED:",
+            "ORDER SAVED SUCCESSFULLY:",
             savedOrder.orderId
         );
 
-        // ---------------------------------------------
-        // RETURN ORDER
-        // ---------------------------------------------
-        // EmailJS sends the email from index.html
-        // after this successful response.
-        // ---------------------------------------------
+        // -------------------------------
+        // RETURN SUCCESS IMMEDIATELY
+        // -------------------------------
 
         return res.status(201).json({
 
@@ -706,6 +788,9 @@ app.post("/api/orders", (req, res) => {
 
             message:
                 "Order placed successfully!",
+
+            emailSent:
+                false,
 
             order:
                 savedOrder
@@ -715,8 +800,19 @@ app.post("/api/orders", (req, res) => {
     } catch (error) {
 
         console.error(
-            "Order error:",
+            "================================"
+        );
+
+        console.error(
+            "PLACE ORDER ERROR:"
+        );
+
+        console.error(
             error
+        );
+
+        console.error(
+            "================================"
         );
 
         return res.status(500).json({
@@ -724,7 +820,7 @@ app.post("/api/orders", (req, res) => {
             success: false,
 
             message:
-                "Unable to place order."
+                "Unable to place order. Please try again."
 
         });
 
@@ -733,17 +829,65 @@ app.post("/api/orders", (req, res) => {
 });
 
 // =====================================================
-// START SERVER
+// GET ALL ORDERS
 // =====================================================
 
-app.listen(PORT, () => {
+app.get("/api/orders", (req, res) => {
 
-    console.log(
-        `GlowCart server running on port ${PORT}`
-    );
+    try {
 
-    console.log(
-        `API available on port ${PORT}`
-    );
+        const orders =
+            readJson(ordersFile);
+
+        res.json({
+
+            success: true,
+
+            orders:
+                orders
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Unable to load orders."
+
+        });
+
+    }
 
 });
+
+// =====================================================
+// SERVER
+// =====================================================
+
+app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "GlowCart Backend Started"
+        );
+
+        console.log(
+            "Port:",
+            PORT
+        );
+
+        console.log(
+            "================================"
+        );
+
+    }
+);
