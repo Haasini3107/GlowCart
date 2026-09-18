@@ -1,1284 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GlowCart - Premium Face Creams</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-body{
-    background:#fff7fc;
-    color:#333;
-}
-
-button,input,textarea,select{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-header{
-    background:#fff;
-    box-shadow:0 2px 12px rgba(0,0,0,.08);
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.navbar{
-    max-width:1200px;
-    margin:auto;
-    padding:17px 25px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.logo{
-    font-size:29px;
-    font-weight:bold;
-    color:#d41483;
-}
-
-.nav{
-    display:flex;
-    gap:25px;
-}
-
-.nav button{
-    background:none;
-    border:0;
-    font-weight:bold;
-    color:#444;
-}
-
-.nav button:hover{
-    color:#d41483;
-}
-
-#frontPage{
-    display:block;
-}
-
-.hero{
-    max-width:1200px;
-    min-height:570px;
-    margin:auto;
-    padding:70px 25px;
-    display:flex;
-    align-items:center;
-    gap:50px;
-}
-
-.heroText{
-    flex:1;
-}
-
-.tag{
-    color:#d41483;
-    font-weight:bold;
-    letter-spacing:2px;
-    margin-bottom:20px;
-}
-
-.hero h1{
-    font-size:58px;
-    line-height:1.05;
-    margin-bottom:22px;
-}
-
-.hero h1 span{
-    color:#d41483;
-}
-
-.hero p{
-    color:#666;
-    font-size:18px;
-    line-height:1.7;
-    max-width:600px;
-    margin-bottom:30px;
-}
-
-.mainBtn{
-    background:linear-gradient(135deg,#ff1493,#8a2be2);
-    color:#fff;
-    border:0;
-    border-radius:30px;
-    padding:15px 28px;
-    font-size:16px;
-    font-weight:bold;
-    box-shadow:0 8px 25px rgba(216,20,131,.25);
-}
-
-.mainBtn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.heroImage{
-    flex:1;
-    display:flex;
-    justify-content:center;
-}
-
-.heroImage img{
-    width:430px;
-    height:430px;
-    border-radius:50%;
-    object-fit:cover;
-    border:15px solid #ffe4f2;
-    box-shadow:0 20px 50px rgba(190,70,140,.2);
-}
-
-.features{
-    background:#fff;
-    padding:65px 25px;
-}
-
-.featureGrid{
-    max-width:1100px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
-
-.feature{
-    text-align:center;
-    padding:30px 18px;
-    background:#fff8fc;
-    border-radius:18px;
-}
-
-.featureIcon{
-    font-size:35px;
-    margin-bottom:12px;
-}
-
-.feature h3{
-    color:#b31372;
-    margin-bottom:10px;
-}
-
-.feature p{
-    color:#777;
-    line-height:1.5;
-}
-
-.registerArea{
-    padding:75px 20px;
-    background:linear-gradient(135deg,#fff0f8,#f4edff);
-}
-
-.formBox{
-    max-width:570px;
-    margin:auto;
-    background:#fff;
-    padding:38px;
-    border-radius:24px;
-    box-shadow:0 15px 45px rgba(0,0,0,.1);
-}
-
-.formBox h2{
-    text-align:center;
-    color:#b31372;
-    margin-bottom:8px;
-}
-
-.subtitle{
-    text-align:center;
-    color:#777;
-    margin-bottom:25px;
-}
-
-.field{
-    margin-bottom:15px;
-}
-
-.field label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-.field input,
-.field textarea{
-    width:100%;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:9px;
-    outline:none;
-}
-
-.field textarea{
-    height:90px;
-    resize:none;
-}
-
-.field input:focus,
-.field textarea:focus{
-    border-color:#d41483;
-}
-
-.formBox .mainBtn{
-    width:100%;
-    margin-top:8px;
-}
-
-.message{
-    text-align:center;
-    margin-top:15px;
-    font-weight:bold;
-}
-
-.loginLink{
-    text-align:center;
-    margin-top:18px;
-}
-
-.loginLink span{
-    color:#d41483;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-#loginPage{
-    display:none;
-    min-height:100vh;
-    padding:100px 20px;
-    background:linear-gradient(135deg,#fff0f8,#f4edff);
-}
-
-.loginBox{
-    max-width:430px;
-    margin:auto;
-    background:#fff;
-    padding:40px;
-    border-radius:24px;
-    box-shadow:0 15px 45px rgba(0,0,0,.1);
-}
-
-.loginBox h2{
-    color:#b31372;
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.loginBox .mainBtn{
-    width:100%;
-}
-
-#shopPage{
-    display:none;
-    min-height:100vh;
-    background:#f6f6f6;
-}
-
-.shopNav{
-    background:#fff;
-    padding:14px 20px;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
-
-.shopNavInner{
-    max-width:1200px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.shopLogo{
-    font-size:27px;
-    font-weight:bold;
-    color:#d41483;
-    margin-right:auto;
-}
-
-.search{
-    display:flex;
-    width:380px;
-}
-
-.search input{
-    flex:1;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:8px 0 0 8px;
-    outline:none;
-}
-
-.search button{
-    border:0;
-    background:#d41483;
-    color:#fff;
-    padding:0 17px;
-    border-radius:0 8px 8px 0;
-}
-
-.navBtn{
-    border:0;
-    padding:10px 14px;
-    border-radius:8px;
-    background:#f4e4ef;
-}
-
-.logoutBtn{
-    background:#d41483;
-    color:white;
-}
-
-.shopContainer{
-    max-width:1200px;
-    margin:auto;
-    padding:30px 20px;
-}
-
-.banner{
-    padding:35px;
-    color:#fff;
-    border-radius:20px;
-    background:linear-gradient(135deg,#ff1493,#8a2be2);
-    margin-bottom:25px;
-}
-
-.banner h1{
-    margin-bottom:8px;
-}
-
-.categories{
-    display:flex;
-    gap:10px;
-    margin-bottom:25px;
-}
-
-.categories button{
-    border:0;
-    padding:10px 18px;
-    border-radius:20px;
-    background:#fff;
-}
-
-.categories button.active{
-    background:#d41483;
-    color:#fff;
-}
-
-.products{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
-
-.product{
-    background:#fff;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,.07);
-    transition:.2s;
-}
-
-.product:hover{
-    transform:translateY(-4px);
-}
-
-.product img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-}
-
-.productInfo{
-    padding:17px;
-}
-
-.productInfo h3{
-    margin-bottom:7px;
-}
-
-.productInfo p{
-    color:#777;
-    font-size:14px;
-    min-height:40px;
-}
-
-.price{
-    color:#d41483;
-    font-size:21px;
-    font-weight:bold;
-    margin:12px 0;
-}
-
-.addCart{
-    width:100%;
-    border:0;
-    padding:12px;
-    border-radius:9px;
-    background:#d41483;
-    color:white;
-    font-weight:bold;
-}
-
-.panel{
-    display:none;
-    background:white;
-    border-radius:18px;
-    padding:25px;
-    margin-top:25px;
-}
-
-.cartItem{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:15px 0;
-    border-bottom:1px solid #eee;
-}
-
-.cartItem img{
-    width:70px;
-    height:70px;
-    object-fit:cover;
-    border-radius:10px;
-}
-
-.cartInfo{
-    flex:1;
-}
-
-.quantity{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.quantity button{
-    border:0;
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    background:#f3dbe9;
-}
-
-.total{
-    text-align:right;
-    color:#d41483;
-    font-size:23px;
-    font-weight:bold;
-    margin-top:20px;
-}
-
-.checkoutField{
-    width:100%;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    margin-bottom:12px;
-    outline:none;
-}
-
-.checkoutField:focus{
-    border-color:#d41483;
-}
-
-.checkoutArea{
-    max-width:700px;
-}
-
-.addressCard{
-    border:2px solid #eee;
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:12px;
-}
-
-.addressCard.selected{
-    border-color:#d41483;
-    background:#fff7fc;
-}
-
-.addressCard label{
-    display:flex;
-    gap:10px;
-}
-
-.paymentBox{
-    margin-top:20px;
-    padding:20px;
-    border-radius:15px;
-    background:#fff7fc;
-    border:1px solid #f0d5e5;
-}
-
-.paymentBox h3{
-    color:#b31372;
-    margin-bottom:15px;
-}
-
-.paymentOption{
-    background:#fff;
-    border:2px solid #eee;
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:10px;
-    transition:.2s;
-}
-
-.paymentOption:hover{
-    border-color:#e7a6cc;
-}
-
-.paymentOption.selected{
-    border-color:#d41483;
-    background:#fff0f8;
-}
-
-.paymentOption label{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.paymentOption input{
-    accent-color:#d41483;
-    width:18px;
-    height:18px;
-}
-
-.paymentIcon{
-    font-size:25px;
-}
-
-.paymentDetails{
-    margin-top:12px;
-    padding-left:35px;
-}
-
-.paymentDetails input,
-.paymentDetails select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    outline:none;
-    background:#fff;
-}
-
-.billBox{
-    margin-top:20px;
-    padding:20px;
-    background:#fff;
-    border:1px solid #eee;
-    border-radius:15px;
-}
-
-.billRow{
-    display:flex;
-    justify-content:space-between;
-    padding:9px 0;
-    color:#555;
-}
-
-.billRow.totalRow{
-    border-top:2px solid #eee;
-    margin-top:8px;
-    padding-top:15px;
-    color:#d41483;
-    font-size:22px;
-    font-weight:bold;
-}
-
-.gstNote{
-    font-size:12px;
-    color:#888;
-}
-
-.order{
-    border:1px solid #eee;
-    border-radius:13px;
-    padding:18px;
-    margin-top:15px;
-}
-
-.status{
-    display:inline-block;
-    margin-top:10px;
-    padding:6px 12px;
-    border-radius:20px;
-    background:#e5f8ed;
-    color:#18864b;
-    font-weight:bold;
-    font-size:13px;
-}
-
-.empty{
-    text-align:center;
-    padding:45px;
-    color:#777;
-}
-
-footer{
-    background:#241a22;
-    color:#fff;
-    text-align:center;
-    padding:30px;
-}
-
-@media(max-width:900px){
-
-    .hero{
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .hero h1{
-        font-size:45px;
-    }
-
-    .featureGrid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .search{
-        width:250px;
-    }
-}
-
-@media(max-width:600px){
-
-    .nav{
-        display:none;
-    }
-
-    .heroImage img{
-        width:290px;
-        height:290px;
-    }
-
-    .featureGrid,
-    .products{
-        grid-template-columns:1fr;
-    }
-
-    .shopNavInner{
-        flex-wrap:wrap;
-    }
-
-    .shopLogo{
-        width:100%;
-    }
-
-    .search{
-        width:100%;
-    }
-
-    .cartItem{
-        flex-wrap:wrap;
-    }
-
-    .formBox{
-        padding:25px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<div id="frontPage">
-
-<header>
-<div class="navbar">
-
-<div class="logo">GlowCart</div>
-
-<div class="nav">
-<button onclick="home()">Home</button>
-<button onclick="goRegister()">Register</button>
-<button onclick="openLogin()">Login</button>
-</div>
-
-</div>
-</header>
-
-<section class="hero">
-
-<div class="heroText">
-
-<div class="tag">PREMIUM SKINCARE COLLECTION</div>
-
-<h1>
-Beautiful Skin.<br>
-<span>Natural Glow.</span>
-</h1>
-
-<p>
-Discover premium face creams specially selected
-for your everyday skincare routine. Shop affordable
-beauty products at GlowCart.
-</p>
-
-<button class="mainBtn" onclick="goRegister()">
-Start Shopping →
-</button>
-
-</div>
-
-<div class="heroImage">
-
-<img
-src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
-alt="Skincare"
->
-
-</div>
-
-</section>
-
-<section class="features">
-
-<div class="featureGrid">
-
-<div class="feature">
-<div class="featureIcon">🌿</div>
-<h3>Natural Care</h3>
-<p>Carefully selected skincare products for your daily routine.</p>
-</div>
-
-<div class="feature">
-<div class="featureIcon">💧</div>
-<h3>Deep Hydration</h3>
-<p>Moisturizing products for soft and fresh-looking skin.</p>
-</div>
-
-<div class="feature">
-<div class="featureIcon">✨</div>
-<h3>Healthy Glow</h3>
-<p>Products selected to help you maintain your daily glow.</p>
-</div>
-
-<div class="feature">
-<div class="featureIcon">🛍️</div>
-<h3>Easy Shopping</h3>
-<p>Find your favourite skincare products in one place.</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="registerArea" id="registerArea">
-
-<div class="formBox">
-
-<h2>Create Your Account</h2>
-
-<p class="subtitle">
-Join GlowCart and start your skincare journey 💗
-</p>
-
-<form id="registerForm">
-
-<div class="field">
-<label>Full Name</label>
-<input id="regName" required placeholder="Enter your full name">
-</div>
-
-<div class="field">
-<label>Email Address</label>
-<input id="regEmail" type="email" required placeholder="Enter your email">
-</div>
-
-<div class="field">
-<label>Mobile Number</label>
-<input id="regMobile" required maxlength="10" placeholder="10-digit mobile number">
-</div>
-
-<div class="field">
-<label>Password</label>
-<input id="regPassword" type="password" required placeholder="Create password">
-</div>
-
-<h3 style="color:#b31372;margin:20px 0 12px;">
-📍 Delivery Address
-</h3>
-
-<div class="field">
-<label>Full Address</label>
-<textarea id="regAddress" required placeholder="House No., Street, Area, City, State"></textarea>
-</div>
-
-<div class="field">
-<label>Pincode</label>
-<input id="regPincode" required maxlength="6" placeholder="6-digit pincode">
-</div>
-
-<div class="field">
-<label>Optional Second Address</label>
-<textarea id="regAddress2" placeholder="Enter another address if required"></textarea>
-</div>
-
-<div class="field">
-<input id="regPincode2" maxlength="6" placeholder="Second address pincode (optional)">
-</div>
-
-<button class="mainBtn" type="submit" id="registerButton">
-Register Now
-</button>
-
-</form>
-
-<div id="registerMessage" class="message"></div>
-
-<div class="loginLink">
-Already registered?
-<span onclick="openLogin()">Login</span>
-</div>
-
-</div>
-
-</section>
-
-<footer>
-
-<div class="logo">GlowCart</div>
-
-<p style="margin-top:10px;">
-Premium skincare made simple.
-</p>
-
-<p style="margin-top:10px;">
-© 2026 GlowCart. All Rights Reserved.
-</p>
-
-</footer>
-
-</div>
-
-
-<div id="loginPage">
-
-<div class="loginBox">
-
-<h2>Welcome Back 💗</h2>
-
-<form id="loginForm">
-
-<div class="field">
-<label>Email</label>
-<input id="loginEmail" type="email" required placeholder="Enter your email">
-</div>
-
-<div class="field">
-<label>Password</label>
-<input id="loginPassword" type="password" required placeholder="Enter your password">
-</div>
-
-<button class="mainBtn">
-Login
-</button>
-
-</form>
-
-<div id="loginMessage" class="message"></div>
-
-<div class="loginLink">
-New user?
-<span onclick="home()">Register</span>
-</div>
-
-</div>
-
-</div>
-
-
-<div id="shopPage">
-
-<div class="shopNav">
-
-<div class="shopNavInner">
-
-<div class="shopLogo">GlowCart</div>
-
-<div class="search">
-
-<input
-id="search"
-placeholder="Search face creams..."
-oninput="searchProducts()"
->
-
-<button onclick="searchProducts()">🔍</button>
-
-</div>
-
-<button class="navBtn" onclick="showProducts()">
-Home
-</button>
-
-<button class="navBtn" onclick="showOrders()">
-Orders
-</button>
-
-<button class="navBtn" onclick="showCart()">
-🛒 <span id="cartCount">0</span>
-</button>
-
-<button class="navBtn logoutBtn" onclick="logout()">
-Logout
-</button>
-
-</div>
-
-</div>
-
-
-<div class="shopContainer">
-
-<div class="banner">
-
-<h1>Welcome to GlowCart 💗</h1>
-
-<p>
-Beautiful skincare at affordable prices.
-</p>
-
-</div>
-
-
-<div class="categories">
-
-<button class="active" onclick="category('all',this)">
-All
-</button>
-
-<button onclick="category('face',this)">
-Face Creams
-</button>
-
-<button onclick="category('best',this)">
-Best Sellers
-</button>
-
-</div>
-
-
-<div id="products" class="products"></div>
-
-
-<div id="cartPanel" class="panel">
-
-<h2>🛒 Your Cart</h2>
-
-<div id="cartItems"></div>
-
-<div class="total">
-Subtotal: ₹<span id="total">0.00</span>
-</div>
-
-<button
-class="mainBtn"
-style="margin-top:20px"
-onclick="checkout()"
->
-Proceed to Checkout
-</button>
-
-</div>
-
-
-<div id="checkoutPanel" class="panel">
-
-<h2>📦 Place Your Order</h2>
-
-<br>
-
-<div id="savedAddresses"></div>
-
-<button
-class="navBtn"
-onclick="newAddress()"
-style="margin-bottom:20px"
->
-+ Add New Address
-</button>
-
-<div id="newAddressBox" style="display:none">
-
-<input
-id="newAddress"
-class="checkoutField"
-placeholder="Full Address"
->
-
-<input
-id="newPincode"
-class="checkoutField"
-maxlength="6"
-placeholder="6-digit Pincode"
->
-
-<button
-class="navBtn"
-onclick="saveNewAddress()"
->
-Save Address
-</button>
-
-</div>
-
-
-<div class="checkoutArea">
-
-<input
-id="orderName"
-class="checkoutField"
-placeholder="Full Name"
->
-
-<input
-id="orderEmail"
-class="checkoutField"
-placeholder="Email"
->
-
-<input
-id="orderMobile"
-class="checkoutField"
-placeholder="Mobile Number"
->
-
-<textarea
-id="orderAddress"
-class="checkoutField"
-style="height:90px"
-placeholder="Delivery Address"
-></textarea>
-
-<input
-id="orderPincode"
-class="checkoutField"
-maxlength="6"
-placeholder="Pincode"
->
-
-
-<!-- PAYMENT METHODS -->
-
-<div class="paymentBox">
-
-<h3>💳 Select Payment Method</h3>
-
-
-<div class="paymentOption selected" id="upiOption">
-
-<label>
-
-<input
-type="radio"
-name="paymentMethod"
-value="UPI"
-checked
-onchange="selectPayment('UPI')"
->
-
-<span class="paymentIcon">📱</span>
-
-<span>UPI</span>
-
-</label>
-
-<div
-class="paymentDetails"
-id="upiDetails"
->
-
-<input
-id="upiId"
-placeholder="Enter UPI ID e.g. name@upi"
->
-
-</div>
-
-</div>
-
-
-<div class="paymentOption" id="netBankingOption">
-
-<label>
-
-<input
-type="radio"
-name="paymentMethod"
-value="Net Banking"
-onchange="selectPayment('Net Banking')"
->
-
-<span class="paymentIcon">🏦</span>
-
-<span>Net Banking</span>
-
-</label>
-
-<div
-class="paymentDetails"
-id="netBankingDetails"
-style="display:none"
->
-
-<select id="bankName">
-
-<option value="">Select Your Bank</option>
-<option>State Bank of India</option>
-<option>HDFC Bank</option>
-<option>ICICI Bank</option>
-<option>Axis Bank</option>
-<option>Kotak Mahindra Bank</option>
-<option>Bank of Baroda</option>
-<option>Punjab National Bank</option>
-<option>Canara Bank</option>
-
-</select>
-
-</div>
-
-</div>
-
-
-<div class="paymentOption" id="codOption">
-
-<label>
-
-<input
-type="radio"
-name="paymentMethod"
-value="Cash on Delivery"
-onchange="selectPayment('Cash on Delivery')"
->
-
-<span class="paymentIcon">💵</span>
-
-<span>Cash on Delivery</span>
-
-</label>
-
-<div
-class="paymentDetails"
-id="codDetails"
-style="display:none"
->
-
-<p style="color:#666;font-size:14px;">
-Pay the amount in cash when your order is delivered.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- BILL -->
-
-<div class="billBox">
-
-<h3 style="color:#b31372;margin-bottom:10px;">
-🧾 Order Summary
-</h3>
-
-<div class="billRow">
-
-<span>Subtotal</span>
-
-<strong>
-₹<span id="checkoutSubtotal">0.00</span>
-</strong>
-
-</div>
-
-
-<div class="billRow">
-
-<span>
-GST
-<span class="gstNote">(18%)</span>
-</span>
-
-<strong>
-₹<span id="checkoutGST">0.00</span>
-</strong>
-
-</div>
-
-
-<div class="billRow totalRow">
-
-<span>Total Amount</span>
-
-<strong>
-₹<span id="checkoutGrandTotal">0.00</span>
-</strong>
-
-</div>
-
-<p
-style="
-margin-top:12px;
-font-size:13px;
-color:#777;
-text-align:right;
-"
->
-Amount payable including GST
-</p>
-
-</div>
-
-
-<button
-class="mainBtn"
-id="placeOrderButton"
-style="width:100%;margin-top:20px"
-onclick="placeOrder()"
->
-Place Order
-</button>
-
-</div>
-
-<div id="orderMessage" class="message"></div>
-
-</div>
-
-
-<div id="ordersPanel" class="panel">
-
-<h2>📦 My Orders</h2>
-
-<div id="orders"></div>
-
-</div>
-
-</div>
-
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
 
@@ -1288,6 +8,348 @@ Place Order
 
 const API_BASE =
 "https://glowcart-fxwp.onrender.com";
+
+
+/* =====================================================
+   EMAILJS CONFIG
+===================================================== */
+
+let EMAILJS_CONFIG = null;
+
+
+/* =====================================================
+   LOAD EMAILJS CONFIG FROM RENDER
+===================================================== */
+
+async function loadEmailJSConfig(){
+
+    try{
+
+        const response =
+            await fetch(
+                API_BASE + "/api/emailjs-config"
+            );
+
+        const data =
+            await response.json();
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            console.error(
+                "EmailJS config error:",
+                data.message
+            );
+
+            return false;
+
+        }
+
+        EMAILJS_CONFIG = data;
+
+        emailjs.init({
+            publicKey:
+                EMAILJS_CONFIG.publicKey
+        });
+
+        console.log(
+            "EmailJS initialized successfully."
+        );
+
+        return true;
+
+    }catch(error){
+
+        console.error(
+            "Unable to load EmailJS configuration:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   SEND EMAILJS EMAIL
+===================================================== */
+
+async function sendEmailJS(
+    templateId,
+    templateParams
+){
+
+    try{
+
+        if(!EMAILJS_CONFIG){
+
+            const loaded =
+                await loadEmailJSConfig();
+
+            if(!loaded){
+
+                return {
+                    success:false,
+                    message:
+                        "EmailJS configuration could not be loaded."
+                };
+
+            }
+
+        }
+
+        const result =
+            await emailjs.send(
+
+                EMAILJS_CONFIG.serviceId,
+
+                templateId,
+
+                templateParams
+
+            );
+
+        console.log(
+            "EmailJS success:",
+            result
+        );
+
+        return {
+            success:true
+        };
+
+    }catch(error){
+
+        console.error(
+            "EmailJS error:",
+            error
+        );
+
+        return {
+            success:false,
+            message:
+                error.text ||
+                error.message ||
+                "Email could not be sent."
+        };
+
+    }
+
+}
+
+
+/* =====================================================
+   SEND WELCOME EMAIL
+===================================================== */
+
+async function sendWelcomeEmail(
+    name,
+    email,
+    mobile
+){
+
+    if(!EMAILJS_CONFIG){
+
+        const loaded =
+            await loadEmailJSConfig();
+
+        if(!loaded){
+
+            return {
+                success:false,
+                message:
+                    "EmailJS is not configured."
+            };
+
+        }
+
+    }
+
+    const templateParams = {
+
+        // Common EmailJS variables
+        name:
+            name,
+
+        user_name:
+            name,
+
+        full_name:
+            name,
+
+        email:
+            email,
+
+        to_email:
+            email,
+
+        user_email:
+            email,
+
+        mobile:
+            mobile,
+
+        company_name:
+            "GlowCart",
+
+        website:
+            "https://haasini3107.github.io/GlowCart/"
+
+    };
+
+    return await sendEmailJS(
+
+        EMAILJS_CONFIG.welcomeTemplateId,
+
+        templateParams
+
+    );
+
+}
+
+
+/* =====================================================
+   SEND ORDER CONFIRMATION EMAIL
+===================================================== */
+
+async function sendOrderConfirmationEmail(
+    order
+){
+
+    if(!EMAILJS_CONFIG){
+
+        const loaded =
+            await loadEmailJSConfig();
+
+        if(!loaded){
+
+            return {
+                success:false,
+                message:
+                    "EmailJS is not configured."
+            };
+
+        }
+
+    }
+
+    let itemsText = "";
+
+    order.items.forEach(item => {
+
+        const qty =
+            Number(
+                item.qty ||
+                item.quantity ||
+                1
+            );
+
+        const price =
+            Number(item.price || 0);
+
+        const amount =
+            price * qty;
+
+        itemsText +=
+            `${item.name} × ${qty} = ₹${amount.toFixed(2)}\n`;
+
+    });
+
+
+    const templateParams = {
+
+        // Customer
+        name:
+            order.name,
+
+        user_name:
+            order.name,
+
+        full_name:
+            order.name,
+
+        email:
+            order.email,
+
+        to_email:
+            order.email,
+
+        user_email:
+            order.email,
+
+        mobile:
+            order.mobile,
+
+        // Order
+        order_id:
+            order.orderId ||
+            order.id,
+
+        order_date:
+            order.date,
+
+        payment_method:
+            order.paymentMethod,
+
+        payment_details:
+            order.paymentDetails || "",
+
+        // Products
+        order_items:
+            itemsText,
+
+        items:
+            itemsText,
+
+        // Amounts
+        subtotal:
+            Number(order.subtotal || 0)
+                .toFixed(2),
+
+        gst:
+            Number(order.gst || 0)
+                .toFixed(2),
+
+        gst_rate:
+            "18%",
+
+        total:
+            Number(order.total || 0)
+                .toFixed(2),
+
+        grand_total:
+            Number(order.total || 0)
+                .toFixed(2),
+
+        // Address
+        address:
+            order.address,
+
+        pincode:
+            order.pincode,
+
+        company_name:
+            "GlowCart",
+
+        website:
+            "https://haasini3107.github.io/GlowCart/"
+
+    };
+
+
+    return await sendEmailJS(
+
+        EMAILJS_CONFIG.orderTemplateId,
+
+        templateParams
+
+    );
+
+}
 
 
 /* =====================================================
@@ -1386,21 +448,37 @@ best:false
 ];
 
 
-let cart=JSON.parse(
-localStorage.getItem("glowcart_cart")||"[]"
+let cart =
+JSON.parse(
+    localStorage.getItem(
+        "glowcart_cart"
+    ) || "[]"
 );
 
-let users=JSON.parse(
-localStorage.getItem("glowcart_users")||"[]"
+
+let users =
+JSON.parse(
+    localStorage.getItem(
+        "glowcart_users"
+    ) || "[]"
 );
 
-let orders=JSON.parse(
-localStorage.getItem("glowcart_orders")||"[]"
+
+let orders =
+JSON.parse(
+    localStorage.getItem(
+        "glowcart_orders"
+    ) || "[]"
 );
 
-let currentUser=JSON.parse(
-localStorage.getItem("glowcart_user")||"null"
+
+let currentUser =
+JSON.parse(
+    localStorage.getItem(
+        "glowcart_user"
+    ) || "null"
 );
+
 
 let selectedCategory="all";
 
@@ -1411,50 +489,76 @@ let selectedCategory="all";
 
 function home(){
 
-document.getElementById("frontPage").style.display="block";
-document.getElementById("loginPage").style.display="none";
-document.getElementById("shopPage").style.display="none";
+    document.getElementById(
+        "frontPage"
+    ).style.display="block";
 
-window.scrollTo(0,0);
+    document.getElementById(
+        "loginPage"
+    ).style.display="none";
+
+    document.getElementById(
+        "shopPage"
+    ).style.display="none";
+
+    window.scrollTo(0,0);
 
 }
 
 
 function goRegister(){
 
-home();
+    home();
 
-setTimeout(function(){
+    setTimeout(function(){
 
-document
-.getElementById("registerArea")
-.scrollIntoView({
-behavior:"smooth"
-});
+        document
+            .getElementById(
+                "registerArea"
+            )
+            .scrollIntoView({
+                behavior:"smooth"
+            });
 
-},100);
+    },100);
 
 }
 
 
 function openLogin(){
 
-document.getElementById("frontPage").style.display="none";
-document.getElementById("loginPage").style.display="block";
-document.getElementById("shopPage").style.display="none";
+    document.getElementById(
+        "frontPage"
+    ).style.display="none";
 
-window.scrollTo(0,0);
+    document.getElementById(
+        "loginPage"
+    ).style.display="block";
+
+    document.getElementById(
+        "shopPage"
+    ).style.display="none";
+
+    window.scrollTo(0,0);
 
 }
 
 
 function openShop(){
 
-document.getElementById("frontPage").style.display="none";
-document.getElementById("loginPage").style.display="none";
-document.getElementById("shopPage").style.display="block";
+    document.getElementById(
+        "frontPage"
+    ).style.display="none";
 
-showProducts();
+    document.getElementById(
+        "loginPage"
+    ).style.display="none";
+
+    document.getElementById(
+        "shopPage"
+    ).style.display="block";
+
+    showProducts();
 
 }
 
@@ -1464,223 +568,362 @@ showProducts();
 ===================================================== */
 
 document
-.getElementById("registerForm")
-.addEventListener("submit", async function(e){
+    .getElementById("registerForm")
+    .addEventListener(
+        "submit",
+        async function(e){
 
-e.preventDefault();
+            e.preventDefault();
 
-const name=
-document.getElementById("regName").value.trim();
+            const name =
+                document
+                    .getElementById("regName")
+                    .value
+                    .trim();
 
-const email=
-document.getElementById("regEmail").value.trim().toLowerCase();
+            const email =
+                document
+                    .getElementById("regEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
 
-const mobile=
-document.getElementById("regMobile").value.trim();
+            const mobile =
+                document
+                    .getElementById("regMobile")
+                    .value
+                    .trim();
 
-const password=
-document.getElementById("regPassword").value;
+            const password =
+                document
+                    .getElementById("regPassword")
+                    .value;
 
-const address=
-document.getElementById("regAddress").value.trim();
+            const address =
+                document
+                    .getElementById("regAddress")
+                    .value
+                    .trim();
 
-const pincode=
-document.getElementById("regPincode").value.trim();
+            const pincode =
+                document
+                    .getElementById("regPincode")
+                    .value
+                    .trim();
 
-const address2=
-document.getElementById("regAddress2").value.trim();
+            const address2 =
+                document
+                    .getElementById("regAddress2")
+                    .value
+                    .trim();
 
-const pincode2=
-document.getElementById("regPincode2").value.trim();
+            const pincode2 =
+                document
+                    .getElementById("regPincode2")
+                    .value
+                    .trim();
 
-const msg=
-document.getElementById("registerMessage");
+            const msg =
+                document
+                    .getElementById(
+                        "registerMessage"
+                    );
 
-const button=
-document.getElementById("registerButton");
+            const button =
+                document
+                    .getElementById(
+                        "registerButton"
+                    );
 
 
-if(!/^\d{10}$/.test(mobile)){
+            if(!/^\d{10}$/.test(mobile)){
 
-msg.style.color="red";
-msg.textContent="Enter a valid 10-digit mobile number.";
+                msg.style.color="red";
 
-return;
+                msg.textContent =
+                    "Enter a valid 10-digit mobile number.";
 
-}
+                return;
 
+            }
 
-if(!/^\d{6}$/.test(pincode)){
 
-msg.style.color="red";
-msg.textContent="Enter a valid 6-digit pincode.";
+            if(!/^\d{6}$/.test(pincode)){
 
-return;
+                msg.style.color="red";
 
-}
+                msg.textContent =
+                    "Enter a valid 6-digit pincode.";
 
+                return;
 
-if(address2 && !/^\d{6}$/.test(pincode2)){
+            }
 
-msg.style.color="red";
-msg.textContent="Enter a valid second pincode.";
 
-return;
+            if(
+                address2 &&
+                !/^\d{6}$/.test(pincode2)
+            ){
 
-}
+                msg.style.color="red";
 
+                msg.textContent =
+                    "Enter a valid second pincode.";
 
-if(users.some(u=>u.email===email)){
+                return;
 
-msg.style.color="red";
-msg.textContent=
-"This email is already registered on this browser.";
+            }
 
-return;
 
-}
+            if(
+                users.some(
+                    u => u.email === email
+                )
+            ){
 
+                msg.style.color="red";
 
-button.disabled=true;
-button.textContent="Registering...";
+                msg.textContent =
+                    "This email is already registered on this browser.";
 
-msg.style.color="#d41483";
-msg.textContent="Creating your account...";
+                return;
 
+            }
 
-try{
 
-const response=
-await fetch(
-API_BASE+"/api/register",
-{
-method:"POST",
+            button.disabled=true;
 
-headers:{
-"Content-Type":"application/json"
-},
+            button.textContent =
+                "Registering...";
 
-body:JSON.stringify({
+            msg.style.color="#d41483";
 
-name:name,
-email:email,
-mobile:mobile,
-password:password,
-address:address,
-pincode:pincode,
-address2:address2,
-pincode2:pincode2
+            msg.textContent =
+                "Creating your account...";
 
-})
 
-}
-);
+            try{
 
+                const response =
+                    await fetch(
+                        API_BASE +
+                        "/api/register",
+                        {
+                            method:"POST",
 
-const data=await response.json();
+                            headers:{
+                                "Content-Type":
+                                    "application/json"
+                            },
 
+                            body:
+                                JSON.stringify({
 
-if(!response.ok || !data.success){
+                                    name:
+                                        name,
 
-msg.style.color="red";
+                                    email:
+                                        email,
 
-msg.textContent=
-data.message ||
-"Registration failed.";
+                                    mobile:
+                                        mobile,
 
-button.disabled=false;
-button.textContent="Register Now";
+                                    password:
+                                        password,
 
-return;
+                                    address:
+                                        address,
 
-}
+                                    pincode:
+                                        pincode,
 
+                                    address2:
+                                        address2,
 
-const user={
+                                    pincode2:
+                                        pincode2
 
-id:Date.now(),
+                                })
 
-name:name,
+                        }
+                    );
 
-email:email,
 
-mobile:mobile,
+                const data =
+                    await response.json();
 
-password:password,
 
-addresses:[
+                if(
+                    !response.ok ||
+                    !data.success
+                ){
 
-{
-id:Date.now(),
-address:address,
-pincode:pincode
-}
+                    msg.style.color="red";
 
-]
+                    msg.textContent =
+                        data.message ||
+                        "Registration failed.";
 
-};
+                    button.disabled=false;
 
+                    button.textContent =
+                        "Register Now";
 
-if(address2){
+                    return;
 
-user.addresses.push({
+                }
 
-id:Date.now()+1,
-address:address2,
-pincode:pincode2
 
-});
+                /* ----------------------------------
+                   SAVE LOCAL USER
+                ---------------------------------- */
 
-}
+                const user={
 
+                    id:
+                        data.user?.id ||
+                        Date.now(),
 
-users.push(user);
+                    name:
+                        name,
 
-localStorage.setItem(
-"glowcart_users",
-JSON.stringify(users)
-);
+                    email:
+                        email,
 
+                    mobile:
+                        mobile,
 
-msg.style.color="green";
+                    password:
+                        password,
 
-msg.innerHTML=
-"Registration successful! 💗<br>"+
-"Confirmation email sent to <b>"+
-email+
-"</b>.";
+                    addresses:[
 
+                        {
+                            id:
+                                Date.now(),
 
-button.disabled=false;
-button.textContent="Register Now";
+                            address:
+                                address,
 
+                            pincode:
+                                pincode
+                        }
 
-setTimeout(function(){
+                    ]
 
-document.getElementById(
-"loginEmail"
-).value=email;
+                };
 
-openLogin();
 
-},1800);
+                if(address2){
 
+                    user.addresses.push({
 
-}catch(error){
+                        id:
+                            Date.now()+1,
 
-console.error(error);
+                        address:
+                            address2,
 
-msg.style.color="red";
+                        pincode:
+                            pincode2
 
-msg.textContent=
-"Unable to connect to GlowCart server.";
+                    });
 
-button.disabled=false;
-button.textContent="Register Now";
+                }
 
-}
 
-});
+                users.push(user);
+
+
+                localStorage.setItem(
+                    "glowcart_users",
+                    JSON.stringify(users)
+                );
+
+
+                /* ----------------------------------
+                   SEND WELCOME EMAIL WITH EMAILJS
+                ---------------------------------- */
+
+                msg.style.color="#d41483";
+
+                msg.textContent =
+                    "Account created. Sending welcome email...";
+
+
+                const emailResult =
+                    await sendWelcomeEmail(
+                        name,
+                        email,
+                        mobile
+                    );
+
+
+                if(emailResult.success){
+
+                    msg.style.color="green";
+
+                    msg.innerHTML =
+                        "Registration successful! 💗<br>" +
+                        "Welcome email sent to <b>" +
+                        email +
+                        "</b>.";
+
+                }else{
+
+                    msg.style.color="#d41483";
+
+                    msg.innerHTML =
+                        "Registration successful! 💗<br>" +
+                        "Account created, but the welcome email could not be sent.";
+
+                    console.error(
+                        "Welcome email failed:",
+                        emailResult.message
+                    );
+
+                }
+
+
+                button.disabled=false;
+
+                button.textContent =
+                    "Register Now";
+
+
+                setTimeout(function(){
+
+                    document.getElementById(
+                        "loginEmail"
+                    ).value =
+                        email;
+
+                    openLogin();
+
+                },2200);
+
+
+            }catch(error){
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+                msg.style.color="red";
+
+                msg.textContent =
+                    "Unable to connect to GlowCart server.";
+
+                button.disabled=false;
+
+                button.textContent =
+                    "Register Now";
+
+            }
+
+        }
+    );
 
 
 /* =====================================================
@@ -1688,60 +931,79 @@ button.textContent="Register Now";
 ===================================================== */
 
 document
-.getElementById("loginForm")
-.addEventListener("submit",function(e){
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(e){
 
-e.preventDefault();
+            e.preventDefault();
 
-const email=
-document.getElementById("loginEmail")
-.value
-.trim()
-.toLowerCase();
+            const email =
+                document
+                    .getElementById(
+                        "loginEmail"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
 
-const password=
-document.getElementById("loginPassword")
-.value;
+            const password =
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value;
 
-const msg=
-document.getElementById("loginMessage");
-
-
-const user=users.find(
-u=>u.email===email &&
-u.password===password
-);
-
-
-if(!user){
-
-msg.style.color="red";
-msg.textContent="Invalid email or password.";
-
-return;
-
-}
+            const msg =
+                document
+                    .getElementById(
+                        "loginMessage"
+                    );
 
 
-currentUser=user;
-
-localStorage.setItem(
-"glowcart_user",
-JSON.stringify(user)
-);
-
-
-msg.style.color="green";
-msg.textContent="Login successful!";
+            const user =
+                users.find(
+                    u =>
+                        u.email === email &&
+                        u.password === password
+                );
 
 
-setTimeout(function(){
+            if(!user){
 
-openShop();
+                msg.style.color="red";
 
-},700);
+                msg.textContent =
+                    "Invalid email or password.";
 
-});
+                return;
+
+            }
+
+
+            currentUser=user;
+
+
+            localStorage.setItem(
+                "glowcart_user",
+                JSON.stringify(user)
+            );
+
+
+            msg.style.color="green";
+
+            msg.textContent =
+                "Login successful!";
+
+
+            setTimeout(function(){
+
+                openShop();
+
+            },700);
+
+        }
+    );
 
 
 /* =====================================================
@@ -1750,112 +1012,165 @@ openShop();
 
 function showProducts(){
 
-hidePanels();
+    hidePanels();
 
-document.getElementById("products").style.display="grid";
+    document.getElementById(
+        "products"
+    ).style.display="grid";
 
-renderProducts();
+    renderProducts();
 
 }
 
 
 function renderProducts(){
 
-const search=
-document.getElementById("search")
-.value
-.toLowerCase()
-.trim();
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
 
 
-let list=PRODUCTS.filter(product=>{
+    let list =
+        PRODUCTS.filter(
+            product => {
 
-let categoryOK=true;
-
-if(selectedCategory==="face")
-categoryOK=product.category==="face";
-
-if(selectedCategory==="best")
-categoryOK=product.best===true;
+                let categoryOK=true;
 
 
-let searchOK=
-product.name.toLowerCase().includes(search) ||
-product.description.toLowerCase().includes(search);
+                if(
+                    selectedCategory ===
+                    "face"
+                ){
+
+                    categoryOK =
+                        product.category ===
+                        "face";
+
+                }
 
 
-return categoryOK && searchOK;
+                if(
+                    selectedCategory ===
+                    "best"
+                ){
 
-});
+                    categoryOK =
+                        product.best === true;
 
-
-const box=
-document.getElementById("products");
-
-
-if(!list.length){
-
-box.innerHTML=
-'<div class="empty">No products found.</div>';
-
-return;
-
-}
+                }
 
 
-box.innerHTML=list.map(p=>`
+                const searchOK =
+                    product.name
+                        .toLowerCase()
+                        .includes(search) ||
 
-<div class="product">
+                    product.description
+                        .toLowerCase()
+                        .includes(search);
 
-<img
-src="${p.image}"
-alt="${p.name}"
->
 
-<div class="productInfo">
+                return (
+                    categoryOK &&
+                    searchOK
+                );
 
-<h3>${p.name}</h3>
+            }
+        );
 
-<p>${p.description}</p>
 
-<div class="price">
-₹${p.price}
-</div>
+    const box =
+        document.getElementById(
+            "products"
+        );
 
-<button
-class="addCart"
-onclick="addCart(${p.id})"
->
-Add to Cart
-</button>
 
-</div>
+    if(!list.length){
 
-</div>
+        box.innerHTML =
+            '<div class="empty">No products found.</div>';
 
-`).join("");
+        return;
+
+    }
+
+
+    box.innerHTML =
+        list.map(
+            p => `
+
+                <div class="product">
+
+                    <img
+                        src="${p.image}"
+                        alt="${p.name}"
+                    >
+
+                    <div class="productInfo">
+
+                        <h3>
+                            ${p.name}
+                        </h3>
+
+                        <p>
+                            ${p.description}
+                        </p>
+
+                        <div class="price">
+                            ₹${p.price}
+                        </div>
+
+                        <button
+                            class="addCart"
+                            onclick="addCart(${p.id})"
+                        >
+                            Add to Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `
+        ).join("");
 
 }
 
 
 function searchProducts(){
 
-renderProducts();
+    renderProducts();
 
 }
 
 
 function category(type,button){
 
-selectedCategory=type;
+    selectedCategory =
+        type;
 
-document
-.querySelectorAll(".categories button")
-.forEach(b=>b.classList.remove("active"));
 
-button.classList.add("active");
+    document
+        .querySelectorAll(
+            ".categories button"
+        )
+        .forEach(
+            b =>
+                b.classList.remove(
+                    "active"
+                )
+        );
 
-renderProducts();
+
+    button.classList.add(
+        "active"
+    );
+
+
+    renderProducts();
 
 }
 
@@ -1866,215 +1181,287 @@ renderProducts();
 
 function addCart(id){
 
-const product=PRODUCTS.find(
-p=>p.id===id
-);
-
-const existing=cart.find(
-p=>p.id===id
-);
+    const product =
+        PRODUCTS.find(
+            p => p.id === id
+        );
 
 
-if(existing){
-
-existing.qty++;
-
-}else{
-
-cart.push({
-...product,
-qty:1
-});
-
-}
+    const existing =
+        cart.find(
+            p => p.id === id
+        );
 
 
-saveCart();
+    if(existing){
 
-updateCount();
+        existing.qty++;
 
-alert(product.name+" added to cart 🛒");
+    }else{
+
+        cart.push({
+
+            ...product,
+
+            qty:1
+
+        });
+
+    }
+
+
+    saveCart();
+
+    updateCount();
+
+
+    alert(
+        product.name +
+        " added to cart 🛒"
+    );
 
 }
 
 
 function saveCart(){
 
-localStorage.setItem(
-"glowcart_cart",
-JSON.stringify(cart)
-);
+    localStorage.setItem(
+        "glowcart_cart",
+        JSON.stringify(cart)
+    );
 
 }
 
 
 function updateCount(){
 
-document.getElementById("cartCount")
-.textContent=
-cart.reduce(
-(sum,item)=>sum+item.qty,
-0
-);
+    document.getElementById(
+        "cartCount"
+    ).textContent =
+        cart.reduce(
+            (sum,item) =>
+                sum + item.qty,
+            0
+        );
 
 }
 
 
 function getSubtotal(){
 
-return cart.reduce(
-(sum,item)=>
-sum+(item.price*item.qty),
-0
-);
+    return cart.reduce(
+        (sum,item) =>
+            sum +
+            (
+                item.price *
+                item.qty
+            ),
+        0
+    );
 
 }
 
 
 function getGST(){
 
-return getSubtotal()*GST_RATE;
+    return getSubtotal() *
+        GST_RATE;
 
 }
 
 
 function getGrandTotal(){
 
-return getSubtotal()+getGST();
+    return (
+        getSubtotal() +
+        getGST()
+    );
 
 }
 
 
+/* =====================================================
+   CART DISPLAY
+===================================================== */
+
 function showCart(){
 
-hidePanels();
+    hidePanels();
 
-document.getElementById("cartPanel").style.display="block";
+    document.getElementById(
+        "cartPanel"
+    ).style.display="block";
 
-document.getElementById("products").style.display="none";
+    document.getElementById(
+        "products"
+    ).style.display="none";
 
-renderCart();
+    renderCart();
 
 }
 
 
 function renderCart(){
 
-const box=
-document.getElementById("cartItems");
+    const box =
+        document.getElementById(
+            "cartItems"
+        );
 
 
-if(!cart.length){
+    if(!cart.length){
 
-box.innerHTML=`
+        box.innerHTML = `
 
-<div class="empty">
+            <div class="empty">
 
-<div style="font-size:50px">🛒</div>
+                <div style="font-size:50px">
+                    🛒
+                </div>
 
-<h3>Your cart is empty</h3>
+                <h3>
+                    Your cart is empty
+                </h3>
 
-<button
-class="mainBtn"
-style="margin-top:20px"
-onclick="showProducts()"
->
-Continue Shopping
-</button>
+                <button
+                    class="mainBtn"
+                    style="margin-top:20px"
+                    onclick="showProducts()"
+                >
+                    Continue Shopping
+                </button>
 
-</div>
+            </div>
 
-`;
-
-document.getElementById("total").textContent="0.00";
-
-return;
-
-}
+        `;
 
 
-box.innerHTML=cart.map((item,index)=>`
+        document.getElementById(
+            "total"
+        ).textContent =
+            "0.00";
 
-<div class="cartItem">
+        return;
 
-<img src="${item.image}">
-
-<div class="cartInfo">
-
-<strong>${item.name}</strong>
-
-<div style="color:#d41483;margin-top:6px">
-₹${item.price}
-</div>
-
-</div>
-
-<div class="quantity">
-
-<button onclick="quantity(${index},-1)">
-−
-</button>
-
-<strong>${item.qty}</strong>
-
-<button onclick="quantity(${index},1)">
-+
-</button>
-
-</div>
-
-<strong>
-₹${(item.price*item.qty).toFixed(2)}
-</strong>
-
-<button
-onclick="removeItem(${index})"
-style="border:0;background:none;color:red;font-size:18px"
->
-✕
-</button>
-
-</div>
-
-`).join("");
+    }
 
 
-const subtotal=getSubtotal();
+    box.innerHTML =
+        cart.map(
+            (item,index) => `
 
-document.getElementById("total").textContent=
-subtotal.toFixed(2);
+                <div class="cartItem">
+
+                    <img
+                        src="${item.image}"
+                    >
+
+                    <div class="cartInfo">
+
+                        <strong>
+                            ${item.name}
+                        </strong>
+
+                        <div
+                            style="
+                            color:#d41483;
+                            margin-top:6px
+                            "
+                        >
+                            ₹${item.price}
+                        </div>
+
+                    </div>
+
+                    <div class="quantity">
+
+                        <button
+                            onclick="quantity(${index},-1)"
+                        >
+                            −
+                        </button>
+
+                        <strong>
+                            ${item.qty}
+                        </strong>
+
+                        <button
+                            onclick="quantity(${index},1)"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                    <strong>
+                        ₹${(
+                            item.price *
+                            item.qty
+                        ).toFixed(2)}
+                    </strong>
+
+                    <button
+                        onclick="removeItem(${index})"
+                        style="
+                        border:0;
+                        background:none;
+                        color:red;
+                        font-size:18px
+                        "
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+            `
+        ).join("");
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        getSubtotal().toFixed(2);
 
 }
 
 
 function quantity(index,value){
 
-cart[index].qty+=value;
+    cart[index].qty += value;
 
-if(cart[index].qty<=0){
 
-cart.splice(index,1);
+    if(cart[index].qty <= 0){
 
-}
+        cart.splice(
+            index,
+            1
+        );
 
-saveCart();
+    }
 
-updateCount();
 
-renderCart();
+    saveCart();
+
+    updateCount();
+
+    renderCart();
 
 }
 
 
 function removeItem(index){
 
-cart.splice(index,1);
+    cart.splice(
+        index,
+        1
+    );
 
-saveCart();
+    saveCart();
 
-updateCount();
+    updateCount();
 
-renderCart();
+    renderCart();
 
 }
 
@@ -2085,42 +1472,51 @@ renderCart();
 
 function checkout(){
 
-if(!cart.length){
+    if(!cart.length){
 
-alert("Your cart is empty.");
+        alert(
+            "Your cart is empty."
+        );
 
-return;
+        return;
 
-}
-
-
-hidePanels();
-
-document.getElementById(
-"checkoutPanel"
-).style.display="block";
-
-document.getElementById(
-"products"
-).style.display="none";
+    }
 
 
-document.getElementById(
-"orderName"
-).value=currentUser.name;
-
-document.getElementById(
-"orderEmail"
-).value=currentUser.email;
-
-document.getElementById(
-"orderMobile"
-).value=currentUser.mobile;
+    hidePanels();
 
 
-showAddresses();
+    document.getElementById(
+        "checkoutPanel"
+    ).style.display="block";
 
-updateCheckoutBill();
+
+    document.getElementById(
+        "products"
+    ).style.display="none";
+
+
+    document.getElementById(
+        "orderName"
+    ).value =
+        currentUser.name;
+
+
+    document.getElementById(
+        "orderEmail"
+    ).value =
+        currentUser.email;
+
+
+    document.getElementById(
+        "orderMobile"
+    ).value =
+        currentUser.mobile;
+
+
+    showAddresses();
+
+    updateCheckoutBill();
 
 }
 
@@ -2131,97 +1527,118 @@ updateCheckoutBill();
 
 function updateCheckoutBill(){
 
-const subtotal=getSubtotal();
+    const subtotal =
+        getSubtotal();
 
-const gst=getGST();
+    const gst =
+        getGST();
 
-const grandTotal=getGrandTotal();
-
-
-document.getElementById(
-"checkoutSubtotal"
-).textContent=
-subtotal.toFixed(2);
+    const grandTotal =
+        getGrandTotal();
 
 
-document.getElementById(
-"checkoutGST"
-).textContent=
-gst.toFixed(2);
+    document.getElementById(
+        "checkoutSubtotal"
+    ).textContent =
+        subtotal.toFixed(2);
 
 
-document.getElementById(
-"checkoutGrandTotal"
-).textContent=
-grandTotal.toFixed(2);
+    document.getElementById(
+        "checkoutGST"
+    ).textContent =
+        gst.toFixed(2);
+
+
+    document.getElementById(
+        "checkoutGrandTotal"
+    ).textContent =
+        grandTotal.toFixed(2);
 
 }
 
 
 /* =====================================================
-   PAYMENT METHOD
+   PAYMENT
 ===================================================== */
 
 function selectPayment(method){
 
-document
-.querySelectorAll(".paymentOption")
-.forEach(option=>{
-option.classList.remove("selected");
-});
+    document
+        .querySelectorAll(
+            ".paymentOption"
+        )
+        .forEach(
+            option =>
+                option.classList.remove(
+                    "selected"
+                )
+        );
 
 
-document.getElementById("upiOption")
-.classList.remove("selected");
-
-document.getElementById("netBankingOption")
-.classList.remove("selected");
-
-document.getElementById("codOption")
-.classList.remove("selected");
+    document.getElementById(
+        "upiDetails"
+    ).style.display="none";
 
 
-document.getElementById("upiDetails")
-.style.display="none";
-
-document.getElementById("netBankingDetails")
-.style.display="none";
-
-document.getElementById("codDetails")
-.style.display="none";
+    document.getElementById(
+        "netBankingDetails"
+    ).style.display="none";
 
 
-if(method==="UPI"){
-
-document.getElementById("upiOption")
-.classList.add("selected");
-
-document.getElementById("upiDetails")
-.style.display="block";
-
-}
+    document.getElementById(
+        "codDetails"
+    ).style.display="none";
 
 
-if(method==="Net Banking"){
+    if(method === "UPI"){
 
-document.getElementById("netBankingOption")
-.classList.add("selected");
+        document.getElementById(
+            "upiOption"
+        ).classList.add(
+            "selected"
+        );
 
-document.getElementById("netBankingDetails")
-.style.display="block";
+        document.getElementById(
+            "upiDetails"
+        ).style.display="block";
 
-}
+    }
 
 
-if(method==="Cash on Delivery"){
+    if(
+        method ===
+        "Net Banking"
+    ){
 
-document.getElementById("codOption")
-.classList.add("selected");
+        document.getElementById(
+            "netBankingOption"
+        ).classList.add(
+            "selected"
+        );
 
-document.getElementById("codDetails")
-.style.display="block";
+        document.getElementById(
+            "netBankingDetails"
+        ).style.display="block";
 
-}
+    }
+
+
+    if(
+        method ===
+        "Cash on Delivery"
+    ){
+
+        document.getElementById(
+            "codOption"
+        ).classList.add(
+            "selected"
+        );
+
+        document.getElementById(
+            "codDetails"
+        ).style.display="block";
+
+    }
 
 }
 
@@ -2232,183 +1649,232 @@ document.getElementById("codDetails")
 
 function showAddresses(){
 
-const box=
-document.getElementById("savedAddresses");
+    const box =
+        document.getElementById(
+            "savedAddresses"
+        );
 
 
-if(!currentUser || !currentUser.addresses){
+    if(
+        !currentUser ||
+        !currentUser.addresses
+    ){
 
-box.innerHTML="";
+        box.innerHTML="";
 
-return;
+        return;
 
-}
-
-
-box.innerHTML=`
-
-<h3 style="color:#b31372;margin-bottom:12px">
-📍 Saved Addresses
-</h3>
-
-`+
-currentUser.addresses.map(
-(a,i)=>`
-
-<div
-class="addressCard ${i===0?"selected":""}"
-onclick="selectAddress(${i})"
->
-
-<label>
-
-<input
-type="radio"
-name="address"
-${i===0?"checked":""}
->
-
-<div>
-
-<strong>
-Address ${i+1}
-</strong>
-
-<br>
-
-<span style="color:#666">
-${a.address}
-<br>
-Pincode: ${a.pincode}
-</span>
-
-</div>
-
-</label>
-
-</div>
-
-`
-).join("");
+    }
 
 
-selectAddress(0);
+    box.innerHTML = `
+
+        <h3
+            style="
+            color:#b31372;
+            margin-bottom:12px
+            "
+        >
+            📍 Saved Addresses
+        </h3>
+
+    ` +
+
+    currentUser.addresses
+        .map(
+            (a,i) => `
+
+                <div
+                    class="
+                    addressCard
+                    ${i===0?"selected":""}
+                    "
+                    onclick="
+                        selectAddress(${i})
+                    "
+                >
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="address"
+                            ${i===0?"checked":""}
+                        >
+
+                        <div>
+
+                            <strong>
+                                Address ${i+1}
+                            </strong>
+
+                            <br>
+
+                            <span
+                                style="color:#666"
+                            >
+                                ${a.address}
+                                <br>
+                                Pincode:
+                                ${a.pincode}
+                            </span>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+
+    selectAddress(0);
 
 }
 
 
 function selectAddress(index){
 
-const address=
-currentUser.addresses[index];
-
-if(!address)return;
-
-
-document.getElementById(
-"orderAddress"
-).value=address.address;
-
-document.getElementById(
-"orderPincode"
-).value=address.pincode;
+    const address =
+        currentUser
+            .addresses[index];
 
 
-document
-.querySelectorAll(".addressCard")
-.forEach(
-(x,i)=>
-x.classList.toggle(
-"selected",
-i===index
-)
-);
+    if(!address)return;
+
+
+    document.getElementById(
+        "orderAddress"
+    ).value =
+        address.address;
+
+
+    document.getElementById(
+        "orderPincode"
+    ).value =
+        address.pincode;
+
+
+    document
+        .querySelectorAll(
+            ".addressCard"
+        )
+        .forEach(
+            (x,i) =>
+                x.classList.toggle(
+                    "selected",
+                    i === index
+                )
+        );
 
 }
 
 
 function newAddress(){
 
-document.getElementById(
-"newAddressBox"
-).style.display="block";
+    document.getElementById(
+        "newAddressBox"
+    ).style.display =
+        "block";
 
 }
 
 
 function saveNewAddress(){
 
-const address=
-document.getElementById(
-"newAddress"
-).value.trim();
-
-const pincode=
-document.getElementById(
-"newPincode"
-).value.trim();
+    const address =
+        document.getElementById(
+            "newAddress"
+        ).value.trim();
 
 
-if(!address){
-
-alert("Enter address.");
-
-return;
-
-}
+    const pincode =
+        document.getElementById(
+            "newPincode"
+        ).value.trim();
 
 
-if(!/^\d{6}$/.test(pincode)){
+    if(!address){
 
-alert("Enter a valid 6-digit pincode.");
+        alert(
+            "Enter address."
+        );
 
-return;
+        return;
 
-}
-
-
-currentUser.addresses.push({
-
-id:Date.now(),
-address:address,
-pincode:pincode
-
-});
+    }
 
 
-users=users.map(
-u=>u.email===currentUser.email
-?currentUser
-:u
-);
+    if(
+        !/^\d{6}$/.test(
+            pincode
+        )
+    ){
+
+        alert(
+            "Enter a valid 6-digit pincode."
+        );
+
+        return;
+
+    }
 
 
-localStorage.setItem(
-"glowcart_users",
-JSON.stringify(users)
-);
+    currentUser.addresses.push({
 
-localStorage.setItem(
-"glowcart_user",
-JSON.stringify(currentUser)
-);
+        id:
+            Date.now(),
 
+        address:
+            address,
 
-document.getElementById(
-"newAddress"
-).value="";
+        pincode:
+            pincode
 
-document.getElementById(
-"newPincode"
-).value="";
+    });
 
 
-document.getElementById(
-"newAddressBox"
-).style.display="none";
+    users =
+        users.map(
+            u =>
+                u.email ===
+                currentUser.email
+                    ? currentUser
+                    : u
+        );
 
 
-showAddresses();
+    localStorage.setItem(
+        "glowcart_users",
+        JSON.stringify(users)
+    );
+
+
+    localStorage.setItem(
+        "glowcart_user",
+        JSON.stringify(currentUser)
+    );
+
+
+    document.getElementById(
+        "newAddress"
+    ).value="";
+
+
+    document.getElementById(
+        "newPincode"
+    ).value="";
+
+
+    document.getElementById(
+        "newAddressBox"
+    ).style.display =
+        "none";
+
+
+    showAddresses();
 
 }
 
@@ -2419,312 +1885,483 @@ showAddresses();
 
 async function placeOrder(){
 
-if(!cart.length){
+    if(!cart.length){
 
-alert("Your cart is empty.");
+        alert(
+            "Your cart is empty."
+        );
 
-return;
+        return;
 
-}
+    }
 
 
-const name=
-document.getElementById(
-"orderName"
-).value.trim();
+    const name =
+        document.getElementById(
+            "orderName"
+        ).value.trim();
 
-const email=
-document.getElementById(
-"orderEmail"
-).value.trim();
 
-const mobile=
-document.getElementById(
-"orderMobile"
-).value.trim();
+    const email =
+        document.getElementById(
+            "orderEmail"
+        ).value.trim();
 
-const address=
-document.getElementById(
-"orderAddress"
-).value.trim();
 
-const pincode=
-document.getElementById(
-"orderPincode"
-).value.trim();
+    const mobile =
+        document.getElementById(
+            "orderMobile"
+        ).value.trim();
 
 
-if(!name || !email || !mobile || !address){
+    const address =
+        document.getElementById(
+            "orderAddress"
+        ).value.trim();
 
-alert("Please complete all details.");
 
-return;
+    const pincode =
+        document.getElementById(
+            "orderPincode"
+        ).value.trim();
 
-}
 
+    if(
+        !name ||
+        !email ||
+        !mobile ||
+        !address
+    ){
 
-if(!/^\d{6}$/.test(pincode)){
+        alert(
+            "Please complete all details."
+        );
 
-alert("Enter a valid pincode.");
+        return;
 
-return;
+    }
 
-}
 
+    if(
+        !/^\d{6}$/.test(
+            pincode
+        )
+    ){
 
-/* PAYMENT */
+        alert(
+            "Enter a valid pincode."
+        );
 
-const paymentMethod=
-document.querySelector(
-'input[name="paymentMethod"]:checked'
-).value;
+        return;
 
+    }
 
-let paymentDetails="";
 
+    /* -----------------------------------------------
+       PAYMENT
+    ----------------------------------------------- */
 
-if(paymentMethod==="UPI"){
+    const paymentRadio =
+        document.querySelector(
+            'input[name="paymentMethod"]:checked'
+        );
 
-const upiId=
-document.getElementById("upiId")
-.value
-.trim();
 
+    if(!paymentRadio){
 
-if(!upiId){
+        alert(
+            "Please select a payment method."
+        );
 
-alert("Please enter your UPI ID.");
+        return;
 
-return;
+    }
 
-}
 
+    const paymentMethod =
+        paymentRadio.value;
 
-if(!upiId.includes("@")){
 
-alert("Please enter a valid UPI ID.");
+    let paymentDetails="";
 
-return;
 
-}
+    if(
+        paymentMethod ===
+        "UPI"
+    ){
 
+        const upiId =
+            document.getElementById(
+                "upiId"
+            ).value.trim();
 
-paymentDetails=upiId;
 
-}
+        if(!upiId){
 
+            alert(
+                "Please enter your UPI ID."
+            );
 
-if(paymentMethod==="Net Banking"){
+            return;
 
-const bankName=
-document.getElementById("bankName")
-.value;
+        }
 
 
-if(!bankName){
+        if(!upiId.includes("@")){
 
-alert("Please select your bank.");
+            alert(
+                "Please enter a valid UPI ID."
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-paymentDetails=bankName;
+        paymentDetails =
+            upiId;
 
-}
+    }
 
 
-if(paymentMethod==="Cash on Delivery"){
+    if(
+        paymentMethod ===
+        "Net Banking"
+    ){
 
-paymentDetails="Pay cash on delivery";
+        const bankName =
+            document.getElementById(
+                "bankName"
+            ).value;
 
-}
 
+        if(!bankName){
 
-/* BILL */
+            alert(
+                "Please select your bank."
+            );
 
-const subtotal=getSubtotal();
+            return;
 
-const gst=getGST();
+        }
 
-const grandTotal=getGrandTotal();
 
+        paymentDetails =
+            bankName;
 
-/* ORDER */
+    }
 
-const order={
 
-id:"GC"+Date.now(),
+    if(
+        paymentMethod ===
+        "Cash on Delivery"
+    ){
 
-orderId:"GC"+Date.now(),
+        paymentDetails =
+            "Pay cash on delivery";
 
-date:new Date().toLocaleString(),
+    }
 
-name:name,
 
-email:email,
+    /* -----------------------------------------------
+       BILL
+    ----------------------------------------------- */
 
-mobile:mobile,
+    const subtotal =
+        getSubtotal();
 
-address:address,
 
-pincode:pincode,
+    const gst =
+        getGST();
 
-items:[...cart],
 
-subtotal:Number(subtotal.toFixed(2)),
+    const grandTotal =
+        getGrandTotal();
 
-gst:Number(gst.toFixed(2)),
 
-gstRate:18,
+    /* -----------------------------------------------
+       ORDER
+    ----------------------------------------------- */
 
-total:Number(grandTotal.toFixed(2)),
+    const orderId =
+        "GC" + Date.now();
 
-paymentMethod:paymentMethod,
 
-paymentDetails:paymentDetails,
+    const order = {
 
-status:"Order Placed"
+        id:
+            orderId,
 
-};
+        orderId:
+            orderId,
 
+        date:
+            new Date().toLocaleString(),
 
-const orderMessage=
-document.getElementById(
-"orderMessage"
-);
+        name:
+            name,
 
-const placeButton=
-document.getElementById(
-"placeOrderButton"
-);
+        email:
+            email,
 
+        mobile:
+            mobile,
 
-placeButton.disabled=true;
+        address:
+            address,
 
-placeButton.textContent="Placing Order...";
+        pincode:
+            pincode,
 
-orderMessage.style.color="#d41483";
+        items:
+            [...cart],
 
-orderMessage.textContent=
-"Processing your order...";
+        subtotal:
+            Number(
+                subtotal.toFixed(2)
+            ),
 
+        gst:
+            Number(
+                gst.toFixed(2)
+            ),
 
-/* SEND TO BACKEND */
+        gstRate:
+            18,
 
-try{
+        total:
+            Number(
+                grandTotal.toFixed(2)
+            ),
 
-const response=
-await fetch(
-API_BASE+"/api/orders",
-{
-method:"POST",
+        paymentMethod:
+            paymentMethod,
 
-headers:{
-"Content-Type":"application/json"
-},
+        paymentDetails:
+            paymentDetails,
 
-body:JSON.stringify(order)
+        status:
+            "Order Placed"
 
-}
-);
+    };
 
 
-const data=
-await response.json();
+    const orderMessage =
+        document.getElementById(
+            "orderMessage"
+        );
 
 
-console.log(
-"GlowCart order response:",
-data
-);
+    const placeButton =
+        document.getElementById(
+            "placeOrderButton"
+        );
 
 
-if(!response.ok || !data.success){
+    placeButton.disabled=true;
 
-orderMessage.style.color="red";
+    placeButton.textContent =
+        "Placing Order...";
 
-orderMessage.textContent=
-data.message ||
-"Unable to place order.";
 
-placeButton.disabled=false;
+    orderMessage.style.color =
+        "#d41483";
 
-placeButton.textContent="Place Order";
 
-return;
+    orderMessage.textContent =
+        "Processing your order...";
 
-}
 
+    try{
 
-/* SAVE ORDER */
+        /* -------------------------------------------
+           SAVE ORDER TO RENDER
+        ------------------------------------------- */
 
-orders.unshift(order);
+        const response =
+            await fetch(
+                API_BASE +
+                "/api/orders",
+                {
 
-localStorage.setItem(
-"glowcart_orders",
-JSON.stringify(orders)
-);
+                    method:"POST",
 
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-cart=[];
+                    body:
+                        JSON.stringify(order)
 
-saveCart();
+                }
+            );
 
-updateCount();
 
+        const data =
+            await response.json();
 
-orderMessage.style.color="green";
 
+        console.log(
+            "GlowCart order response:",
+            data
+        );
 
-orderMessage.innerHTML=
-"🎉 Order placed successfully!<br>"+
-"Confirmation email sent to <b>"+
-email+
-"</b><br><br>"+
-"📦 Order ID: <b>"+
-order.id+
-"</b><br>"+
-"💳 Payment: <b>"+
-paymentMethod+
-"</b><br>"+
-"💰 Total: <b>₹"+
-grandTotal.toFixed(2)+
-"</b>";
 
+        if(
+            !response.ok ||
+            !data.success
+        ){
 
-placeButton.disabled=false;
+            orderMessage.style.color =
+                "red";
 
-placeButton.textContent="Place Order";
+            orderMessage.textContent =
+                data.message ||
+                "Unable to place order.";
 
+            placeButton.disabled=false;
 
-setTimeout(function(){
+            placeButton.textContent =
+                "Place Order";
 
-showOrders();
+            return;
 
-},2200);
+        }
 
 
-}catch(error){
+        /* -------------------------------------------
+           SAVE ORDER LOCALLY
+        ------------------------------------------- */
 
-console.error(
-"Order connection error:",
-error
-);
+        orders.unshift(order);
 
 
-orderMessage.style.color="red";
+        localStorage.setItem(
+            "glowcart_orders",
+            JSON.stringify(orders)
+        );
 
-orderMessage.textContent=
-"Unable to connect to GlowCart server.";
 
+        /* -------------------------------------------
+           SEND ORDER EMAIL USING EMAILJS
+        ------------------------------------------- */
 
-placeButton.disabled=false;
+        orderMessage.style.color =
+            "#d41483";
 
-placeButton.textContent="Place Order";
 
-}
+        orderMessage.textContent =
+            "Order saved. Sending confirmation email...";
+
+
+        const emailResult =
+            await sendOrderConfirmationEmail(
+                order
+            );
+
+
+        /* -------------------------------------------
+           CLEAR CART
+        ------------------------------------------- */
+
+        cart=[];
+
+        saveCart();
+
+        updateCount();
+
+
+        /* -------------------------------------------
+           RESULT
+        ------------------------------------------- */
+
+        if(
+            emailResult.success
+        ){
+
+            orderMessage.style.color =
+                "green";
+
+
+            orderMessage.innerHTML =
+                "🎉 Order placed successfully!<br>" +
+                "Confirmation email sent to <b>" +
+                email +
+                "</b><br><br>" +
+                "📦 Order ID: <b>" +
+                order.id +
+                "</b><br>" +
+                "💳 Payment: <b>" +
+                paymentMethod +
+                "</b><br>" +
+                "💰 Total: <b>₹" +
+                grandTotal.toFixed(2) +
+                "</b>";
+
+        }else{
+
+            console.error(
+                "Order email failed:",
+                emailResult.message
+            );
+
+
+            orderMessage.style.color =
+                "#d41483";
+
+
+            orderMessage.innerHTML =
+                "🎉 Order placed successfully!<br>" +
+                "Order saved, but confirmation email could not be sent.<br><br>" +
+                "📦 Order ID: <b>" +
+                order.id +
+                "</b><br>" +
+                "💳 Payment: <b>" +
+                paymentMethod +
+                "</b><br>" +
+                "💰 Total: <b>₹" +
+                grandTotal.toFixed(2) +
+                "</b>";
+
+        }
+
+
+        placeButton.disabled=false;
+
+        placeButton.textContent =
+            "Place Order";
+
+
+        setTimeout(function(){
+
+            showOrders();
+
+        },3000);
+
+
+    }catch(error){
+
+        console.error(
+            "Order connection error:",
+            error
+        );
+
+
+        orderMessage.style.color =
+            "red";
+
+
+        orderMessage.textContent =
+            "Unable to connect to GlowCart server.";
+
+
+        placeButton.disabled=false;
+
+        placeButton.textContent =
+            "Place Order";
+
+    }
 
 }
 
@@ -2735,176 +2372,243 @@ placeButton.textContent="Place Order";
 
 function showOrders(){
 
-hidePanels();
+    hidePanels();
 
-document.getElementById(
-"ordersPanel"
-).style.display="block";
 
-document.getElementById(
-"products"
-).style.display="none";
+    document.getElementById(
+        "ordersPanel"
+    ).style.display =
+        "block";
 
-renderOrders();
+
+    document.getElementById(
+        "products"
+    ).style.display =
+        "none";
+
+
+    renderOrders();
 
 }
 
 
 function renderOrders(){
 
-const box=
-document.getElementById("orders");
+    const box =
+        document.getElementById(
+            "orders"
+        );
 
 
-if(!orders.length){
+    if(!orders.length){
 
-box.innerHTML=`
+        box.innerHTML = `
 
-<div class="empty">
+            <div class="empty">
 
-<div style="font-size:50px">📦</div>
+                <div style="font-size:50px">
+                    📦
+                </div>
 
-<h3>No orders yet</h3>
+                <h3>
+                    No orders yet
+                </h3>
 
-</div>
+            </div>
 
-`;
+        `;
 
-return;
+        return;
 
-}
-
-
-const myOrders=
-currentUser
-?orders.filter(
-o=>o.email===currentUser.email
-)
-:[];
+    }
 
 
-if(!myOrders.length){
-
-box.innerHTML=
-'<div class="empty">No orders yet.</div>';
-
-return;
-
-}
-
-
-box.innerHTML=myOrders.map(o=>`
-
-<div class="order">
-
-<div style="
-display:flex;
-justify-content:space-between;
-gap:15px;
-flex-wrap:wrap
-">
-
-<div>
-
-<strong>
-Order #${o.id}
-</strong>
-
-<p style="color:#777;margin-top:6px">
-${o.date}
-</p>
-
-</div>
-
-<strong style="color:#d41483;font-size:20px">
-₹${Number(o.total || 0).toFixed(2)}
-</strong>
-
-</div>
+    const myOrders =
+        currentUser
+            ? orders.filter(
+                o =>
+                    o.email ===
+                    currentUser.email
+            )
+            : [];
 
 
-<div style="margin-top:15px">
+    if(!myOrders.length){
 
-${o.items.map(
-item=>`
-<div style="padding:5px 0;color:#555">
-${item.name} × ${item.qty}
-</div>
-`
-).join("")}
+        box.innerHTML =
+            '<div class="empty">No orders yet.</div>';
 
-</div>
+        return;
+
+    }
 
 
-<div
-style="
-margin-top:15px;
-padding:15px;
-background:#fff7fc;
-border-radius:10px;
-"
->
+    box.innerHTML =
+        myOrders.map(
+            o => `
 
-<div class="billRow">
+                <div class="order">
 
-<span>Subtotal</span>
+                    <div
+                        style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:15px;
+                        flex-wrap:wrap
+                        "
+                    >
 
-<strong>
-₹${Number(o.subtotal || 0).toFixed(2)}
-</strong>
+                        <div>
 
-</div>
+                            <strong>
+                                Order #${o.id}
+                            </strong>
 
+                            <p
+                                style="
+                                color:#777;
+                                margin-top:6px
+                                "
+                            >
+                                ${o.date}
+                            </p>
 
-<div class="billRow">
+                        </div>
 
-<span>GST (${o.gstRate || 18}%)</span>
+                        <strong
+                            style="
+                            color:#d41483;
+                            font-size:20px
+                            "
+                        >
+                            ₹${Number(
+                                o.total || 0
+                            ).toFixed(2)}
+                        </strong>
 
-<strong>
-₹${Number(o.gst || 0).toFixed(2)}
-</strong>
-
-</div>
-
-
-<div class="billRow">
-
-<span>Payment</span>
-
-<strong>
-${o.paymentMethod || "Not specified"}
-</strong>
-
-</div>
-
-
-<div class="billRow totalRow">
-
-<span>Total</span>
-
-<strong>
-₹${Number(o.total || 0).toFixed(2)}
-</strong>
-
-</div>
-
-</div>
+                    </div>
 
 
-<div class="status">
-✓ ${o.status}
-</div>
+                    <div
+                        style="margin-top:15px"
+                    >
+
+                        ${o.items.map(
+                            item => `
+
+                                <div
+                                    style="
+                                    padding:5px 0;
+                                    color:#555
+                                    "
+                                >
+                                    ${item.name}
+                                    ×
+                                    ${item.qty}
+                                </div>
+
+                            `
+                        ).join("")}
+
+                    </div>
 
 
-<p style="margin-top:12px;color:#666">
-📍 ${o.address}<br>
-Pincode: ${o.pincode}
-</p>
+                    <div
+                        style="
+                        margin-top:15px;
+                        padding:15px;
+                        background:#fff7fc;
+                        border-radius:10px;
+                        "
+                    >
+
+                        <div class="billRow">
+
+                            <span>
+                                Subtotal
+                            </span>
+
+                            <strong>
+                                ₹${Number(
+                                    o.subtotal || 0
+                                ).toFixed(2)}
+                            </strong>
+
+                        </div>
 
 
-</div>
+                        <div class="billRow">
 
-`).join("");
+                            <span>
+                                GST (${o.gstRate || 18}%)
+                            </span>
+
+                            <strong>
+                                ₹${Number(
+                                    o.gst || 0
+                                ).toFixed(2)}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="billRow">
+
+                            <span>
+                                Payment
+                            </span>
+
+                            <strong>
+                                ${
+                                    o.paymentMethod ||
+                                    "Not specified"
+                                }
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="billRow totalRow"
+                        >
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong>
+                                ₹${Number(
+                                    o.total || 0
+                                ).toFixed(2)}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status">
+                        ✓ ${o.status}
+                    </div>
+
+
+                    <p
+                        style="
+                        margin-top:12px;
+                        color:#666
+                        "
+                    >
+                        📍 ${o.address}
+                        <br>
+                        Pincode:
+                        ${o.pincode}
+                    </p>
+
+
+                </div>
+
+            `
+        ).join("");
 
 }
 
@@ -2915,17 +2619,22 @@ Pincode: ${o.pincode}
 
 function hidePanels(){
 
-document.getElementById(
-"cartPanel"
-).style.display="none";
+    document.getElementById(
+        "cartPanel"
+    ).style.display =
+        "none";
 
-document.getElementById(
-"checkoutPanel"
-).style.display="none";
 
-document.getElementById(
-"ordersPanel"
-).style.display="none";
+    document.getElementById(
+        "checkoutPanel"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "ordersPanel"
+    ).style.display =
+        "none";
 
 }
 
@@ -2936,13 +2645,15 @@ document.getElementById(
 
 function logout(){
 
-currentUser=null;
+    currentUser=null;
 
-localStorage.removeItem(
-"glowcart_user"
-);
 
-home();
+    localStorage.removeItem(
+        "glowcart_user"
+    );
+
+
+    home();
 
 }
 
@@ -2955,7 +2666,11 @@ updateCount();
 
 home();
 
-</script>
 
-</body>
-</html>
+/* =====================================================
+   LOAD EMAILJS
+===================================================== */
+
+loadEmailJSConfig();
+
+</script>
