@@ -6,9 +6,9 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// ===============================
+// =====================================================
 // MIDDLEWARE
-// ===============================
+// =====================================================
 
 app.use(cors({
     origin: "*",
@@ -18,179 +18,196 @@ app.use(cors({
 
 app.use(express.json());
 
-// ===============================
+// =====================================================
 // FILE PATHS
-// ===============================
+// =====================================================
 
 const productsFile = path.join(__dirname, "products.json");
 const ordersFile = path.join(__dirname, "place.json");
 const usersFile = path.join(__dirname, "users.json");
 
-// Create files if they don't exist
+// =====================================================
+// CREATE FILES IF MISSING
+// =====================================================
+
 function createFileIfMissing(file, defaultData) {
+
     if (!fs.existsSync(file)) {
-        fs.writeFileSync(file, JSON.stringify(defaultData, null, 2));
+
+        fs.writeFileSync(
+            file,
+            JSON.stringify(defaultData, null, 2)
+        );
+
     }
+
 }
 
 createFileIfMissing(productsFile, []);
 createFileIfMissing(ordersFile, []);
 createFileIfMissing(usersFile, []);
 
-// ===============================
+// =====================================================
 // FILE HELPERS
-// ===============================
+// =====================================================
 
 function readJson(file) {
+
     try {
-        const data = fs.readFileSync(file, "utf8");
+
+        const data =
+            fs.readFileSync(file, "utf8");
 
         if (!data.trim()) {
             return [];
         }
 
         return JSON.parse(data);
-    } catch (error) {
-        console.error("Error reading file:", file, error);
-        return [];
-    }
-}
-
-function writeJson(file, data) {
-    fs.writeFileSync(file, JSON.stringify(data, null, 2));
-}
-
-// ===============================
-// RESEND EMAIL FUNCTION
-// ===============================
-
-async function sendEmail(to, subject, html) {
-
-    try {
-
-        if (!process.env.RESEND_API_KEY) {
-
-            console.log("RESEND_API_KEY is not configured.");
-
-            return {
-                success: false,
-                message: "Email service is not configured."
-            };
-        }
-
-        const fromEmail =
-            process.env.EMAIL_FROM || "onboarding@resend.dev";
-
-        console.log("--------------------------------");
-        console.log("Trying to send email...");
-        console.log("To:", to);
-        console.log("From:", fromEmail);
-
-        const response = await fetch(
-            "https://api.resend.com/emails",
-            {
-                method: "POST",
-
-                headers: {
-                    "Authorization":
-                        `Bearer ${process.env.RESEND_API_KEY}`,
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    from: `GlowCart <${fromEmail}>`,
-                    to: [to],
-                    subject: subject,
-                    html: html
-                })
-            }
-        );
-
-        const data = await response.json();
-
-        console.log("Resend HTTP status:", response.status);
-        console.log("Resend response:", data);
-
-        if (!response.ok) {
-
-            console.error(
-                "RESEND EMAIL FAILED:",
-                data
-            );
-
-            return {
-                success: false,
-                data: data
-            };
-        }
-
-        console.log(
-            "EMAIL SENT SUCCESSFULLY:",
-            to
-        );
-
-        return {
-            success: true,
-            data: data
-        };
 
     } catch (error) {
 
         console.error(
-            "Email sending error:",
+            "Error reading file:",
+            file,
             error
         );
 
-        return {
-            success: false,
-            error: error.message
-        };
+        return [];
+
     }
+
 }
 
-// ===============================
-// HOME
-// ===============================
+function writeJson(file, data) {
 
-app.get("/", (req, res) => {
+    fs.writeFileSync(
+        file,
+        JSON.stringify(data, null, 2)
+    );
 
-    res.json({
+}
+
+// =====================================================
+// EMAILJS CONFIGURATION
+// =====================================================
+// These values come from Render Environment Variables.
+//
+// EMAILJS_SERVICE_ID
+// EMAILJS_PUBLIC_KEY
+// EMAILJS_WELCOME_TEMPLATE_ID
+// EMAILJS_ORDER_TEMPLATE_ID
+//
+// They are sent to index.html through this endpoint.
+// No EmailJS private key is exposed.
+// =====================================================
+
+app.get("/api/emailjs-config", (req, res) => {
+
+    const serviceId =
+        process.env.EMAILJS_SERVICE_ID || "";
+
+    const publicKey =
+        process.env.EMAILJS_PUBLIC_KEY || "";
+
+    const welcomeTemplateId =
+        process.env.EMAILJS_WELCOME_TEMPLATE_ID || "";
+
+    const orderTemplateId =
+        process.env.EMAILJS_ORDER_TEMPLATE_ID || "";
+
+    if (
+        !serviceId ||
+        !publicKey ||
+        !welcomeTemplateId ||
+        !orderTemplateId
+    ) {
+
+        return res.status(500).json({
+
+            success: false,
+
+            message:
+                "EmailJS environment variables are not configured in Render."
+
+        });
+
+    }
+
+    return res.json({
+
         success: true,
-        message: "GlowCart backend is running!",
-        status: "online"
+
+        serviceId: serviceId,
+
+        publicKey: publicKey,
+
+        welcomeTemplateId:
+            welcomeTemplateId,
+
+        orderTemplateId:
+            orderTemplateId
+
     });
 
 });
 
-// ===============================
+// =====================================================
+// HOME
+// =====================================================
+
+app.get("/", (req, res) => {
+
+    res.json({
+
+        success: true,
+
+        message:
+            "GlowCart backend is running!",
+
+        status: "online"
+
+    });
+
+});
+
+// =====================================================
 // PRODUCTS
-// ===============================
+// =====================================================
 
 app.get("/api/products", (req, res) => {
 
-    const products = readJson(productsFile);
+    const products =
+        readJson(productsFile);
 
     res.json(products);
 
 });
 
-// ===============================
+// =====================================================
 // SINGLE PRODUCT
-// ===============================
+// =====================================================
 
 app.get("/api/products/:id", (req, res) => {
 
-    const products = readJson(productsFile);
+    const products =
+        readJson(productsFile);
 
-    const product = products.find(
-        p => String(p.id) === String(req.params.id)
-    );
+    const product =
+        products.find(
+            p =>
+                String(p.id) ===
+                String(req.params.id)
+        );
 
     if (!product) {
 
         return res.status(404).json({
+
             success: false,
-            message: "Product not found"
+
+            message:
+                "Product not found"
+
         });
 
     }
@@ -199,11 +216,11 @@ app.get("/api/products/:id", (req, res) => {
 
 });
 
-// ===============================
+// =====================================================
 // REGISTER
-// ===============================
+// =====================================================
 
-app.post("/api/register", async (req, res) => {
+app.post("/api/register", (req, res) => {
 
     try {
 
@@ -218,9 +235,9 @@ app.post("/api/register", async (req, res) => {
             pincode2
         } = req.body;
 
-        // -------------------------------
+        // ---------------------------------------------
         // VALIDATION
-        // -------------------------------
+        // ---------------------------------------------
 
         if (
             !name ||
@@ -232,66 +249,95 @@ app.post("/api/register", async (req, res) => {
         ) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Please fill all required fields."
+
+                message:
+                    "Please fill all required fields."
+
             });
 
         }
 
-        // -------------------------------
+        // ---------------------------------------------
         // READ USERS
-        // -------------------------------
+        // ---------------------------------------------
 
-        const users = readJson(usersFile);
+        const users =
+            readJson(usersFile);
 
-        // -------------------------------
+        // ---------------------------------------------
         // CHECK EXISTING EMAIL
-        // -------------------------------
+        // ---------------------------------------------
 
-        const existingUser = users.find(
-            user =>
-                user.email.toLowerCase() ===
-                email.toLowerCase()
-        );
+        const existingUser =
+            users.find(
+                user =>
+                    user.email.toLowerCase() ===
+                    email.toLowerCase()
+            );
 
         if (existingUser) {
 
             return res.status(409).json({
+
                 success: false,
-                message: "Email is already registered."
+
+                message:
+                    "Email is already registered."
+
             });
 
         }
 
-        // -------------------------------
+        // ---------------------------------------------
         // CREATE USER
-        // -------------------------------
+        // ---------------------------------------------
 
         const newUser = {
 
-            id: "USER" + Date.now(),
+            id:
+                "USER" + Date.now(),
 
-            name: name,
-            email: email,
-            mobile: mobile,
-            password: password,
+            name:
+                name,
 
-            address: address,
-            pincode: pincode,
+            email:
+                email.toLowerCase(),
 
-            address2: address2 || "",
-            pincode2: pincode2 || "",
+            mobile:
+                mobile,
 
-            registeredAt: new Date().toISOString()
+            password:
+                password,
+
+            address:
+                address,
+
+            pincode:
+                pincode,
+
+            address2:
+                address2 || "",
+
+            pincode2:
+                pincode2 || "",
+
+            registeredAt:
+                new Date().toISOString()
+
         };
 
-        // -------------------------------
-        // SAVE USER FIRST
-        // -------------------------------
+        // ---------------------------------------------
+        // SAVE USER
+        // ---------------------------------------------
 
         users.push(newUser);
 
-        writeJson(usersFile, users);
+        writeJson(
+            usersFile,
+            users
+        );
 
         console.log("--------------------------------");
         console.log("NEW USER REGISTERED");
@@ -300,109 +346,12 @@ app.post("/api/register", async (req, res) => {
         console.log("Mobile:", mobile);
         console.log("--------------------------------");
 
-        // ==================================================
-        // SEND REGISTRATION EMAIL
-        // ==================================================
-
-        const registrationEmail = await sendEmail(
-
-            email,
-
-            "Welcome to GlowCart - Registration Successful",
-
-            `
-            <div style="
-                font-family:Arial,sans-serif;
-                max-width:600px;
-                margin:auto;
-                padding:30px;
-                border-radius:15px;
-                background:#fff0f7;
-                border:1px solid #f3b5d2;
-            ">
-
-                <h1 style="
-                    color:#d63384;
-                    text-align:center;
-                ">
-                    ✨ Welcome to GlowCart ✨
-                </h1>
-
-                <p>
-                    Hello <strong>${name}</strong>,
-                </p>
-
-                <p>
-                    Your GlowCart account has been
-                    registered successfully.
-                </p>
-
-                <div style="
-                    background:white;
-                    padding:20px;
-                    border-radius:10px;
-                ">
-
-                    <p>
-                        <strong>Name:</strong> ${name}
-                    </p>
-
-                    <p>
-                        <strong>Email:</strong> ${email}
-                    </p>
-
-                    <p>
-                        <strong>Mobile:</strong> ${mobile}
-                    </p>
-
-                </div>
-
-                <p style="margin-top:20px;">
-                    You can now login to GlowCart
-                    and start shopping.
-                </p>
-
-                <p style="
-                    text-align:center;
-                    color:#d63384;
-                    font-weight:bold;
-                ">
-                    Thank you for choosing GlowCart 💖
-                </p>
-
-            </div>
-            `
-        );
-
-        // ==================================================
-        // IMPORTANT:
-        // EMAIL FAILURE MUST NOT CANCEL REGISTRATION
-        // ==================================================
-
-        if (!registrationEmail.success) {
-
-            console.log(
-                "REGISTRATION EMAIL FAILED, BUT USER REGISTRATION SUCCESSFUL."
-            );
-
-            console.log(
-                "Reason:",
-                registrationEmail.data ||
-                registrationEmail.error ||
-                registrationEmail.message
-            );
-
-        } else {
-
-            console.log(
-                "REGISTRATION EMAIL SENT SUCCESSFULLY."
-            );
-
-        }
-
-        // ==================================================
-        // ALWAYS RETURN SUCCESS AFTER USER IS SAVED
-        // ==================================================
+        // ---------------------------------------------
+        // RETURN SUCCESS
+        // ---------------------------------------------
+        // EmailJS is now handled by index.html.
+        // The backend only creates the account.
+        // ---------------------------------------------
 
         return res.status(201).json({
 
@@ -411,19 +360,31 @@ app.post("/api/register", async (req, res) => {
             message:
                 "Registration successful! Your GlowCart account has been created.",
 
-            emailSent:
-                registrationEmail.success,
-
             user: {
 
-                id: newUser.id,
-                name: newUser.name,
-                email: newUser.email,
-                mobile: newUser.mobile,
-                address: newUser.address,
-                pincode: newUser.pincode,
-                address2: newUser.address2,
-                pincode2: newUser.pincode2
+                id:
+                    newUser.id,
+
+                name:
+                    newUser.name,
+
+                email:
+                    newUser.email,
+
+                mobile:
+                    newUser.mobile,
+
+                address:
+                    newUser.address,
+
+                pincode:
+                    newUser.pincode,
+
+                address2:
+                    newUser.address2,
+
+                pincode2:
+                    newUser.pincode2
 
             }
 
@@ -449,9 +410,9 @@ app.post("/api/register", async (req, res) => {
 
 });
 
-// ===============================
+// =====================================================
 // LOGIN
-// ===============================
+// =====================================================
 
 app.post("/api/login", (req, res) => {
 
@@ -475,16 +436,18 @@ app.post("/api/login", (req, res) => {
 
         }
 
-        const users = readJson(usersFile);
+        const users =
+            readJson(usersFile);
 
-        const user = users.find(
+        const user =
+            users.find(
 
-            u =>
-                u.email.toLowerCase() ===
-                    email.toLowerCase() &&
-                u.password === password
+                u =>
+                    u.email.toLowerCase() ===
+                        email.toLowerCase() &&
+                    u.password === password
 
-        );
+            );
 
         if (!user) {
 
@@ -508,14 +471,29 @@ app.post("/api/login", (req, res) => {
 
             user: {
 
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                mobile: user.mobile,
-                address: user.address,
-                pincode: user.pincode,
-                address2: user.address2,
-                pincode2: user.pincode2
+                id:
+                    user.id,
+
+                name:
+                    user.name,
+
+                email:
+                    user.email,
+
+                mobile:
+                    user.mobile,
+
+                address:
+                    user.address,
+
+                pincode:
+                    user.pincode,
+
+                address2:
+                    user.address2,
+
+                pincode2:
+                    user.pincode2
 
             }
 
@@ -541,19 +519,25 @@ app.post("/api/login", (req, res) => {
 
 });
 
-// ===============================
+// =====================================================
 // PLACE ORDER
-// ===============================
+// =====================================================
 
-app.post("/api/orders", async (req, res) => {
+app.post("/api/orders", (req, res) => {
 
     try {
 
-        const order = req.body;
+        const order =
+            req.body;
 
         console.log("--------------------------------");
-        console.log("New order:", order);
+        console.log("NEW ORDER");
+        console.log(order);
         console.log("--------------------------------");
+
+        // ---------------------------------------------
+        // VALIDATION
+        // ---------------------------------------------
 
         if (
             !order ||
@@ -573,9 +557,9 @@ app.post("/api/orders", async (req, res) => {
 
         }
 
-        // -------------------------------
-        // ENSURE ORDER ID
-        // -------------------------------
+        // ---------------------------------------------
+        // ORDER ID
+        // ---------------------------------------------
 
         if (!order.id) {
 
@@ -598,39 +582,58 @@ app.post("/api/orders", async (req, res) => {
 
         }
 
-        // -------------------------------
-        // CALCULATE TOTALS IF NEEDED
-        // -------------------------------
+        // ---------------------------------------------
+        // SUBTOTAL
+        // ---------------------------------------------
 
-        let subtotal = Number(
-            order.subtotal || 0
-        );
+        let subtotal =
+            Number(order.subtotal || 0);
 
         if (!subtotal) {
 
-            subtotal = order.items.reduce(
+            subtotal =
+                order.items.reduce(
 
-                (sum, item) => {
+                    (sum, item) => {
 
-                    const price =
-                        Number(item.price) || 0;
+                        const price =
+                            Number(item.price) || 0;
 
-                    const quantity =
-                        Number(item.quantity) || 1;
+                        const quantity =
+                            Number(
+                                item.qty ||
+                                item.quantity ||
+                                1
+                            );
 
-                    return sum +
-                        (price * quantity);
+                        return sum +
+                            (price * quantity);
 
-                },
+                    },
 
-                0
+                    0
 
-            );
+                );
 
         }
 
-        const gst =
+        // ---------------------------------------------
+        // GST
+        // ---------------------------------------------
+
+        let gst =
             Number(order.gst || 0);
+
+        if (!gst) {
+
+            gst =
+                subtotal * 0.18;
+
+        }
+
+        // ---------------------------------------------
+        // TOTAL
+        // ---------------------------------------------
 
         const total =
             Number(
@@ -638,33 +641,47 @@ app.post("/api/orders", async (req, res) => {
                 (subtotal + gst)
             );
 
-        // -------------------------------
+        // ---------------------------------------------
         // SAVE ORDER
-        // -------------------------------
+        // ---------------------------------------------
 
         const orders =
             readJson(ordersFile);
 
-        orders.push({
+        const savedOrder = {
 
             ...order,
 
             subtotal:
-                Number(subtotal.toFixed(2)),
+                Number(
+                    subtotal.toFixed(2)
+                ),
 
             gst:
-                Number(gst.toFixed(2)),
+                Number(
+                    gst.toFixed(2)
+                ),
 
             total:
-                Number(total.toFixed(2)),
+                Number(
+                    total.toFixed(2)
+                ),
+
+            gstRate:
+                Number(
+                    order.gstRate || 18
+                ),
 
             status:
-                order.status || "Order Placed",
+                order.status ||
+                "Order Placed",
 
             createdAt:
                 new Date().toISOString()
 
-        });
+        };
+
+        orders.push(savedOrder);
 
         writeJson(
             ordersFile,
@@ -673,276 +690,15 @@ app.post("/api/orders", async (req, res) => {
 
         console.log(
             "ORDER SAVED:",
-            order.orderId
+            savedOrder.orderId
         );
 
-        // ==================================================
-        // PAYMENT METHOD
-        // ==================================================
-
-        const paymentMethod =
-            order.paymentMethod ||
-            "Not specified";
-
-        // ==================================================
-        // ORDER ITEMS HTML
-        // ==================================================
-
-        let itemsHtml = "";
-
-        order.items.forEach(item => {
-
-            const quantity =
-                Number(item.quantity) || 1;
-
-            const price =
-                Number(item.price) || 0;
-
-            const itemTotal =
-                price * quantity;
-
-            itemsHtml += `
-
-                <tr>
-
-                    <td style="
-                        padding:10px;
-                        border-bottom:1px solid #eee;
-                    ">
-                        ${item.name || "Product"}
-                    </td>
-
-                    <td style="
-                        padding:10px;
-                        border-bottom:1px solid #eee;
-                        text-align:center;
-                    ">
-                        ${quantity}
-                    </td>
-
-                    <td style="
-                        padding:10px;
-                        border-bottom:1px solid #eee;
-                        text-align:right;
-                    ">
-                        ₹${itemTotal.toFixed(2)}
-                    </td>
-
-                </tr>
-
-            `;
-
-        });
-
-        // ==================================================
-        // ORDER EMAIL
-        // ==================================================
-
-        const orderEmail = await sendEmail(
-
-            order.email,
-
-            `GlowCart Order Confirmed - ${order.orderId}`,
-
-            `
-
-            <div style="
-                font-family:Arial,sans-serif;
-                max-width:700px;
-                margin:auto;
-                padding:25px;
-                background:#fff7fb;
-                border-radius:15px;
-            ">
-
-                <h1 style="
-                    color:#d63384;
-                    text-align:center;
-                ">
-                    🛍️ GlowCart
-                </h1>
-
-                <h2 style="
-                    color:#333;
-                ">
-                    Order Confirmed! 🎉
-                </h2>
-
-                <p>
-                    Hello
-                    <strong>
-                        ${order.name || "Customer"}
-                    </strong>,
-                </p>
-
-                <p>
-                    Your order has been successfully
-                    placed.
-                </p>
-
-                <div style="
-                    background:white;
-                    padding:15px;
-                    border-radius:10px;
-                    margin:15px 0;
-                ">
-
-                    <p>
-                        <strong>Order ID:</strong>
-                        ${order.orderId}
-                    </p>
-
-                    <p>
-                        <strong>Date:</strong>
-                        ${order.date}
-                    </p>
-
-                    <p>
-                        <strong>Payment:</strong>
-                        ${paymentMethod}
-                    </p>
-
-                </div>
-
-                <h3>
-                    Order Items
-                </h3>
-
-                <table style="
-                    width:100%;
-                    border-collapse:collapse;
-                    background:white;
-                ">
-
-                    <thead>
-
-                        <tr>
-
-                            <th style="
-                                padding:10px;
-                                text-align:left;
-                            ">
-                                Product
-                            </th>
-
-                            <th style="
-                                padding:10px;
-                                text-align:center;
-                            ">
-                                Qty
-                            </th>
-
-                            <th style="
-                                padding:10px;
-                                text-align:right;
-                            ">
-                                Amount
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        ${itemsHtml}
-
-                    </tbody>
-
-                </table>
-
-                <div style="
-                    background:white;
-                    padding:20px;
-                    margin-top:20px;
-                    border-radius:10px;
-                ">
-
-                    <p style="
-                        display:flex;
-                        justify-content:space-between;
-                    ">
-                        <strong>Subtotal:</strong>
-                        ₹${subtotal.toFixed(2)}
-                    </p>
-
-                    <p style="
-                        display:flex;
-                        justify-content:space-between;
-                    ">
-                        <strong>GST (18%):</strong>
-                        ₹${gst.toFixed(2)}
-                    </p>
-
-                    <hr>
-
-                    <h2 style="
-                        color:#d63384;
-                    ">
-                        Total: ₹${total.toFixed(2)}
-                    </h2>
-
-                </div>
-
-                <div style="
-                    background:#fff0f7;
-                    padding:15px;
-                    border-radius:10px;
-                    margin-top:20px;
-                ">
-
-                    <p>
-                        <strong>Delivery Address:</strong>
-                    </p>
-
-                    <p>
-                        ${order.address || ""}
-                    </p>
-
-                    <p>
-                        Pincode:
-                        ${order.pincode || ""}
-                    </p>
-
-                </div>
-
-                <p style="
-                    text-align:center;
-                    margin-top:25px;
-                    color:#d63384;
-                    font-weight:bold;
-                ">
-                    Thank you for shopping with GlowCart 💖
-                </p>
-
-            </div>
-
-            `
-
-        );
-
-        // ==================================================
-        // ORDER EMAIL FAILURE DOES NOT CANCEL ORDER
-        // ==================================================
-
-        if (!orderEmail.success) {
-
-            console.log(
-                "ORDER EMAIL FAILED, BUT ORDER WAS SAVED SUCCESSFULLY."
-            );
-
-        } else {
-
-            console.log(
-                "ORDER EMAIL SENT SUCCESSFULLY:",
-                order.email
-            );
-
-        }
-
-        // ==================================================
-        // ALWAYS RETURN ORDER SUCCESS
-        // ==================================================
+        // ---------------------------------------------
+        // RETURN ORDER
+        // ---------------------------------------------
+        // EmailJS sends the email from index.html
+        // after this successful response.
+        // ---------------------------------------------
 
         return res.status(201).json({
 
@@ -951,23 +707,8 @@ app.post("/api/orders", async (req, res) => {
             message:
                 "Order placed successfully!",
 
-            emailSent:
-                orderEmail.success,
-
-            order: {
-
-                ...order,
-
-                subtotal:
-                    Number(subtotal.toFixed(2)),
-
-                gst:
-                    Number(gst.toFixed(2)),
-
-                total:
-                    Number(total.toFixed(2))
-
-            }
+            order:
+                savedOrder
 
         });
 
@@ -991,9 +732,9 @@ app.post("/api/orders", async (req, res) => {
 
 });
 
-// ===============================
+// =====================================================
 // START SERVER
-// ===============================
+// =====================================================
 
 app.listen(PORT, () => {
 
@@ -1002,7 +743,7 @@ app.listen(PORT, () => {
     );
 
     console.log(
-        `API available at: http://localhost:${PORT}`
+        `API available on port ${PORT}`
     );
 
 });
