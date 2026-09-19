@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -481,8 +482,6 @@ footer button{
 
 <body>
 
-<!-- HEADER -->
-
 <header>
 
     <div class="logo">
@@ -491,17 +490,14 @@ footer button{
 
     <div class="nav-buttons">
 
-        <button onclick="showHome()">
-            Home
-        </button>
+        <button onclick="showHome()">Home</button>
 
-        <button onclick="showShopping()">
+        <button onclick="handleShopClick()">
             🛍️ Shop
         </button>
 
         <button onclick="showCart()">
-            🛒 Cart
-            (<span id="cartCount">0</span>)
+            🛒 Cart (<span id="cartCount">0</span>)
         </button>
 
         <button onclick="showOrders()">
@@ -534,12 +530,10 @@ footer button{
                 radiant and glowing skin.
             </p>
 
-            <!-- THIS BUTTON DISAPPEARS AFTER LOGIN/REGISTRATION -->
-
             <button
                 id="startShoppingBtn"
                 class="primary-btn"
-                onclick="startShopping()"
+                onclick="showRegister()"
             >
                 Start Shopping 💖
             </button>
@@ -548,42 +542,30 @@ footer button{
 
     </section>
 
-
     <section class="features">
 
         <div class="feature-card">
             <div style="font-size:45px;">🌸</div>
             <h3>Premium Care</h3>
-            <p>
-                Carefully selected face creams
-                for your daily skincare.
-            </p>
+            <p>Carefully selected face creams for your daily skincare.</p>
         </div>
 
         <div class="feature-card">
             <div style="font-size:45px;">💰</div>
             <h3>Affordable Prices</h3>
-            <p>
-                Quality skincare at pocket-friendly
-                prices.
-            </p>
+            <p>Quality skincare at pocket-friendly prices.</p>
         </div>
 
         <div class="feature-card">
             <div style="font-size:45px;">🚚</div>
             <h3>Easy Ordering</h3>
-            <p>
-                Simple and convenient online shopping.
-            </p>
+            <p>Simple and convenient online shopping.</p>
         </div>
 
         <div class="feature-card">
             <div style="font-size:45px;">💌</div>
             <h3>Email Updates</h3>
-            <p>
-                Get confirmation emails for your
-                registration and orders.
-            </p>
+            <p>Get confirmation emails for your registration and orders.</p>
         </div>
 
     </section>
@@ -597,103 +579,61 @@ footer button{
 
     <div class="form-card">
 
-        <h2>
-            🌸 Create Your GlowCart Account
-        </h2>
+        <h2>🌸 Create Your GlowCart Account</h2>
 
         <form id="registerForm">
 
             <div class="form-group">
                 <label>Full Name *</label>
-                <input
-                    type="text"
-                    id="regName"
-                    required
-                    placeholder="Enter your full name"
-                >
+                <input type="text" id="regName" required
+                       placeholder="Enter your full name">
             </div>
 
             <div class="form-group">
                 <label>Email *</label>
-                <input
-                    type="email"
-                    id="regEmail"
-                    required
-                    placeholder="Enter your email"
-                >
+                <input type="email" id="regEmail" required
+                       placeholder="Enter your email">
             </div>
 
             <div class="form-group">
                 <label>Mobile *</label>
-                <input
-                    type="tel"
-                    id="regMobile"
-                    required
-                    placeholder="Enter mobile number"
-                >
+                <input type="tel" id="regMobile" required
+                       placeholder="Enter mobile number">
             </div>
 
             <div class="form-group">
                 <label>Password *</label>
-                <input
-                    type="password"
-                    id="regPassword"
-                    required
-                    placeholder="Create password"
-                >
+                <input type="password" id="regPassword" required
+                       placeholder="Create password">
             </div>
 
             <div class="form-group">
                 <label>Primary Address *</label>
-                <input
-                    type="text"
-                    id="regAddress"
-                    required
-                    placeholder="Enter your address"
-                >
+                <input type="text" id="regAddress" required
+                       placeholder="Enter your address">
             </div>
 
             <div class="form-group">
                 <label>Pincode *</label>
-                <input
-                    type="text"
-                    id="regPincode"
-                    required
-                    placeholder="Enter pincode"
-                >
+                <input type="text" id="regPincode" required
+                       placeholder="Enter pincode">
             </div>
 
             <div class="form-group">
-                <label>
-                    Second Address
-                    <small>(Optional)</small>
-                </label>
-
-                <input
-                    type="text"
-                    id="regAddress2"
-                    placeholder="Optional second address"
-                >
+                <label>Second Address <small>(Optional)</small></label>
+                <input type="text" id="regAddress2"
+                       placeholder="Optional second address">
             </div>
 
             <div class="form-group">
-                <label>
-                    Second Pincode
-                    <small>(Optional)</small>
-                </label>
-
-                <input
-                    type="text"
-                    id="regPincode2"
-                    placeholder="Optional second pincode"
-                >
+                <label>Second Pincode <small>(Optional)</small></label>
+                <input type="text" id="regPincode2"
+                       placeholder="Optional second pincode">
             </div>
 
-            <button
-                type="submit"
-                class="primary-btn"
-                style="width:100%;"
-            >
+            <button type="submit"
+                    class="primary-btn"
+                    style="width:100%;">
                 Register 💖
             </button>
 
@@ -701,21 +641,11 @@ footer button{
 
         <p id="registerMessage" class="message"></p>
 
-        <p style="
-            text-align:center;
-            margin-top:20px;
-        ">
+        <p style="text-align:center;margin-top:20px;">
             Already registered?
 
-            <button
-                onclick="showLogin()"
-                style="
-                    border:none;
-                    background:none;
-                    color:#9333ea;
-                    font-weight:bold;
-                "
-            >
+            <button onclick="showLogin()"
+                    style="border:none;background:none;color:#9333ea;font-weight:bold;">
                 Login
             </button>
         </p>
@@ -731,43 +661,25 @@ footer button{
 
     <div class="form-card">
 
-        <h2>
-            💖 Welcome Back
-        </h2>
+        <h2>💖 Welcome Back</h2>
 
         <form id="loginForm">
 
             <div class="form-group">
-
                 <label>Email</label>
-
-                <input
-                    type="email"
-                    id="loginEmail"
-                    required
-                    placeholder="Enter email"
-                >
-
+                <input type="email" id="loginEmail" required
+                       placeholder="Enter email">
             </div>
 
             <div class="form-group">
-
                 <label>Password</label>
-
-                <input
-                    type="password"
-                    id="loginPassword"
-                    required
-                    placeholder="Enter password"
-                >
-
+                <input type="password" id="loginPassword" required
+                       placeholder="Enter password">
             </div>
 
-            <button
-                type="submit"
-                class="primary-btn"
-                style="width:100%;"
-            >
+            <button type="submit"
+                    class="primary-btn"
+                    style="width:100%;">
                 Login
             </button>
 
@@ -775,21 +687,11 @@ footer button{
 
         <p id="loginMessage" class="message"></p>
 
-        <p style="
-            text-align:center;
-            margin-top:20px;
-        ">
+        <p style="text-align:center;margin-top:20px;">
             New to GlowCart?
 
-            <button
-                onclick="showRegister()"
-                style="
-                    border:none;
-                    background:none;
-                    color:#9333ea;
-                    font-weight:bold;
-                "
-            >
+            <button onclick="showRegister()"
+                    style="border:none;background:none;color:#9333ea;font-weight:bold;">
                 Register
             </button>
         </p>
@@ -801,10 +703,7 @@ footer button{
 
 <!-- SHOPPING -->
 
-<section
-    id="shoppingPage"
-    class="shopping-section hidden"
->
+<section id="shoppingPage" class="shopping-section hidden">
 
     <h2 class="page-title">
         ✨ Premium Face Creams
@@ -822,10 +721,7 @@ footer button{
 
     </div>
 
-    <div
-        id="productsContainer"
-        class="products"
-    ></div>
+    <div id="productsContainer" class="products"></div>
 
 </section>
 
@@ -834,54 +730,35 @@ footer button{
 
 <section id="cartPage" class="hidden">
 
-    <h2 class="page-title">
-        🛒 Your Cart
-    </h2>
+    <h2 class="page-title">🛒 Your Cart</h2>
 
     <div class="cart-box">
 
         <div id="cartItems"></div>
 
-        <div
-            id="cartEmpty"
-            style="
-                text-align:center;
-                padding:30px;
-                color:#777;
-            "
-        >
+        <div id="cartEmpty"
+             style="text-align:center;padding:30px;color:#777;">
             Your cart is empty.
         </div>
 
         <div id="cartSummary" class="hidden">
 
             <div class="total">
-                Subtotal:
-                ₹<span id="subtotal">0</span>
+                Subtotal: ₹<span id="subtotal">0</span>
             </div>
 
-            <div style="
-                text-align:right;
-                margin-top:8px;
-                color:#777;
-            ">
-                GST (18%):
-                ₹<span id="gst">0</span>
+            <div style="text-align:right;margin-top:8px;color:#777;">
+                GST (18%): ₹<span id="gst">0</span>
             </div>
 
             <div class="total">
-                Total:
-                ₹<span id="total">0</span>
+                Total: ₹<span id="total">0</span>
             </div>
 
             <button
                 class="primary-btn"
-                style="
-                    width:100%;
-                    margin-top:20px;
-                "
-                onclick="showCheckout()"
-            >
+                style="width:100%;margin-top:20px;"
+                onclick="showCheckout()">
                 Place Order 🛍️
             </button>
 
@@ -898,45 +775,27 @@ footer button{
 
     <div class="form-card">
 
-        <h2>
-            📦 Place Your Order
-        </h2>
+        <h2>📦 Place Your Order</h2>
 
         <div id="savedAddresses"></div>
 
         <div class="form-group">
-
-            <label>
-                Delivery Address
-            </label>
-
-            <input
-                type="text"
-                id="checkoutAddress"
-                placeholder="Delivery address"
-            >
-
+            <label>Delivery Address</label>
+            <input type="text"
+                   id="checkoutAddress"
+                   placeholder="Delivery address">
         </div>
 
         <div class="form-group">
-
-            <label>
-                Pincode
-            </label>
-
-            <input
-                type="text"
-                id="checkoutPincode"
-                placeholder="Pincode"
-            >
-
+            <label>Pincode</label>
+            <input type="text"
+                   id="checkoutPincode"
+                   placeholder="Pincode">
         </div>
 
-        <button
-            class="primary-btn"
-            style="width:100%;"
-            onclick="placeOrder()"
-        >
+        <button class="primary-btn"
+                style="width:100%;"
+                onclick="placeOrder()">
             Confirm Order 💖
         </button>
 
@@ -951,9 +810,7 @@ footer button{
 
 <section id="ordersPage" class="hidden">
 
-    <h2 class="page-title">
-        📦 My Orders
-    </h2>
+    <h2 class="page-title">📦 My Orders</h2>
 
     <div class="orders-box">
 
@@ -970,13 +827,9 @@ footer button{
 
     <div id="adminLoginBox" class="admin-login-box">
 
-        <h2>
-            🔐 GlowCart Admin
-        </h2>
+        <h2>🔐 GlowCart Admin</h2>
 
-        <p>
-            Login to view registered members
-        </p>
+        <p>Login to view registered members</p>
 
         <input
             id="adminEmail"
@@ -992,17 +845,12 @@ footer button{
             placeholder="Admin Password"
         >
 
-        <button
-            onclick="adminLogin()"
-            class="admin-login-btn"
-        >
+        <button onclick="adminLogin()"
+                class="admin-login-btn">
             Login as Admin
         </button>
 
-        <p
-            id="adminLoginMessage"
-            class="message"
-        ></p>
+        <p id="adminLoginMessage" class="message"></p>
 
     </div>
 
@@ -1012,21 +860,12 @@ footer button{
         <div class="admin-header">
 
             <div>
-
-                <h1>
-                    👥 Registered Members
-                </h1>
-
-                <p>
-                    GlowCart Admin Dashboard
-                </p>
-
+                <h1>👥 Registered Members</h1>
+                <p>GlowCart Admin Dashboard</p>
             </div>
 
-            <button
-                onclick="adminLogout()"
-                class="logout-btn"
-            >
+            <button onclick="adminLogout()"
+                    class="logout-btn">
                 Logout
             </button>
 
@@ -1039,10 +878,8 @@ footer button{
                 Total Registered Members
             </div>
 
-            <div
-                id="memberCount"
-                class="member-count"
-            >
+            <div id="memberCount"
+                 class="member-count">
                 0
             </div>
 
@@ -1054,7 +891,6 @@ footer button{
             <table class="member-table">
 
                 <thead>
-
                     <tr>
                         <th>#</th>
                         <th>Name</th>
@@ -1062,28 +898,21 @@ footer button{
                         <th>Mobile</th>
                         <th>Registered On</th>
                     </tr>
-
                 </thead>
 
-                <tbody id="membersTableBody">
-
-                </tbody>
+                <tbody id="membersTableBody"></tbody>
 
             </table>
 
         </div>
 
-        <p
-            id="adminTableMessage"
-            class="message"
-        ></p>
+        <p id="adminTableMessage"
+           class="message"></p>
 
     </div>
 
 </section>
 
-
-<!-- FOOTER -->
 
 <footer>
 
@@ -1104,8 +933,7 @@ footer button{
    CONFIG
 ===================================================== */
 
-const API =
-    "https://glowcart-fxwp.onrender.com";
+const API = "https://glowcart-fxwp.onrender.com";
 
 const GST_RATE = 0.18;
 
@@ -1114,17 +942,13 @@ const GST_RATE = 0.18;
    EMAILJS
 ===================================================== */
 
-const EMAILJS_SERVICE_ID =
-    "service_nb7q38o";
+const EMAILJS_SERVICE_ID = "service_nb7q38o";
 
-const EMAILJS_PUBLIC_KEY =
-    "O8MGjkU2KThjrZ31Y";
+const EMAILJS_PUBLIC_KEY = "O8MGjkU2KThjrZ31Y";
 
-const EMAILJS_ORDER_TEMPLATE_ID =
-    "template_ykzf36";
+const EMAILJS_ORDER_TEMPLATE_ID = "template_ykzf36";
 
-const EMAILJS_WELCOME_TEMPLATE_ID =
-    "template_giqmpm9";
+const EMAILJS_WELCOME_TEMPLATE_ID = "template_giqmpm9";
 
 
 emailjs.init({
@@ -1133,7 +957,7 @@ emailjs.init({
 
 
 /* =====================================================
-   DATA
+   PRODUCTS
 ===================================================== */
 
 let products = [
@@ -1197,28 +1021,21 @@ let products = [
 ];
 
 
-let cart =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_cart"
-        )
-    ) || [];
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
 
+let cart =
+    JSON.parse(localStorage.getItem("glowcart_cart")) || [];
 
 let currentUser =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_user"
-        )
-    ) || null;
-
+    JSON.parse(localStorage.getItem("glowcart_user")) || null;
 
 let orders =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_orders"
-        )
-    ) || [];
+    JSON.parse(localStorage.getItem("glowcart_orders")) || [];
+
+let adminToken =
+    sessionStorage.getItem("glowcart_admin_token") || "";
 
 
 /* =====================================================
@@ -1240,8 +1057,7 @@ function hideAllPages(){
 
     ids.forEach(function(id){
 
-        const element =
-            document.getElementById(id);
+        const element = document.getElementById(id);
 
         if(element){
             element.classList.add("hidden");
@@ -1252,19 +1068,50 @@ function hideAllPages(){
 }
 
 
-/* =====================================================
-   START SHOPPING
-===================================================== */
+/* HOME */
 
-function startShopping(){
+function showHome(){
 
-    /*
-       NEW USER:
-       Go to registration.
+    hideAllPages();
 
-       REGISTERED / LOGGED USER:
-       Go directly to products.
-    */
+    document
+        .getElementById("homePage")
+        .classList.remove("hidden");
+
+    updateHomeButton();
+
+}
+
+
+/* REGISTER */
+
+function showRegister(){
+
+    hideAllPages();
+
+    document
+        .getElementById("registerSection")
+        .classList.remove("hidden");
+
+}
+
+
+/* LOGIN */
+
+function showLogin(){
+
+    hideAllPages();
+
+    document
+        .getElementById("loginSection")
+        .classList.remove("hidden");
+
+}
+
+
+/* SHOP */
+
+function handleShopClick(){
 
     if(currentUser){
 
@@ -1279,135 +1126,50 @@ function startShopping(){
 }
 
 
-/* =====================================================
-   HOME
-===================================================== */
-
-function showHome(){
-
-    hideAllPages();
-
-    document
-    .getElementById("homePage")
-    .classList.remove("hidden");
-
-    updateStartShoppingButton();
-
-}
-
-
-/* =====================================================
-   START SHOPPING BUTTON VISIBILITY
-===================================================== */
-
-function updateStartShoppingButton(){
-
-    const button =
-        document.getElementById(
-            "startShoppingBtn"
-        );
-
-    if(!button){
-        return;
-    }
-
-    /*
-       AFTER USER REGISTERS / LOGS IN,
-       START SHOPPING BUTTON IS HIDDEN.
-    */
-
-    if(currentUser){
-
-        button.classList.add(
-            "hidden"
-        );
-
-    }else{
-
-        button.classList.remove(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   REGISTER PAGE
-===================================================== */
-
-function showRegister(){
-
-    hideAllPages();
-
-    document
-    .getElementById("registerSection")
-    .classList.remove("hidden");
-
-}
-
-
-/* =====================================================
-   LOGIN PAGE
-===================================================== */
-
-function showLogin(){
-
-    hideAllPages();
-
-    document
-    .getElementById("loginSection")
-    .classList.remove("hidden");
-
-}
-
-
-/* =====================================================
-   SHOPPING PAGE
-===================================================== */
-
 function showShopping(){
 
     hideAllPages();
 
     document
-    .getElementById("shoppingPage")
-    .classList.remove("hidden");
+        .getElementById("shoppingPage")
+        .classList.remove("hidden");
 
     renderProducts();
 
 }
 
 
-/* =====================================================
-   CART PAGE
-===================================================== */
+/* CART */
 
 function showCart(){
+
+    if(!currentUser){
+
+        alert("Please register or login first.");
+
+        showRegister();
+
+        return;
+    }
 
     hideAllPages();
 
     document
-    .getElementById("cartPage")
-    .classList.remove("hidden");
+        .getElementById("cartPage")
+        .classList.remove("hidden");
 
     renderCart();
 
 }
 
 
-/* =====================================================
-   CHECKOUT
-===================================================== */
+/* CHECKOUT */
 
 function showCheckout(){
 
     if(!currentUser){
 
-        alert(
-            "Please login first."
-        );
+        alert("Please login first.");
 
         showLogin();
 
@@ -1416,9 +1178,7 @@ function showCheckout(){
 
     if(cart.length === 0){
 
-        alert(
-            "Your cart is empty."
-        );
+        alert("Your cart is empty.");
 
         return;
     }
@@ -1426,27 +1186,64 @@ function showCheckout(){
     hideAllPages();
 
     document
-    .getElementById("checkoutPage")
-    .classList.remove("hidden");
+        .getElementById("checkoutPage")
+        .classList.remove("hidden");
 
     loadSavedAddresses();
 
 }
 
 
-/* =====================================================
-   ORDERS PAGE
-===================================================== */
+/* ORDERS */
 
 function showOrders(){
+
+    if(!currentUser){
+
+        alert("Please register or login first.");
+
+        showRegister();
+
+        return;
+    }
 
     hideAllPages();
 
     document
-    .getElementById("ordersPage")
-    .classList.remove("hidden");
+        .getElementById("ordersPage")
+        .classList.remove("hidden");
 
     renderOrders();
+
+}
+
+
+/* =====================================================
+   HOME BUTTON
+===================================================== */
+
+function updateHomeButton(){
+
+    const button =
+        document.getElementById("startShoppingBtn");
+
+    if(!button){
+        return;
+    }
+
+    if(currentUser){
+
+        button.innerText = "Continue Shopping 🛍️";
+
+        button.onclick = showShopping;
+
+    }else{
+
+        button.innerText = "Start Shopping 💖";
+
+        button.onclick = showRegister;
+
+    }
 
 }
 
@@ -1457,68 +1254,39 @@ function showOrders(){
 
 document
 .getElementById("registerForm")
-.addEventListener(
-"submit",
-async function(e){
+.addEventListener("submit", async function(e){
 
     e.preventDefault();
 
     const name =
-        document
-        .getElementById("regName")
-        .value
-        .trim();
+        document.getElementById("regName").value.trim();
 
     const email =
-        document
-        .getElementById("regEmail")
-        .value
-        .trim();
+        document.getElementById("regEmail").value.trim();
 
     const mobile =
-        document
-        .getElementById("regMobile")
-        .value
-        .trim();
+        document.getElementById("regMobile").value.trim();
 
     const password =
-        document
-        .getElementById("regPassword")
-        .value;
+        document.getElementById("regPassword").value;
 
     const address =
-        document
-        .getElementById("regAddress")
-        .value
-        .trim();
+        document.getElementById("regAddress").value.trim();
 
     const pincode =
-        document
-        .getElementById("regPincode")
-        .value
-        .trim();
+        document.getElementById("regPincode").value.trim();
 
     const address2 =
-        document
-        .getElementById("regAddress2")
-        .value
-        .trim();
+        document.getElementById("regAddress2").value.trim();
 
     const pincode2 =
-        document
-        .getElementById("regPincode2")
-        .value
-        .trim();
+        document.getElementById("regPincode2").value.trim();
 
     const message =
-        document
-        .getElementById(
-            "registerMessage"
-        );
+        document.getElementById("registerMessage");
 
 
-    message.style.color =
-        "#777";
+    message.style.color = "#777";
 
     message.innerText =
         "Creating your account...";
@@ -1527,43 +1295,42 @@ async function(e){
     try{
 
         const response =
-            await fetch(
-                API + "/api/register",
-                {
-                    method:"POST",
+            await fetch(API + "/api/register", {
 
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
+                method:"POST",
 
-                    body:JSON.stringify({
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-                        name:name,
-                        email:email,
-                        mobile:mobile,
-                        password:password,
-                        address:address,
-                        pincode:pincode,
-                        address2:address2,
-                        pincode2:pincode2
+                body:JSON.stringify({
 
-                    })
-                }
-            );
+                    name:name,
+                    email:email,
+                    mobile:mobile,
+                    password:password,
+                    address:address,
+                    pincode:pincode,
+                    address2:address2,
+                    pincode2:pincode2
+
+                })
+
+            });
 
 
-        const data =
-            await response.json();
+        let data = {};
+
+        try{
+            data = await response.json();
+        }catch(jsonError){
+            data = {};
+        }
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
 
-            message.style.color =
-                "red";
+            message.style.color = "red";
 
             message.innerText =
                 data.message ||
@@ -1573,9 +1340,7 @@ async function(e){
         }
 
 
-        /*
-           SAVE USER
-        */
+        /* SAVE LOGGED-IN USER */
 
         currentUser =
             data.user || {
@@ -1593,15 +1358,11 @@ async function(e){
 
         localStorage.setItem(
             "glowcart_user",
-            JSON.stringify(
-                currentUser
-            )
+            JSON.stringify(currentUser)
         );
 
 
-        /*
-           SAVE ADDRESSES
-        */
+        /* SAVE ADDRESSES */
 
         localStorage.setItem(
             "glowcart_address",
@@ -1613,7 +1374,6 @@ async function(e){
             pincode
         );
 
-
         if(address2){
 
             localStorage.setItem(
@@ -1622,7 +1382,6 @@ async function(e){
             );
 
         }
-
 
         if(pincode2){
 
@@ -1635,71 +1394,79 @@ async function(e){
 
 
         /*
-           HIDE START SHOPPING
-        */
+         * SEND WELCOME EMAIL
+         */
 
-        updateStartShoppingButton();
-
-
-        /*
-           WELCOME EMAIL
-        */
+        let emailSent = false;
 
         try{
 
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_WELCOME_TEMPLATE_ID,
-                {
+            const emailResult =
+                await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_WELCOME_TEMPLATE_ID,
+                    {
 
-                    to_email:email,
+                        to_email:email,
 
-                    to_name:name,
+                        to_name:name,
 
-                    user_name:name,
+                        user_name:name,
 
-                    user_email:email
+                        user_email:email,
 
-                }
-            );
+                        email:email,
+
+                        name:name
+
+                    }
+                );
 
             console.log(
-                "Welcome email sent successfully."
+                "Welcome email result:",
+                emailResult
             );
+
+            emailSent = true;
 
         }catch(emailError){
 
             console.error(
-                "Welcome email error:",
+                "WELCOME EMAIL ERROR:",
                 emailError
             );
 
         }
 
 
-        message.style.color =
-            "green";
+        message.style.color = "green";
 
-        message.innerText =
-            "Registration successful! Welcome email sent. Please login.";
+        if(emailSent){
+
+            message.innerText =
+                "Registration successful! Welcome email sent. Opening GlowCart...";
+
+        }else{
+
+            message.innerText =
+                "Registration successful! Opening GlowCart...";
+
+        }
 
 
         /*
-           GO TO LOGIN
-        */
+         * IMPORTANT:
+         * DO NOT SHOW LOGIN.
+         * DIRECTLY OPEN PRODUCTS.
+         */
 
         setTimeout(function(){
 
-            showLogin();
+            document.getElementById("registerForm").reset();
 
-            document
-            .getElementById(
-                "loginEmail"
-            )
-            .value =
-                email;
+            showShopping();
 
-        },1500);
+        }, 1200);
 
 
     }catch(error){
@@ -1709,8 +1476,7 @@ async function(e){
             error
         );
 
-        message.style.color =
-            "red";
+        message.style.color = "red";
 
         message.innerText =
             "Unable to connect to server.";
@@ -1726,74 +1492,56 @@ async function(e){
 
 document
 .getElementById("loginForm")
-.addEventListener(
-"submit",
-async function(e){
+.addEventListener("submit", async function(e){
 
     e.preventDefault();
 
-
     const email =
-        document
-        .getElementById("loginEmail")
-        .value
-        .trim();
-
+        document.getElementById("loginEmail").value.trim();
 
     const password =
-        document
-        .getElementById("loginPassword")
-        .value;
-
+        document.getElementById("loginPassword").value;
 
     const message =
-        document
-        .getElementById(
-            "loginMessage"
-        );
+        document.getElementById("loginMessage");
 
 
-    message.style.color =
-        "#777";
+    message.style.color = "#777";
 
-    message.innerText =
-        "Logging in...";
+    message.innerText = "Logging in...";
 
 
     try{
 
         const response =
-            await fetch(
-                API + "/api/login",
-                {
-                    method:"POST",
+            await fetch(API + "/api/login", {
 
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
+                method:"POST",
 
-                    body:JSON.stringify({
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-                        email:email,
-                        password:password
+                body:JSON.stringify({
+                    email:email,
+                    password:password
+                })
 
-                    })
-                }
-            );
+            });
 
 
-        const data =
-            await response.json();
+        let data = {};
+
+        try{
+            data = await response.json();
+        }catch(error){
+            data = {};
+        }
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
 
-            message.style.color =
-                "red";
+            message.style.color = "red";
 
             message.innerText =
                 data.message ||
@@ -1803,70 +1551,18 @@ async function(e){
         }
 
 
-        /*
-           SAVE LOGGED USER
-        */
-
-        currentUser =
-            data.user;
-
+        currentUser = data.user;
 
         localStorage.setItem(
             "glowcart_user",
-            JSON.stringify(
-                currentUser
-            )
+            JSON.stringify(currentUser)
         );
 
 
-        /*
-           HIDE START SHOPPING BUTTON
-        */
-
-        updateStartShoppingButton();
-
-
-        message.style.color =
-            "green";
+        message.style.color = "green";
 
         message.innerText =
-            "Login successful!";
-
-
-        /*
-           LOGIN EMAIL
-        */
-
-        try{
-
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_WELCOME_TEMPLATE_ID,
-                {
-
-                    to_email:
-                        currentUser.email,
-
-                    to_name:
-                        currentUser.name,
-
-                    user_name:
-                        currentUser.name,
-
-                    user_email:
-                        currentUser.email
-
-                }
-            );
-
-        }catch(error){
-
-            console.log(
-                "Login email error:",
-                error
-            );
-
-        }
+            "Login successful! Opening products...";
 
 
         setTimeout(function(){
@@ -1878,13 +1574,9 @@ async function(e){
 
     }catch(error){
 
-        console.error(
-            "Login error:",
-            error
-        );
+        console.error(error);
 
-        message.style.color =
-            "red";
+        message.style.color = "red";
 
         message.innerText =
             "Server connection failed.";
@@ -1901,16 +1593,11 @@ async function(e){
 function renderProducts(){
 
     const container =
-        document.getElementById(
-            "productsContainer"
-        );
-
+        document.getElementById("productsContainer");
 
     const search =
         document
-        .getElementById(
-            "searchInput"
-        )
+        .getElementById("searchInput")
         .value
         .toLowerCase()
         .trim();
@@ -1919,9 +1606,15 @@ function renderProducts(){
     const filtered =
         products.filter(function(product){
 
-            return product.name
+            return (
+                product.name
                 .toLowerCase()
-                .includes(search);
+                .includes(search)
+                ||
+                product.description
+                .toLowerCase()
+                .includes(search)
+            );
 
         });
 
@@ -1932,7 +1625,6 @@ function renderProducts(){
     if(filtered.length === 0){
 
         container.innerHTML = `
-
             <p style="
                 grid-column:1/-1;
                 text-align:center;
@@ -1941,7 +1633,6 @@ function renderProducts(){
             ">
                 No products found.
             </p>
-
         `;
 
         return;
@@ -1951,13 +1642,9 @@ function renderProducts(){
     filtered.forEach(function(product){
 
         const card =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
-
-        card.className =
-            "product-card";
+        card.className = "product-card";
 
 
         card.innerHTML = `
@@ -1975,22 +1662,19 @@ function renderProducts(){
             </p>
 
             <div class="price">
-                ₹${product.price}
+                ₹${Number(product.price).toFixed(2)}
             </div>
 
             <button
                 class="add-cart"
-                onclick="addToCart(${product.id})"
-            >
+                onclick="addToCart(${product.id})">
                 Add to Cart 🛒
             </button>
 
         `;
 
 
-        container.appendChild(
-            card
-        );
+        container.appendChild(card);
 
     });
 
@@ -1998,16 +1682,14 @@ function renderProducts(){
 
 
 /* =====================================================
-   ADD TO CART
+   CART
 ===================================================== */
 
 function addToCart(id){
 
     if(!currentUser){
 
-        alert(
-            "Please register and login first."
-        );
+        alert("Please register first.");
 
         showRegister();
 
@@ -2016,9 +1698,9 @@ function addToCart(id){
 
 
     const product =
-        products.find(
-            p => p.id === id
-        );
+        products.find(function(p){
+            return p.id === id;
+        });
 
 
     if(!product){
@@ -2027,10 +1709,9 @@ function addToCart(id){
 
 
     const existing =
-        cart.find(
-            item =>
-                item.id === id
-        );
+        cart.find(function(item){
+            return item.id === id;
+        });
 
 
     if(existing){
@@ -2056,7 +1737,6 @@ function addToCart(id){
 
     saveCart();
 
-
     alert(
         product.name +
         " added to cart!"
@@ -2064,10 +1744,6 @@ function addToCart(id){
 
 }
 
-
-/* =====================================================
-   SAVE CART
-===================================================== */
 
 function saveCart(){
 
@@ -2081,56 +1757,33 @@ function saveCart(){
 }
 
 
-/* =====================================================
-   CART COUNT
-===================================================== */
-
 function updateCartCount(){
 
     const count =
-        cart.reduce(
-            function(sum,item){
+        cart.reduce(function(sum,item){
 
-                return sum +
-                    Number(item.quantity || 0);
+            return sum + Number(item.quantity || 0);
 
-            },
-            0
-        );
+        },0);
 
 
-    document
-    .getElementById(
+    document.getElementById(
         "cartCount"
-    )
-    .innerText =
-        count;
+    ).innerText = count;
 
 }
 
 
-/* =====================================================
-   RENDER CART
-===================================================== */
-
 function renderCart(){
 
     const container =
-        document.getElementById(
-            "cartItems"
-        );
-
+        document.getElementById("cartItems");
 
     const empty =
-        document.getElementById(
-            "cartEmpty"
-        );
-
+        document.getElementById("cartEmpty");
 
     const summary =
-        document.getElementById(
-            "cartSummary"
-        );
+        document.getElementById("cartSummary");
 
 
     container.innerHTML = "";
@@ -2138,26 +1791,18 @@ function renderCart(){
 
     if(cart.length === 0){
 
-        empty.classList.remove(
-            "hidden"
-        );
+        empty.classList.remove("hidden");
 
-        summary.classList.add(
-            "hidden"
-        );
+        summary.classList.add("hidden");
 
         return;
 
     }
 
 
-    empty.classList.add(
-        "hidden"
-    );
+    empty.classList.add("hidden");
 
-    summary.classList.remove(
-        "hidden"
-    );
+    summary.classList.remove("hidden");
 
 
     let subtotal = 0;
@@ -2171,13 +1816,9 @@ function renderCart(){
 
 
         const div =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
-
-        div.className =
-            "cart-item";
+        div.className = "cart-item";
 
 
         div.innerHTML = `
@@ -2201,20 +1842,16 @@ function renderCart(){
             <div class="qty-buttons">
 
                 <button
-                    onclick="changeQuantity(${index},-1)"
-                >
+                    onclick="changeQuantity(${index},-1)">
                     −
                 </button>
 
-                <strong style="
-                    margin:0 10px;
-                ">
+                <strong style="margin:0 10px;">
                     ${item.quantity}
                 </strong>
 
                 <button
-                    onclick="changeQuantity(${index},1)"
-                >
+                    onclick="changeQuantity(${index},1)">
                     +
                 </button>
 
@@ -2224,8 +1861,7 @@ function renderCart(){
                         margin-left:10px;
                         background:#fee2e2;
                         color:#dc2626;
-                    "
-                >
+                    ">
                     Remove
                 </button>
 
@@ -2234,9 +1870,7 @@ function renderCart(){
         `;
 
 
-        container.appendChild(
-            div
-        );
+        container.appendChild(div);
 
     });
 
@@ -2244,34 +1878,21 @@ function renderCart(){
     const gst =
         subtotal * GST_RATE;
 
-
     const total =
         subtotal + gst;
 
 
-    document.getElementById(
-        "subtotal"
-    ).innerText =
+    document.getElementById("subtotal").innerText =
         subtotal.toFixed(2);
 
-
-    document.getElementById(
-        "gst"
-    ).innerText =
+    document.getElementById("gst").innerText =
         gst.toFixed(2);
 
-
-    document.getElementById(
-        "total"
-    ).innerText =
+    document.getElementById("total").innerText =
         total.toFixed(2);
 
 }
 
-
-/* =====================================================
-   CHANGE QUANTITY
-===================================================== */
 
 function changeQuantity(index,change){
 
@@ -2280,16 +1901,13 @@ function changeQuantity(index,change){
     }
 
 
-    cart[index].quantity +=
-        change;
+    cart[index].quantity =
+        Number(cart[index].quantity) + change;
 
 
     if(cart[index].quantity <= 0){
 
-        cart.splice(
-            index,
-            1
-        );
+        cart.splice(index,1);
 
     }
 
@@ -2301,17 +1919,9 @@ function changeQuantity(index,change){
 }
 
 
-/* =====================================================
-   REMOVE CART
-===================================================== */
-
 function removeFromCart(index){
 
-    cart.splice(
-        index,
-        1
-    );
-
+    cart.splice(index,1);
 
     saveCart();
 
@@ -2321,16 +1931,13 @@ function removeFromCart(index){
 
 
 /* =====================================================
-   SAVED ADDRESSES
+   ADDRESSES
 ===================================================== */
 
 function loadSavedAddresses(){
 
     const container =
-        document.getElementById(
-            "savedAddresses"
-        );
-
+        document.getElementById("savedAddresses");
 
     container.innerHTML = "";
 
@@ -2343,13 +1950,9 @@ function loadSavedAddresses(){
     if(currentUser.address){
 
         const div =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
-
-        div.className =
-            "address-card";
+        div.className = "address-card";
 
 
         div.innerHTML = `
@@ -2372,19 +1975,14 @@ function loadSavedAddresses(){
             <button
                 class="primary-btn"
                 onclick="selectAddress(1)"
-                style="
-                    padding:8px 15px;
-                "
-            >
+                style="padding:8px 15px;">
                 Use This Address
             </button>
 
         `;
 
 
-        container.appendChild(
-            div
-        );
+        container.appendChild(div);
 
     }
 
@@ -2392,13 +1990,9 @@ function loadSavedAddresses(){
     if(currentUser.address2){
 
         const div =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
-
-        div.className =
-            "address-card";
+        div.className = "address-card";
 
 
         div.innerHTML = `
@@ -2421,28 +2015,19 @@ function loadSavedAddresses(){
             <button
                 class="primary-btn"
                 onclick="selectAddress(2)"
-                style="
-                    padding:8px 15px;
-                "
-            >
+                style="padding:8px 15px;">
                 Use This Address
             </button>
 
         `;
 
 
-        container.appendChild(
-            div
-        );
+        container.appendChild(div);
 
     }
 
 }
 
-
-/* =====================================================
-   SELECT ADDRESS
-===================================================== */
 
 function selectAddress(number){
 
@@ -2458,7 +2043,6 @@ function selectAddress(number){
         ).value =
             currentUser.address || "";
 
-
         document.getElementById(
             "checkoutPincode"
         ).value =
@@ -2473,7 +2057,6 @@ function selectAddress(number){
             "checkoutAddress"
         ).value =
             currentUser.address2 || "";
-
 
         document.getElementById(
             "checkoutPincode"
@@ -2493,9 +2076,7 @@ async function placeOrder(){
 
     if(!currentUser){
 
-        alert(
-            "Please login first."
-        );
+        alert("Please login first.");
 
         showLogin();
 
@@ -2505,9 +2086,7 @@ async function placeOrder(){
 
     if(cart.length === 0){
 
-        alert(
-            "Your cart is empty."
-        );
+        alert("Your cart is empty.");
 
         return;
     }
@@ -2515,32 +2094,25 @@ async function placeOrder(){
 
     const address =
         document
-        .getElementById(
-            "checkoutAddress"
-        )
+        .getElementById("checkoutAddress")
         .value
         .trim();
 
 
     const pincode =
         document
-        .getElementById(
-            "checkoutPincode"
-        )
+        .getElementById("checkoutPincode")
         .value
         .trim();
 
 
     const message =
-        document.getElementById(
-            "orderMessage"
-        );
+        document.getElementById("orderMessage");
 
 
     if(!address || !pincode){
 
-        message.style.color =
-            "red";
+        message.style.color = "red";
 
         message.innerText =
             "Please enter delivery address and pincode.";
@@ -2549,8 +2121,7 @@ async function placeOrder(){
     }
 
 
-    message.style.color =
-        "#777";
+    message.style.color = "#777";
 
     message.innerText =
         "Placing your order...";
@@ -2559,46 +2130,41 @@ async function placeOrder(){
     try{
 
         const response =
-            await fetch(
-                API + "/api/orders",
-                {
-                    method:"POST",
+            await fetch(API + "/api/orders", {
 
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
+                method:"POST",
 
-                    body:JSON.stringify({
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-                        email:
-                            currentUser.email,
+                body:JSON.stringify({
 
-                        items:
-                            cart,
+                    email:currentUser.email,
 
-                        address:
-                            address,
+                    items:cart,
 
-                        pincode:
-                            pincode
+                    address:address,
 
-                    })
-                }
-            );
+                    pincode:pincode
+
+                })
+
+            });
 
 
-        const data =
-            await response.json();
+        let data = {};
+
+        try{
+            data = await response.json();
+        }catch(error){
+            data = {};
+        }
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
 
-            message.style.color =
-                "red";
+            message.style.color = "red";
 
             message.innerText =
                 data.message ||
@@ -2612,9 +2178,7 @@ async function placeOrder(){
             data.order;
 
 
-        /*
-           ORDER EMAIL
-        */
+        /* ORDER EMAIL */
 
         try{
 
@@ -2623,38 +2187,28 @@ async function placeOrder(){
                 EMAILJS_ORDER_TEMPLATE_ID,
                 {
 
-                    to_email:
-                        currentUser.email,
+                    to_email:currentUser.email,
 
-                    to_name:
-                        currentUser.name,
+                    to_name:currentUser.name,
 
-                    user_name:
-                        currentUser.name,
+                    user_name:currentUser.name,
 
-                    user_email:
-                        currentUser.email,
+                    user_email:currentUser.email,
 
-                    order_id:
-                        order.orderId,
+                    order_id:order.orderId,
 
-                    order_total:
-                        order.total,
+                    order_total:order.total,
 
-                    order_address:
-                        order.address,
+                    order_address:order.address,
 
-                    order_pincode:
-                        order.pincode
+                    order_pincode:order.pincode
 
                 }
             );
 
-
             console.log(
-                "Order email sent successfully."
+                "Order email sent"
             );
-
 
         }catch(emailError){
 
@@ -2666,34 +2220,20 @@ async function placeOrder(){
         }
 
 
-        /*
-           SAVE LOCAL ORDER
-        */
-
-        orders.push(
-            order
-        );
-
+        orders.push(order);
 
         localStorage.setItem(
             "glowcart_orders",
-            JSON.stringify(
-                orders
-            )
+            JSON.stringify(orders)
         );
 
-
-        /*
-           CLEAR CART
-        */
 
         cart = [];
 
         saveCart();
 
 
-        message.style.color =
-            "green";
+        message.style.color = "green";
 
         message.innerText =
             "Order placed successfully! Confirmation email sent.";
@@ -2713,9 +2253,7 @@ async function placeOrder(){
             error
         );
 
-
-        message.style.color =
-            "red";
+        message.style.color = "red";
 
         message.innerText =
             "Unable to connect to server.";
@@ -2726,16 +2264,13 @@ async function placeOrder(){
 
 
 /* =====================================================
-   RENDER ORDERS
+   ORDERS
 ===================================================== */
 
 function renderOrders(){
 
     const container =
-        document.getElementById(
-            "ordersContainer"
-        );
-
+        document.getElementById("ordersContainer");
 
     container.innerHTML = "";
 
@@ -2743,14 +2278,9 @@ function renderOrders(){
     if(!currentUser){
 
         container.innerHTML = `
-
-            <p style="
-                text-align:center;
-                color:#777;
-            ">
+            <p style="text-align:center;color:#777;">
                 Please login to see your orders.
             </p>
-
         `;
 
         return;
@@ -2771,840 +2301,9 @@ function renderOrders(){
     if(userOrders.length === 0){
 
         container.innerHTML = `
-
             <p style="
                 text-align:center;
                 color:#777;
                 padding:30px;
             ">
-                You have no orders yet.
-            </p>
-
-        `;
-
-        return;
-    }
-
-
-    userOrders
-    .slice()
-    .reverse()
-    .forEach(function(order){
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-
-        div.className =
-            "order-card";
-
-
-        let itemText = "";
-
-
-        (order.items || []).forEach(function(item){
-
-            itemText += `
-
-                ${escapeHTML(item.name)}
-                × ${item.quantity}
-                <br>
-
-            `;
-
-        });
-
-
-        div.innerHTML = `
-
-            <h3 style="
-                color:#9333ea;
-                margin-bottom:10px;
-            ">
-                Order ID:
-                ${escapeHTML(order.orderId)}
-            </h3>
-
-            <p>
-                <strong>
-                    Products:
-                </strong>
-            </p>
-
-            <p style="
-                margin:8px 0;
-            ">
-                ${itemText}
-            </p>
-
-            <p>
-                <strong>
-                    Address:
-                </strong>
-                ${escapeHTML(order.address)}
-            </p>
-
-            <p>
-                <strong>
-                    Pincode:
-                </strong>
-                ${escapeHTML(order.pincode)}
-            </p>
-
-            <p style="
-                margin-top:8px;
-                color:#777;
-            ">
-                ${
-                    order.orderedAt
-                    ? new Date(
-                        order.orderedAt
-                    ).toLocaleString("en-IN")
-                    : "-"
-                }
-            </p>
-
-            <div style="
-                margin-top:12px;
-                font-size:20px;
-                font-weight:bold;
-                color:#ec4899;
-            ">
-                Total:
-                ₹${Number(
-                    order.total || 0
-                ).toFixed(2)}
-            </div>
-
-        `;
-
-
-        container.appendChild(
-            div
-        );
-
-    });
-
-}
-
-
-/* =====================================================
-   ADMIN
-===================================================== */
-
-let adminToken =
-    sessionStorage.getItem(
-        "glowcart_admin_token"
-    ) || "";
-
-
-/* =====================================================
-   SHOW ADMIN
-===================================================== */
-
-function showAdmin(){
-
-    hideAllPages();
-
-
-    document
-    .getElementById(
-        "adminSection"
-    )
-    .classList.remove(
-        "hidden"
-    );
-
-
-    if(adminToken){
-
-        document
-        .getElementById(
-            "adminLoginBox"
-        )
-        .classList.add(
-            "hidden"
-        );
-
-
-        document
-        .getElementById(
-            "adminDashboard"
-        )
-        .classList.remove(
-            "hidden"
-        );
-
-
-        loadMembers();
-
-    }else{
-
-        document
-        .getElementById(
-            "adminLoginBox"
-        )
-        .classList.remove(
-            "hidden"
-        );
-
-
-        document
-        .getElementById(
-            "adminDashboard"
-        )
-        .classList.add(
-            "hidden"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   ADMIN LOGIN
-===================================================== */
-
-async function adminLogin(){
-
-    const email =
-        document
-        .getElementById(
-            "adminEmail"
-        )
-        .value
-        .trim();
-
-
-    const password =
-        document
-        .getElementById(
-            "adminPassword"
-        )
-        .value;
-
-
-    const message =
-        document
-        .getElementById(
-            "adminLoginMessage"
-        );
-
-
-    if(!email || !password){
-
-        message.style.color =
-            "red";
-
-        message.innerText =
-            "Please enter admin email and password.";
-
-        return;
-    }
-
-
-    message.style.color =
-        "#777";
-
-    message.innerText =
-        "Checking admin login...";
-
-
-    try{
-
-        const response =
-            await fetch(
-                API + "/api/admin/login",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        email:email,
-                        password:password
-
-                    })
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !response.ok ||
-            !data.success
-        ){
-
-            message.style.color =
-                "red";
-
-            message.innerText =
-                data.message ||
-                "Invalid admin login.";
-
-            return;
-        }
-
-
-        adminToken =
-            data.token;
-
-
-        sessionStorage.setItem(
-            "glowcart_admin_token",
-            adminToken
-        );
-
-
-        message.style.color =
-            "green";
-
-        message.innerText =
-            "Admin login successful!";
-
-
-        document
-        .getElementById(
-            "adminLoginBox"
-        )
-        .classList.add(
-            "hidden"
-        );
-
-
-        document
-        .getElementById(
-            "adminDashboard"
-        )
-        .classList.remove(
-            "hidden"
-        );
-
-
-        /*
-           LOAD REGISTERED MEMBERS
-        */
-
-        await loadMembers();
-
-
-    }catch(error){
-
-        console.error(
-            "Admin login error:",
-            error
-        );
-
-
-        message.style.color =
-            "red";
-
-        message.innerText =
-            "Server connection failed.";
-
-    }
-
-}
-
-
-/* =====================================================
-   LOAD REGISTERED MEMBERS
-===================================================== */
-
-async function loadMembers(){
-
-    const tableBody =
-        document.getElementById(
-            "membersTableBody"
-        );
-
-
-    const count =
-        document.getElementById(
-            "memberCount"
-        );
-
-
-    const message =
-        document.getElementById(
-            "adminTableMessage"
-        );
-
-
-    tableBody.innerHTML = `
-
-        <tr>
-
-            <td
-                colspan="5"
-                style="
-                    text-align:center;
-                    padding:25px;
-                "
-            >
-                Loading registered members...
-            </td>
-
-        </tr>
-
-    `;
-
-
-    message.innerText = "";
-
-
-    try{
-
-        const response =
-            await fetch(
-                API + "/api/admin/users",
-                {
-                    method:"GET",
-
-                    headers:{
-                        "Authorization":
-                            "Bearer " +
-                            adminToken,
-
-                        "Content-Type":
-                            "application/json"
-                    }
-                }
-            );
-
-
-        /*
-           TRY TO READ JSON SAFELY
-        */
-
-        let data;
-
-        try{
-
-            data =
-                await response.json();
-
-        }catch(jsonError){
-
-            data = {
-                success:false,
-                message:
-                    "Invalid response from server."
-            };
-
-        }
-
-
-        /*
-           TOKEN INVALID
-        */
-
-        if(response.status === 401){
-
-            adminToken = "";
-
-            sessionStorage.removeItem(
-                "glowcart_admin_token"
-            );
-
-
-            document
-            .getElementById(
-                "adminLoginBox"
-            )
-            .classList.remove(
-                "hidden"
-            );
-
-
-            document
-            .getElementById(
-                "adminDashboard"
-            )
-            .classList.add(
-                "hidden"
-            );
-
-
-            document
-            .getElementById(
-                "adminLoginMessage"
-            )
-            .style.color =
-                "red";
-
-
-            document
-            .getElementById(
-                "adminLoginMessage"
-            )
-            .innerText =
-                "Admin session expired. Please login again.";
-
-            return;
-        }
-
-
-        /*
-           SERVER ERROR
-        */
-
-        if(
-            !response.ok ||
-            !data.success
-        ){
-
-            tableBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        style="
-                            text-align:center;
-                            padding:30px;
-                            color:red;
-                        "
-                    >
-                        ${
-                            escapeHTML(
-                                data.message ||
-                                "Unable to load registered members."
-                            )
-                        }
-                    </td>
-
-                </tr>
-
-            `;
-
-
-            count.innerText =
-                "0";
-
-
-            message.style.color =
-                "red";
-
-
-            message.innerText =
-                data.message ||
-                "Unable to load registered members.";
-
-
-            return;
-        }
-
-
-        /*
-           TOTAL MEMBERS
-        */
-
-        const users =
-            Array.isArray(data.users)
-            ? data.users
-            : [];
-
-
-        count.innerText =
-            data.totalMembers ??
-            users.length;
-
-
-        tableBody.innerHTML = "";
-
-
-        /*
-           NO MEMBERS
-        */
-
-        if(users.length === 0){
-
-            tableBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="5"
-                        style="
-                            text-align:center;
-                            padding:30px;
-                            color:#777;
-                        "
-                    >
-                        No members registered yet.
-                    </td>
-
-                </tr>
-
-            `;
-
-
-            message.style.color =
-                "#777";
-
-            message.innerText =
-                "No registered members found.";
-
-            return;
-        }
-
-
-        /*
-           DISPLAY EACH REGISTERED MEMBER
-        */
-
-        users.forEach(function(user,index){
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            const registeredDate =
-                user.registeredAt
-                ? new Date(
-                    user.registeredAt
-                ).toLocaleString(
-                    "en-IN"
-                )
-                : "-";
-
-
-            row.innerHTML = `
-
-                <td>
-                    ${index + 1}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        user.name || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        user.email || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        user.mobile || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        registeredDate
-                    )}
-                </td>
-
-            `;
-
-
-            tableBody.appendChild(
-                row
-            );
-
-        });
-
-
-        message.style.color =
-            "#777";
-
-
-        message.innerText =
-            "Showing " +
-            users.length +
-            " registered member(s).";
-
-
-    }catch(error){
-
-        console.error(
-            "Load members error:",
-            error
-        );
-
-
-        tableBody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="5"
-                    style="
-                        text-align:center;
-                        padding:30px;
-                        color:red;
-                    "
-                >
-                    Unable to connect to server.
-                </td>
-
-            </tr>
-
-        `;
-
-
-        count.innerText =
-            "0";
-
-
-        message.style.color =
-            "red";
-
-
-        message.innerText =
-            "Unable to connect to server.";
-
-    }
-
-}
-
-
-/* =====================================================
-   ADMIN LOGOUT
-===================================================== */
-
-async function adminLogout(){
-
-    try{
-
-        if(adminToken){
-
-            await fetch(
-                API + "/api/admin/logout",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Authorization":
-                            "Bearer " +
-                            adminToken
-                    }
-                }
-            );
-
-        }
-
-    }catch(error){
-
-        console.log(
-            "Admin logout error:",
-            error
-        );
-
-    }
-
-
-    adminToken = "";
-
-
-    sessionStorage.removeItem(
-        "glowcart_admin_token"
-    );
-
-
-    document
-    .getElementById(
-        "adminDashboard"
-    )
-    .classList.add(
-        "hidden"
-    );
-
-
-    document
-    .getElementById(
-        "adminLoginBox"
-    )
-    .classList.remove(
-        "hidden"
-    );
-
-
-    document
-    .getElementById(
-        "adminEmail"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "adminPassword"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "adminLoginMessage"
-    )
-    .innerText = "";
-
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =====================================================
-   INITIAL LOAD
-===================================================== */
-
-updateCartCount();
-
-updateStartShoppingButton();
-
-showHome();
-
-</script>
-
-</body>
-</html>
+```
