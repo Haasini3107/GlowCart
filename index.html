@@ -31,25 +31,25 @@ header{
     position:sticky;
     top:0;
     z-index:999;
-    box-shadow:0 3px 12px rgba(0,0,0,.15);
+    box-shadow:0 3px 15px rgba(0,0,0,.15);
 }
 
 .logo{
-    font-size:29px;
+    font-size:28px;
     font-weight:bold;
 }
 
 nav{
     display:flex;
+    align-items:center;
     gap:8px;
-    flex-wrap:wrap;
 }
 
 nav button{
     background:transparent;
     color:white;
     border:0;
-    padding:9px 13px;
+    padding:10px 14px;
     cursor:pointer;
     font-size:15px;
     border-radius:20px;
@@ -69,37 +69,31 @@ nav button:hover{
 
 /* HOME */
 
-#home{
-    min-height:calc(100vh - 70px);
-    background:
-    linear-gradient(
-        135deg,
-        rgba(255,220,239,.95),
-        rgba(229,207,255,.95)
-    );
-}
-
 .hero{
-    min-height:calc(100vh - 70px);
+    min-height:88vh;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     text-align:center;
     padding:40px 20px;
+    background:
+    radial-gradient(circle at top left,#ffd2e8,transparent 40%),
+    radial-gradient(circle at bottom right,#dcc4ff,transparent 40%),
+    linear-gradient(135deg,#fff0f7,#f0e5ff);
 }
 
 .hero-content{
-    max-width:800px;
+    max-width:850px;
 }
 
 .hero-content h1{
-    font-size:64px;
+    font-size:65px;
     color:#8e44ad;
-    margin-bottom:10px;
+    margin-bottom:8px;
 }
 
 .hero-content h2{
-    font-size:31px;
+    font-size:32px;
     color:#ff4081;
     margin-bottom:18px;
 }
@@ -110,29 +104,41 @@ nav button:hover{
     margin-bottom:30px;
 }
 
+.hero-img{
+    margin-top:30px;
+    width:230px;
+    height:230px;
+    object-fit:cover;
+    border-radius:50%;
+    box-shadow:0 12px 35px rgba(142,68,173,.25);
+}
+
+/* BUTTON */
+
 .btn{
     border:0;
-    border-radius:28px;
     padding:13px 27px;
-    color:white;
+    border-radius:28px;
     background:linear-gradient(135deg,#ff4081,#8e44ad);
-    cursor:pointer;
+    color:white;
     font-size:15px;
-    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(142,68,173,.2);
     transition:.2s;
 }
 
 .btn:hover{
     transform:translateY(-2px);
-    box-shadow:0 5px 15px rgba(142,68,173,.25);
+    box-shadow:0 8px 20px rgba(142,68,173,.3);
 }
 
-/* FORM */
+/* FORMS */
 
 .form-page{
-    min-height:calc(100vh - 70px);
+    min-height:88vh;
     padding:55px 20px;
-    background:linear-gradient(135deg,#fff0f8,#f0e4ff);
+    background:
+    linear-gradient(135deg,#ffeaf5,#eee2ff);
 }
 
 .form-box{
@@ -141,34 +147,35 @@ nav button:hover{
     margin:auto;
     background:white;
     padding:35px;
-    border-radius:22px;
-    box-shadow:0 8px 30px rgba(0,0,0,.12);
+    border-radius:24px;
+    box-shadow:0 10px 35px rgba(80,30,100,.15);
 }
 
 .form-box h2{
     text-align:center;
     color:#8e44ad;
     margin-bottom:25px;
+    font-size:28px;
 }
 
 .form-box p{
     text-align:center;
-    margin-top:15px;
+    margin-top:18px;
 }
 
-input{
+input,select{
     width:100%;
-    padding:13px 15px;
+    padding:14px;
     border:1px solid #ddd;
-    border-radius:10px;
+    border-radius:12px;
     margin-bottom:14px;
     outline:none;
     font-size:14px;
 }
 
 input:focus{
-    border-color:#b44ac9;
-    box-shadow:0 0 0 2px rgba(180,74,201,.1);
+    border-color:#c04fcb;
+    box-shadow:0 0 0 3px rgba(192,79,203,.1);
 }
 
 .form-box .btn{
@@ -179,116 +186,157 @@ input:focus{
 /* SHOP */
 
 .shop-page{
-    min-height:calc(100vh - 70px);
+    min-height:88vh;
     padding:45px 6%;
     background:#fff7fc;
 }
 
-.section-title{
+.title{
     text-align:center;
+    font-size:34px;
     color:#8e44ad;
-    font-size:32px;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
 
-.search{
-    max-width:500px;
+.search-box{
+    max-width:600px;
     margin:0 auto 35px;
 }
 
 .products{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     gap:25px;
 }
 
 .product-card{
     background:white;
-    border-radius:18px;
-    padding:18px;
-    box-shadow:0 7px 22px rgba(0,0,0,.10);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 7px 25px rgba(80,30,100,.12);
+    transition:.25s;
     text-align:center;
-    transition:.2s;
+    padding-bottom:20px;
 }
 
 .product-card:hover{
-    transform:translateY(-4px);
+    transform:translateY(-5px);
+    box-shadow:0 12px 30px rgba(80,30,100,.18);
 }
 
 .product-card img{
     width:100%;
-    height:220px;
+    height:240px;
     object-fit:cover;
-    border-radius:14px;
-    background:#f5e8f5;
 }
 
 .product-card h3{
     color:#7d3c98;
-    margin:14px 0 8px;
+    font-size:19px;
+    margin:15px 10px 7px;
+}
+
+.product-card p{
+    color:#777;
+    font-size:14px;
+    min-height:35px;
+    padding:0 10px;
 }
 
 .price{
     color:#ff4081;
-    font-weight:bold;
     font-size:21px;
-    margin:10px 0;
+    font-weight:bold;
+    margin:12px;
 }
 
 /* CART */
 
-.content-page{
-    min-height:calc(100vh - 70px);
+.cart-page{
+    min-height:88vh;
     padding:45px 6%;
-    background:#fff7fc;
+}
+
+.cart-container{
+    max-width:900px;
+    margin:auto;
 }
 
 .cart-item{
-    max-width:850px;
-    margin:12px auto;
-    padding:18px;
     background:white;
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:15px;
     display:flex;
     justify-content:space-between;
+    align-items:center;
+    box-shadow:0 5px 18px rgba(80,30,100,.1);
+}
+
+.cart-item-left{
+    display:flex;
     align-items:center;
     gap:15px;
 }
 
+.cart-item img{
+    width:75px;
+    height:75px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.qty button{
+    width:30px;
+    height:30px;
+    border:0;
+    border-radius:50%;
+    background:#f1d7f4;
+    cursor:pointer;
+}
+
 .summary{
     max-width:500px;
-    margin:25px auto;
+    margin:30px auto;
     background:white;
     padding:25px;
-    border-radius:18px;
-    box-shadow:0 5px 18px rgba(0,0,0,.10);
+    border-radius:20px;
+    box-shadow:0 6px 20px rgba(80,30,100,.12);
 }
 
 .summary-row{
     display:flex;
     justify-content:space-between;
-    margin:12px 0;
+    padding:8px 0;
 }
 
-.total{
+.grand{
     font-size:23px;
     color:#8e44ad;
     font-weight:bold;
+    border-top:1px solid #eee;
+    margin-top:10px;
+    padding-top:15px;
 }
 
-/* PAYMENT */
+/* CHECKOUT */
+
+.checkout-page{
+    min-height:88vh;
+    padding:45px 20px;
+    background:linear-gradient(135deg,#fff0f8,#eee4ff);
+}
 
 .payment-box{
-    background:#fff1f9;
-    border-radius:14px;
+    background:#fff7fc;
     padding:18px;
-    margin:20px 0;
+    border-radius:15px;
+    margin:15px 0;
 }
 
 .payment-box label{
     display:block;
-    margin:13px 0;
+    padding:10px 0;
 }
 
 .payment-box input{
@@ -298,30 +346,46 @@ input:focus{
 
 /* SUCCESS */
 
+.success-page{
+    min-height:88vh;
+    padding:80px 20px;
+    background:linear-gradient(135deg,#ffeaf5,#eee2ff);
+}
+
 .success-box{
     max-width:650px;
-    margin:100px auto;
-    background:white;
+    margin:auto;
     text-align:center;
-    padding:45px 30px;
-    border-radius:22px;
-    box-shadow:0 8px 30px rgba(0,0,0,.12);
+    background:white;
+    padding:50px 30px;
+    border-radius:25px;
+    box-shadow:0 10px 35px rgba(80,30,100,.15);
+}
+
+.success-box .icon{
+    font-size:60px;
+    margin-bottom:15px;
 }
 
 .success-box h2{
     color:#8e44ad;
-    margin-bottom:18px;
+    margin-bottom:15px;
 }
 
 /* ORDERS */
 
+.orders-page{
+    min-height:88vh;
+    padding:45px 6%;
+}
+
 .order-card{
-    max-width:750px;
+    max-width:800px;
     margin:15px auto;
     background:white;
-    padding:22px;
-    border-radius:17px;
-    box-shadow:0 5px 18px rgba(0,0,0,.09);
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 6px 20px rgba(80,30,100,.1);
 }
 
 .order-card h3{
@@ -335,32 +399,44 @@ input:focus{
 
 /* ADMIN */
 
-.admin-table{
-    width:100%;
-    border-collapse:collapse;
+.admin-page{
+    min-height:88vh;
+    padding:50px 20px;
+}
+
+.members{
+    overflow-x:auto;
     margin-top:20px;
 }
 
-.admin-table th,
-.admin-table td{
-    padding:11px;
-    border:1px solid #ddd;
+.members table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.members th,
+.members td{
+    padding:12px;
+    border-bottom:1px solid #eee;
     text-align:left;
 }
 
-.admin-table th{
-    background:#f3d7f5;
+.members th{
+    background:#f7e0f7;
+    color:#7d3c98;
 }
 
 .hidden{
     display:none!important;
 }
 
+/* FOOTER */
+
 footer{
     background:linear-gradient(135deg,#8e44ad,#ff4081);
     color:white;
     text-align:center;
-    padding:20px;
+    padding:22px;
 }
 
 @media(max-width:700px){
@@ -370,17 +446,27 @@ footer{
         gap:10px;
     }
 
+    nav{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
     .hero-content h1{
         font-size:45px;
     }
 
     .hero-content h2{
-        font-size:24px;
+        font-size:25px;
     }
 
     .cart-item{
         flex-direction:column;
+        gap:15px;
         text-align:center;
+    }
+
+    .cart-item-left{
+        flex-direction:column;
     }
 }
 </style>
@@ -395,13 +481,22 @@ footer{
     <div class="logo">✨ GlowCart</div>
 
     <nav>
-        <button onclick="showPage('home')">Home</button>
 
-        <button onclick="shopNow()">Shop Now</button>
+        <button onclick="showPage('home')">
+            Home
+        </button>
 
-        <button onclick="goCart()">Cart</button>
+        <button onclick="shopNow()">
+            Shop Now
+        </button>
 
-        <button onclick="goOrders()">Orders</button>
+        <button onclick="goCart()">
+            🛒 Cart
+        </button>
+
+        <button onclick="goOrders()">
+            📦 Orders
+        </button>
 
         <button id="loginButton"
                 onclick="showPage('login')">
@@ -413,6 +508,7 @@ footer{
                 onclick="logout()">
             Logout
         </button>
+
     </nav>
 
 </header>
@@ -420,29 +516,30 @@ footer{
 
 <!-- HOME -->
 
-<section id="home" class="page active">
+<section id="home" class="page active hero">
 
-    <div class="hero">
+    <div class="hero-content">
 
-        <div class="hero-content">
+        <h1>GlowCart</h1>
 
-            <h1>GlowCart</h1>
+        <h2>Premium Face Creams</h2>
 
-            <h2>Premium Face Creams</h2>
+        <p>
+            Discover premium face creams for your
+            daily skincare and natural glow.
+        </p>
 
-            <p>
-                Discover premium skincare products
-                for healthy and glowing skin.
-            </p>
+        <button class="btn"
+                onclick="shopNow()">
+            🛍️ Shop Now
+        </button>
 
-            <!-- SHOP NOW ALWAYS GOES TO REGISTER -->
+        <br>
 
-            <button class="btn"
-                    onclick="shopNow()">
-                🛍️ Shop Now
-            </button>
-
-        </div>
+        <img
+            class="hero-img"
+            src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=500&q=80"
+            alt="GlowCart skincare">
 
     </div>
 
@@ -563,7 +660,8 @@ footer{
         </form>
 
         <p>
-            Don't have an account?
+            New customer?
+
             <button
                 class="btn"
                 onclick="showPage('register')">
@@ -581,11 +679,11 @@ footer{
 <section id="shop"
          class="page shop-page">
 
-    <h2 class="section-title">
+    <h2 class="title">
         💖 Premium Face Creams
     </h2>
 
-    <div class="search">
+    <div class="search-box">
 
         <input
             id="searchBox"
@@ -606,13 +704,16 @@ footer{
 <!-- CART -->
 
 <section id="cart"
-         class="page content-page">
+         class="page cart-page">
 
-    <h2 class="section-title">
-        🛒 Your Cart
+    <h2 class="title">
+        🛒 Your Shopping Cart
     </h2>
 
-    <div id="cartItems"></div>
+    <div
+        id="cartItems"
+        class="cart-container">
+    </div>
 
     <div class="summary">
 
@@ -626,15 +727,14 @@ footer{
             <span id="cartGST">₹0.00</span>
         </div>
 
-        <hr>
-
-        <div class="summary-row total">
+        <div class="summary-row grand">
             <span>Total</span>
             <span id="cartTotal">₹0.00</span>
         </div>
 
         <button
             class="btn"
+            style="width:100%;margin-top:15px"
             onclick="openCheckout()">
             Place Order
         </button>
@@ -647,7 +747,7 @@ footer{
 <!-- CHECKOUT -->
 
 <section id="checkout"
-         class="page form-page">
+         class="page checkout-page">
 
     <div class="form-box">
 
@@ -656,17 +756,21 @@ footer{
         <input
             id="orderAddress"
             type="text"
-            placeholder="Delivery Address">
+            placeholder="Delivery Address"
+            required>
 
         <input
             id="orderPincode"
             type="text"
             maxlength="6"
-            placeholder="Pincode">
+            placeholder="Pincode"
+            required>
 
         <div class="payment-box">
 
-            <h3>💳 Payment Method</h3>
+            <h3 style="color:#8e44ad;margin-bottom:10px;">
+                Payment Method
+            </h3>
 
             <label>
                 <input
@@ -699,6 +803,7 @@ footer{
 
         <button
             class="btn"
+            style="width:100%"
             onclick="placeOrder()">
             Confirm Order
         </button>
@@ -711,11 +816,13 @@ footer{
 <!-- SUCCESS -->
 
 <section id="success"
-         class="page content-page">
+         class="page success-page">
 
     <div class="success-box">
 
-        <h2>🎉 Order Placed Successfully!</h2>
+        <div class="icon">🎉</div>
+
+        <h2>Order Placed Successfully!</h2>
 
         <p id="successMessage"></p>
 
@@ -741,10 +848,10 @@ footer{
 <!-- ORDERS -->
 
 <section id="orders"
-         class="page content-page">
+         class="page orders-page">
 
-    <h2 class="section-title">
-        📋 My Orders
+    <h2 class="title">
+        📦 My Orders
     </h2>
 
     <div id="ordersList"></div>
@@ -755,7 +862,7 @@ footer{
 <!-- ADMIN -->
 
 <section id="admin"
-         class="page form-page">
+         class="page admin-page">
 
     <div class="form-box">
 
@@ -781,12 +888,16 @@ footer{
             id="adminDashboard"
             class="hidden">
 
-            <h3 style="margin-top:25px;color:#8e44ad;">
+            <h3
+                style="margin-top:25px;color:#8e44ad;">
                 Total Members:
                 <span id="memberCount">0</span>
             </h3>
 
-            <div id="membersTable"></div>
+            <div
+                id="membersTable"
+                class="members">
+            </div>
 
         </div>
 
@@ -803,13 +914,16 @@ footer{
 <script>
 
 /* =========================================
-   CONFIG
+   GLOWCART CONFIGURATION
 ========================================= */
 
 const API =
     "https://glowcart-fxwp.onrender.com";
 
 const GST_RATE = 0.18;
+
+
+/* EMAILJS */
 
 const EMAILJS_SERVICE =
     "service_nb7q38o";
@@ -825,17 +939,13 @@ const EMAILJS_WELCOME_TEMPLATE =
 
 
 emailjs.init({
-    publicKey:EMAILJS_PUBLIC_KEY
+    publicKey: EMAILJS_PUBLIC_KEY
 });
 
 
 /* =========================================
-   LOGIN STATE
+   VARIABLES
 ========================================= */
-
-let currentUser = JSON.parse(
-    localStorage.getItem("glowcart_user") || "null"
-);
 
 let products = [];
 
@@ -843,22 +953,27 @@ let cart = JSON.parse(
     localStorage.getItem("glowcart_cart") || "[]"
 );
 
+let currentUser = JSON.parse(
+    localStorage.getItem("glowcart_user") || "null"
+);
 
-/*
-   IMPORTANT:
 
-   glowcart_user alone is NOT enough.
+/* =========================================
+   LOGIN STATUS
 
-   The user becomes logged in ONLY when
-   glowcart_logged_in === "true".
-*/
+   Registration does NOT mean login.
+
+   Only successful login creates:
+   glowcart_logged_in = true
+========================================= */
 
 function isLoggedIn(){
 
     return (
         currentUser !== null &&
-        localStorage.getItem("glowcart_logged_in")
-        === "true"
+        localStorage.getItem(
+            "glowcart_logged_in"
+        ) === "true"
     );
 }
 
@@ -867,20 +982,20 @@ function isLoggedIn(){
    PAGE CONTROL
 ========================================= */
 
-const protectedPages = [
-    "shop",
-    "cart",
-    "checkout",
-    "orders",
-    "success"
-];
-
-
 function showPage(page){
 
+    const protectedPages = [
+        "shop",
+        "cart",
+        "checkout",
+        "orders",
+        "success"
+    ];
+
+
     /*
-       PRODUCTS AND OTHER PRIVATE PAGES
-       ARE BLOCKED WITHOUT LOGIN.
+       NEVER allow products/cart/orders
+       before login.
     */
 
     if(
@@ -907,13 +1022,13 @@ function showPage(page){
         });
 
 
-    const section =
+    const selected =
         document.getElementById(page);
 
 
-    if(section){
+    if(selected){
 
-        section.classList.add("active");
+        selected.classList.add("active");
 
     }
 
@@ -944,24 +1059,22 @@ function showPage(page){
 
 /* =========================================
    SHOP NOW
+
+   EXACT FLOW:
+
+   Shop Now
+       ↓
+   Register
+       ↓
+   Login
+       ↓
+   Products
 ========================================= */
-
-/*
-   THIS IS EXACTLY WHAT YOU ASKED:
-
-   CLICK SHOP NOW
-          ↓
-      REGISTER
-          ↓
-      LOGIN
-          ↓
-      PRODUCTS
-*/
 
 function shopNow(){
 
     /*
-       If user is NOT logged in,
+       If user has not logged in,
        ALWAYS open REGISTER.
     */
 
@@ -973,25 +1086,16 @@ function shopNow(){
     }
 
 
-    /*
-       Only an already logged-in user
-       can go directly to products.
-    */
-
     showPage("shop");
 }
 
-
-/* =========================================
-   CART / ORDERS
-========================================= */
 
 function goCart(){
 
     if(!isLoggedIn()){
 
         alert(
-            "Please register and login to use cart."
+            "Please register and login to use Cart."
         );
 
         showPage("register");
@@ -1008,7 +1112,7 @@ function goOrders(){
     if(!isLoggedIn()){
 
         alert(
-            "Please register and login to view orders."
+            "Please register and login to view Orders."
         );
 
         showPage("register");
@@ -1022,5 +1126,20 @@ function goOrders(){
 
 /* =========================================
    REGISTER
-============
+========================================= */
+
+document
+.getElementById("registerForm")
+.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        const user = {
+
+            name:
+                document
+                .getElementByI
 ```
