@@ -1,15 +1,17 @@
 const express = require("express");
 const cors = require("cors");
-const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const fs = require("fs");
+const { Pool } = require("pg");
 
 const app = express();
+
 const PORT = process.env.PORT || 10000;
 
-/* =========================================================
-   CORS
-========================================================= */
+// ======================================================
+// MIDDLEWARE
+// ======================================================
 
 app.use(
   cors({
@@ -21,26 +23,14 @@ app.use(
 
 app.use(express.json({ limit: "5mb" }));
 
-/* =========================================================
-   FILES
-========================================================= */
+// ======================================================
+// CONFIGURATION
+// ======================================================
 
-const PRODUCTS_FILE = path.join(__dirname, "products.json");
-const USERS_FILE = path.join(__dirname, "users.json");
-const ORDERS_FILE = path.join(__dirname, "place.json");
-
-/* =========================================================
-   ADMIN
-========================================================= */
+const DATABASE_URL = process.env.DATABASE_URL;
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
-
-let ADMIN_TOKEN = null;
-
-/* =========================================================
-   EMAILJS SERVER CONFIGURATION
-========================================================= */
 
 const EMAILJS_SERVICE_ID =
   process.env.EMAILJS_SERVICE_ID || "service_nb7q38o";
@@ -54,67 +44,139 @@ const EMAILJS_WELCOME_TEMPLATE_ID =
 const EMAILJS_ORDER_TEMPLATE_ID =
   process.env.EMAILJS_ORDER_TEMPLATE_ID || "template_ykzf36";
 
-/* =========================================================
-   FILE FUNCTIONS
-========================================================= */
+// ======================================================
+// DATABASE
+// ======================================================
+
+if (!DATABASE_URL) {
+  console.error("ERROR: DATABASE_URL is missing.");
+  console.error("Add DATABASE_URL in Render Environment Variables.");
+  process.exit(1);
+}
+
+const pool = new Pool({
+  connectionString: DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+// ======================================================
+// JSON PRODUCT FILE
+// ======================================================
+
+const PRODUCTS_FILE = path.join(__dirname, "products.json");
 
 function createFile(file, defaultData) {
-  try {
-    if (!fs.existsSync(file)) {
-      fs.writeFileSync(
-        file,
-        JSON.stringify(defaultData, null, 2)
-      );
-    }
-  } catch (error) {
-    console.error("Create file error:", error);
+  if (!fs.existsSync(file)) {
+    fs.writeFileSync(file, JSON.stringify(defaultData, null, 2));
   }
 }
 
-function readJson(file) {
+function readJson(file, defaultData) {
   try {
-    if (!fs.existsSync(file)) {
-      return [];
-    }
-
-    const data = fs.readFileSync(file, "utf8");
-
-    if (!data.trim()) {
-      return [];
-    }
-
-    return JSON.parse(data);
+    createFile(file, defaultData);
+    return JSON.parse(fs.readFileSync(file, "utf8"));
   } catch (error) {
-    console.error("Read JSON error:", error);
-    return [];
+    console.error("JSON read error:", error);
+    return defaultData;
   }
 }
 
-function writeJson(file, data) {
-  try {
-    fs.writeFileSync(
-      file,
-      JSON.stringify(data, null, 2)
-    );
+// ======================================================
+// DATABASE INITIALIZATION
+// ======================================================
 
-    return true;
+async function initDatabase() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        mobile TEXT NOT NULL,
+        password TEXT NOT NULL,
+        address TEXT NOT NULL,
+        address2 TEXT DEFAULT '',
+        pincode TEXT NOT NULL,
+        registered_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS orders (
+        id SERIAL PRIMARY KEY,
+        order_id TEXT NOT NULL UNIQUE,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        mobile TEXT,
+        address TEXT,
+        address2 TEXT,
+        pincode TEXT,
+        items JSONB NOT NULL,
+        subtotal NUMERIC(12,2) DEFAULT 0,
+        gst_rate NUMERIC(5,2) DEFAULT 18,
+        gst NUMERIC(12,2) DEFAULT 0,
+        total NUMERIC(12,2) DEFAULT 0,
+        payment_method TEXT,
+        payment_status TEXT DEFAULT 'Pending',
+        order_status TEXT DEFAULT 'Placed',
+        ordered_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    console.log("PostgreSQL database initialized successfully.");
+
+    // --------------------------------------------------
+    // OPTIONAL MIGRATION FROM OLD users.json
+    // --------------------------------------------------
+
+    const oldUsersFile = path.join(__dirname, "users.json");
+
+    if (fs.existsSync(oldUsersFile)) {
+      try {
+        const oldUsers = JSON.parse(
+          fs.readFileSync(oldUsersFile, "utf8")
+        );
+
+        if (Array.isArray(oldUsers)) {
+          for (const user of oldUsers) {
+            if (!user.email) continue;
+
+            await pool.query(
+              `
+              INSERT INTO users
+              (name, email, mobile, password, address, address2, pincode)
+              VALUES ($1,$2,$3,$4,$5,$6,$7)
+              ON CONFLICT (email) DO NOTHING
+              `,
+              [
+                user.name || "",
+                user.email.toLowerCase().trim(),
+                user.mobile || "",
+                user.password || "",
+                user.address || "",
+                user.address2 || "",
+                user.pincode || "",
+              ]
+            );
+          }
+
+          console.log("Old users.json migration checked.");
+        }
+      } catch (error) {
+        console.log("Old users.json migration skipped:", error.message);
+      }
+    }
   } catch (error) {
-    console.error("Write JSON error:", error);
-    return false;
+    console.error("Database initialization failed:", error);
+    process.exit(1);
   }
 }
 
-/* =========================================================
-   CREATE FILES
-========================================================= */
-
-createFile(PRODUCTS_FILE, []);
-createFile(USERS_FILE, []);
-createFile(ORDERS_FILE);
-
-/* =========================================================
-   SEND EMAIL USING EMAILJS
-========================================================= */
+// ======================================================
+// EMAILJS
+// ======================================================
 
 async function sendEmailJS(templateId, templateParams) {
   try {
@@ -122,11 +184,9 @@ async function sendEmailJS(templateId, templateParams) {
       "https://api.emailjs.com/api/v1.0/email/send",
       {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
           service_id: EMAILJS_SERVICE_ID,
           template_id: templateId,
@@ -139,32 +199,22 @@ async function sendEmailJS(templateId, templateParams) {
     const text = await response.text();
 
     if (!response.ok) {
-      console.error(
-        "EmailJS failed:",
-        response.status,
-        text
-      );
+      console.error("EmailJS error:", response.status, text);
 
       return {
         success: false,
-        message: text || "EmailJS failed",
+        message: text,
       };
     }
 
-    console.log(
-      "EmailJS email sent successfully:",
-      templateId
-    );
+    console.log("Email sent successfully.");
 
     return {
       success: true,
       message: "Email sent successfully",
     };
   } catch (error) {
-    console.error(
-      "EmailJS connection error:",
-      error
-    );
+    console.error("Email sending failed:", error);
 
     return {
       success: false,
@@ -173,9 +223,9 @@ async function sendEmailJS(templateId, templateParams) {
   }
 }
 
-/* =========================================================
-   SEND WELCOME EMAIL
-========================================================= */
+// ======================================================
+// WELCOME EMAIL
+// ======================================================
 
 async function sendWelcomeEmail(user) {
   return await sendEmailJS(
@@ -191,118 +241,109 @@ async function sendWelcomeEmail(user) {
       email: user.email,
 
       message:
-        `Welcome to GlowCart, ${user.name}! ` +
-        `Your GlowCart account has been created successfully.`,
+        "Welcome to GlowCart! Your account has been registered successfully.",
     }
   );
 }
 
-/* =========================================================
-   HOME
-   THIS MAKES RENDER OPEN THE GLOWCART WEBSITE
-========================================================= */
+// ======================================================
+// ORDER EMAIL
+// ======================================================
+
+async function sendOrderEmail(order) {
+  const itemsText = Array.isArray(order.items)
+    ? order.items
+        .map(
+          (item) =>
+            `${item.name} x ${item.quantity || 1} - ₹${
+              Number(item.price) * Number(item.quantity || 1)
+            }`
+        )
+        .join("\n")
+    : "";
+
+  return await sendEmailJS(
+    EMAILJS_ORDER_TEMPLATE_ID,
+    {
+      to_email: order.email,
+      to_name: order.name,
+
+      user_name: order.name,
+      user_email: order.email,
+
+      order_id: order.orderId,
+
+      items: itemsText,
+
+      subtotal: order.subtotal,
+      gst: order.gst,
+      total: order.total,
+
+      payment_method: order.paymentMethod,
+
+      address: order.address,
+      pincode: order.pincode,
+
+      message:
+        "Thank you for shopping with GlowCart. Your order has been placed successfully.",
+    }
+  );
+}
+
+// ======================================================
+// FRONTEND
+// ======================================================
+
+app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
-  const indexFile = path.join(__dirname, "index.html");
+  const indexPath = path.join(__dirname, "index.html");
 
-  if (fs.existsSync(indexFile)) {
-    return res.sendFile(indexFile);
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send("GlowCart index.html not found.");
   }
-
-  res.status(404).send(
-    "GlowCart index.html was not found. Make sure index.html is in the same folder as server.js."
-  );
 });
 
-/* =========================================================
-   HEALTH
-========================================================= */
+// ======================================================
+// HEALTH
+// ======================================================
 
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    message: "GlowCart API is working!",
-    server: "online",
-  });
-});
+app.get("/api/health", async (req, res) => {
+  try {
+    await pool.query("SELECT 1");
 
-/* =========================================================
-   ADMIN STATUS
-========================================================= */
-
-app.get("/api/admin/status", (req, res) => {
-  res.json({
-    success: true,
-    adminApi: true,
-    emailConfigured: Boolean(ADMIN_EMAIL),
-    passwordConfigured: Boolean(ADMIN_PASSWORD),
-    message: "Admin API is available.",
-  });
-});
-
-/* =========================================================
-   EMAIL CONFIG STATUS
-========================================================= */
-
-app.get("/api/emailjs-config", (req, res) => {
-  res.json({
-    success: true,
-    configured: Boolean(
-      EMAILJS_SERVICE_ID &&
-      EMAILJS_PUBLIC_KEY &&
-      EMAILJS_WELCOME_TEMPLATE_ID
-    ),
-    serviceIdConfigured: Boolean(
-      EMAILJS_SERVICE_ID
-    ),
-    publicKeyConfigured: Boolean(
-      EMAILJS_PUBLIC_KEY
-    ),
-    welcomeTemplateConfigured: Boolean(
-      EMAILJS_WELCOME_TEMPLATE_ID
-    ),
-    orderTemplateConfigured: Boolean(
-      EMAILJS_ORDER_TEMPLATE_ID
-    ),
-  });
-});
-
-/* =========================================================
-   PRODUCTS
-========================================================= */
-
-app.get("/api/products", (req, res) => {
-  const products = readJson(PRODUCTS_FILE);
-
-  res.json(products);
-});
-
-/* =========================================================
-   SINGLE PRODUCT
-========================================================= */
-
-app.get("/api/products/:id", (req, res) => {
-  const products = readJson(PRODUCTS_FILE);
-
-  const product = products.find(
-    (p) =>
-      String(p.id) ===
-      String(req.params.id)
-  );
-
-  if (!product) {
-    return res.status(404).json({
+    res.json({
+      success: true,
+      message: "GlowCart backend and database are working!",
+      database: "PostgreSQL connected",
+    });
+  } catch (error) {
+    res.status(500).json({
       success: false,
-      message: "Product not found",
+      message: "Database connection failed",
+      error: error.message,
     });
   }
-
-  res.json(product);
 });
 
-/* =========================================================
-   REGISTER
-========================================================= */
+// ======================================================
+// PRODUCTS
+// ======================================================
+
+app.get("/api/products", (req, res) => {
+  const products = readJson(PRODUCTS_FILE, []);
+
+  res.json({
+    success: true,
+    products,
+  });
+});
+
+// ======================================================
+// REGISTER
+// ======================================================
 
 app.post("/api/register", async (req, res) => {
   try {
@@ -312,10 +353,9 @@ app.post("/api/register", async (req, res) => {
       mobile,
       password,
       address,
-      pincode,
       address2,
-      pincode2,
-    } = req.body || {};
+      pincode,
+    } = req.body;
 
     if (
       !name ||
@@ -327,219 +367,108 @@ app.post("/api/register", async (req, res) => {
     ) {
       return res.status(400).json({
         success: false,
-        message:
-          "Please fill all required fields.",
+        message: "Please fill all required fields.",
       });
     }
 
-    if (
-      !/^[0-9]{10}$/.test(
-        String(mobile)
-      )
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Mobile number must contain 10 digits.",
-      });
-    }
+    const cleanEmail = email.toLowerCase().trim();
 
-    if (
-      !/^[0-9]{6}$/.test(
-        String(pincode)
-      )
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Pincode must contain 6 digits.",
-      });
-    }
-
-    if (
-      pincode2 &&
-      !/^[0-9]{6}$/.test(
-        String(pincode2)
-      )
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Second pincode must contain 6 digits.",
-      });
-    }
-
-    const users = readJson(USERS_FILE);
-
-    const cleanEmail =
-      String(email)
-        .trim()
-        .toLowerCase();
-
-    const exists = users.find(
-      (u) =>
-        String(u.email)
-          .toLowerCase() ===
-        cleanEmail
+    // Check duplicate email
+    const existing = await pool.query(
+      "SELECT id FROM users WHERE email = $1",
+      [cleanEmail]
     );
 
-    if (exists) {
+    if (existing.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message:
-          "Email is already registered.",
+        message: "This email is already registered. Please login.",
       });
     }
 
-    const newUser = {
-      id: Date.now().toString(),
-
-      name:
-        String(name).trim(),
-
-      email:
+    // Save permanently in PostgreSQL
+    const result = await pool.query(
+      `
+      INSERT INTO users
+      (name, email, mobile, password, address, address2, pincode)
+      VALUES ($1,$2,$3,$4,$5,$6,$7)
+      RETURNING id, name, email, mobile, address, address2, pincode, registered_at
+      `,
+      [
+        name.trim(),
         cleanEmail,
-
-      mobile:
-        String(mobile).trim(),
-
-      password:
-        String(password),
-
-      address:
-        String(address).trim(),
-
-      pincode:
-        String(pincode).trim(),
-
-      address2:
-        address2
-          ? String(address2).trim()
-          : "",
-
-      pincode2:
-        pincode2
-          ? String(pincode2).trim()
-          : "",
-
-      registeredAt:
-        new Date().toISOString(),
-    };
-
-    users.push(newUser);
-
-    if (
-      !writeJson(
-        USERS_FILE,
-        users
-      )
-    ) {
-      return res.status(500).json({
-        success: false,
-        message:
-          "Unable to save registration.",
-      });
-    }
-
-    const safeUser = {
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      mobile: newUser.mobile,
-      address: newUser.address,
-      pincode: newUser.pincode,
-      address2: newUser.address2,
-      pincode2: newUser.pincode2,
-      registeredAt:
-        newUser.registeredAt,
-    };
-
-    /*
-      SEND WELCOME EMAIL FROM SERVER
-    */
-
-    const emailResult =
-      await sendWelcomeEmail(
-        safeUser
-      );
-
-    console.log(
-      "Registration:",
-      safeUser.email
+        mobile.trim(),
+        password,
+        address.trim(),
+        address2 ? address2.trim() : "",
+        pincode.trim(),
+      ]
     );
 
+    const user = result.rows[0];
+
+    // Send email to the exact registered email
+    const emailResult = await sendWelcomeEmail(user);
+
     console.log(
-      "Welcome email result:",
-      emailResult
+      `New member registered: ${user.name} <${user.email}>`
     );
 
     res.status(201).json({
       success: true,
-
-      message:
-        "Registration successful!",
-
-      user: safeUser,
-
-      emailSent:
-        emailResult.success,
-
-      emailMessage:
-        emailResult.message,
+      message: emailResult.success
+        ? "Registration successful! Welcome email sent to your registered email."
+        : "Registration successful, but the welcome email could not be sent.",
+      emailSent: emailResult.success,
+      emailMessage: emailResult.message,
+      user,
     });
   } catch (error) {
-    console.error(
-      "Registration error:",
-      error
-    );
+    console.error("Registration error:", error);
 
     res.status(500).json({
       success: false,
-      message:
-        "Registration failed.",
+      message: "Registration failed.",
+      error: error.message,
     });
   }
 });
 
-/* =========================================================
-   LOGIN
-========================================================= */
+// ======================================================
+// LOGIN
+// ======================================================
 
-app.post("/api/login", (req, res) => {
+app.post("/api/login", async (req, res) => {
   try {
-    const {
-      email,
-      password,
-    } = req.body || {};
+    const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message:
-          "Email and password are required.",
+        message: "Email and password are required.",
       });
     }
 
-    const users =
-      readJson(USERS_FILE);
+    const cleanEmail = email.toLowerCase().trim();
 
-    const user =
-      users.find(
-        (u) =>
-          String(u.email)
-            .toLowerCase() ===
-            String(email)
-              .trim()
-              .toLowerCase() &&
-          String(u.password) ===
-            String(password)
-      );
+    const result = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [cleanEmail]
+    );
 
-    if (!user) {
+    if (result.rows.length === 0) {
       return res.status(401).json({
         success: false,
-        message:
-          "Invalid email or password.",
+        message: "Invalid email or password.",
+      });
+    }
+
+    const user = result.rows[0];
+
+    if (user.password !== password) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password.",
       });
     }
 
@@ -549,127 +478,85 @@ app.post("/api/login", (req, res) => {
       email: user.email,
       mobile: user.mobile,
       address: user.address,
+      address2: user.address2,
       pincode: user.pincode,
-      address2:
-        user.address2 || "",
-      pincode2:
-        user.pincode2 || "",
-      registeredAt:
-        user.registeredAt,
+      registered_at: user.registered_at,
     };
 
     res.json({
       success: true,
-      message:
-        "Login successful!",
+      message: "Login successful!",
       user: safeUser,
     });
   } catch (error) {
-    console.error(
-      "Login error:",
-      error
-    );
+    console.error("Login error:", error);
 
     res.status(500).json({
       success: false,
-      message:
-        "Login failed.",
+      message: "Login failed.",
+      error: error.message,
     });
   }
 });
 
-/* =========================================================
-   ADMIN LOGIN
-========================================================= */
+// ======================================================
+// ADMIN
+// ======================================================
 
-app.post(
-  "/api/admin/login",
-  (req, res) => {
-    try {
-      const {
-        email,
-        password,
-      } = req.body || {};
+let ADMIN_TOKEN = null;
 
-      if (
-        !ADMIN_EMAIL ||
-        !ADMIN_PASSWORD
-      ) {
-        return res.status(500).json({
-          success: false,
-          message:
-            "Admin credentials are not configured in Render.",
-        });
-      }
+app.get("/api/admin/status", (req, res) => {
+  res.json({
+    success: true,
+    adminConfigured: Boolean(
+      ADMIN_EMAIL && ADMIN_PASSWORD
+    ),
+  });
+});
 
-      if (
-        String(email || "")
-          .trim()
-          .toLowerCase() !==
-          String(ADMIN_EMAIL)
-            .trim()
-            .toLowerCase() ||
-        String(password || "") !==
-          String(ADMIN_PASSWORD)
-      ) {
-        return res.status(401).json({
-          success: false,
-          message:
-            "Invalid admin email or password.",
-        });
-      }
-
-      ADMIN_TOKEN =
-        crypto.randomBytes(32)
-          .toString("hex");
-
-      res.json({
-        success: true,
-        message:
-          "Admin login successful!",
-        token: ADMIN_TOKEN,
-      });
-    } catch (error) {
-      console.error(
-        "Admin login error:",
-        error
-      );
-
-      res.status(500).json({
-        success: false,
-        message:
-          "Admin login failed.",
-      });
-    }
-  }
-);
-
-/* =========================================================
-   ADMIN AUTH
-========================================================= */
-
-function checkAdmin(
-  req,
-  res,
-  next
-) {
-  const authorization =
-    req.headers.authorization || "";
+// ADMIN LOGIN
+app.post("/api/admin/login", (req, res) => {
+  const { email, password } = req.body;
 
   if (
-    !authorization.startsWith(
-      "Bearer "
-    )
+    !ADMIN_EMAIL ||
+    !ADMIN_PASSWORD
   ) {
-    return res.status(401).json({
+    return res.status(500).json({
       success: false,
       message:
-        "Admin authorization required.",
+        "Admin credentials are not configured in Render.",
     });
   }
 
-  const token =
-    authorization.substring(7);
+  if (
+    email === ADMIN_EMAIL &&
+    password === ADMIN_PASSWORD
+  ) {
+    ADMIN_TOKEN = crypto
+      .randomBytes(32)
+      .toString("hex");
+
+    return res.json({
+      success: true,
+      message: "Admin login successful.",
+      token: ADMIN_TOKEN,
+    });
+  }
+
+  res.status(401).json({
+    success: false,
+    message: "Invalid admin email or password.",
+  });
+});
+
+// ADMIN AUTH
+function checkAdmin(req, res, next) {
+  const authHeader = req.headers.authorization || "";
+
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.substring(7)
+    : "";
 
   if (
     !ADMIN_TOKEN ||
@@ -677,68 +564,56 @@ function checkAdmin(
   ) {
     return res.status(401).json({
       success: false,
-      message:
-        "Admin session expired. Login again.",
+      message: "Admin authentication required.",
     });
   }
 
   next();
 }
 
-/* =========================================================
-   ADMIN MEMBERS
-========================================================= */
+// ======================================================
+// ADMIN - REGISTERED MEMBERS
+// ======================================================
 
 app.get(
   "/api/admin/users",
   checkAdmin,
-  (req, res) => {
+  async (req, res) => {
     try {
-      const users =
-        readJson(USERS_FILE);
-
-      const safeUsers =
-        users.map((u) => ({
-          id: u.id || "",
-          name: u.name || "",
-          email: u.email || "",
-          mobile: u.mobile || "",
-          address:
-            u.address || "",
-          pincode:
-            u.pincode || "",
-          address2:
-            u.address2 || "",
-          pincode2:
-            u.pincode2 || "",
-          registeredAt:
-            u.registeredAt || "",
-        }));
+      const result = await pool.query(`
+        SELECT
+          id,
+          name,
+          email,
+          mobile,
+          address,
+          address2,
+          pincode,
+          registered_at
+        FROM users
+        ORDER BY registered_at DESC
+      `);
 
       res.json({
         success: true,
-        totalMembers:
-          safeUsers.length,
-        users: safeUsers,
+        totalMembers: result.rows.length,
+        users: result.rows,
       });
     } catch (error) {
-      console.error(
-        "Admin users error:",
-        error
-      );
+      console.error("Admin users error:", error);
 
       res.status(500).json({
         success: false,
-        message:
-          "Unable to load members.",
+        message: "Could not load registered members.",
+        error: error.message,
       });
     }
   }
 );
 
-/* =========================================================
-   ADMIN LOGOUT
-========================================================= */
+// ======================================================
+// ADMIN LOGOUT
+// ======================================================
 
 app.post(
   "/api/admin/logout",
@@ -748,377 +623,215 @@ app.post(
 
     res.json({
       success: true,
-      message:
-        "Admin logged out.",
+      message: "Admin logged out.",
     });
   }
 );
 
-/* =========================================================
-   PLACE ORDER
-========================================================= */
+// ======================================================
+// PLACE ORDER
+// ======================================================
 
-app.post(
-  "/api/orders",
-  async (req, res) => {
-    try {
-      const {
+app.post("/api/orders", async (req, res) => {
+  try {
+    const {
+      name,
+      email,
+      mobile,
+      address,
+      address2,
+      pincode,
+      items,
+      subtotal,
+      gst,
+      total,
+      paymentMethod,
+    } = req.body;
+
+    if (!name || !email || !items || !total) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing order information.",
+      });
+    }
+
+    const orderId =
+      "GC" +
+      Date.now() +
+      Math.floor(Math.random() * 1000);
+
+    const order = {
+      orderId,
+      name,
+      email: email.toLowerCase().trim(),
+      mobile: mobile || "",
+      address: address || "",
+      address2: address2 || "",
+      pincode: pincode || "",
+      items: Array.isArray(items) ? items : [],
+      subtotal: Number(subtotal || 0),
+      gst: Number(gst || 0),
+      total: Number(total || 0),
+      paymentMethod: paymentMethod || "Cash on Delivery",
+    };
+
+    await pool.query(
+      `
+      INSERT INTO orders
+      (
+        order_id,
         name,
         email,
         mobile,
         address,
+        address2,
         pincode,
         items,
         subtotal,
-        paymentMethod,
-      } = req.body || {};
-
-      if (
-        !name ||
-        !email ||
-        !address ||
-        !pincode
-      ) {
-        return res.status(400).json({
-          success: false,
-          message:
-            "Customer details are required.",
-        });
-      }
-
-      if (
-        !Array.isArray(items) ||
-        items.length === 0
-      ) {
-        return res.status(400).json({
-          success: false,
-          message:
-            "Cart is empty.",
-        });
-      }
-
-      const subtotalAmount =
-        Number(subtotal) || 0;
-
-      const gst =
-        Number(
-          (
-            subtotalAmount *
-            0.18
-          ).toFixed(2)
-        );
-
-      const total =
-        Number(
-          (
-            subtotalAmount +
-            gst
-          ).toFixed(2)
-        );
-
-      const orderId =
-        "GC" +
-        Date.now()
-          .toString()
-          .slice(-8);
-
-      const order = {
-        orderId,
-
-        name:
-          String(name).trim(),
-
-        email:
-          String(email)
-            .trim()
-            .toLowerCase(),
-
-        mobile:
-          mobile
-            ? String(mobile).trim()
-            : "",
-
-        address:
-          String(address).trim(),
-
-        pincode:
-          String(pincode).trim(),
-
-        items,
-
-        subtotal:
-          subtotalAmount,
-
-        gstRate: 18,
-
         gst,
-
         total,
+        payment_method
+      )
+      VALUES
+      ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+      `,
+      [
+        order.orderId,
+        order.name,
+        order.email,
+        order.mobile,
+        order.address,
+        order.address2,
+        order.pincode,
+        JSON.stringify(order.items),
+        order.subtotal,
+        18,
+        order.gst,
+        order.total,
+        order.paymentMethod,
+      ]
+    );
 
-        paymentMethod:
-          paymentMethod ||
-          "Cash on Delivery",
+    // Send order confirmation email
+    const emailResult = await sendOrderEmail(order);
 
-        paymentStatus:
-          paymentMethod ===
-          "Cash on Delivery"
-            ? "Pending"
-            : "Demo Payment Selected",
-
-        status:
-          "Order Placed",
-
-        orderedAt:
-          new Date().toISOString(),
-      };
-
-      const orders =
-        readJson(ORDERS_FILE);
-
-      orders.push(order);
-
-      if (
-        !writeJson(
-          ORDERS_FILE,
-          orders
-        )
-      ) {
-        return res.status(500).json({
-          success: false,
-          message:
-            "Unable to save order.",
-        });
-      }
-
-      /*
-        SEND ORDER EMAIL FROM SERVER
-      */
-
-      const itemText =
-        order.items
-          .map(
-            (item) =>
-              `${item.name} x ${item.qty} = ₹${Number(
-                item.price *
-                  item.qty
-              ).toFixed(2)}`
-          )
-          .join("\n");
-
-      const orderEmailResult =
-        await sendEmailJS(
-          EMAILJS_ORDER_TEMPLATE_ID,
-          {
-            to_email:
-              order.email,
-
-            to_name:
-              order.name,
-
-            user_name:
-              order.name,
-
-            user_email:
-              order.email,
-
-            order_id:
-              order.orderId,
-
-            order_items:
-              itemText,
-
-            order_subtotal:
-              `₹${order.subtotal.toFixed(2)}`,
-
-            order_gst:
-              `₹${order.gst.toFixed(2)}`,
-
-            order_total:
-              `₹${order.total.toFixed(2)}`,
-
-            order_address:
-              order.address,
-
-            order_pincode:
-              order.pincode,
-
-            payment_method:
-              order.paymentMethod,
-          }
-        );
-
-      res.status(201).json({
-        success: true,
-
-        message:
-          "Order placed successfully!",
-
-        order,
-
-        emailSent:
-          orderEmailResult.success,
-
-        emailMessage:
-          orderEmailResult.message,
-      });
-    } catch (error) {
-      console.error(
-        "Order error:",
-        error
-      );
-
-      res.status(500).json({
-        success: false,
-        message:
-          "Unable to place order.",
-      });
-    }
-  }
-);
-
-/* =========================================================
-   ALL ORDERS
-========================================================= */
-
-app.get(
-  "/api/orders",
-  (req, res) => {
-    const orders =
-      readJson(ORDERS_FILE);
-
-    res.json({
+    res.status(201).json({
       success: true,
-      orders,
+      message: emailResult.success
+        ? "Order placed successfully! Confirmation email sent."
+        : "Order placed successfully, but confirmation email could not be sent.",
+      emailSent: emailResult.success,
+      orderId: order.orderId,
     });
-  }
-);
-
-/* =========================================================
-   USER ORDERS
-========================================================= */
-
-app.get(
-  "/api/orders/:email",
-  (req, res) => {
-    try {
-      const email =
-        decodeURIComponent(
-          req.params.email
-        )
-          .trim()
-          .toLowerCase();
-
-      const orders =
-        readJson(ORDERS_FILE);
-
-      const userOrders =
-        orders.filter(
-          (order) =>
-            String(order.email)
-              .toLowerCase() ===
-            email
-        );
-
-      res.json({
-        success: true,
-        orders:
-          userOrders,
-      });
-    } catch (error) {
-      console.error(
-        "User orders error:",
-        error
-      );
-
-      res.status(500).json({
-        success: false,
-        message:
-          "Unable to load orders.",
-      });
-    }
-  }
-);
-
-/* =========================================================
-   404
-========================================================= */
-
-app.use(
-  (req, res) => {
-    res.status(404).json({
-      success: false,
-      message:
-        "API endpoint not found.",
-      method:
-        req.method,
-      endpoint:
-        req.originalUrl,
-    });
-  }
-);
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-app.use(
-  (
-    error,
-    req,
-    res,
-    next
-  ) => {
-    console.error(error);
+  } catch (error) {
+    console.error("Order error:", error);
 
     res.status(500).json({
       success: false,
-      message:
-        "Internal server error.",
+      message: "Could not place order.",
+      error: error.message,
     });
   }
-);
+});
 
-/* =========================================================
-   START
-========================================================= */
+// ======================================================
+// GET ALL ORDERS
+// ======================================================
 
-app.listen(
-  PORT,
-  "0.0.0.0",
-  () => {
-    console.log(
-      "=================================="
-    );
+app.get(
+  "/api/orders",
+  async (req, res) => {
+    try {
+      const result = await pool.query(`
+        SELECT *
+        FROM orders
+        ORDER BY ordered_at DESC
+      `);
 
-    console.log(
-      "GlowCart Backend + Website Started"
-    );
-
-    console.log(
-      "PORT:",
-      PORT
-    );
-
-    console.log(
-      "ADMIN_EMAIL configured:",
-      Boolean(ADMIN_EMAIL)
-    );
-
-    console.log(
-      "ADMIN_PASSWORD configured:",
-      Boolean(ADMIN_PASSWORD)
-    );
-
-    console.log(
-      "EMAILJS configured:",
-      Boolean(
-        EMAILJS_SERVICE_ID &&
-        EMAILJS_PUBLIC_KEY
-      )
-    );
-
-    console.log(
-      "=================================="
-    );
+      res.json({
+        success: true,
+        orders: result.rows,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Could not load orders.",
+        error: error.message,
+      });
+    }
   }
 );
+
+// ======================================================
+// GET ORDERS FOR ONE USER
+// ======================================================
+
+app.get(
+  "/api/orders/:email",
+  async (req, res) => {
+    try {
+      const email = req.params.email
+        .toLowerCase()
+        .trim();
+
+      const result = await pool.query(
+        `
+        SELECT *
+        FROM orders
+        WHERE email = $1
+        ORDER BY ordered_at DESC
+        `,
+        [email]
+      );
+
+      res.json({
+        success: true,
+        orders: result.rows,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Could not load user orders.",
+        error: error.message,
+      });
+    }
+  }
+);
+
+// ======================================================
+// 404
+// ======================================================
+
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "API route not found.",
+  });
+});
+
+// ======================================================
+// START SERVER
+// ======================================================
+
+async function startServer() {
+  await initDatabase();
+
+  app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
+      console.log(
+        `GlowCart running on port ${PORT}`
+      );
+    }
+  );
+}
+
+startServer().catch((error) => {
+  console.error(
+    "GlowCart failed to start:",
+    error
+  );
+
+  process.exit(1);
+});
