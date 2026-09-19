@@ -26,10 +26,6 @@ button{
     cursor:pointer;
 }
 
-.hidden{
-    display:none !important;
-}
-
 header{
     background:linear-gradient(135deg,#ec4899,#9333ea);
     color:white;
@@ -186,6 +182,10 @@ section{
     font-weight:bold;
 }
 
+.hidden{
+    display:none !important;
+}
+
 .page-title{
     text-align:center;
     color:#9333ea;
@@ -195,6 +195,7 @@ section{
 
 .shopping-section{
     background:#fff7fc;
+    min-height:650px;
 }
 
 .shop-top{
@@ -211,6 +212,7 @@ section{
     padding:13px;
     border:1px solid #ddd;
     border-radius:25px;
+    outline:none;
 }
 
 .products{
@@ -263,5 +265,635 @@ section{
     width:100%;
     border:none;
     padding:12px;
-    border-rad
+    border-radius:12px;
+    color:white;
+    background:linear-gradient(135deg,#ec4899,#9333ea);
+    font-weight:bold;
+}
+
+.cart-box,
+.checkout-box,
+.orders-box{
+    max-width:900px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(100,50,120,.1);
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+    flex-wrap:wrap;
+}
+
+.qty-buttons button{
+    border:none;
+    padding:5px 10px;
+    border-radius:8px;
+    background:#f3e8ff;
+    color:#7e22ce;
+    font-weight:bold;
+}
+
+.total{
+    text-align:right;
+    font-size:24px;
+    color:#9333ea;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+.address-card{
+    padding:15px;
+    background:#fff7fc;
+    border:1px solid #f0d5ec;
+    border-radius:12px;
+    margin:10px 0;
+}
+
+.order-card{
+    padding:18px;
+    margin:15px 0;
+    border-radius:15px;
+    background:#fff7fc;
+    border-left:5px solid #9333ea;
+}
+
+footer{
+    background:#24102d;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+footer button{
+    margin-top:15px;
+    border:none;
+    background:none;
+    color:#f9a8d4;
+    font-weight:bold;
+}
+
+/* ADMIN */
+
+#adminSection{
+    min-height:100vh;
+    padding:50px 6%;
+    background:linear-gradient(135deg,#fff0f8,#f5eaff);
+}
+
+.admin-login-box{
+    max-width:450px;
+    margin:20px auto;
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 10px 35px rgba(150,80,150,.18);
+}
+
+.admin-login-box h2{
+    text-align:center;
+    color:#9c27b0;
+    margin-bottom:10px;
+}
+
+.admin-login-box p{
+    text-align:center;
+    color:#777;
+    margin-bottom:25px;
+}
+
+.admin-input{
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    outline:none;
+}
+
+.admin-login-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ec4899,#9333ea);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.admin-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.admin-header h1{
+    color:#8e24aa;
+}
+
+.admin-header p{
+    color:#777;
+    margin-top:7px;
+}
+
+.logout-btn{
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    background:#ef4444;
+    color:white;
+    font-weight:bold;
+}
+
+.member-count-card{
+    background:linear-gradient(135deg,#ec4899,#9333ea);
+    color:white;
+    border-radius:22px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 10px 30px rgba(150,80,150,.2);
+}
+
+.member-count-title{
+    font-size:16px;
+    opacity:.9;
+}
+
+.member-count{
+    font-size:45px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.member-table-box{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    overflow-x:auto;
+    box-shadow:0 10px 30px rgba(100,50,120,.12);
+}
+
+.member-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+.member-table th{
+    padding:15px;
+    background:#f8e8ff;
+    color:#7b1fa2;
+    text-align:left;
+}
+
+.member-table td{
+    padding:15px;
+    border-bottom:1px solid #eee;
+}
+
+.member-table th:first-child,
+.member-table td:first-child{
+    text-align:center;
+}
+
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    section{
+        padding:35px 5%;
+    }
+
+    header{
+        justify-content:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🌸 GlowCart
+    </div>
+
+    <div class="nav-buttons">
+
+        <button onclick="showHome()">Home</button>
+
+        <button onclick="showShopping()">🛍️ Shop</button>
+
+        <button onclick="showCart()">
+            🛒 Cart (<span id="cartCount">0</span>)
+        </button>
+
+        <button onclick="showOrders()">📦 Orders</button>
+
+        <button onclick="showAdmin()">🔐 Admin</button>
+
+    </div>
+
+</header>
+
+
+<!-- HOME -->
+
+<div id="homePage">
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Glow <span>Beautifully</span>
+            </h1>
+
+            <p>
+                Discover premium face creams for healthy,
+                radiant and glowing skin.
+            </p>
+
+            <button
+                class="primary-btn"
+                onclick="showRegister()">
+                Start Shopping 💖
+            </button>
+
+        </div>
+
+    </section>
+
+    <section class="features">
+
+        <div class="feature-card">
+            <div style="font-size:45px;">🌸</div>
+            <h3>Premium Care</h3>
+            <p>Carefully selected face creams for your daily skincare.</p>
+        </div>
+
+        <div class="feature-card">
+            <div style="font-size:45px;">💰</div>
+            <h3>Affordable Prices</h3>
+            <p>Quality skincare at pocket-friendly prices.</p>
+        </div>
+
+        <div class="feature-card">
+            <div style="font-size:45px;">🚚</div>
+            <h3>Easy Ordering</h3>
+            <p>Simple and convenient online shopping.</p>
+        </div>
+
+        <div class="feature-card">
+            <div style="font-size:45px;">💌</div>
+            <h3>Email Updates</h3>
+            <p>Get confirmation emails for registration and orders.</p>
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- REGISTER -->
+
+<section id="registerSection" class="form-section hidden">
+
+    <div class="form-card">
+
+        <h2>🌸 Create Your GlowCart Account</h2>
+
+        <form id="registerForm">
+
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input
+                    type="text"
+                    id="regName"
+                    required
+                    placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label>Email *</label>
+                <input
+                    type="email"
+                    id="regEmail"
+                    required
+                    placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label>Mobile *</label>
+                <input
+                    type="tel"
+                    id="regMobile"
+                    required
+                    placeholder="Enter mobile number">
+            </div>
+
+            <div class="form-group">
+                <label>Password *</label>
+                <input
+                    type="password"
+                    id="regPassword"
+                    required
+                    placeholder="Create password">
+            </div>
+
+            <div class="form-group">
+                <label>Primary Address *</label>
+                <input
+                    type="text"
+                    id="regAddress"
+                    required
+                    placeholder="Enter your address">
+            </div>
+
+            <div class="form-group">
+                <label>Pincode *</label>
+                <input
+                    type="text"
+                    id="regPincode"
+                    required
+                    placeholder="Enter pincode">
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Second Address <small>(Optional)</small>
+                </label>
+                <input
+                    type="text"
+                    id="regAddress2"
+                    placeholder="Optional second address">
+            </div>
+
+            <div class="form-group">
+                <label>
+                    Second Pincode <small>(Optional)</small>
+                </label>
+                <input
+                    type="text"
+                    id="regPincode2"
+                    placeholder="Optional second pincode">
+            </div>
+
+            <button
+                type="submit"
+                class="primary-btn"
+                style="width:100%;">
+                Register 💖
+            </button>
+
+        </form>
+
+        <p id="registerMessage" class="message"></p>
+
+        <p style="text-align:center;margin-top:20px;">
+            Already registered?
+
+            <button
+                onclick="showLogin()"
+                style="
+                    border:none;
+                    background:none;
+                    color:#9333ea;
+                    font-weight:bold;">
+                Login
+            </button>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="loginSection" class="form-section hidden">
+
+    <div class="form-card">
+
+        <h2>💖 Welcome Back</h2>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="loginEmail"
+                    required
+                    placeholder="Enter email">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    required
+                    placeholder="Enter password">
+            </div>
+
+            <button
+                type="submit"
+                class="primary-btn"
+                style="width:100%;">
+                Login
+            </button>
+
+        </form>
+
+        <p id="loginMessage" class="message"></p>
+
+        <p style="text-align:center;margin-top:20px;">
+            New to GlowCart?
+
+            <button
+                onclick="showRegister()"
+                style="
+                    border:none;
+                    background:none;
+                    color:#9333ea;
+                    font-weight:bold;">
+                Register
+            </button>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- SHOPPING -->
+
+<section id="shoppingPage" class="shopping-section hidden">
+
+    <h2 class="page-title">
+        ✨ Premium Face Creams
+    </h2>
+
+    <div class="shop-top">
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="🔍 Search face creams..."
+            oninput="renderProducts()">
+
+    </div>
+
+    <div id="productsContainer" class="products"></div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cartPage" class="hidden">
+
+    <h2 class="page-title">🛒 Your Cart</h2>
+
+    <div class="cart-box">
+
+        <div id="cartItems"></div>
+
+        <div
+            id="cartEmpty"
+            style="
+                text-align:center;
+                padding:30px;
+                color:#777;">
+            Your cart is empty.
+        </div>
+
+        <div id="cartSummary" class="hidden">
+
+            <div class="total">
+                Subtotal:
+                ₹<span id="subtotal">0</span>
+            </div>
+
+            <div style="
+                text-align:right;
+                margin-top:8px;
+                color:#777;">
+                GST (18%):
+                ₹<span id="gst">0</span>
+            </div>
+
+            <div class="total">
+                Total:
+                ₹<span id="total">0</span>
+            </div>
+
+            <button
+                class="primary-btn"
+                style="width:100%;margin-top:20px;"
+                onclick="showCheckout()">
+                Place Order 🛍️
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkoutPage" class="form-section hidden">
+
+    <div class="form-card">
+
+        <h2>📦 Place Your Order</h2>
+
+        <div id="savedAddresses"></div>
+
+        <div class="form-group">
+            <label>Delivery Address</label>
+            <input
+                type="text"
+                id="checkoutAddress"
+                placeholder="Delivery address">
+        </div>
+
+        <div class="form-group">
+            <label>Pincode</label>
+            <input
+                type="text"
+                id="checkoutPincode"
+                placeholder="Pincode">
+        </div>
+
+        <button
+            class="primary-btn"
+            style="width:100%;"
+            onclick="placeOrder()">
+            Confirm Order 💖
+        </button>
+
+        <p id="orderMessage" class="message"></p>
+
+    </div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="ordersPage" class="hidden">
+
+    <h2 class="page-title">📦 My Orders</h2>
+
+    <div class="orders-box">
+
+        <div id="ordersContainer"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="adminSection" class="hidden">
+
+    <div id="adminLoginBox" class="admin-login-box">
+
+        <h2>🔐 GlowCart Admin</h2>
+
+        <p>
+            Login to view registered members
+        </p>
+
+        <input
+            id="adminEmail"
+            type="email"
+            class="admin-input"
+            placeholder="Admin Email">
+
+        <input
+            id="adminPassword"
+            type="password"
+            class="admin-input"
+            placeho
 ```
