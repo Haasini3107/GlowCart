@@ -1,9 +1,8 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>GlowCart - Premium Face Creams</title>
@@ -13,9 +12,9 @@
 <style>
 
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
     font-family:Arial,Helvetica,sans-serif;
 }
 
@@ -23,8 +22,6 @@ body{
     background:#fff7fc;
     color:#351b35;
 }
-
-/* HEADER */
 
 header{
     background:linear-gradient(135deg,#ff4f9a,#8d4de8);
@@ -46,15 +43,15 @@ header{
 
 nav{
     display:flex;
-    gap:10px;
+    gap:8px;
     flex-wrap:wrap;
 }
 
 nav button{
     border:none;
     background:white;
-    color:#8d3ed1;
-    padding:10px 15px;
+    color:#7d2ba4;
+    padding:9px 14px;
     border-radius:20px;
     cursor:pointer;
     font-weight:bold;
@@ -64,8 +61,6 @@ nav button:hover{
     transform:translateY(-2px);
 }
 
-/* SECTIONS */
-
 section{
     display:none;
 }
@@ -74,10 +69,8 @@ section.active{
     display:block;
 }
 
-/* HERO */
-
 .hero{
-    min-height:560px;
+    min-height:600px;
     padding:80px 7%;
     display:flex;
     align-items:center;
@@ -99,27 +92,12 @@ section.active{
 .hero p{
     font-size:20px;
     line-height:1.7;
-    margin-bottom:25px;
-}
-
-.main-btn{
-    border:none;
-    padding:14px 25px;
-    border-radius:30px;
-    background:linear-gradient(135deg,#ff3f95,#873fe3);
-    color:white;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.main-btn:hover{
-    transform:translateY(-2px);
+    margin-bottom:28px;
 }
 
 .hero-card{
-    width:360px;
-    height:360px;
+    width:380px;
+    height:380px;
     border-radius:40px;
     overflow:hidden;
     box-shadow:0 20px 50px rgba(90,20,100,.2);
@@ -131,7 +109,20 @@ section.active{
     object-fit:cover;
 }
 
-/* CONTAINER */
+.main-btn{
+    border:none;
+    padding:14px 25px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff3f95,#873fe3);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.main-btn:hover{
+    transform:translateY(-2px);
+}
 
 .container{
     width:90%;
@@ -145,8 +136,6 @@ section.active{
     color:#7625a5;
     margin-bottom:30px;
 }
-
-/* FORMS */
 
 .form-box{
     max-width:600px;
@@ -164,8 +153,7 @@ section.active{
 }
 
 input,
-textarea,
-select{
+textarea{
     width:100%;
     padding:13px;
     margin:8px 0;
@@ -176,13 +164,13 @@ select{
 }
 
 textarea{
-    resize:vertical;
     min-height:80px;
+    resize:vertical;
 }
 
-.form-box button{
+.form-box .main-btn{
     width:100%;
-    margin-top:12px;
+    margin-top:10px;
 }
 
 .message{
@@ -191,12 +179,21 @@ textarea{
     font-weight:bold;
 }
 
-/* PRODUCTS */
-
 .products{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     gap:25px;
+}
+
+.search{
+    width:100%;
+    max-width:600px;
+    display:block;
+    margin:0 auto 30px;
+    padding:15px;
+    border-radius:30px;
+    border:1px solid #ddd;
+    outline:none;
 }
 
 .product{
@@ -226,11 +223,16 @@ textarea{
     margin-bottom:8px;
 }
 
+.product-body p{
+    color:#666;
+    line-height:1.5;
+}
+
 .price{
     font-size:22px;
     font-weight:bold;
     color:#e63886;
-    margin:10px 0;
+    margin:12px 0;
 }
 
 .product-body button{
@@ -244,19 +246,6 @@ textarea{
     font-weight:bold;
 }
 
-/* SEARCH */
-
-.search{
-    width:100%;
-    max-width:600px;
-    display:block;
-    margin:0 auto 30px;
-    padding:15px;
-    border-radius:30px;
-}
-
-/* CART */
-
 .cart-item{
     background:white;
     margin:15px 0;
@@ -269,23 +258,23 @@ textarea{
     box-shadow:0 5px 20px rgba(80,20,100,.1);
 }
 
-.cart-item img{
-    width:80px;
-    height:80px;
-    object-fit:cover;
-    border-radius:12px;
-}
-
 .cart-left{
     display:flex;
     align-items:center;
     gap:15px;
 }
 
+.cart-left img{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
 .qty{
     display:flex;
-    gap:8px;
     align-items:center;
+    gap:8px;
 }
 
 .qty button{
@@ -296,8 +285,6 @@ textarea{
     cursor:pointer;
     background:#ead6ff;
 }
-
-/* SUMMARY */
 
 .summary{
     background:white;
@@ -323,8 +310,6 @@ textarea{
     padding-top:15px;
 }
 
-/* CHECKOUT */
-
 .checkout-box{
     max-width:800px;
     margin:auto;
@@ -349,10 +334,6 @@ textarea{
     cursor:pointer;
 }
 
-.payment-option:hover{
-    border-color:#bb55df;
-}
-
 .payment-option input{
     width:auto;
     margin:0;
@@ -362,12 +343,12 @@ textarea{
     font-size:25px;
 }
 
-/* SUCCESS */
-
 .order-success{
+    max-width:700px;
+    margin:60px auto;
     text-align:center;
     background:white;
-    padding:40px;
+    padding:45px;
     border-radius:25px;
     box-shadow:0 10px 35px rgba(80,20,100,.15);
 }
@@ -378,13 +359,10 @@ textarea{
 }
 
 .order-id{
-    font-size:22px;
-    font-weight:bold;
+    font-size:20px;
     color:#e23889;
-    margin:15px;
+    margin:20px 0;
 }
-
-/* ORDERS */
 
 .orders-card{
     background:white;
@@ -396,21 +374,13 @@ textarea{
 
 .orders-card h3{
     color:#7625a5;
+    margin-bottom:10px;
 }
-
-hr{
-    border:none;
-    border-top:1px solid #eee;
-}
-
-/* ADMIN */
 
 .admin-table{
     width:100%;
     border-collapse:collapse;
     background:white;
-    border-radius:15px;
-    overflow:hidden;
 }
 
 .admin-table th,
@@ -439,8 +409,6 @@ hr{
     font-size:45px;
 }
 
-/* FOOTER */
-
 footer{
     background:#30132f;
     color:white;
@@ -448,8 +416,6 @@ footer{
     text-align:center;
     margin-top:60px;
 }
-
-/* MOBILE */
 
 @media(max-width:700px){
 
@@ -478,20 +444,14 @@ footer{
         align-items:flex-start;
     }
 
-    .admin-table{
-        font-size:12px;
-    }
 }
 
 </style>
-
 </head>
 
 <body>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- ================= HEADER ================= -->
 
 <header>
 
@@ -502,31 +462,31 @@ footer{
 <nav>
 
 <button onclick="showPage('home')">
-    Home
+Home
 </button>
 
 <button onclick="goToShop()">
-    Shop
+Shop
 </button>
 
-<button onclick="showPage('cart')">
-    🛒 Cart (<span id="cartCount">0</span>)
+<button onclick="goToCart()">
+🛒 Cart (<span id="cartCount">0</span>)
 </button>
 
-<button onclick="showPage('orders')">
-    📦 Orders
+<button onclick="goToOrders()">
+📦 Orders
 </button>
 
 <button onclick="showPage('login')">
-    Login
+Login
 </button>
 
 <button onclick="showPage('register')">
-    Register
+Register
 </button>
 
 <button onclick="showPage('admin')">
-    Admin
+Admin
 </button>
 
 </nav>
@@ -534,9 +494,7 @@ footer{
 </header>
 
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+<!-- ================= HOME ================= -->
 
 <section id="home" class="active">
 
@@ -545,23 +503,20 @@ footer{
 <div class="hero-text">
 
 <h1>
-    Glow Naturally ✨
+Glow Naturally ✨
 </h1>
 
 <p>
-    Discover premium face creams made for
-    your everyday skincare routine.
-    Beautiful skin starts with GlowCart.
+Discover premium face creams made for
+your everyday skincare routine.
+Beautiful skin starts with GlowCart.
 </p>
 
-<!-- IMPORTANT:
-     SHOP NOW NOW GOES TO REGISTER -->
-     
 <button
-    class="main-btn"
-    onclick="shopNow()"
+class="main-btn"
+onclick="shopNow()"
 >
-    Shop Now
+Shop Now 💗
 </button>
 
 </div>
@@ -580,26 +535,22 @@ alt="GlowCart skincare"
 </section>
 
 
-<!-- =====================================================
-     REGISTER
-===================================================== -->
+<!-- ================= REGISTER ================= -->
 
 <section id="register">
 
 <div class="container">
 
 <h1 class="title">
-    Create Your GlowCart Account 💗
+Create Your GlowCart Account 💗
 </h1>
 
 <div class="form-box">
 
-<h2>
-    Register Before Shopping
-</h2>
+<h2>Register First to Shop</h2>
 
-<p style="text-align:center;margin-bottom:20px;color:#777">
-    Please create your account before entering the shop.
+<p style="text-align:center;margin-bottom:15px;color:#666;">
+Create your account and then you can see all GlowCart products.
 </p>
 
 <input
@@ -656,18 +607,8 @@ class="message"
 class="main-btn"
 onclick="registerUser()"
 >
-    Register & Continue
+Complete Registration
 </button>
-
-<p style="text-align:center;margin-top:20px">
-    Already registered?
-    <button
-        style="border:none;background:none;color:#8d3ed1;font-weight:bold;cursor:pointer"
-        onclick="showPage('login')"
-    >
-        Login
-    </button>
-</p>
 
 </div>
 
@@ -676,23 +617,19 @@ onclick="registerUser()"
 </section>
 
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<!-- ================= LOGIN ================= -->
 
 <section id="login">
 
 <div class="container">
 
 <h1 class="title">
-    Welcome Back 💜
+Welcome Back 💜
 </h1>
 
 <div class="form-box">
 
-<h2>
-    Login to GlowCart
-</h2>
+<h2>Login to GlowCart</h2>
 
 <input
 id="loginEmail"
@@ -715,7 +652,7 @@ class="message"
 class="main-btn"
 onclick="loginUser()"
 >
-    Login & Start Shopping
+Login & Shop
 </button>
 
 </div>
@@ -725,17 +662,19 @@ onclick="loginUser()"
 </section>
 
 
-<!-- =====================================================
-     SHOP
-===================================================== -->
+<!-- ================= SHOP ================= -->
 
 <section id="shop">
 
 <div class="container">
 
 <h1 class="title">
-    Premium Face Creams 💕
+Premium Face Creams 💕
 </h1>
+
+<p style="text-align:center;margin-bottom:25px;color:#666;">
+Welcome to GlowCart! Choose your favourite face cream.
+</p>
 
 <input
 class="search"
@@ -754,16 +693,14 @@ class="products"
 </section>
 
 
-<!-- =====================================================
-     CART
-===================================================== -->
+<!-- ================= CART ================= -->
 
 <section id="cart">
 
 <div class="container">
 
 <h1 class="title">
-    Your Shopping Cart 🛒
+Your Shopping Cart 🛒
 </h1>
 
 <div id="cartItems"></div>
@@ -778,25 +715,21 @@ class="summary"
 </section>
 
 
-<!-- =====================================================
-     CHECKOUT
-===================================================== -->
+<!-- ================= CHECKOUT ================= -->
 
 <section id="checkout">
 
 <div class="container">
 
 <h1 class="title">
-    Place Your Order 💗
+Place Your Order 💗
 </h1>
 
 <div class="checkout-box">
 
 <div class="form-box">
 
-<h2>
-    Delivery Details
-</h2>
+<h2>Delivery Details</h2>
 
 <input
 id="checkoutName"
@@ -821,19 +754,17 @@ placeholder="Delivery Address"
 
 <input
 id="checkoutPincode"
-placeholder="Pincode"
 maxlength="6"
+placeholder="Pincode"
 >
 
 </div>
 
 
-<!-- PAYMENT -->
-
 <div class="payment-box">
 
 <h2>
-    Choose Payment Method
+Choose Payment Method
 </h2>
 
 <label class="payment-option">
@@ -846,7 +777,7 @@ checked
 >
 
 <span class="payment-icon">
-    📱
+📱
 </span>
 
 <div>
@@ -867,7 +798,7 @@ value="Net Banking"
 >
 
 <span class="payment-icon">
-    🏦
+🏦
 </span>
 
 <div>
@@ -888,7 +819,7 @@ value="Cash on Delivery"
 >
 
 <span class="payment-icon">
-    💵
+💵
 </span>
 
 <div>
@@ -902,8 +833,6 @@ Pay when your order arrives
 </div>
 
 
-<!-- ORDER SUMMARY -->
-
 <div
 id="checkoutSummary"
 class="summary"
@@ -911,11 +840,12 @@ class="summary"
 
 
 <button
+id="placeOrderButton"
 class="main-btn"
 style="width:100%;margin-top:20px"
 onclick="placeOrder()"
 >
-    Place Order
+Place Order
 </button>
 
 </div>
@@ -925,9 +855,7 @@ onclick="placeOrder()"
 </section>
 
 
-<!-- =====================================================
-     SUCCESS
-===================================================== -->
+<!-- ================= SUCCESS ================= -->
 
 <section id="success">
 
@@ -936,11 +864,11 @@ onclick="placeOrder()"
 <div class="order-success">
 
 <h2>
-    🎉 Order Placed Successfully!
+🎉 Order Placed Successfully!
 </h2>
 
 <p>
-    Thank you for shopping with GlowCart.
+Thank you for shopping with GlowCart.
 </p>
 
 <div
@@ -948,15 +876,15 @@ id="successDetails"
 class="order-id"
 ></div>
 
-<p>
-    Your order confirmation has been sent to your email.
+<p style="margin-bottom:25px;">
+Your order confirmation email has been sent to your registered email address.
 </p>
 
 <button
 class="main-btn"
-onclick="showPage('orders');loadOrders()"
+onclick="goToOrders()"
 >
-    View My Orders
+View My Orders
 </button>
 
 </div>
@@ -966,16 +894,14 @@ onclick="showPage('orders');loadOrders()"
 </section>
 
 
-<!-- =====================================================
-     ORDERS
-===================================================== -->
+<!-- ================= ORDERS ================= -->
 
 <section id="orders">
 
 <div class="container">
 
 <h1 class="title">
-    My Orders 📦
+My Orders 📦
 </h1>
 
 <div id="ordersList"></div>
@@ -985,27 +911,22 @@ onclick="showPage('orders');loadOrders()"
 </section>
 
 
-<!-- =====================================================
-     ADMIN
-===================================================== -->
+<!-- ================= ADMIN ================= -->
 
 <section id="admin">
 
 <div class="container">
 
 <h1 class="title">
-    GlowCart Admin 👑
+GlowCart Admin 👑
 </h1>
-
 
 <div
 id="adminLoginBox"
 class="form-box"
 >
 
-<h2>
-    Admin Login
-</h2>
+<h2>Admin Login</h2>
 
 <input
 id="adminEmail"
@@ -1028,7 +949,7 @@ class="message"
 class="main-btn"
 onclick="adminLogin()"
 >
-    Admin Login
+Admin Login
 </button>
 
 </div>
@@ -1042,33 +963,30 @@ style="display:none"
 <div class="member-count">
 
 <p>
-    Total Registered Members
+Total Registered Members
 </p>
 
 <strong id="memberCount">
-    0
+0
 </strong>
 
 </div>
-
 
 <button
 class="main-btn"
 onclick="loadMembers()"
 style="margin-bottom:20px"
 >
-    🔄 Refresh Members
+🔄 Refresh Members
 </button>
-
 
 <button
 class="main-btn"
 onclick="adminLogout()"
 style="margin-bottom:20px"
 >
-    Logout
+Logout
 </button>
-
 
 <div style="overflow-x:auto">
 
@@ -1077,13 +995,11 @@ style="margin-bottom:20px"
 <thead>
 
 <tr>
-
 <th>#</th>
 <th>Name</th>
 <th>Email</th>
 <th>Mobile</th>
 <th>Registered On</th>
-
 </tr>
 
 </thead>
@@ -1102,22 +1018,18 @@ style="margin-bottom:20px"
 </section>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer>
 
 <h2>
-    ✨ GlowCart
+✨ GlowCart
 </h2>
 
-<p>
-    Premium Face Creams • Beautiful Skin • Happy You
+<p style="margin-top:10px;">
+Premium Face Creams • Beautiful Skin • Happy You
 </p>
 
-<p style="margin-top:15px">
-    © 2026 GlowCart
+<p style="margin-top:15px;">
+© 2026 GlowCart
 </p>
 
 </footer>
@@ -1125,24 +1037,17 @@ style="margin-bottom:20px"
 
 <script>
 
-/* =====================================================
-   API
-===================================================== */
+/* =========================================================
+   CONFIGURATION
+========================================================= */
 
 const API =
 "https://glowcart-fxwp.onrender.com";
 
-
-/* =====================================================
-   GST
-===================================================== */
-
 const GST_RATE = 0.18;
 
 
-/* =====================================================
-   EMAILJS
-===================================================== */
+/* ================= EMAILJS ================= */
 
 const EMAILJS_SERVICE =
 "service_nb7q38o";
@@ -1158,13 +1063,13 @@ const EMAILJS_WELCOME_TEMPLATE =
 
 
 emailjs.init({
-    publicKey: EMAILJS_PUBLIC_KEY
+    publicKey:EMAILJS_PUBLIC_KEY
 });
 
 
-/* =====================================================
+/* =========================================================
    DATA
-===================================================== */
+========================================================= */
 
 let products = [];
 
@@ -1179,131 +1084,145 @@ JSON.parse(
 );
 
 
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
+/* =========================================================
+   PAGE
+========================================================= */
 
 function showPage(page){
 
     document
     .querySelectorAll("section")
-    .forEach(section => {
-
+    .forEach(section=>{
         section.classList.remove("active");
-
     });
-
 
     const target =
     document.getElementById(page);
 
-
     if(target){
-
         target.classList.add("active");
-
     }
-
-
-    if(page === "shop"){
-
-        displayProducts();
-
-    }
-
-
-    if(page === "cart"){
-
-        displayCart();
-
-    }
-
-
-    if(page === "orders"){
-
-        loadOrders();
-
-    }
-
-
-    if(page === "checkout"){
-
-        prepareCheckout();
-
-    }
-
-
-    if(page === "admin"){
-
-        checkAdminSession();
-
-    }
-
 
     window.scrollTo({
         top:0,
         behavior:"smooth"
     });
+
+    if(page === "shop"){
+        displayProducts();
+    }
+
+    if(page === "cart"){
+        displayCart();
+    }
+
+    if(page === "checkout"){
+        prepareCheckout();
+    }
+
+    if(page === "orders"){
+        loadOrders();
+    }
+
+    if(page === "admin"){
+        checkAdminSession();
+    }
 }
 
 
-/* =====================================================
+/* =========================================================
    SHOP NOW
-   NEW FLOW:
-   HOME → REGISTER
-===================================================== */
+   IMPORTANT:
+   USER MUST REGISTER/LOGIN FIRST
+========================================================= */
 
 function shopNow(){
 
-    /*
-       If already logged in,
-       directly open shop.
-    */
-
-    if(currentUser){
-
-        showPage("shop");
-
-        return;
-
-    }
-
-
-    /*
-       New users must register first.
-    */
-
-    showPage("register");
-
-}
-
-
-/* =====================================================
-   SHOP BUTTON IN HEADER
-===================================================== */
-
-function goToShop(){
-
-    if(currentUser){
-
-        showPage("shop");
-
-    }else{
+    if(!currentUser){
 
         alert(
-            "Please register or login before shopping."
+            "Please register first to shop on GlowCart! 💗"
         );
 
         showPage("register");
 
+        return;
     }
 
+    showPage("shop");
+
+    displayProducts();
 }
 
 
-/* =====================================================
+/* =========================================================
+   SHOP BUTTON
+========================================================= */
+
+function goToShop(){
+
+    if(!currentUser){
+
+        alert(
+            "Please register or login first to view products."
+        );
+
+        showPage("register");
+
+        return;
+    }
+
+    showPage("shop");
+}
+
+
+/* =========================================================
+   CART BUTTON
+========================================================= */
+
+function goToCart(){
+
+    if(!currentUser){
+
+        alert(
+            "Please register or login first."
+        );
+
+        showPage("register");
+
+        return;
+    }
+
+    showPage("cart");
+}
+
+
+/* =========================================================
+   ORDERS BUTTON
+========================================================= */
+
+function goToOrders(){
+
+    if(!currentUser){
+
+        alert(
+            "Please login first to view your orders."
+        );
+
+        showPage("login");
+
+        return;
+    }
+
+    showPage("orders");
+
+    loadOrders();
+}
+
+
+/* =========================================================
    LOAD PRODUCTS
-===================================================== */
+========================================================= */
 
 async function loadProducts(){
 
@@ -1314,114 +1233,131 @@ async function loadProducts(){
             API + "/api/products"
         );
 
-
         const data =
         await response.json();
-
 
         if(Array.isArray(data)){
 
             products = data;
 
-        }
-        else if(
+        }else if(
+            data &&
             Array.isArray(data.products)
         ){
 
             products = data.products;
 
-        }
-        else{
+        }else{
 
             products = [];
 
         }
 
+        if(currentUser){
 
-        displayProducts();
+            displayProducts();
 
+        }
+
+    }catch(error){
+
+        console.error(
+            "Products error:",
+            error
+        );
+
+        const box =
+        document.getElementById("products");
+
+        if(box){
+
+            box.innerHTML = `
+                <div class="form-box">
+
+                    <h2>
+                    Unable to load products
+                    </h2>
+
+                    <p style="text-align:center;">
+                    Please try again later.
+                    </p>
+
+                </div>
+            `;
+        }
     }
-    catch(error){
-
-        console.error(error);
-
-
-        document.getElementById(
-            "products"
-        ).innerHTML =
-
-        `
-        <div class="form-box">
-
-            <h2>
-                Unable to load products
-            </h2>
-
-            <p>
-                Please try again later.
-            </p>
-
-        </div>
-        `;
-
-    }
-
 }
 
 
-/* =====================================================
-   DISPLAY PRODUCTS
-===================================================== */
+/* =========================================================
+   DISPLAY ALL PRODUCTS
+========================================================= */
 
 function displayProducts(){
 
     const box =
     document.getElementById("products");
 
+    if(!box){
+        return;
+    }
 
-    if(!box) return;
+    if(!currentUser){
+
+        box.innerHTML = `
+            <div class="form-box">
+
+                <h2>
+                Please Register First
+                </h2>
+
+                <button
+                class="main-btn"
+                onclick="showPage('register')"
+                >
+                Register Now
+                </button>
+
+            </div>
+        `;
+
+        return;
+    }
 
 
     const search =
     (
-        document.getElementById(
-            "searchBox"
-        )?.value || ""
+        document.getElementById("searchBox")?.value
+        || ""
     ).toLowerCase();
 
 
     const filtered =
-    products.filter(product =>
-
+    products.filter(product=>
         String(product.name)
         .toLowerCase()
         .includes(search)
-
     );
 
 
     if(filtered.length === 0){
 
-        box.innerHTML =
+        box.innerHTML = `
+            <div class="form-box">
 
-        `
-        <div class="form-box">
+                <h2>
+                No Products Found
+                </h2>
 
-            <h2>
-                No products found
-            </h2>
-
-        </div>
+            </div>
         `;
 
         return;
-
     }
 
 
     box.innerHTML =
-
-    filtered.map(product => {
+    filtered.map(product=>{
 
         const image =
         product.image ||
@@ -1433,33 +1369,33 @@ function displayProducts(){
         <div class="product">
 
             <img
-                src="${image}"
-                alt="${escapeHtml(product.name)}"
-                onerror="this.src='https://via.placeholder.com/500x400?text=GlowCart'"
+            src="${image}"
+            alt="${escapeHtml(product.name)}"
+            onerror="
+            this.src='https://via.placeholder.com/500x400?text=GlowCart'
+            "
             >
 
             <div class="product-body">
 
                 <h3>
-                    ${escapeHtml(product.name)}
+                ${escapeHtml(product.name)}
                 </h3>
 
                 <p>
-                    ${escapeHtml(
-                        product.description || ""
-                    )}
+                ${escapeHtml(
+                    product.description || ""
+                )}
                 </p>
 
                 <div class="price">
-                    ₹${Number(
-                        product.price
-                    ).toFixed(2)}
+                ₹${Number(product.price).toFixed(2)}
                 </div>
 
                 <button
-                    onclick="addToCart(${product.id})"
+                onclick="addToCart(${product.id})"
                 >
-                    Add to Cart 🛒
+                Add to Cart 🛒
                 </button>
 
             </div>
@@ -1469,13 +1405,12 @@ function displayProducts(){
         `;
 
     }).join("");
-
 }
 
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+/* =========================================================
+   ESCAPE
+========================================================= */
 
 function escapeHtml(value){
 
@@ -1485,48 +1420,46 @@ function escapeHtml(value){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
-
 }
 
 
-/* =====================================================
-   ADD TO CART
-===================================================== */
+/* =========================================================
+   ADD CART
+========================================================= */
 
 function addToCart(id){
-
-    /*
-       Extra protection:
-       user must be logged in.
-    */
 
     if(!currentUser){
 
         alert(
-            "Please register and login before shopping."
+            "Please register or login first."
         );
 
         showPage("register");
 
         return;
-
     }
 
 
     const product =
     products.find(
-        p =>
-        String(p.id) === String(id)
+        p=>String(p.id) === String(id)
     );
 
 
-    if(!product) return;
+    if(!product){
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+    }
 
 
     const existing =
     cart.find(
-        item =>
-        String(item.id) === String(id)
+        item=>String(item.id) === String(id)
     );
 
 
@@ -1534,8 +1467,7 @@ function addToCart(id){
 
         existing.quantity++;
 
-    }
-    else{
+    }else{
 
         cart.push({
 
@@ -1561,13 +1493,12 @@ function addToCart(id){
         product.name +
         " added to cart! 🛒"
     );
-
 }
 
 
-/* =====================================================
+/* =========================================================
    SAVE CART
-===================================================== */
+========================================================= */
 
 function saveCart(){
 
@@ -1577,82 +1508,68 @@ function saveCart(){
     );
 
     updateCartCount();
-
 }
 
 
-/* =====================================================
+/* =========================================================
    CART COUNT
-===================================================== */
+========================================================= */
 
 function updateCartCount(){
 
     const count =
     cart.reduce(
-        (sum,item) =>
-        sum +
-        Number(item.quantity || 0),
+        (sum,item)=>
+        sum + Number(item.quantity || 0),
         0
     );
-
 
     document.getElementById(
         "cartCount"
     ).textContent = count;
-
 }
 
 
-/* =====================================================
-   DISPLAY CART
-===================================================== */
+/* =========================================================
+   CART DISPLAY
+========================================================= */
 
 function displayCart(){
 
     const box =
-    document.getElementById(
-        "cartItems"
-    );
-
+    document.getElementById("cartItems");
 
     const summary =
-    document.getElementById(
-        "cartSummary"
-    );
+    document.getElementById("cartSummary");
 
 
     if(cart.length === 0){
 
-        box.innerHTML =
+        box.innerHTML = `
+            <div class="form-box">
 
-        `
-        <div class="form-box">
+                <h2>
+                Your Cart is Empty 🛒
+                </h2>
 
-            <h2>
-                Your cart is empty 🛒
-            </h2>
-
-            <button
+                <button
                 class="main-btn"
-                onclick="goToShop()"
-            >
+                onclick="showPage('shop')"
+                >
                 Continue Shopping
-            </button>
+                </button>
 
-        </div>
+            </div>
         `;
 
-
-        summary.innerHTML = "";
+        summary.innerHTML="";
 
         return;
-
     }
 
 
     box.innerHTML =
-
-    cart.map((item,index) => {
+    cart.map((item,index)=>{
 
         return `
 
@@ -1661,20 +1578,18 @@ function displayCart(){
             <div class="cart-left">
 
                 <img
-                    src="${item.image}"
-                    alt="${escapeHtml(item.name)}"
+                src="${item.image}"
+                alt="${escapeHtml(item.name)}"
                 >
 
                 <div>
 
                     <h3>
-                        ${escapeHtml(item.name)}
+                    ${escapeHtml(item.name)}
                     </h3>
 
                     <p>
-                        ₹${Number(
-                            item.price
-                        ).toFixed(2)}
+                    ₹${Number(item.price).toFixed(2)}
                     </p>
 
                 </div>
@@ -1685,25 +1600,25 @@ function displayCart(){
             <div class="qty">
 
                 <button
-                    onclick="changeQuantity(${index},-1)"
+                onclick="changeQuantity(${index},-1)"
                 >
-                    -
+                -
                 </button>
 
                 <strong>
-                    ${item.quantity}
+                ${item.quantity}
                 </strong>
 
                 <button
-                    onclick="changeQuantity(${index},1)"
+                onclick="changeQuantity(${index},1)"
                 >
-                    +
+                +
                 </button>
 
                 <button
-                    onclick="removeFromCart(${index})"
+                onclick="removeFromCart(${index})"
                 >
-                    ❌
+                ❌
                 </button>
 
             </div>
@@ -1719,65 +1634,62 @@ function displayCart(){
     calculateTotals();
 
 
-    summary.innerHTML =
+    summary.innerHTML = `
 
-    `
+        <div class="summary-row">
 
-    <div class="summary-row">
-
-        <span>
+            <span>
             Subtotal
-        </span>
+            </span>
 
-        <strong>
+            <strong>
             ₹${totals.subtotal.toFixed(2)}
-        </strong>
+            </strong>
 
-    </div>
+        </div>
 
 
-    <div class="summary-row">
+        <div class="summary-row">
 
-        <span>
+            <span>
             GST (18%)
-        </span>
+            </span>
 
-        <strong>
+            <strong>
             ₹${totals.gst.toFixed(2)}
-        </strong>
+            </strong>
 
-    </div>
+        </div>
 
 
-    <div class="summary-row total">
+        <div class="summary-row total">
 
-        <span>
+            <span>
             Total Amount
-        </span>
+            </span>
 
-        <strong>
+            <strong>
             ₹${totals.total.toFixed(2)}
-        </strong>
+            </strong>
 
-    </div>
+        </div>
 
 
-    <button
+        <button
         class="main-btn"
         style="width:100%;margin-top:20px"
         onclick="showPage('checkout')"
-    >
+        >
         Proceed to Place Order
-    </button>
+        </button>
 
     `;
-
 }
 
 
-/* =====================================================
-   CHANGE QUANTITY
-===================================================== */
+/* =========================================================
+   QUANTITY
+========================================================= */
 
 function changeQuantity(index,change){
 
@@ -1794,13 +1706,12 @@ function changeQuantity(index,change){
     saveCart();
 
     displayCart();
-
 }
 
 
-/* =====================================================
+/* =========================================================
    REMOVE
-===================================================== */
+========================================================= */
 
 function removeFromCart(index){
 
@@ -1809,20 +1720,19 @@ function removeFromCart(index){
     saveCart();
 
     displayCart();
-
 }
 
 
-/* =====================================================
-   CALCULATE TOTAL
-===================================================== */
+/* =========================================================
+   TOTALS
+========================================================= */
 
 function calculateTotals(){
 
-    let subtotal = 0;
+    let subtotal=0;
 
 
-    cart.forEach(item => {
+    cart.forEach(item=>{
 
         subtotal +=
         Number(item.price) *
@@ -1842,17 +1752,18 @@ function calculateTotals(){
     return {
 
         subtotal,
+
         gst,
+
         total
 
     };
-
 }
 
 
-/* =====================================================
-   REGISTER USER
-===================================================== */
+/* =========================================================
+   REGISTER
+========================================================= */
 
 async function registerUser(){
 
@@ -1925,38 +1836,13 @@ async function registerUser(){
         message.style.color="red";
 
         return;
-
-    }
-
-
-    if(!/^[0-9]{10}$/.test(mobile)){
-
-        message.textContent =
-        "Mobile number must contain 10 digits.";
-
-        message.style.color="red";
-
-        return;
-
-    }
-
-
-    if(!/^[0-9]{6}$/.test(pincode)){
-
-        message.textContent =
-        "Pincode must contain 6 digits.";
-
-        message.style.color="red";
-
-        return;
-
     }
 
 
     message.textContent =
     "Creating your account...";
 
-    message.style.color="#8d3ed1";
+    message.style.color="#7625a5";
 
 
     try{
@@ -1994,10 +1880,7 @@ async function registerUser(){
         await response.json();
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
 
             message.textContent =
             data.message ||
@@ -2006,9 +1889,10 @@ async function registerUser(){
             message.style.color="red";
 
             return;
-
         }
 
+
+        /* SAVE USER */
 
         currentUser =
         data.user;
@@ -2016,15 +1900,11 @@ async function registerUser(){
 
         localStorage.setItem(
             "glowcart_user",
-            JSON.stringify(
-                currentUser
-            )
+            JSON.stringify(currentUser)
         );
 
 
-        /*
-           SEND REGISTERED SUCCESSFULLY EMAIL
-        */
+        /* SEND REGISTER EMAIL */
 
         const emailSent =
         await sendWelcomeEmail(
@@ -2032,34 +1912,7 @@ async function registerUser(){
         );
 
 
-        if(emailSent){
-
-            message.textContent =
-            "Registration successful! Welcome email sent.";
-
-        }
-        else{
-
-            message.textContent =
-            "Registration successful, but email could not be sent.";
-
-        }
-
-
-        message.style.color="green";
-
-
-        alert(
-            "Registration Successful! 💗\n\n" +
-            "Welcome email sent to:\n" +
-            currentUser.email +
-            "\n\nPlease login to continue shopping."
-        );
-
-
-        /*
-           Clear registration form
-        */
+        /* CLEAR REGISTER FORM */
 
         document.getElementById(
             "regName"
@@ -2094,47 +1947,61 @@ async function registerUser(){
         ).value="";
 
 
+        /* SUCCESS MESSAGE */
+
+        message.textContent =
+        emailSent
+        ? "Registration successful! Welcome email sent."
+        : "Registration successful!";
+
+
+        message.style.color="green";
+
+
+        alert(
+            emailSent
+            ? "Registration successful! 🎉\n\nWelcome email sent to:\n" +
+              currentUser.email
+            : "Registration successful! 🎉"
+        );
+
+
         /*
-           Registration → Login
+          IMPORTANT:
+          AFTER REGISTRATION DIRECTLY
+          SHOW ALL PRODUCTS.
         */
 
-        showPage("login");
+        await loadProducts();
+
+        showPage("shop");
+
+        displayProducts();
 
 
-        /*
-           Pre-fill email
-        */
+    }catch(error){
 
-        document.getElementById(
-            "loginEmail"
-        ).value =
-        currentUser.email;
-
-
-    }
-    catch(error){
-
-        console.error(error);
+        console.error(
+            "Registration error:",
+            error
+        );
 
         message.textContent =
         "Unable to connect to GlowCart server.";
 
         message.style.color="red";
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    WELCOME EMAIL
-===================================================== */
+========================================================= */
 
 async function sendWelcomeEmail(user){
 
     try{
 
-        const result =
         await emailjs.send(
 
             EMAILJS_SERVICE,
@@ -2143,17 +2010,13 @@ async function sendWelcomeEmail(user){
 
             {
 
-                to_email:
-                user.email,
+                to_email:user.email,
 
-                to_name:
-                user.name,
+                to_name:user.name,
 
-                user_name:
-                user.name,
+                user_name:user.name,
 
-                user_email:
-                user.email
+                user_email:user.email
 
             }
 
@@ -2161,32 +2024,29 @@ async function sendWelcomeEmail(user){
 
 
         console.log(
-            "Welcome email sent:",
-            result
+            "Welcome email sent."
         );
 
 
         return true;
 
-    }
-    catch(error){
+
+    }catch(error){
 
         console.error(
-            "Welcome email error:",
+            "Welcome EmailJS error:",
             error
         );
 
 
         return false;
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 async function loginUser(){
 
@@ -2208,18 +2068,6 @@ async function loginUser(){
     );
 
 
-    if(!email || !password){
-
-        message.textContent =
-        "Please enter email and password.";
-
-        message.style.color="red";
-
-        return;
-
-    }
-
-
     message.textContent =
     "Logging in...";
 
@@ -2239,10 +2087,8 @@ async function loginUser(){
                 },
 
                 body:JSON.stringify({
-
                     email,
                     password
-
                 })
 
             }
@@ -2253,10 +2099,7 @@ async function loginUser(){
         await response.json();
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
 
             message.textContent =
             data.message ||
@@ -2265,7 +2108,6 @@ async function loginUser(){
             message.style.color="red";
 
             return;
-
         }
 
 
@@ -2275,9 +2117,7 @@ async function loginUser(){
 
         localStorage.setItem(
             "glowcart_user",
-            JSON.stringify(
-                currentUser
-            )
+            JSON.stringify(currentUser)
         );
 
 
@@ -2288,21 +2128,19 @@ async function loginUser(){
 
 
         alert(
-            "Login successful! 💜\n\n" +
-            "Welcome " +
-            currentUser.name +
-            "!"
+            "Login successful! 💗\n\nWelcome " +
+            currentUser.name
         );
 
 
-        /*
-           LOGIN → SHOP
-        */
+        await loadProducts();
 
         showPage("shop");
 
-    }
-    catch(error){
+        displayProducts();
+
+
+    }catch(error){
 
         console.error(error);
 
@@ -2310,32 +2148,29 @@ async function loginUser(){
         "Unable to connect to server.";
 
         message.style.color="red";
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    CHECKOUT
-===================================================== */
+========================================================= */
 
 function prepareCheckout(){
 
     if(!currentUser){
 
         alert(
-            "Please register and login first."
+            "Please register or login first."
         );
 
         showPage("register");
 
         return;
-
     }
 
 
-    if(cart.length === 0){
+    if(cart.length===0){
 
         alert(
             "Your cart is empty."
@@ -2344,7 +2179,6 @@ function prepareCheckout(){
         showPage("shop");
 
         return;
-
     }
 
 
@@ -2379,13 +2213,12 @@ function prepareCheckout(){
 
 
     displayCheckoutSummary();
-
 }
 
 
-/* =====================================================
+/* =========================================================
    CHECKOUT SUMMARY
-===================================================== */
+========================================================= */
 
 function displayCheckoutSummary(){
 
@@ -2395,84 +2228,79 @@ function displayCheckoutSummary(){
 
     document.getElementById(
         "checkoutSummary"
-    ).innerHTML =
+    ).innerHTML = `
 
-    `
-
-    <h2>
+        <h2>
         Order Summary
-    </h2>
+        </h2>
 
 
-    ${
-        cart.map(item => `
+        ${cart.map(item=>`
 
             <div class="summary-row">
 
                 <span>
-                    ${escapeHtml(item.name)}
-                    × ${item.quantity}
+                ${escapeHtml(item.name)}
+                × ${item.quantity}
                 </span>
 
                 <strong>
-                    ₹${(
-                        Number(item.price) *
-                        Number(item.quantity)
-                    ).toFixed(2)}
+                ₹${(
+                    Number(item.price) *
+                    Number(item.quantity)
+                ).toFixed(2)}
                 </strong>
 
             </div>
 
-        `).join("")
-    }
+        `).join("")}
 
 
-    <div class="summary-row">
+        <div class="summary-row">
 
-        <span>
+            <span>
             Subtotal
-        </span>
+            </span>
 
-        <strong>
+            <strong>
             ₹${totals.subtotal.toFixed(2)}
-        </strong>
+            </strong>
 
-    </div>
+        </div>
 
 
-    <div class="summary-row">
+        <div class="summary-row">
 
-        <span>
+            <span>
             GST (18%)
-        </span>
+            </span>
 
-        <strong>
+            <strong>
             ₹${totals.gst.toFixed(2)}
-        </strong>
+            </strong>
 
-    </div>
+        </div>
 
 
-    <div class="summary-row total">
+        <div class="summary-row total">
 
-        <span>
+            <span>
             Total Amount
-        </span>
+            </span>
 
-        <strong>
+            <strong>
             ₹${totals.total.toFixed(2)}
-        </strong>
+            </strong>
 
-    </div>
+        </div>
 
     `;
-
 }
 
 
-/* =====================================================
+/* =========================================================
    PLACE ORDER
-===================================================== */
+========================================================= */
 
 async function placeOrder(){
 
@@ -2485,20 +2313,16 @@ async function placeOrder(){
         showPage("login");
 
         return;
-
     }
 
 
-    if(cart.length === 0){
+    if(cart.length===0){
 
         alert(
             "Your cart is empty."
         );
 
-        showPage("shop");
-
         return;
-
     }
 
 
@@ -2551,7 +2375,6 @@ async function placeOrder(){
         );
 
         return;
-
     }
 
 
@@ -2562,7 +2385,6 @@ async function placeOrder(){
         );
 
         return;
-
     }
 
 
@@ -2571,8 +2393,8 @@ async function placeOrder(){
 
 
     const button =
-    document.querySelector(
-        "#checkout .main-btn"
+    document.getElementById(
+        "placeOrderButton"
     );
 
 
@@ -2626,16 +2448,12 @@ async function placeOrder(){
         await response.json();
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
 
             throw new Error(
                 data.message ||
                 "Order failed."
             );
-
         }
 
 
@@ -2643,9 +2461,7 @@ async function placeOrder(){
         data.order;
 
 
-        /*
-           Save local order
-        */
+        /* SAVE LOCAL ORDER */
 
         const localOrders =
         JSON.parse(
@@ -2660,130 +2476,104 @@ async function placeOrder(){
 
         localStorage.setItem(
             "glowcart_orders",
-            JSON.stringify(
-                localOrders
-            )
+            JSON.stringify(localOrders)
         );
 
 
-        /*
-           ORDER EMAIL
-        */
+        /* SEND ORDER EMAIL */
 
         const emailSent =
         await sendOrderEmail(order);
 
 
-        /*
-           CLEAR CART
-        */
+        /* CLEAR CART */
 
         cart=[];
 
         saveCart();
 
 
-        /*
-           SUCCESS
-        */
+        /* SUCCESS */
 
         document.getElementById(
             "successDetails"
-        ).innerHTML =
+        ).innerHTML = `
 
-        `
-
-        <div>
+            <div>
             Order ID:
             <strong>
-                ${escapeHtml(order.orderId)}
+            ${escapeHtml(order.orderId)}
             </strong>
-        </div>
+            </div>
 
-
-        <div style="margin-top:10px">
+            <div style="margin-top:10px;">
             Payment:
             <strong>
-                ${escapeHtml(
-                    order.paymentMethod
-                )}
+            ${escapeHtml(order.paymentMethod)}
             </strong>
-        </div>
+            </div>
 
-
-        <div style="margin-top:10px">
+            <div style="margin-top:10px;">
             Subtotal:
             <strong>
-                ₹${Number(
-                    order.subtotal
-                ).toFixed(2)}
+            ₹${Number(order.subtotal).toFixed(2)}
             </strong>
-        </div>
+            </div>
 
-
-        <div style="margin-top:10px">
+            <div style="margin-top:10px;">
             GST (18%):
             <strong>
-                ₹${Number(
-                    order.gst
-                ).toFixed(2)}
+            ₹${Number(order.gst).toFixed(2)}
             </strong>
-        </div>
+            </div>
 
-
-        <div style="margin-top:10px">
-            Total:
+            <div style="margin-top:10px;">
+            Total Amount:
             <strong>
-                ₹${Number(
-                    order.total
-                ).toFixed(2)}
+            ₹${Number(order.total).toFixed(2)}
             </strong>
-        </div>
+            </div>
 
-
-        <div style="margin-top:15px;font-size:15px">
-
+            <div style="margin-top:20px;font-size:15px;">
             ${
                 emailSent
-                ?
-                "📧 Order confirmation email sent."
-                :
-                "Order placed successfully."
+                ? "📧 Order confirmation email sent."
+                : "Order placed successfully."
             }
-
-        </div>
+            </div>
 
         `;
 
 
         showPage("success");
 
-    }
-    catch(error){
 
-        console.error(error);
+    }catch(error){
+
+        console.error(
+            "Order error:",
+            error
+        );
 
         alert(
             "Unable to place order.\n\n" +
             error.message
         );
 
-    }
-    finally{
+
+    }finally{
 
         button.disabled=false;
 
         button.textContent=
         "Place Order";
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    ORDER EMAIL
-===================================================== */
+========================================================= */
 
 async function sendOrderEmail(order){
 
@@ -2791,13 +2581,11 @@ async function sendOrderEmail(order){
 
         const itemText =
         order.items
-        .map(item =>
-
+        .map(item=>
             `${item.name} x ${item.quantity} - ₹${(
                 Number(item.price) *
                 Number(item.quantity)
             ).toFixed(2)}`
-
         )
         .join("\n");
 
@@ -2810,23 +2598,17 @@ async function sendOrderEmail(order){
 
             {
 
-                to_email:
-                order.email,
+                to_email:order.email,
 
-                to_name:
-                order.name,
+                to_name:order.name,
 
-                user_name:
-                order.name,
+                user_name:order.name,
 
-                user_email:
-                order.email,
+                user_email:order.email,
 
-                order_id:
-                order.orderId,
+                order_id:order.orderId,
 
-                order_items:
-                itemText,
+                order_items:itemText,
 
                 order_subtotal:
                 `₹${Number(
@@ -2857,27 +2639,30 @@ async function sendOrderEmail(order){
         );
 
 
+        console.log(
+            "Order confirmation email sent."
+        );
+
+
         return true;
 
-    }
-    catch(error){
+
+    }catch(error){
 
         console.error(
-            "Order email error:",
+            "Order EmailJS error:",
             error
         );
 
 
         return false;
-
     }
-
 }
 
 
-/* =====================================================
-   LOAD ORDERS
-===================================================== */
+/* =========================================================
+   ORDERS
+========================================================= */
 
 async function loadOrders(){
 
@@ -2889,38 +2674,26 @@ async function loadOrders(){
 
     if(!currentUser){
 
-        box.innerHTML =
+        box.innerHTML = `
+            <div class="form-box">
 
-        `
-        <div class="form-box">
+                <h2>
+                Please Login First
+                </h2>
 
-            <h2>
-                Please login first.
-            </h2>
-
-            <button
-                class="main-btn"
-                onclick="showPage('login')"
-            >
-                Login
-            </button>
-
-        </div>
+            </div>
         `;
 
         return;
-
     }
 
 
-    box.innerHTML =
-
-    `
-    <div class="form-box">
-        <h2>
+    box.innerHTML = `
+        <div class="form-box">
+            <h2>
             Loading orders...
-        </h2>
-    </div>
+            </h2>
+        </div>
     `;
 
 
@@ -2944,101 +2717,80 @@ async function loadOrders(){
         data.orders || [];
 
 
-        if(orders.length === 0){
+        if(orders.length===0){
 
-            box.innerHTML =
+            box.innerHTML = `
+                <div class="form-box">
 
-            `
-            <div class="form-box">
-
-                <h2>
+                    <h2>
                     No orders yet 📦
-                </h2>
+                    </h2>
 
-                <button
+                    <button
                     class="main-btn"
                     onclick="showPage('shop')"
-                >
+                    >
                     Start Shopping
-                </button>
+                    </button>
 
-            </div>
+                </div>
             `;
 
             return;
-
         }
 
 
         box.innerHTML =
-
         orders
         .slice()
         .reverse()
-        .map(order => {
-
-            return `
+        .map(order=>`
 
             <div class="orders-card">
 
                 <h3>
-                    Order #${escapeHtml(
-                        order.orderId
-                    )}
+                Order #${escapeHtml(order.orderId)}
                 </h3>
 
-
-                <p style="margin-top:10px">
-                    📅
-                    ${new Date(
-                        order.orderedAt
-                    ).toLocaleString()}
+                <p>
+                📅
+                ${new Date(
+                    order.orderedAt
+                ).toLocaleString()}
                 </p>
 
-
-                <p style="margin-top:8px">
-                    💳 Payment:
-                    <strong>
-                        ${escapeHtml(
-                            order.paymentMethod
-                        )}
-                    </strong>
+                <p style="margin-top:8px;">
+                💳 Payment:
+                <strong>
+                ${escapeHtml(
+                    order.paymentMethod
+                )}
+                </strong>
                 </p>
 
-
-                <p style="margin-top:8px">
-                    📦 Status:
-                    <strong>
-                        ${escapeHtml(
-                            order.status
-                        )}
-                    </strong>
+                <p style="margin-top:8px;">
+                📦 Status:
+                <strong>
+                ${escapeHtml(
+                    order.status
+                )}
+                </strong>
                 </p>
 
-
-                <hr
-                    style="margin:15px 0"
-                >
-
+                <hr style="margin:15px 0;">
 
                 ${
                     order.items
-                    .map(item => `
+                    .map(item=>`
 
-                        <p style="margin:7px 0">
-
-                            ${escapeHtml(
-                                item.name
-                            )}
-
-                            × ${item.quantity}
-
-                            —
-                            ₹${(
-                                Number(item.price) *
-                                Number(item.quantity)
-                            ).toFixed(2)}
-
+                        <p style="margin:6px 0;">
+                        ${escapeHtml(item.name)}
+                        × ${item.quantity}
+                        —
+                        ₹${(
+                            Number(item.price) *
+                            Number(item.quantity)
+                        ).toFixed(2)}
                         </p>
 
                     `).join("")
@@ -3048,13 +2800,13 @@ async function loadOrders(){
                 <div class="summary-row">
 
                     <span>
-                        Subtotal
+                    Subtotal
                     </span>
 
                     <strong>
-                        ₹${Number(
-                            order.subtotal
-                        ).toFixed(2)}
+                    ₹${Number(
+                        order.subtotal
+                    ).toFixed(2)}
                     </strong>
 
                 </div>
@@ -3063,13 +2815,13 @@ async function loadOrders(){
                 <div class="summary-row">
 
                     <span>
-                        GST (18%)
+                    GST (18%)
                     </span>
 
                     <strong>
-                        ₹${Number(
-                            order.gst
-                        ).toFixed(2)}
+                    ₹${Number(
+                        order.gst
+                    ).toFixed(2)}
                     </strong>
 
                 </div>
@@ -3078,48 +2830,43 @@ async function loadOrders(){
                 <div class="summary-row total">
 
                     <span>
-                        Total Amount
+                    Total Amount
                     </span>
 
                     <strong>
-                        ₹${Number(
-                            order.total
-                        ).toFixed(2)}
+                    ₹${Number(
+                        order.total
+                    ).toFixed(2)}
                     </strong>
 
                 </div>
 
             </div>
 
-            `;
+        `)
+        .join("");
 
-        }).join("");
 
-    }
-    catch(error){
+    }catch(error){
 
         console.error(error);
 
-        box.innerHTML =
+        box.innerHTML = `
+            <div class="form-box">
 
-        `
-        <div class="form-box">
-
-            <h2>
+                <h2>
                 Unable to load orders
-            </h2>
+                </h2>
 
-        </div>
+            </div>
         `;
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN SESSION
-===================================================== */
+========================================================= */
 
 function checkAdminSession(){
 
@@ -3143,8 +2890,7 @@ function checkAdminSession(){
 
         loadMembers();
 
-    }
-    else{
+    }else{
 
         document.getElementById(
             "adminLoginBox"
@@ -3154,15 +2900,13 @@ function checkAdminSession(){
         document.getElementById(
             "adminDashboard"
         ).style.display="none";
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN LOGIN
-===================================================== */
+========================================================= */
 
 async function adminLogin(){
 
@@ -3184,7 +2928,7 @@ async function adminLogin(){
     );
 
 
-    message.textContent =
+    message.textContent=
     "Logging in...";
 
 
@@ -3203,10 +2947,8 @@ async function adminLogin(){
                 },
 
                 body:JSON.stringify({
-
                     email,
                     password
-
                 })
 
             }
@@ -3217,10 +2959,7 @@ async function adminLogin(){
         await response.json();
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
 
             message.textContent =
             data.message ||
@@ -3229,7 +2968,6 @@ async function adminLogin(){
             message.style.color="red";
 
             return;
-
         }
 
 
@@ -3245,26 +2983,34 @@ async function adminLogin(){
         message.style.color="green";
 
 
-        checkAdminSession();
+        document.getElementById(
+            "adminLoginBox"
+        ).style.display="none";
 
-    }
-    catch(error){
+
+        document.getElementById(
+            "adminDashboard"
+        ).style.display="block";
+
+
+        loadMembers();
+
+
+    }catch(error){
 
         console.error(error);
 
         message.textContent =
-        "Admin API not reachable.";
+        "Admin API not reachable. Please deploy server.js.";
 
         message.style.color="red";
-
     }
-
 }
 
 
-/* =====================================================
-   LOAD MEMBERS
-===================================================== */
+/* =========================================================
+   MEMBERS
+========================================================= */
 
 async function loadMembers(){
 
@@ -3274,7 +3020,9 @@ async function loadMembers(){
     );
 
 
-    if(!token) return;
+    if(!token){
+        return;
+    }
 
 
     try{
@@ -3297,16 +3045,23 @@ async function loadMembers(){
         await response.json();
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+        if(!response.ok || !data.success){
+
+            if(response.status===401){
+
+                sessionStorage.removeItem(
+                    "glowcart_admin_token"
+                );
+
+                checkAdminSession();
+
+                return;
+            }
 
             throw new Error(
                 data.message ||
                 "Unable to load members."
             );
-
         }
 
 
@@ -3323,72 +3078,57 @@ async function loadMembers(){
 
 
         table.innerHTML =
-
         data.users
-        .map((user,index) => {
-
-            return `
+        .map((user,index)=>`
 
             <tr>
 
                 <td>
-                    ${index + 1}
+                ${index+1}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        user.name
-                    )}
+                ${escapeHtml(user.name)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        user.email
-                    )}
+                ${escapeHtml(user.email)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        user.mobile
-                    )}
+                ${escapeHtml(user.mobile)}
                 </td>
 
                 <td>
-                    ${
+                ${
+                    user.registeredAt
+                    ? new Date(
                         user.registeredAt
-                        ?
-                        new Date(
-                            user.registeredAt
-                        ).toLocaleString()
-                        :
-                        "-"
-                    }
+                    ).toLocaleString()
+                    : "-"
+                }
                 </td>
 
             </tr>
 
-            `;
+        `)
+        .join("");
 
-        }).join("");
 
-
-    }
-    catch(error){
+    }catch(error){
 
         console.error(error);
 
         alert(
             "Unable to load registered members."
         );
-
     }
-
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN LOGOUT
-===================================================== */
+========================================================= */
 
 async function adminLogout(){
 
@@ -3414,34 +3154,37 @@ async function adminLogout(){
             }
         );
 
-    }
-    catch(error){
+    }catch(error){
 
         console.error(error);
 
+    }finally{
+
+        sessionStorage.removeItem(
+            "glowcart_admin_token"
+        );
+
+        checkAdminSession();
     }
-
-
-    sessionStorage.removeItem(
-        "glowcart_admin_token"
-    );
-
-
-    checkAdminSession();
-
 }
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+/* =========================================================
+   START
+========================================================= */
 
 updateCartCount();
 
 loadProducts();
 
 
+/*
+   If a registered user is already saved,
+   they can continue shopping.
+*/
+
 </script>
 
 </body>
 </html>
+```
