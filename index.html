@@ -1,223 +1,2038 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GlowCart - Premium Face Creams</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#fff7fc;color:#3b2140}
-header{position:sticky;top:0;z-index:1000;background:linear-gradient(90deg,#7b2cbf,#d63384,#ff6f91);color:#fff;padding:15px 5%;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 15px #0002}
-.logo{font-size:28px;font-weight:800;cursor:pointer}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav button{border:0;background:#ffffff22;color:#fff;padding:10px 14px;border-radius:22px;cursor:pointer;font-weight:700}.nav button:hover{background:#fff;color:#8e2de2}
-.page{display:none;min-height:calc(100vh - 75px);padding:35px 5%}.page.active{display:block}
-.hero{min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#fbc2eb,#a6c1ee);border-radius:0 0 45px 45px;padding:40px}.hero-box{max-width:850px}.hero h1{font-size:56px;color:#651fff;margin-bottom:15px}.hero p{font-size:20px;margin-bottom:25px}.btn{border:0;background:linear-gradient(90deg,#7b2cbf,#e83e8c);color:#fff;padding:13px 24px;border-radius:28px;font-weight:700;cursor:pointer;box-shadow:0 5px 15px #7b2cbf44}.btn:hover{transform:translateY(-1px)}
-.form-wrap{max-width:550px;margin:20px auto;background:#fff;padding:30px;border-radius:25px;box-shadow:0 10px 30px #8e2de233}.form-wrap h2{text-align:center;color:#8e2de2;margin-bottom:20px}.input{width:100%;padding:13px;margin:7px 0;border:1px solid #e5cbe9;border-radius:12px;outline:none}.input:focus{border-color:#a855f7;box-shadow:0 0 0 3px #a855f71a}.hint{text-align:center;margin-top:15px}.link{color:#8e2de2;font-weight:700;cursor:pointer}
-.shop-top{display:flex;gap:15px;justify-content:space-between;align-items:center;margin-bottom:25px;flex-wrap:wrap}.search{flex:1;min-width:220px;padding:13px;border:1px solid #e5cbe9;border-radius:25px}.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}.card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 25px #7b2cbf1c;transition:.2s}.card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #7b2cbf2b}.card img{width:100%;height:210px;object-fit:cover;background:#f6eafa}.card-body{padding:18px}.card h3{margin-bottom:8px}.price{font-size:20px;font-weight:800;color:#d63384;margin:8px 0}.small{font-size:13px;color:#777}.card-actions{display:flex;gap:8px;margin-top:12px}.card-actions button{flex:1}
-.panel{max-width:950px;margin:auto;background:#fff;padding:25px;border-radius:25px;box-shadow:0 10px 30px #7b2cbf1a}.row{display:flex;justify-content:space-between;gap:20px;margin:10px 0}.summary{max-width:500px;margin-left:auto}.total{font-size:24px;font-weight:800;color:#7b2cbf;border-top:1px solid #ead8ed;padding-top:12px}.payment{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}.pay-option{border:2px solid #ead8ed;border-radius:15px;padding:15px;cursor:pointer;background:#fff}.pay-option:has(input:checked){border-color:#8e2de2;background:#faf3ff}.pay-option input{margin-right:8px}.order-item{display:flex;align-items:center;gap:15px;padding:12px 0;border-bottom:1px solid #eee}.order-item img{width:65px;height:65px;object-fit:cover;border-radius:12px}.empty{text-align:center;padding:40px;color:#777}.badge{display:inline-block;padding:5px 10px;background:#f2ddff;color:#7b2cbf;border-radius:20px;font-size:12px;font-weight:700}
-.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;margin-top:15px}.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left}.table th{background:#faf2ff;color:#7b2cbf}.msg{margin:12px 0;padding:12px;border-radius:12px;text-align:center;display:none}.success{background:#e9f9ef;color:#16733a}.error{background:#fff0f0;color:#b42318}.footer{text-align:center;padding:25px;color:#777}
-@media(max-width:650px){header{align-items:flex-start;gap:10px;flex-direction:column}.hero h1{font-size:40px}.payment{grid-template-columns:1fr}.page{padding:25px 4%}}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff7fc;
+    color:#3b2140
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(90deg,#7b2cbf,#d63384,#ff6f91);
+    color:#fff;
+    padding:15px 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 4px 15px #0002
+}
+
+.logo{
+    font-size:28px;
+    font-weight:800;
+    cursor:pointer
+}
+
+.nav{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap
+}
+
+.nav button{
+    border:0;
+    background:#ffffff22;
+    color:#fff;
+    padding:10px 14px;
+    border-radius:22px;
+    cursor:pointer;
+    font-weight:700
+}
+
+.nav button:hover{
+    background:#fff;
+    color:#8e2de2
+}
+
+.page{
+    display:none;
+    min-height:calc(100vh - 75px);
+    padding:35px 5%
+}
+
+.page.active{
+    display:block
+}
+
+.hero{
+    min-height:78vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:linear-gradient(135deg,#fbc2eb,#a6c1ee);
+    border-radius:0 0 45px 45px;
+    padding:40px
+}
+
+.hero-box{
+    max-width:850px
+}
+
+.hero h1{
+    font-size:56px;
+    color:#651fff;
+    margin-bottom:15px
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:25px
+}
+
+.btn{
+    border:0;
+    background:linear-gradient(90deg,#7b2cbf,#e83e8c);
+    color:#fff;
+    padding:13px 24px;
+    border-radius:28px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 5px 15px #7b2cbf44
+}
+
+.btn:hover{
+    transform:translateY(-1px)
+}
+
+.form-wrap{
+    max-width:550px;
+    margin:20px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 10px 30px #8e2de233
+}
+
+.form-wrap h2{
+    text-align:center;
+    color:#8e2de2;
+    margin-bottom:20px
+}
+
+.input{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:1px solid #e5cbe9;
+    border-radius:12px;
+    outline:none
+}
+
+.input:focus{
+    border-color:#a855f7;
+    box-shadow:0 0 0 3px #a855f71a
+}
+
+.hint{
+    text-align:center;
+    margin-top:15px
+}
+
+.link{
+    color:#8e2de2;
+    font-weight:700;
+    cursor:pointer
+}
+
+.shop-top{
+    display:flex;
+    gap:15px;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    padding:13px;
+    border:1px solid #e5cbe9;
+    border-radius:25px
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:22px
+}
+
+.card{
+    background:#fff;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 8px 25px #7b2cbf1c;
+    transition:.2s
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 14px 30px #7b2cbf2b
+}
+
+.card img{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+    background:#f6eafa
+}
+
+.card-body{
+    padding:18px
+}
+
+.card h3{
+    margin-bottom:8px
+}
+
+.price{
+    font-size:20px;
+    font-weight:800;
+    color:#d63384;
+    margin:8px 0
+}
+
+.small{
+    font-size:13px;
+    color:#777
+}
+
+.card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px
+}
+
+.card-actions button{
+    flex:1
+}
+
+.panel{
+    max-width:1000px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 10px 30px #7b2cbf1a
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin:10px 0
+}
+
+.summary{
+    max-width:500px;
+    margin-left:auto
+}
+
+.total{
+    font-size:24px;
+    font-weight:800;
+    color:#7b2cbf;
+    border-top:1px solid #ead8ed;
+    padding-top:12px
+}
+
+.payment{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:15px 0
+}
+
+.pay-option{
+    border:2px solid #ead8ed;
+    border-radius:15px;
+    padding:15px;
+    cursor:pointer;
+    background:#fff
+}
+
+.pay-option:has(input:checked){
+    border-color:#8e2de2;
+    background:#faf3ff
+}
+
+.pay-option input{
+    margin-right:8px
+}
+
+.order-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:12px 0;
+    border-bottom:1px solid #eee
+}
+
+.order-item img{
+    width:65px;
+    height:65px;
+    object-fit:cover;
+    border-radius:12px
+}
+
+.empty{
+    text-align:center;
+    padding:40px;
+    color:#777
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 10px;
+    background:#f2ddff;
+    color:#7b2cbf;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700
+}
+
+.table-wrap{
+    overflow:auto
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px
+}
+
+.table th,
+.table td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    white-space:nowrap
+}
+
+.table th{
+    background:#faf2ff;
+    color:#7b2cbf
+}
+
+.msg{
+    margin:12px 0;
+    padding:12px;
+    border-radius:12px;
+    text-align:center;
+    display:none
+}
+
+.success{
+    background:#e9f9ef;
+    color:#16733a
+}
+
+.error{
+    background:#fff0f0;
+    color:#b42318
+}
+
+.footer{
+    text-align:center;
+    padding:25px;
+    color:#777
+}
+
+.admin-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:25px
+}
+
+.stat{
+    background:#faf2ff;
+    padding:20px;
+    border-radius:18px;
+    text-align:center
+}
+
+.stat h3{
+    color:#7b2cbf;
+    font-size:28px
+}
+
+.stat p{
+    margin-top:5px;
+    color:#777
+}
+
+.member-count{
+    color:#d63384;
+    font-weight:800
+}
+
+@media(max-width:650px){
+
+    header{
+        align-items:flex-start;
+        gap:10px;
+        flex-direction:column
+    }
+
+    .hero h1{
+        font-size:40px
+    }
+
+    .payment{
+        grid-template-columns:1fr
+    }
+
+    .admin-stats{
+        grid-template-columns:1fr
+    }
+
+    .page{
+        padding:25px 4%
+    }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="logo" onclick="showPage('home')">✨ GlowCart</div>
-<div class="nav">
-<button onclick="showPage('home')">Home</button>
-<button onclick="showPage('shopping')">Shop</button>
-<button onclick="showPage('cart')">Cart (<span id="cartCount">0</span>)</button>
-<button onclick="showPage('orders')">Orders</button>
-<button onclick="showPage('admin')">Admin</button>
+
+<div class="logo" onclick="showPage('home')">
+✨ GlowCart
 </div>
+
+<div class="nav">
+
+<button onclick="showPage('home')">
+Home
+</button>
+
+<button onclick="showPage('shopping')">
+Shop
+</button>
+
+<button onclick="showPage('cart')">
+Cart (<span id="cartCount">0</span>)
+</button>
+
+<button onclick="showPage('orders')">
+Orders
+</button>
+
+<button onclick="showPage('admin')">
+Admin
+</button>
+
+</div>
+
 </header>
 
+
+<!-- =====================================================
+HOME
+===================================================== -->
+
 <section id="home" class="page active">
-<div class="hero"><div class="hero-box">
-<h1>GlowCart</h1><p>Premium face creams for your everyday glow 💖</p><button class="btn" onclick="showPage('register')">Shop Now</button>
-</div></div>
-<div class="footer">© 2026 GlowCart</div>
+
+<div class="hero">
+
+<div class="hero-box">
+
+<h1>
+GlowCart
+</h1>
+
+<p>
+Premium face creams for your everyday glow 💖
+</p>
+
+<button class="btn" onclick="showPage('register')">
+Shop Now
+</button>
+
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 GlowCart
+</div>
+
 </section>
+
+
+<!-- =====================================================
+REGISTER
+===================================================== -->
 
 <section id="register" class="page">
+
 <div class="form-wrap">
-<h2>Create Your GlowCart Account 💖</h2>
+
+<h2>
+Create Your GlowCart Account 💖
+</h2>
+
 <div id="registerMsg" class="msg"></div>
+
 <form id="registerForm">
-<input id="regName" class="input" placeholder="Full Name" required>
-<input id="regEmail" class="input" type="email" placeholder="Email Address" required>
-<input id="regMobile" class="input" placeholder="Mobile Number" required>
-<input id="regPassword" class="input" type="password" placeholder="Password" required minlength="4">
-<input id="regAddress" class="input" placeholder="Permanent Address" required>
-<input id="regAddress2" class="input" placeholder="Second Address (Optional)">
-<input id="regPincode" class="input" placeholder="Pincode" required>
-<button class="btn" style="width:100%;margin-top:10px">Register</button>
+
+<input
+id="regName"
+class="input"
+placeholder="Full Name"
+required
+>
+
+<input
+id="regEmail"
+class="input"
+type="email"
+placeholder="Email Address"
+required
+>
+
+<input
+id="regMobile"
+class="input"
+placeholder="Mobile Number"
+required
+>
+
+<input
+id="regPassword"
+class="input"
+type="password"
+placeholder="Password"
+required
+minlength="4"
+>
+
+<input
+id="regAddress"
+class="input"
+placeholder="Permanent Address"
+required
+>
+
+<input
+id="regAddress2"
+class="input"
+placeholder="Second Address (Optional)"
+>
+
+<input
+id="regPincode"
+class="input"
+placeholder="Pincode"
+required
+>
+
+<button
+class="btn"
+style="width:100%;margin-top:10px"
+>
+Register
+</button>
+
 </form>
-<p class="hint">Already registered? <span class="link" onclick="showPage('login')">Login</span></p>
+
+<p class="hint">
+
+Already registered?
+
+<span
+class="link"
+onclick="showPage('login')"
+>
+Login
+</span>
+
+</p>
+
 </div>
+
 </section>
+
+
+<!-- =====================================================
+LOGIN
+===================================================== -->
 
 <section id="login" class="page">
+
 <div class="form-wrap">
-<h2>Welcome Back 💕</h2>
+
+<h2>
+Welcome Back 💕
+</h2>
+
 <div id="loginMsg" class="msg"></div>
+
 <form id="loginForm">
-<input id="loginEmail" class="input" type="email" placeholder="Email Address" required>
-<input id="loginPassword" class="input" type="password" placeholder="Password" required>
-<button class="btn" style="width:100%;margin-top:10px">Login</button>
+
+<input
+id="loginEmail"
+class="input"
+type="email"
+placeholder="Email Address"
+required
+>
+
+<input
+id="loginPassword"
+class="input"
+type="password"
+placeholder="Password"
+required
+>
+
+<button
+class="btn"
+style="width:100%;margin-top:10px"
+>
+Login
+</button>
+
 </form>
-<p class="hint">New user? <span class="link" onclick="showPage('register')">Register</span></p>
+
+<p class="hint">
+
+New user?
+
+<span
+class="link"
+onclick="showPage('register')"
+>
+Register
+</span>
+
+</p>
+
 </div>
+
 </section>
+
+
+<!-- =====================================================
+SHOPPING
+===================================================== -->
 
 <section id="shopping" class="page">
-<div class="shop-top"><h2>Premium Face Creams 🌸</h2><input id="search" class="search" placeholder="Search creams..." oninput="renderProducts()"></div>
-<div id="products" class="products"></div>
+
+<div class="shop-top">
+
+<h2>
+Premium Face Creams 🌸
+</h2>
+
+<input
+id="search"
+class="search"
+placeholder="Search creams..."
+oninput="renderProducts()"
+>
+
+</div>
+
+<div
+id="products"
+class="products"
+>
+</div>
+
 </section>
 
-<section id="cart" class="page"><div class="panel"><h2>Your Cart 🛒</h2><div id="cartItems"></div><div id="cartSummary"></div></div></section>
 
-<section id="checkout" class="page"><div class="panel">
-<h2>Place Your Order 📦</h2><div id="checkoutMsg" class="msg"></div>
-<div id="checkoutItems"></div>
-<div class="summary" id="checkoutSummary"></div>
-<h3 style="margin-top:20px">Delivery Address</h3>
-<input id="orderAddress" class="input" placeholder="Delivery Address" required>
-<input id="orderPincode" class="input" placeholder="Pincode" required>
-<h3 style="margin-top:20px">Payment Method</h3>
+<!-- =====================================================
+CART
+===================================================== -->
+
+<section id="cart" class="page">
+
+<div class="panel">
+
+<h2>
+Your Cart 🛒
+</h2>
+
+<div id="cartItems">
+</div>
+
+<div id="cartSummary">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+CHECKOUT
+===================================================== -->
+
+<section id="checkout" class="page">
+
+<div class="panel">
+
+<h2>
+Place Your Order 📦
+</h2>
+
+<div id="checkoutMsg" class="msg"></div>
+
+<div id="checkoutItems">
+</div>
+
+<div
+class="summary"
+id="checkoutSummary"
+>
+</div>
+
+<h3 style="margin-top:20px">
+Delivery Address
+</h3>
+
+<input
+id="orderAddress"
+class="input"
+placeholder="Delivery Address"
+required
+>
+
+<input
+id="orderPincode"
+class="input"
+placeholder="Pincode"
+required
+>
+
+<h3 style="margin-top:20px">
+Payment Method
+</h3>
+
 <div class="payment">
-<label class="pay-option"><input type="radio" name="payment" value="UPI"> 📱 UPI</label>
-<label class="pay-option"><input type="radio" name="payment" value="Net Banking"> 🏦 Net Banking</label>
-<label class="pay-option"><input type="radio" name="payment" value="Cash on Delivery"> 💵 Cash on Delivery</label>
+
+<label class="pay-option">
+
+<input
+type="radio"
+name="payment"
+value="UPI"
+>
+
+📱 UPI
+
+</label>
+
+<label class="pay-option">
+
+<input
+type="radio"
+name="payment"
+value="Net Banking"
+>
+
+🏦 Net Banking
+
+</label>
+
+<label class="pay-option">
+
+<input
+type="radio"
+name="payment"
+value="Cash on Delivery"
+>
+
+💵 Cash on Delivery
+
+</label>
+
 </div>
-<p class="small">UPI and Net Banking here select the payment type; actual payment gateway processing is not included.</p>
-<button class="btn" style="margin-top:20px" onclick="placeOrder()">Place Order</button>
-<button class="btn" style="background:#777;margin-left:8px" onclick="showPage('cart')">Back to Cart</button>
-</div></section>
 
-<section id="orders" class="page"><div class="panel"><h2>Your Orders 📋</h2><div id="ordersList"></div></div></section>
+<p class="small">
+UPI and Net Banking here select the payment type; actual payment gateway processing is not included.
+</p>
 
-<section id="admin" class="page"><div class="form-wrap" id="adminLoginBox">
-<h2>Admin Login 🔐</h2><div id="adminMsg" class="msg"></div>
-<input id="adminEmail" class="input" type="email" placeholder="Admin Email">
-<input id="adminPassword" class="input" type="password" placeholder="Admin Password">
-<button class="btn" style="width:100%" onclick="adminLogin()">Admin Login</button>
+<button
+class="btn"
+style="margin-top:20px"
+onclick="placeOrder()"
+>
+Place Order
+</button>
+
+<button
+class="btn"
+style="background:#777;margin-left:8px"
+onclick="showPage('cart')"
+>
+Back to Cart
+</button>
+
 </div>
-<div class="panel" id="adminPanel" style="display:none"><div class="shop-top"><h2>Registered Members 👥</h2><button class="btn" onclick="adminLogout()">Logout</button></div><div id="usersTable"></div></div></section>
 
-<div class="footer">GlowCart • Premium skincare shopping</div>
+</section>
+
+
+<!-- =====================================================
+ORDERS
+===================================================== -->
+
+<section id="orders" class="page">
+
+<div class="panel">
+
+<h2>
+Your Orders 📋
+</h2>
+
+<div id="ordersList">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+ADMIN LOGIN + ADMIN PANEL
+===================================================== -->
+
+<section id="admin" class="page">
+
+<div
+class="form-wrap"
+id="adminLoginBox"
+>
+
+<h2>
+Admin Login 🔐
+</h2>
+
+<div
+id="adminMsg"
+class="msg"
+>
+</div>
+
+<input
+id="adminEmail"
+class="input"
+type="email"
+placeholder="Admin Email"
+>
+
+<input
+id="adminPassword"
+class="input"
+type="password"
+placeholder="Admin Password"
+>
+
+<button
+class="btn"
+style="width:100%"
+onclick="adminLogin()"
+>
+Admin Login
+</button>
+
+</div>
+
+
+<div
+class="panel"
+id="adminPanel"
+style="display:none"
+>
+
+<div class="shop-top">
+
+<h2>
+Admin Dashboard 👑
+</h2>
+
+<button
+class="btn"
+onclick="adminLogout()"
+>
+Logout
+</button>
+
+</div>
+
+
+<!-- ADMIN STATISTICS -->
+
+<div class="admin-stats">
+
+<div class="stat">
+
+<h3 id="memberCount">
+0
+</h3>
+
+<p>
+Registered Members
+</p>
+
+</div>
+
+<div class="stat">
+
+<h3 id="adminOrderCount">
+0
+</h3>
+
+<p>
+Total Orders
+</p>
+
+</div>
+
+<div class="stat">
+
+<h3 id="adminProductCount">
+0
+</h3>
+
+<p>
+Products
+</p>
+
+</div>
+
+</div>
+
+
+<h3>
+Registered Members 👥
+</h3>
+
+<p style="margin-top:8px;color:#777">
+
+Members are saved in this browser so they remain after closing and reopening GlowCart.
+
+</p>
+
+<div id="usersTable">
+</div>
+
+</div>
+
+</section>
+
+
+<div class="footer">
+
+GlowCart • Premium skincare shopping
+
+</div>
+
 
 <script>
-const API='https://glowcart-fxwp.onrender.com';
-const EMAIL_SERVICE='service_nb7q38o';
-const EMAIL_PUBLIC_KEY='O8MGjkU2KThjrZ31Y';
-const WELCOME_TEMPLATE='template_giqmpm9';
-const ORDER_TEMPLATE='template_ykzf36';
-const GST_RATE=18;
 
-const products=[
-{id:1,name:'Glow Radiance Cream',price:299,img:'https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80'},
-{id:2,name:'Vitamin C Face Cream',price:349,img:'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=80'},
-{id:3,name:'Hydra Moisturizing Cream',price:279,img:'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=700&q=80'},
-{id:4,name:'Aloe Vera Face Cream',price:249,img:'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=700&q=80'},
-{id:5,name:'Rose Glow Cream',price:299,img:'https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=700&q=80'},
-{id:6,name:'Night Repair Cream',price:399,img:'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=700&q=80'},
-{id:7,name:'Pearl Bright Cream',price:329,img:'https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=700&q=80'},
-{id:8,name:'Coconut Hydration Cream',price:289,img:'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=700&q=80'}
+/* =====================================================
+CONFIGURATION
+===================================================== */
+
+const API =
+"https://glowcart-fxwp.onrender.com";
+
+const EMAIL_SERVICE =
+"service_nb7q38o";
+
+const EMAIL_PUBLIC_KEY =
+"O8MGjkU2KThjrZ31Y";
+
+const WELCOME_TEMPLATE =
+"template_giqmpm9";
+
+const ORDER_TEMPLATE =
+"template_ykzf36";
+
+const GST_RATE = 18;
+
+
+/* =====================================================
+PRODUCTS
+===================================================== */
+
+const products = [
+
+{
+id:1,
+name:"Glow Radiance Cream",
+price:299,
+img:"https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
+},
+
+{
+id:2,
+name:"Vitamin C Face Cream",
+price:349,
+img:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=80"
+},
+
+{
+id:3,
+name:"Hydra Moisturizing Cream",
+price:279,
+img:"https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=700&q=80"
+},
+
+{
+id:4,
+name:"Aloe Vera Face Cream",
+price:249,
+img:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=700&q=80"
+},
+
+{
+id:5,
+name:"Rose Glow Cream",
+price:299,
+img:"https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=700&q=80"
+},
+
+{
+id:6,
+name:"Night Repair Cream",
+price:399,
+img:"https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=700&q=80"
+},
+
+{
+id:7,
+name:"Pearl Bright Cream",
+price:329,
+img:"https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=700&q=80"
+},
+
+{
+id:8,
+name:"Coconut Hydration Cream",
+price:289,
+img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=700&q=80"
+}
+
 ];
 
-let cart=JSON.parse(localStorage.getItem('glowcart_cart')||'[]');
-let orders=JSON.parse(localStorage.getItem('glowcart_orders')||'[]');
-let currentUser=JSON.parse(localStorage.getItem('glowcart_user')||'null');
 
-try{emailjs.init({publicKey:EMAIL_PUBLIC_KEY});}catch(e){console.warn('EmailJS init failed',e)}
+/* =====================================================
+LOCAL STORAGE
+===================================================== */
 
-function showPage(id){
-if(['shopping','cart','checkout','orders'].includes(id)&&!currentUser){showPage('login');return;}
-if(id==='shopping')renderProducts();
-if(id==='cart')renderCart();
-if(id==='checkout')renderCheckout();
-if(id==='orders')renderOrders();
-if(id==='admin')checkAdmin();
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-window.scrollTo({top:0,behavior:'smooth'});
-}
-function msg(id,text,type){const el=document.getElementById(id);el.textContent=text;el.className='msg '+type;el.style.display='block'}
-function money(n){return '₹'+Number(n||0).toFixed(2)}
-function saveCart(){localStorage.setItem('glowcart_cart',JSON.stringify(cart));updateCartCount()}
-function updateCartCount(){document.getElementById('cartCount').textContent=cart.reduce((s,x)=>s+x.qty,0)}
-function findProduct(id){return products.find(p=>p.id===id)}
-function totals(){const subtotal=cart.reduce((s,x)=>s+findProduct(x.id).price*x.qty,0);const gst=subtotal*GST_RATE/100;return {subtotal,gst,total:subtotal+gst}}
+let cart =
+JSON.parse(
+localStorage.getItem("glowcart_cart") || "[]"
+);
 
-function renderProducts(){
-const q=(document.getElementById('search')?.value||'').toLowerCase();
-const list=products.filter(p=>p.name.toLowerCase().includes(q));
-const el=document.getElementById('products');
-if(!list.length){el.innerHTML='<div class="empty">No products found.</div>';return}
-el.innerHTML=list.map(p=>`<div class="card"><img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/700x500/f6eafa/7b2cbf?text=GlowCart'"/><div class="card-body"><h3>${p.name}</h3><div class="price">${money(p.price)}</div><div class="small">Premium skincare • 18% GST at checkout</div><div class="card-actions"><button class="btn" onclick="addToCart(${p.id})">Add to Cart</button><button class="btn" onclick="buyNow(${p.id})">Buy Now</button></div></div></div>`).join('');
-}
-function addToCart(id){const item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({id,qty:1});saveCart();renderCart();alert('Product added to cart 💖')}
-function buyNow(id){addToCart(id);showPage('checkout')}
-function changeQty(id,d){const item=cart.find(x=>x.id===id);if(!item)return;item.qty+=d;if(item.qty<=0)cart=cart.filter(x=>x.id!==id);saveCart();renderCart();if(document.getElementById('checkout').classList.contains('active'))renderCheckout()}
-function renderCart(){
-const el=document.getElementById('cartItems');
-if(!cart.length){el.innerHTML='<div class="empty">Your cart is empty.<br><button class="btn" onclick="showPage(\'shopping\')" style="margin-top:15px">Continue Shopping</button></div>';document.getElementById('cartSummary').innerHTML='';return}
-el.innerHTML=cart.map(x=>{const p=findProduct(x.id);return `<div class="order-item"><img src="${p.img}" onerror="this.src='https://placehold.co/100/f6eafa/7b2cbf?text=GC'"><div style="flex:1"><b>${p.name}</b><div>${money(p.price)} × ${x.qty}</div></div><button class="btn" onclick="changeQty(${p.id},-1)">−</button><button class="btn" onclick="changeQty(${p.id},1)">+</button></div>`}).join('');
-const t=totals();document.getElementById('cartSummary').innerHTML=`<div class="summary"><div class="row"><span>Subtotal</span><b>${money(t.subtotal)}</b></div><div class="row"><span>GST (${GST_RATE}%)</span><b>${money(t.gst)}</b></div><div class="row total"><span>Total Amount</span><b>${money(t.total)}</b></div><button class="btn" style="width:100%;margin-top:15px" onclick="showPage('checkout')">Place Order</button></div>`;
-}
-function renderCheckout(){
-if(!cart.length){showPage('cart');return}
-const el=document.getElementById('checkoutItems');el.innerHTML=cart.map(x=>{const p=findProduct(x.id);return `<div class="order-item"><img src="${p.img}" onerror="this.src='https://placehold.co/100/f6eafa/7b2cbf?text=GC'"><div style="flex:1"><b>${p.name}</b><div>${money(p.price)} × ${x.qty}</div></div><b>${money(p.price*x.qty)}</b></div>`}).join('');
-const t=totals();document.getElementById('checkoutSummary').innerHTML=`<div class="row"><span>Subtotal</span><b>${money(t.subtotal)}</b></div><div class="row"><span>GST (${GST_RATE}%)</span><b>${money(t.gst)}</b></div><div class="row total"><span>Total Amount</span><b>${money(t.total)}</b></div>`;
-document.getElementById('orderAddress').value=currentUser?.address||'';document.getElementById('orderPincode').value=currentUser?.pincode||'';
-}
+let orders =
+JSON.parse(
+localStorage.getItem("glowcart_orders") || "[]"
+);
 
-async function sendWelcomeEmail(user){
-try{await emailjs.send(EMAIL_SERVICE,WELCOME_TEMPLATE,{to_email:user.email,to_name:user.name,user_name:user.name,user_email:user.email});return true}catch(e){console.error('Welcome email error:',e);return false}
-}
-async function sendOrderEmail(order){
-const itemText=order.items.map(x=>`${x.name} x ${x.qty} = ${money(x.price*x.qty)}`).join('\n');
-try{await emailjs.send(EMAIL_SERVICE,ORDER_TEMPLATE,{to_email:order.email,to_name:order.name,user_name:order.name,user_email:order.email,order_id:order.orderId,order_items:itemText,order_subtotal:money(order.subtotal),order_gst:money(order.gst),order_total:money(order.total),order_address:order.address,order_pincode:order.pincode,payment_method:order.paymentMethod});return true}catch(e){console.error('Order email error:',e);return false}
-}
+let currentUser =
+JSON.parse(
+localStorage.getItem("glowcart_user") || "null"
+);
 
-document.getElementById('registerForm').addEventListener('submit',async e=>{
-e.preventDefault();
-const user={name:regName.value.trim(),email:regEmail.value.trim(),mobile:regMobile.value.trim(),password:regPassword.value,address:regAddress.value.trim(),address2:regAddress2.value.trim(),pincode:regPincode.value.trim()};
+
+/*
+IMPORTANT:
+
+This is the persistent registered member list.
+
+It survives closing the browser/window.
+*/
+
+let registeredMembers =
+JSON.parse(
+localStorage.getItem("glowcart_registered_members") || "[]"
+);
+
+
+/* =====================================================
+EMAILJS
+===================================================== */
+
 try{
-const r=await fetch(API+'/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});const data=await r.json();
-if(!r.ok)throw new Error(data.message||'Registration failed');
-currentUser=data.user||user;localStorage.setItem('glowcart_user',JSON.stringify(currentUser));
-const sent=await sendWelcomeEmail(currentUser);
-msg('registerMsg',sent?'Registration successful! Welcome email sent to '+currentUser.email+'.':'Registration successful, but the welcome email could not be sent. Check your EmailJS template/settings.','success');
-e.target.reset();setTimeout(()=>showPage('shopping'),1400);
-}catch(err){msg('registerMsg',err.message,'error')}
+
+emailjs.init({
+publicKey:EMAIL_PUBLIC_KEY
 });
 
-document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();try{const r=await fetch(API+'/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:loginEmail.value.trim(),password:loginPassword.value})});const data=await r.json();if(!r.ok)throw new Error(data.message||'Login failed');currentUser=data.user;localStorage.setItem('glowcart_user',JSON.stringify(currentUser));msg('loginMsg','Login successful!','success');setTimeout(()=>showPage('shopping'),600)}catch(err){msg('loginMsg',err.message,'error')}});
+}catch(error){
 
-async function placeOrder(){
-if(!currentUser){showPage('login');return}if(!cart.length){showPage('cart');return}
-const address=document.getElementById('orderAddress').value.trim(),pincode=document.getElementById('orderPincode').value.trim(),payment=document.querySelector('input[name="payment"]:checked')?.value;
-if(!address||!pincode){msg('checkoutMsg','Please enter delivery address and pincode.','error');return}
-if(!payment){msg('checkoutMsg','Please select UPI, Net Banking, or Cash on Delivery.','error');return}
-const t=totals();const orderId='GC'+Date.now();const order={orderId,name:currentUser.name,email:currentUser.email,mobile:currentUser.mobile,address,pincode,paymentMethod:payment,items:cart.map(x=>{const p=findProduct(x.id);return {id:p.id,name:p.name,price:p.price,qty:x.qty,image:p.img}}),subtotal:t.subtotal,gst:t.gst,total:t.total,createdAt:new Date().toLocaleString('en-IN')};
-try{
-const r=await fetch(API+'/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...order,userId:currentUser.id||currentUser._id})});const data=await r.json();if(!r.ok)throw new Error(data.message||'Order failed');
-orders.unshift({...order,backendOrder:data.order||data});localStorage.setItem('glowcart_orders',JSON.stringify(orders));
-const sent=await sendOrderEmail(order);cart=[];saveCart();
-msg('checkoutMsg',sent?'Order placed successfully! Confirmation email sent to '+order.email+'.':'Order placed successfully, but the confirmation email could not be sent.','success');
-setTimeout(()=>showPage('orders'),1000);
-}catch(err){msg('checkoutMsg',err.message,'error')}
+console.warn(
+"EmailJS initialization failed",
+error
+);
+
 }
 
-function renderOrders(){const el=document.getElementById('ordersList');if(!orders.length){el.innerHTML='<div class="empty">No orders yet.</div>';return}el.innerHTML=orders.map(o=>`<div style="border:1px solid #ead8ed;border-radius:18px;padding:18px;margin:15px 0"><div class="row"><b>Order ${o.orderId}</b><span class="badge">${o.paymentMethod}</span></div><div class="small">${o.createdAt}</div>${o.items.map(i=>`<div class="order-item"><img src="${i.image||''}" onerror="this.src='https://placehold.co/100/f6eafa/7b2cbf?text=GC'"><div style="flex:1">${i.name} × ${i.qty}</div><b>${money(i.price*i.qty)}</b></div>`).join('')}<div class="row"><span>Subtotal</span><b>${money(o.subtotal)}</b></div><div class="row"><span>GST (${GST_RATE}%)</span><b>${money(o.gst)}</b></div><div class="row total"><span>Total Amount</span><b>${money(o.total)}</b></div><div class="small">Delivery: ${o.address}, ${o.pincode}</div></div>`).join('')}
 
-function checkAdmin(){const token=sessionStorage.getItem('glowcart_admin_token');if(token){document.getElementById('adminLoginBox').style.display='none';document.getElementById('adminPanel').style.display='block';loadUsers()}else{document.getElementById('adminLoginBox').style.display='block';document.getElementById('adminPanel').style.display='none'}}
-async function adminLogin(){try{const r=await fetch(API+'/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:adminEmail.value.trim(),password:adminPassword.value})});const data=await r.json();if(!r.ok)throw new Error(data.message||'Admin login failed');sessionStorage.setItem('glowcart_admin_token',data.token);checkAdmin()}catch(e){msg('adminMsg',e.message,'error')}}
-async function loadUsers(){const token=sessionStorage.getItem('glowcart_admin_token');try{const r=await fetch(API+'/api/admin/users',{headers:{Authorization:'Bearer '+token}});const data=await r.json();if(!r.ok)throw new Error(data.message||'Could not load members');const users=data.users||data;document.getElementById('usersTable').innerHTML=users.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Name</th><th>Email</th><th>Mobile</th><th>Pincode</th></tr></thead><tbody>${users.map(u=>`<tr><td>${u.name||''}</td><td>${u.email||''}</td><td>${u.mobile||''}</td><td>${u.pincode||''}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No registered members found.</div>'}catch(e){document.getElementById('usersTable').innerHTML='<div class="msg error" style="display:block">'+e.message+'</div>'}}
-async function adminLogout(){try{await fetch(API+'/api/admin/logout',{method:'POST',headers:{Authorization:'Bearer '+sessionStorage.getItem('glowcart_admin_token')}})}catch(e){}sessionStorage.removeItem('glowcart_admin_token');checkAdmin()}
+/* =====================================================
+PAGE NAVIGATION
+===================================================== */
+
+function showPage(id){
+
+if(
+[
+"shopping",
+"cart",
+"checkout",
+"orders"
+].includes(id)
+&&
+!currentUser
+){
+
+showPage("login");
+
+return;
+
+}
+
+if(id==="shopping"){
+renderProducts();
+}
+
+if(id==="cart"){
+renderCart();
+}
+
+if(id==="checkout"){
+renderCheckout();
+}
+
+if(id==="orders"){
+renderOrders();
+}
+
+if(id==="admin"){
+checkAdmin();
+}
+
+document
+.querySelectorAll(".page")
+.forEach(function(page){
+
+page.classList.remove("active");
+
+});
+
+document
+.getElementById(id)
+.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =====================================================
+MESSAGE
+===================================================== */
+
+function msg(id,text,type){
+
+const el =
+document.getElementById(id);
+
+el.textContent = text;
+
+el.className =
+"msg " + type;
+
+el.style.display =
+"block";
+
+}
+
+
+/* =====================================================
+MONEY
+===================================================== */
+
+function money(number){
+
+return "₹" +
+Number(number || 0)
+.toFixed(2);
+
+}
+
+
+/* =====================================================
+CART
+===================================================== */
+
+function saveCart(){
+
+localStorage.setItem(
+"glowcart_cart",
+JSON.stringify(cart)
+);
 
 updateCartCount();
-</script>
-</body>
-</html>
+
+}
+
+
+function updateCartCount(){
+
+document.getElementById(
+"cartCount"
+).textContent =
+cart.reduce(
+function(sum,item){
+return sum + item.qty;
+},
+0
+);
+
+}
+
+
+function findProduct(id){
+
+return products.find(
+function(product){
+return product.id === id;
+}
+);
+
+}
+
+
+/* =====================================================
+TOTALS
+===================================================== */
+
+function totals(){
+
+const subtotal =
+cart.reduce(
+function(sum,item){
+
+const product =
+findProduct(item.id);
+
+return sum +
+(
+product.price *
+item.qty
+);
+
+},
+0
+);
+
+const gst =
+subtotal *
+GST_RATE /
+100;
+
+return {
+
+subtotal:subtotal,
+
+gst:gst,
+
+total:
+subtotal + gst
+
+};
+
+}
+
+
+/* =====================================================
+PRODUCT DISPLAY
+===================================================== */
+
+function renderProducts(){
+
+const search =
+(
+document.getElementById("search")
+?.value || ""
+)
+.toLowerCase();
+
+const list =
+products.filter(
+function(product){
+
+return product.name
+.toLowerCase()
+.includes(search);
+
+}
+);
+
+const el =
+document.getElementById("products");
+
+if(!list.length){
+
+el.innerHTML =
+'<div class="empty">No products found.</div>';
+
+return;
+
+}
+
+el.innerHTML =
+list.map(
+function(product){
+
+return `
+
+<div class="card">
+
+<img
+src="${product.img}"
+alt="${product.name}"
+onerror="this.src='https://placehold.co/700x500/f6eafa/7b2cbf?text=GlowCart'"
+>
+
+<div class="card-body">
+
+<h3>
+${product.name}
+</h3>
+
+<div class="price">
+${money(product.price)}
+</div>
+
+<div class="small">
+Premium skincare • 18% GST at checkout
+</div>
+
+<div class="card-actions">
+
+<button
+class="btn"
+onclick="addToCart(${product.id})"
+>
+Add to Cart
+</button>
+
+<button
+class="btn"
+onclick="buyNow(${product.id})"
+>
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+)
+.join("");
+
+}
+
+
+/* =====================================================
+ADD CART
+===================================================== */
+
+function addToCart(id){
+
+const item =
+cart.find(
+function(x){
+return x.id === id;
+}
+);
+
+if(item){
+
+item.qty++;
+
+}else{
+
+cart.push({
+id:id,
+qty:1
+});
+
+}
+
+saveCart();
+
+renderCart();
+
+alert(
+"Product added to cart 💖"
+);
+
+}
+
+
+/* =====================================================
+BUY NOW
+===================================================== */
+
+function buyNow(id){
+
+addToCart(id);
+
+showPage("checkout");
+
+}
+
+
+/* =====================================================
+CHANGE QUANTITY
+===================================================== */
+
+function changeQty(id,difference){
+
+const item =
+cart.find(
+function(x){
+return x.id === id;
+}
+);
+
+if(!item){
+return;
+}
+
+item.qty += difference;
+
+if(item.qty <= 0){
+
+cart =
+cart.filter(
+function(x){
+return x.id !== id;
+}
+);
+
+}
+
+saveCart();
+
+renderCart();
+
+if(
+document
+.getElementById("checkout")
+.classList
+.contains("active")
+){
+
+renderCheckout();
+
+}
+
+}
+
+
+/* =====================================================
+CART DISPLAY
+===================================================== */
+
+function renderCart(){
+
+const el =
+document.getElementById(
+"cartItems"
+);
+
+if(!cart.length){
+
+el.innerHTML =
+`
+<div class="empty">
+
+Your cart is empty.
+
+<br>
+
+<button
+class="btn"
+onclick="showPage('shopping')"
+style="margin-top:15px"
+>
+Continue Shopping
+</button>
+
+</div>
+`;
+
+document.getElementById(
+"cartSummary"
+).innerHTML = "";
+
+return;
+
+}
+
+
+el.innerHTML =
+cart.map(
+function(item){
+
+const product =
+findProduct(item.id);
+
+return `
+
+<div class="order-item">
+
+<img
+src="${product.img}"
+onerror="this.src='https://placehold.co/100/f6eafa/7b2cbf?text=GC'"
+>
+
+<div style="flex:1">
+
+<b>
+${product.name}
+</b>
+
+<div>
+${money(product.price)}
+×
+${item.qty}
+</div>
+
+</div>
+
+<button
+class="btn"
+onclick="changeQty(${product.id},-1)"
+>
+−
+</button>
+
+<button
+class="btn"
+onclick="changeQty(${product.id},1)"
+>
++
+</button>
+
+</div>
+
+`;
+
+}
+)
+.join("");
+
+
+const t =
+totals();
+
+
+document.getElementById(
+"cartSummary"
+).innerHTML = `
+
+<div class="summary">
+
+<div class="row">
+
+<span>
+Subtotal
+</span>
+
+<b>
+${money(t.subtotal)}
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+GST (${GST_RATE}%)
+</span>
+
+<b>
+${money(t.gst)}
+</b>
+
+</div>
+
+<div class="row total">
+
+<span>
+Total Amount
+</span>
+
+<b>
+${money(t.total)}
+</b>
+
+</div>
+
+<button
+class="btn"
+style="width:100%;margin-top:15px"
+onclick="showPage('checkout')"
+>
+Place Order
+</button>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+CHECKOUT
+===================================================== */
+
+function renderCheckout(){
+
+if(!cart.length){
+
+showPage("cart");
+
+return;
+
+}
+
+
+const el =
+document.getElementById(
+"checkoutItems"
+);
+
+
+el.innerHTML =
+cart.map(
+function(item){
+
+const product =
+findProduct(item.id);
+
+return `
+
+<div class="order-item">
+
+<img
+src="${product.img}"
+onerror="this.src='https://placehold.co/100/f6eafa/7b2cbf?text=GC'"
+>
+
+<div style="flex:1">
+
+<b>
+${product.name}
+</b>
+
+<div>
+${money(product.price)}
+×
+${item.qty}
+</div>
+
+</div>
+
+<b>
+${money(
+product.price *
+item.qty
+)}
+</b>
+
+</div>
+
+`;
+
+}
+)
+.join("");
+
+
+const t =
+totals();
+
+
+document.getElementById(
+"checkoutSummary"
+).innerHTML = `
+
+<div class="row">
+
+<span>
+Subtotal
+</span>
+
+<b>
+${money(t.subtotal)}
+</b>
+
+</div>
+
+<div class="row">
+
+<span>
+GST (${GST_RATE}%)
+</span>
+
+<b>
+${money(t.gst)}
+</b>
+
+</div>
+
+<div class="row total">
+
+<span>
+Total Amount
+</span>
+
+<b>
+${money(t.total)}
+</b>
+
+</div>
+
+`;
+
+
+document.getElementById(
+"orderAddress"
+).value =
+currentUser?.address || "";
+
+
+document.getElementById(
+"orderPincode"
+).value =
+currentUser?.pincode || "";
+
+}
+
+
+/* =====================================================
+WELCOME EMAIL
+===================================================== */
+
+async function sendWelcomeEmail(user){
+
+try{
+
+await emailjs.send(
+EMAIL_SERVICE,
+WELCOME_TEMPLATE,
+{
+
+to_email:user.email,
+
+to_name:user.name,
+
+user_name:user.name,
+
+user_email:user.email
+
+}
+);
+
+return true;
+
+}catch(error){
+
+console.error(
+"Welcome email error:",
+error
+);
+
+return false;
+
+}
+
+}
+
+
+/* =====================================================
+ORDER EMAIL
+===================================================== */
+
+async function sendOrderEmail(order){
+
+const itemText =
+order.items
+.map(
+function(item){
+
+return (
+item.name +
+" x " +
+item.qty +
+" = " +
+money(
+item.price *
+item.qty
+)
+);
+
+}
+)
+.join("\n");
+
+
+try{
+
+await emailjs.send(
+EMAIL_SERVICE,
+ORDER_TEMPLATE,
+{
+
+to_email:order.email,
+
+to_name:order.name,
+
+user_name:order.name,
+
+user_email:order.email,
+
+order_id:order.orderId,
+
+order_items:itemText,
+
+order_subtotal:
+money(order.subtotal),
+
+order_gst:
+money(order.gst),
+
+order_total:
+money(order.total),
+
+order_address:
+order.address,
+
+order_pincode:
+order.pincode,
+
+payment_method:
+order.paymentMethod
+
+}
+);
+
+return true;
+
+}catch(error){
+
+console.error(
+"Order email error:",
+error
+);
+
+return false;
+
+}
+
+}
+
+
+/* =====================================================
+REGISTER FORM
+===================================================== */
+
+document
+.getElementById("registerForm")
+.addEventListener(
+"submit",
+async function(event){
+
+event.preventDefault();
+
+
+const user = {
+
+name:
+document
+.getElementById("regName")
+.value
+.trim(),
+
+email:
+document
+.getElementById("regEmail")
+.value
+.trim()
+.toLowerCase(),
+
+mobile:
+document
+.getElementById("regMobile")
+.value
+.trim(),
+
+password:
+document
+.getElementById("regPassword")
+.value,
+
+address:
+document
+.getElementById("regAddress")
+.value
+.trim(),
+
+address2:
+document
+.getElementById("regAddress2")
+.value
+.trim(),
+
+pincode:
+document
+.getElementById("regPincode")
+.value
+.trim()
+
+};
+
+
+/*
+CHECK LOCAL STORAGE FIRST
+
+This prevents duplicate registration
+in the same browser.
+*/
+
+const localExisting =
+registeredMembers.find(
+function(member){
+
+return member.email
+.toLowerCase() ===
+user.email;
+
+}
+);
+
+
+if(localExisting){
+
+msg(
+"registerMsg",
+"This email is already registered.",
+"error"
+);
+
+return;
+
+}
+
+
+try{
+
+/*
+SEND TO RENDER BACKEND
+*/
+
+const response =
+await fetch(
+API + "/api/register",
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(user)
+
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.message ||
+"Registration failed"
+);
+
+}
+
+
+/*
+SAVE USER PERMANENTLY
+IN THIS BROWSER
+*/
+
+const savedMember = {
+
+id:
+data.user?.id ||
+Date.now(),
+
+name:
+data.user?.name ||
+user.name,
+
+email:
+data.user?.email ||
+user.email,
+
+mobile:
+data.user?.mobile ||
+user.mobile,
+
+address:
+data.user?.address ||
+user.address,
+
+address2:
+data.user?.address2 ||
+u
+```
