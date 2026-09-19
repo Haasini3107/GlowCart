@@ -116,6 +116,7 @@ header{
 .btn-white{
     background:white;
     color:#8e2de2;
+    border:1px solid #ead8ed;
 }
 
 .btn-danger{
@@ -160,6 +161,7 @@ header{
     color:#8e2de2;
     font-weight:700;
     cursor:pointer;
+    text-decoration:underline;
 }
 
 .message{
@@ -307,6 +309,10 @@ header{
     background:white;
 }
 
+.pay-option input{
+    margin-right:5px;
+}
+
 .pay-option:has(input:checked){
     border-color:#8e2de2;
     background:#faf0ff;
@@ -428,6 +434,11 @@ footer{
         flex-direction:column;
         gap:12px;
     }
+
+    .nav{
+        justify-content:center;
+    }
+
 }
 
 </style>
@@ -443,21 +454,21 @@ footer{
 
     <div class="nav">
 
-        <button onclick="goHome()">Home</button>
+        <button type="button" onclick="goHome()">Home</button>
 
-        <button onclick="startShopping()">
+        <button type="button" onclick="startShopping()">
             Shop
         </button>
 
-        <button onclick="openCart()">
+        <button type="button" onclick="openCart()">
             🛒 Cart <span id="cartCount">0</span>
         </button>
 
-        <button onclick="openOrders()">
+        <button type="button" onclick="openOrders()">
             Orders
         </button>
 
-        <button onclick="openAdmin()">
+        <button type="button" onclick="openAdmin()">
             Admin
         </button>
 
@@ -466,7 +477,7 @@ footer{
 </header>
 
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 
 <section id="homePage" class="page active">
 
@@ -486,6 +497,7 @@ footer{
             </p>
 
             <button
+                type="button"
                 class="btn"
                 onclick="startShopping()"
             >
@@ -499,7 +511,7 @@ footer{
 </section>
 
 
-<!-- REGISTER -->
+<!-- ================= REGISTER ================= -->
 
 <section id="registerPage" class="page">
 
@@ -509,10 +521,7 @@ footer{
             ✨ Create Your GlowCart Account
         </h2>
 
-        <div
-            id="registerMessage"
-            class="message"
-        ></div>
+        <div id="registerMessage" class="message"></div>
 
         <form id="registerForm">
 
@@ -599,7 +608,7 @@ footer{
 </section>
 
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
 
 <section id="loginPage" class="page">
 
@@ -609,10 +618,7 @@ footer{
             🔐 GlowCart Login
         </h2>
 
-        <div
-            id="loginMessage"
-            class="message"
-        ></div>
+        <div id="loginMessage" class="message"></div>
 
         <form id="loginForm">
 
@@ -660,7 +666,7 @@ footer{
 </section>
 
 
-<!-- PRODUCTS -->
+<!-- ================= PRODUCTS ================= -->
 
 <section id="shopPage" class="page">
 
@@ -688,15 +694,9 @@ footer{
 
     </div>
 
-    <div
-        id="productMessage"
-        class="message"
-    ></div>
+    <div id="productMessage" class="message"></div>
 
-    <div
-        id="products"
-        class="products"
-    >
+    <div id="products" class="products">
 
         <div class="loading">
             Loading products...
@@ -707,7 +707,7 @@ footer{
 </section>
 
 
-<!-- CART -->
+<!-- ================= CART ================= -->
 
 <section id="cartPage" class="page">
 
@@ -726,7 +726,7 @@ footer{
 </section>
 
 
-<!-- CHECKOUT -->
+<!-- ================= CHECKOUT ================= -->
 
 <section id="checkoutPage" class="page">
 
@@ -736,10 +736,7 @@ footer{
             📦 Place Your Order
         </h2>
 
-        <div
-            id="checkoutMessage"
-            class="message"
-        ></div>
+        <div id="checkoutMessage" class="message"></div>
 
         <div class="address-box">
 
@@ -815,6 +812,7 @@ footer{
         <div id="checkoutSummary"></div>
 
         <button
+            type="button"
             class="btn"
             onclick="placeOrder()"
         >
@@ -822,6 +820,7 @@ footer{
         </button>
 
         <button
+            type="button"
             class="btn btn-white"
             onclick="openCart()"
         >
@@ -833,7 +832,7 @@ footer{
 </section>
 
 
-<!-- ORDERS -->
+<!-- ================= ORDERS ================= -->
 
 <section id="ordersPage" class="page">
 
@@ -850,7 +849,7 @@ footer{
 </section>
 
 
-<!-- ADMIN LOGIN -->
+<!-- ================= ADMIN LOGIN ================= -->
 
 <section id="adminLoginPage" class="page">
 
@@ -860,10 +859,7 @@ footer{
             👑 Admin Login
         </h2>
 
-        <div
-            id="adminLoginMessage"
-            class="message"
-        ></div>
+        <div id="adminLoginMessage" class="message"></div>
 
         <form id="adminLoginForm">
 
@@ -898,7 +894,7 @@ footer{
 </section>
 
 
-<!-- ADMIN -->
+<!-- ================= ADMIN ================= -->
 
 <section id="adminPage" class="page">
 
@@ -919,6 +915,7 @@ footer{
             </div>
 
             <button
+                type="button"
                 class="btn btn-danger"
                 onclick="adminLogout()"
             >
@@ -931,12 +928,11 @@ footer{
 
             <h3>
                 Registered Members:
-                <span id="memberCount">
-                    0
-                </span>
+                <span id="memberCount">0</span>
             </h3>
 
             <button
+                type="button"
                 class="btn"
                 onclick="loadAdminMembers()"
             >
@@ -971,8 +967,7 @@ footer{
                             colspan="7"
                             style="text-align:center"
                         >
-                            Loading...
-
+                            No members loaded yet.
                         </td>
 
                     </tr>
@@ -997,88 +992,176 @@ footer{
 
 <script>
 
-/* =====================================================
-   CONFIGURATION
-===================================================== */
+/* =========================================================
+   GLOWCART CONFIGURATION
+========================================================= */
 
-const API =
-"https://glowcart-fxwp.onrender.com";
+const API = "https://glowcart-fxwp.onrender.com";
 
-const EMAIL_SERVICE =
-"service_nb7q38o";
+const EMAIL_SERVICE = "service_nb7q38o";
 
-const EMAIL_PUBLIC_KEY =
-"O8MGjkU2KThjrZ31Y";
+const EMAIL_PUBLIC_KEY = "O8MGjkU2KThjrZ31Y";
 
-const WELCOME_TEMPLATE =
-"template_giqmpm9";
+const WELCOME_TEMPLATE = "template_giqmpm9";
 
-const ORDER_TEMPLATE =
-"template_ykzf36";
+const ORDER_TEMPLATE = "template_ykzf36";
 
 const GST_RATE = 18;
 
 
-/* =====================================================
-   EMAILJS
-===================================================== */
+/* =========================================================
+   EMAILJS SAFE INITIALIZATION
+   IMPORTANT FIX:
+   EmailJS failure must NOT stop the website navigation.
+========================================================= */
 
-emailjs.init({
-    publicKey: EMAIL_PUBLIC_KEY
-});
+let emailJSReady = false;
 
+try{
 
-/* =====================================================
-   DATA
-===================================================== */
+    if(
+        typeof window.emailjs !== "undefined" &&
+        typeof window.emailjs.init === "function"
+    ){
 
-let currentUser =
-JSON.parse(
-    localStorage.getItem("glowcart_user") || "null"
-);
+        window.emailjs.init({
+            publicKey: EMAIL_PUBLIC_KEY
+        });
 
-let cart =
-JSON.parse(
-    localStorage.getItem("glowcart_cart") || "[]"
-);
+        emailJSReady = true;
 
-let orders =
-JSON.parse(
-    localStorage.getItem("glowcart_orders") || "[]"
-);
+        console.log("EmailJS initialized successfully.");
 
-let products = [];
+    }else{
 
-
-/* =====================================================
-   PAGE CONTROL
-===================================================== */
-
-function showPage(id){
-
-    document.querySelectorAll(".page").forEach(
-        function(page){
-            page.classList.remove("active");
-        }
-    );
-
-    const page =
-    document.getElementById(id);
-
-    if(page){
-
-        page.classList.add("active");
-
-        window.scrollTo(0,0);
+        console.warn(
+            "EmailJS library is not available."
+        );
 
     }
+
+}catch(error){
+
+    console.error(
+        "EmailJS initialization error:",
+        error
+    );
+
+    emailJSReady = false;
 
 }
 
 
-/* =====================================================
-   HOME
-===================================================== */
+/* =========================================================
+   DATA
+========================================================= */
+
+let currentUser = null;
+
+try{
+
+    currentUser =
+    JSON.parse(
+        localStorage.getItem("glowcart_user") || "null"
+    );
+
+}catch(error){
+
+    currentUser = null;
+
+}
+
+
+let cart = [];
+
+try{
+
+    cart =
+    JSON.parse(
+        localStorage.getItem("glowcart_cart") || "[]"
+    );
+
+    if(!Array.isArray(cart)){
+        cart = [];
+    }
+
+}catch(error){
+
+    cart = [];
+
+}
+
+
+let orders = [];
+
+try{
+
+    orders =
+    JSON.parse(
+        localStorage.getItem("glowcart_orders") || "[]"
+    );
+
+    if(!Array.isArray(orders)){
+        orders = [];
+    }
+
+}catch(error){
+
+    orders = [];
+
+}
+
+
+let products = [];
+
+
+/* =========================================================
+   PAGE CONTROL
+========================================================= */
+
+function showPage(id){
+
+    console.log("Opening page:",id);
+
+    const pages =
+    document.querySelectorAll(".page");
+
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+        page.style.display = "none";
+
+    });
+
+
+    const page =
+    document.getElementById(id);
+
+
+    if(!page){
+
+        console.error(
+            "Page not found:",
+            id
+        );
+
+        return;
+
+    }
+
+
+    page.classList.add("active");
+
+    page.style.display = "block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
 
 function goHome(){
 
@@ -1087,12 +1170,18 @@ function goHome(){
 }
 
 
-/* =====================================================
-   IMPORTANT SHOP FLOW
-   SHOP NOW ALWAYS OPENS REGISTER
-===================================================== */
+/* =========================================================
+   SHOP FLOW
+   HOME -> REGISTER -> LOGIN -> PRODUCTS
+========================================================= */
 
 function startShopping(){
+
+    console.log(
+        "Shop Now clicked. Current user:",
+        currentUser
+    );
+
 
     if(currentUser){
 
@@ -1117,6 +1206,10 @@ function startShopping(){
 
 function showRegister(){
 
+    console.log(
+        "Opening REGISTER page"
+    );
+
     showPage("registerPage");
 
 }
@@ -1124,21 +1217,36 @@ function showRegister(){
 
 function showLogin(){
 
+    console.log(
+        "Opening LOGIN page"
+    );
+
     showPage("loginPage");
 
 }
 
 
-/* =====================================================
+/* =========================================================
    MESSAGE
-===================================================== */
+========================================================= */
 
 function showMessage(id,text,type){
 
     const element =
     document.getElementById(id);
 
-    if(!element)return;
+
+    if(!element){
+
+        console.error(
+            "Message element not found:",
+            id
+        );
+
+        return;
+
+    }
+
 
     element.className =
     "message show " + type;
@@ -1148,9 +1256,9 @@ function showMessage(id,text,type){
 }
 
 
-/* =====================================================
+/* =========================================================
    ESCAPE HTML
-===================================================== */
+========================================================= */
 
 function escapeHTML(value){
 
@@ -1164,361 +1272,462 @@ function escapeHTML(value){
 }
 
 
-/* =====================================================
+/* =========================================================
    REGISTER
-===================================================== */
+========================================================= */
 
-document.getElementById(
-    "registerForm"
-).addEventListener(
-    "submit",
-    async function(event){
-
-        event.preventDefault();
+const registerForm =
+document.getElementById("registerForm");
 
 
-        const name =
-        document.getElementById(
-            "regName"
-        ).value.trim();
+if(registerForm){
 
-        const email =
-        document.getElementById(
-            "regEmail"
-        ).value.trim();
+    registerForm.addEventListener(
+        "submit",
+        async function(event){
 
-        const mobile =
-        document.getElementById(
-            "regMobile"
-        ).value.trim();
-
-        const password =
-        document.getElementById(
-            "regPassword"
-        ).value;
-
-        const address =
-        document.getElementById(
-            "regAddress"
-        ).value.trim();
-
-        const address2 =
-        document.getElementById(
-            "regAddress2"
-        ).value.trim();
-
-        const pincode =
-        document.getElementById(
-            "regPincode"
-        ).value.trim();
+            event.preventDefault();
 
 
-        showMessage(
-            "registerMessage",
-            "Registering... Please wait.",
-            "info"
-        );
+            const name =
+            document.getElementById(
+                "regName"
+            ).value.trim();
 
+            const email =
+            document.getElementById(
+                "regEmail"
+            ).value.trim();
 
-        try{
+            const mobile =
+            document.getElementById(
+                "regMobile"
+            ).value.trim();
 
-            const response =
-            await fetch(
-                API + "/api/register",
-                {
-                    method:"POST",
+            const password =
+            document.getElementById(
+                "regPassword"
+            ).value;
 
-                    headers:{
-                        "Content-Type":
-                        "application/json"
-                    },
+            const address =
+            document.getElementById(
+                "regAddress"
+            ).value.trim();
 
-                    body:JSON.stringify({
+            const address2 =
+            document.getElementById(
+                "regAddress2"
+            ).value.trim();
 
-                        name:name,
-                        email:email,
-                        mobile:mobile,
-                        password:password,
-                        address:address,
-                        address2:address2,
-                        pincode:pincode
-
-                    })
-
-                }
-            );
-
-
-            const data =
-            await response.json();
+            const pincode =
+            document.getElementById(
+                "regPincode"
+            ).value.trim();
 
 
             if(
-                !response.ok ||
-                data.success === false
+                !name ||
+                !email ||
+                !mobile ||
+                !password ||
+                !address ||
+                !pincode
             ){
 
-                throw new Error(
-                    data.message ||
-                    "Registration failed."
+                showMessage(
+                    "registerMessage",
+                    "Please fill all required fields.",
+                    "error"
                 );
+
+                return;
 
             }
 
 
-            /*
-              SEND WELCOME EMAIL
-            */
-
-            let emailSent = false;
+            showMessage(
+                "registerMessage",
+                "Registering... Please wait.",
+                "info"
+            );
 
 
             try{
 
-                await emailjs.send(
-                    EMAIL_SERVICE,
-                    WELCOME_TEMPLATE,
+                const response =
+                await fetch(
+                    API + "/api/register",
                     {
+                        method:"POST",
 
-                        to_email:email,
+                        headers:{
+                            "Content-Type":
+                            "application/json"
+                        },
 
-                        email:email,
+                        body:JSON.stringify({
 
-                        user_email:email,
+                            name:name,
+                            email:email,
+                            mobile:mobile,
+                            password:password,
+                            address:address,
+                            address2:address2,
+                            pincode:pincode
 
-                        name:name,
-
-                        user_name:name,
-
-                        mobile:mobile,
-
-                        address:address,
-
-                        address2:address2,
-
-                        pincode:pincode
+                        })
 
                     }
                 );
 
 
-                emailSent = true;
+                let data = {};
 
-                console.log(
-                    "WELCOME EMAIL SENT"
-                );
+                try{
 
+                    data =
+                    await response.json();
 
-            }catch(emailError){
+                }catch(jsonError){
 
-                console.error(
-                    "WELCOME EMAIL ERROR:",
-                    emailError
-                );
+                    throw new Error(
+                        "Server returned an invalid response."
+                    );
 
-            }
-
-
-            document.getElementById(
-                "registerForm"
-            ).reset();
+                }
 
 
-            if(emailSent){
+                if(
+                    !response.ok ||
+                    data.success === false
+                ){
 
-                showMessage(
-                    "registerMessage",
-                    "✅ Registration successful! Welcome email sent to " + email + ". Opening login...",
-                    "success"
-                );
+                    throw new Error(
+                        data.message ||
+                        "Registration failed."
+                    );
 
-            }else{
-
-                showMessage(
-                    "registerMessage",
-                    "✅ Registration successful! Opening login. EmailJS did not send the email.",
-                    "success"
-                );
-
-            }
+                }
 
 
-            /*
-              SAVE EMAIL FOR LOGIN
-            */
+                /* -----------------------------------------
+                   SAVE LOGIN INFORMATION LOCALLY ONLY
+                   Member itself is stored in PostgreSQL
+                   by the backend.
+                ----------------------------------------- */
 
-            setTimeout(
-                function(){
 
-                    document.getElementById(
-                        "loginEmail"
-                    ).value = email;
+                /* -----------------------------------------
+                   WELCOME EMAIL
+                ----------------------------------------- */
 
-                    showPage("loginPage");
+                let emailSent = false;
+
+
+                if(emailJSReady){
+
+                    try{
+
+                        await window.emailjs.send(
+                            EMAIL_SERVICE,
+                            WELCOME_TEMPLATE,
+                            {
+
+                                to_email:email,
+
+                                email:email,
+
+                                user_email:email,
+
+                                name:name,
+
+                                user_name:name,
+
+                                mobile:mobile,
+
+                                address:address,
+
+                                address2:address2,
+
+                                pincode:pincode
+
+                            }
+                        );
+
+
+                        emailSent = true;
+
+                        console.log(
+                            "Welcome email sent."
+                        );
+
+
+                    }catch(emailError){
+
+                        console.error(
+                            "Welcome email error:",
+                            emailError
+                        );
+
+                    }
+
+                }
+
+
+                registerForm.reset();
+
+
+                if(emailSent){
 
                     showMessage(
-                        "loginMessage",
-                        "Registration successful. Please login.",
+                        "registerMessage",
+                        "✅ Registration successful! Welcome email sent. Opening login...",
                         "success"
                     );
 
-                },
-                1800
-            );
+                }else{
 
-
-        }catch(error){
-
-            console.error(
-                "REGISTER ERROR:",
-                error
-            );
-
-            showMessage(
-                "registerMessage",
-                error.message ||
-                "Unable to connect to server.",
-                "error"
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-document.getElementById(
-    "loginForm"
-).addEventListener(
-    "submit",
-    async function(event){
-
-        event.preventDefault();
-
-
-        const email =
-        document.getElementById(
-            "loginEmail"
-        ).value.trim();
-
-        const password =
-        document.getElementById(
-            "loginPassword"
-        ).value;
-
-
-        showMessage(
-            "loginMessage",
-            "Logging in...",
-            "info"
-        );
-
-
-        try{
-
-            const response =
-            await fetch(
-                API + "/api/login",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                        "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        email:email,
-
-                        password:password
-
-                    })
+                    showMessage(
+                        "registerMessage",
+                        "✅ Registration successful! Opening login...",
+                        "success"
+                    );
 
                 }
-            );
 
 
-            const data =
-            await response.json();
+                /* -----------------------------------------
+                   ALWAYS OPEN LOGIN AFTER REGISTRATION
+                ----------------------------------------- */
+
+                setTimeout(
+                    function(){
+
+                        document.getElementById(
+                            "loginEmail"
+                        ).value = email;
+
+                        document.getElementById(
+                            "loginPassword"
+                        ).value = "";
+
+                        showPage("loginPage");
+
+                        showMessage(
+                            "loginMessage",
+                            "Registration successful. Please login.",
+                            "success"
+                        );
+
+                    },
+                    1200
+                );
 
 
-            if(
-                !response.ok ||
-                data.success === false
-            ){
+            }catch(error){
 
-                throw new Error(
-                    data.message ||
-                    "Invalid email or password."
+                console.error(
+                    "REGISTER ERROR:",
+                    error
+                );
+
+
+                showMessage(
+                    "registerMessage",
+                    error.message ||
+                    "Unable to connect to server.",
+                    "error"
                 );
 
             }
 
+        }
+    );
 
-            currentUser =
-            data.user ||
-            data.data ||
-            data;
-
-
-            localStorage.setItem(
-                "glowcart_user",
-                JSON.stringify(currentUser)
-            );
+}
 
 
-            showMessage(
-                "loginMessage",
-                "✅ Login successful! Opening GlowCart products...",
-                "success"
-            );
+/* =========================================================
+   LOGIN
+========================================================= */
+
+const loginForm =
+document.getElementById("loginForm");
 
 
-            setTimeout(
-                function(){
+if(loginForm){
 
-                    showPage("shopPage");
+    loginForm.addEventListener(
+        "submit",
+        async function(event){
 
-                    loadProducts();
-
-                },
-                1000
-            );
+            event.preventDefault();
 
 
-        }catch(error){
+            const email =
+            document.getElementById(
+                "loginEmail"
+            ).value.trim();
 
-            console.error(
-                "LOGIN ERROR:",
-                error
-            );
+            const password =
+            document.getElementById(
+                "loginPassword"
+            ).value;
+
 
             showMessage(
                 "loginMessage",
-                error.message ||
-                "Login failed.",
-                "error"
+                "Logging in...",
+                "info"
             );
+
+
+            try{
+
+                const response =
+                await fetch(
+                    API + "/api/login",
+                    {
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                            "application/json"
+                        },
+
+                        body:JSON.stringify({
+
+                            email:email,
+                            password:password
+
+                        })
+
+                    }
+                );
+
+
+                let data = {};
+
+                try{
+
+                    data =
+                    await response.json();
+
+                }catch(jsonError){
+
+                    throw new Error(
+                        "Server returned an invalid response."
+                    );
+
+                }
+
+
+                if(
+                    !response.ok ||
+                    data.success === false
+                ){
+
+                    throw new Error(
+                        data.message ||
+                        "Invalid email or password."
+                    );
+
+                }
+
+
+                /*
+                  Correctly get user from different
+                  possible backend response formats.
+                */
+
+                if(data.user){
+
+                    currentUser = data.user;
+
+                }else if(data.data){
+
+                    currentUser = data.data;
+
+                }else{
+
+                    currentUser = {
+                        name:data.name || "",
+                        email:data.email || email,
+                        mobile:data.mobile || "",
+                        address:data.address || "",
+                        address2:data.address2 || "",
+                        pincode:data.pincode || ""
+                    };
+
+                }
+
+
+                if(!currentUser.email){
+
+                    currentUser.email = email;
+
+                }
+
+
+                localStorage.setItem(
+                    "glowcart_user",
+                    JSON.stringify(currentUser)
+                );
+
+
+                showMessage(
+                    "loginMessage",
+                    "✅ Login successful! Opening GlowCart products...",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function(){
+
+                        showPage("shopPage");
+
+                        loadProducts();
+
+                    },
+                    700
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    "LOGIN ERROR:",
+                    error
+                );
+
+
+                showMessage(
+                    "loginMessage",
+                    error.message ||
+                    "Login failed.",
+                    "error"
+                );
+
+            }
 
         }
+    );
 
-    }
-);
+}
 
 
-/* =====================================================
+/* =========================================================
    PRODUCTS
-===================================================== */
+========================================================= */
 
 async function loadProducts(){
 
     const box =
     document.getElementById("products");
+
+
+    if(!box)return;
 
 
     box.innerHTML =
@@ -1565,7 +1774,11 @@ async function loadProducts(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "PRODUCT ERROR:",
+            error
+        );
+
 
         box.innerHTML =
         `
@@ -1579,6 +1792,16 @@ async function loadProducts(){
                 Please refresh the page.
             </p>
 
+            <br>
+
+            <button
+                type="button"
+                class="btn"
+                onclick="loadProducts()"
+            >
+                Try Again
+            </button>
+
         </div>
         `;
 
@@ -1591,6 +1814,9 @@ function renderProducts(list){
 
     const box =
     document.getElementById("products");
+
+
+    if(!box)return;
 
 
     if(!list.length){
@@ -1616,10 +1842,12 @@ function renderProducts(list){
             product._id ||
             product.productId;
 
+
             const name =
             product.name ||
             product.title ||
             "Face Cream";
+
 
             const price =
             Number(
@@ -1628,10 +1856,12 @@ function renderProducts(list){
                 0
             );
 
+
             const image =
             product.image ||
             product.imageUrl ||
             "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80";
+
 
             const description =
             product.description ||
@@ -1664,8 +1894,9 @@ function renderProducts(list){
                     <div class="card-actions">
 
                         <button
+                            type="button"
                             class="btn"
-                            onclick="addToCart('${id}')"
+                            onclick="addToCart('${String(id).replace(/'/g,"\\'")}')"
                         >
                             Add to Cart
                         </button>
@@ -1703,6 +1934,7 @@ function filterProducts(){
                 ""
             ).toLowerCase();
 
+
             const description =
             String(
                 product.description ||
@@ -1724,9 +1956,9 @@ function filterProducts(){
 }
 
 
-/* =====================================================
+/* =========================================================
    CART
-===================================================== */
+========================================================= */
 
 function addToCart(id){
 
@@ -1837,9 +2069,15 @@ function updateCartCount(){
     );
 
 
-    document.getElementById(
-        "cartCount"
-    ).textContent = count;
+    const countElement =
+    document.getElementById("cartCount");
+
+
+    if(countElement){
+
+        countElement.textContent = count;
+
+    }
 
 }
 
@@ -1881,6 +2119,9 @@ function renderCart(){
     );
 
 
+    if(!items || !summary)return;
+
+
     if(!cart.length){
 
         items.innerHTML =
@@ -1894,6 +2135,7 @@ function renderCart(){
             <br>
 
             <button
+                type="button"
                 class="btn"
                 onclick="startShopping()"
             >
@@ -1903,7 +2145,7 @@ function renderCart(){
         </div>
         `;
 
-        summary.innerHTML="";
+        summary.innerHTML = "";
 
         return;
 
@@ -1928,6 +2170,7 @@ function renderCart(){
 
                     <img
                         src="${escapeHTML(item.image)}"
+                        alt="${escapeHTML(item.name)}"
                     >
 
                     <div>
@@ -1950,6 +2193,7 @@ function renderCart(){
                 <div class="qty">
 
                     <button
+                        type="button"
                         onclick="changeQuantity('${item.id}',-1)"
                     >
                         −
@@ -1960,6 +2204,7 @@ function renderCart(){
                     </strong>
 
                     <button
+                        type="button"
                         onclick="changeQuantity('${item.id}',1)"
                     >
                         +
@@ -1969,6 +2214,7 @@ function renderCart(){
 
 
                 <button
+                    type="button"
                     class="btn btn-danger"
                     onclick="removeFromCart('${item.id}')"
                 >
@@ -1995,6 +2241,7 @@ function renderCart(){
 
     const gst =
     subtotal * GST_RATE / 100;
+
 
     const total =
     subtotal + gst;
@@ -2041,6 +2288,7 @@ function renderCart(){
         </div>
 
         <button
+            type="button"
             class="btn"
             style="width:100%;margin-top:15px"
             onclick="openCheckout()"
@@ -2103,15 +2351,21 @@ function removeFromCart(id){
 }
 
 
-/* =====================================================
+/* =========================================================
    CHECKOUT
-===================================================== */
+========================================================= */
 
 function openCheckout(){
 
     if(!currentUser){
 
         showLogin();
+
+        showMessage(
+            "loginMessage",
+            "Please login first.",
+            "info"
+        );
 
         return;
 
@@ -2168,6 +2422,7 @@ function renderCheckout(){
     const gst =
     subtotal * GST_RATE / 100;
 
+
     const total =
     subtotal + gst;
 
@@ -2223,7 +2478,7 @@ function renderCheckout(){
         <div class="row">
 
             <span>
-                GST
+                GST (${GST_RATE}%)
             </span>
 
             <strong>
@@ -2252,26 +2507,38 @@ function renderCheckout(){
 }
 
 
-/* =====================================================
+/* =========================================================
    PLACE ORDER
-===================================================== */
+========================================================= */
 
 async function placeOrder(){
+
+    if(!currentUser){
+
+        showLogin();
+
+        return;
+
+    }
+
 
     const address =
     document.getElementById(
         "orderAddress"
     ).value.trim();
 
+
     const address2 =
     document.getElementById(
         "orderAddress2"
     ).value.trim();
 
+
     const pincode =
     document.getElementById(
         "orderPincode"
     ).value.trim();
+
 
     const payment =
     document.querySelector(
@@ -2292,6 +2559,19 @@ async function placeOrder(){
     }
 
 
+    if(!cart.length){
+
+        showMessage(
+            "checkoutMessage",
+            "Your cart is empty.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
     const subtotal =
     cart.reduce(
         (sum,item)=>
@@ -2304,6 +2584,7 @@ async function placeOrder(){
 
     const gst =
     subtotal * GST_RATE / 100;
+
 
     const total =
     subtotal + gst;
@@ -2432,81 +2713,90 @@ async function placeOrder(){
         );
 
 
-        /*
-          ORDER EMAIL
-        */
+        /* -----------------------------------------
+           ORDER EMAIL
+        ----------------------------------------- */
 
-        try{
+        if(emailJSReady){
 
-            const itemText =
-            order.items.map(
-                item =>
-                `${item.name} x ${item.quantity}`
-            ).join("\n");
+            try{
 
-
-            await emailjs.send(
-                EMAIL_SERVICE,
-                ORDER_TEMPLATE,
-                {
-
-                    to_email:
-                    order.email,
-
-                    email:
-                    order.email,
-
-                    user_email:
-                    order.email,
-
-                    name:
-                    order.name,
-
-                    user_name:
-                    order.name,
-
-                    order_id:
-                    String(order.id),
-
-                    order_items:
-                    itemText,
-
-                    items:
-                    itemText,
-
-                    total:
-                    `₹${order.total.toFixed(2)}`,
-
-                    subtotal:
-                    `₹${order.subtotal.toFixed(2)}`,
-
-                    gst:
-                    `₹${order.gst.toFixed(2)}`,
-
-                    payment_method:
-                    order.paymentMethod,
-
-                    address:
-                    order.address,
-
-                    pincode:
-                    order.pincode
-
-                }
-            );
+                const itemText =
+                order.items.map(
+                    item =>
+                    `${item.name} x ${item.quantity}`
+                ).join("\n");
 
 
-        }catch(emailError){
+                await window.emailjs.send(
+                    EMAIL_SERVICE,
+                    ORDER_TEMPLATE,
+                    {
 
-            console.error(
-                "Order email error:",
-                emailError
-            );
+                        to_email:
+                        order.email,
+
+                        email:
+                        order.email,
+
+                        user_email:
+                        order.email,
+
+                        name:
+                        order.name,
+
+                        user_name:
+                        order.name,
+
+                        order_id:
+                        String(order.id),
+
+                        order_items:
+                        itemText,
+
+                        items:
+                        itemText,
+
+                        total:
+                        `₹${order.total.toFixed(2)}`,
+
+                        subtotal:
+                        `₹${order.subtotal.toFixed(2)}`,
+
+                        gst:
+                        `₹${order.gst.toFixed(2)}`,
+
+                        payment_method:
+                        order.paymentMethod,
+
+                        address:
+                        order.address,
+
+                        pincode:
+                        order.pincode
+
+                    }
+                );
+
+
+                console.log(
+                    "Order confirmation email sent."
+                );
+
+
+            }catch(emailError){
+
+                console.error(
+                    "Order email error:",
+                    emailError
+                );
+
+            }
 
         }
 
 
-        cart=[];
+        cart = [];
 
         saveCart();
 
@@ -2532,7 +2822,11 @@ async function placeOrder(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "ORDER ERROR:",
+            error
+        );
+
 
         showMessage(
             "checkoutMessage",
@@ -2546,11 +2840,20 @@ async function placeOrder(){
 }
 
 
-/* =====================================================
+/* =========================================================
    ORDERS
-===================================================== */
+========================================================= */
 
 async function loadOrders(){
+
+    if(!currentUser){
+
+        showLogin();
+
+        return;
+
+    }
+
 
     const box =
     document.getElementById(
@@ -2578,24 +2881,36 @@ async function loadOrders(){
         await response.json();
 
 
-        let list=[];
+        let list = [];
 
 
         if(Array.isArray(data)){
 
-            list=data;
+            list = data;
 
         }else if(
             Array.isArray(data.orders)
         ){
 
-            list=data.orders;
+            list = data.orders;
 
         }else if(
             Array.isArray(data.data)
         ){
 
-            list=data.data;
+            list = data.data;
+
+        }
+
+
+        if(!list.length){
+
+            list =
+            orders.filter(
+                order =>
+                order.email ===
+                currentUser.email
+            );
 
         }
 
@@ -2605,7 +2920,11 @@ async function loadOrders(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "ORDERS ERROR:",
+            error
+        );
+
 
         renderOrders(
             orders.filter(
@@ -2628,6 +2947,9 @@ function renderOrders(list){
     );
 
 
+    if(!box)return;
+
+
     if(!list.length){
 
         box.innerHTML =
@@ -2638,7 +2960,10 @@ function renderOrders(list){
                 No orders yet 📦
             </h3>
 
+            <br>
+
             <button
+                type="button"
                 class="btn"
                 onclick="startShopping()"
             >
@@ -2775,9 +3100,9 @@ function openOrders(){
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN
-===================================================== */
+========================================================= */
 
 function openAdmin(){
 
@@ -2802,115 +3127,136 @@ function openAdmin(){
 }
 
 
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+const adminLoginForm =
 document.getElementById(
     "adminLoginForm"
-).addEventListener(
-    "submit",
-    async function(event){
-
-        event.preventDefault();
+);
 
 
-        const email =
-        document.getElementById(
-            "adminEmail"
-        ).value.trim();
+if(adminLoginForm){
 
-        const password =
-        document.getElementById(
-            "adminPassword"
-        ).value;
+    adminLoginForm.addEventListener(
+        "submit",
+        async function(event){
+
+            event.preventDefault();
 
 
-        showMessage(
-            "adminLoginMessage",
-            "Checking admin login...",
-            "info"
-        );
+            const email =
+            document.getElementById(
+                "adminEmail"
+            ).value.trim();
 
 
-        try{
+            const password =
+            document.getElementById(
+                "adminPassword"
+            ).value;
 
-            const response =
-            await fetch(
-                API + "/api/admin/login",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                        "application/json"
-                    },
-
-                    body:JSON.stringify({
-                        email:email,
-                        password:password
-                    })
-
-                }
-            );
-
-
-            const data =
-            await response.json();
-
-
-            if(
-                !response.ok ||
-                data.success === false
-            ){
-
-                throw new Error(
-                    data.message ||
-                    "Admin login failed."
-                );
-
-            }
-
-
-            const token =
-            data.token ||
-            data.adminToken ||
-            data.sessionToken ||
-            data.accessToken;
-
-
-            if(!token){
-
-                throw new Error(
-                    "No admin token received."
-                );
-
-            }
-
-
-            sessionStorage.setItem(
-                "glowcart_admin_token",
-                token
-            );
-
-
-            showPage("adminPage");
-
-            loadAdminMembers();
-
-
-        }catch(error){
-
-            console.error(error);
 
             showMessage(
                 "adminLoginMessage",
-                error.message ||
-                "Admin login failed.",
-                "error"
+                "Checking admin login...",
+                "info"
             );
 
+
+            try{
+
+                const response =
+                await fetch(
+                    API + "/api/admin/login",
+                    {
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                            "application/json"
+                        },
+
+                        body:JSON.stringify({
+                            email:email,
+                            password:password
+                        })
+
+                    }
+                );
+
+
+                const data =
+                await response.json();
+
+
+                if(
+                    !response.ok ||
+                    data.success === false
+                ){
+
+                    throw new Error(
+                        data.message ||
+                        "Admin login failed."
+                    );
+
+                }
+
+
+                const token =
+                data.token ||
+                data.adminToken ||
+                data.sessionToken ||
+                data.accessToken;
+
+
+                if(!token){
+
+                    throw new Error(
+                        "No admin token received from server."
+                    );
+
+                }
+
+
+                sessionStorage.setItem(
+                    "glowcart_admin_token",
+                    token
+                );
+
+
+                showPage("adminPage");
+
+                loadAdminMembers();
+
+
+            }catch(error){
+
+                console.error(
+                    "ADMIN LOGIN ERROR:",
+                    error
+                );
+
+
+                showMessage(
+                    "adminLoginMessage",
+                    error.message ||
+                    "Admin login failed.",
+                    "error"
+                );
+
+            }
+
         }
+    );
 
-    }
-);
+}
 
+
+/* =========================================================
+   ADMIN MEMBERS
+========================================================= */
 
 async function loadAdminMembers(){
 
@@ -3007,30 +3353,30 @@ async function loadAdminMembers(){
         }
 
 
-        let members=[];
+        let members = [];
 
 
         if(Array.isArray(data)){
 
-            members=data;
+            members = data;
 
         }else if(
             Array.isArray(data.users)
         ){
 
-            members=data.users;
+            members = data.users;
 
         }else if(
             Array.isArray(data.members)
         ){
 
-            members=data.members;
+            members = data.members;
 
         }else if(
             Array.isArray(data.data)
         ){
 
-            members=data.data;
+            members = data.data;
 
         }
 
@@ -3129,7 +3475,11 @@ async function loadAdminMembers(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "ADMIN MEMBERS ERROR:",
+            error
+        );
+
 
         tbody.innerHTML =
         `
@@ -3163,20 +3513,49 @@ function adminLogout(){
 
     showPage("adminLoginPage");
 
+    document.getElementById(
+        "adminLoginForm"
+    ).reset();
+
 }
 
 
-/* =====================================================
+/* =========================================================
    STARTUP
-===================================================== */
+========================================================= */
 
 updateCartCount();
 
+
 console.log(
-    "GlowCart frontend connected to:",
+    "===================================="
+);
+
+console.log(
+    "GlowCart frontend loaded successfully."
+);
+
+console.log(
+    "API:",
     API
 );
 
+console.log(
+    "Current User:",
+    currentUser
+);
+
+console.log(
+    "EmailJS Ready:",
+    emailJSReady
+);
+
+console.log(
+    "===================================="
+);
+
+
+/* Backend test */
 
 fetch(API + "/api/health")
 .then(
@@ -3192,10 +3571,17 @@ fetch(API + "/api/health")
 .catch(
     error =>
     console.error(
-        "Backend error:",
+        "Backend connection error:",
         error
     )
 );
+
+
+/* =========================================================
+   FORCE HOME PAGE ON FIRST LOAD IF NO USER
+========================================================= */
+
+showPage("homePage");
 
 </script>
 
