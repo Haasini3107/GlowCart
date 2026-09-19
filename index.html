@@ -41,7 +41,7 @@ header{
 
 nav{
     display:flex;
-    gap:10px;
+    gap:8px;
     flex-wrap:wrap;
 }
 
@@ -53,11 +53,11 @@ nav button{
     font-weight:bold;
     cursor:pointer;
     padding:8px 12px;
+    border-radius:20px;
 }
 
 nav button:hover{
     background:#ffffff25;
-    border-radius:20px;
 }
 
 .page{
@@ -70,14 +70,19 @@ nav button:hover{
 }
 
 /* HOME */
+
 .hero{
     min-height:calc(100vh - 75px);
     display:flex;
     align-items:center;
     justify-content:space-between;
     padding:60px 8%;
-    background:
-      linear-gradient(120deg,#fdf2f8,#f3e8ff,#fce7f3);
+    background:linear-gradient(
+        120deg,
+        #fdf2f8,
+        #f3e8ff,
+        #fce7f3
+    );
     gap:40px;
 }
 
@@ -86,7 +91,7 @@ nav button:hover{
 }
 
 .hero h1{
-    font-size:55px;
+    font-size:58px;
     color:#7b2cbf;
     margin-bottom:15px;
 }
@@ -118,7 +123,11 @@ nav button:hover{
     cursor:pointer;
     font-weight:bold;
     font-size:15px;
-    background:linear-gradient(90deg,#7b2cbf,#ec4899);
+    background:linear-gradient(
+        90deg,
+        #7b2cbf,
+        #ec4899
+    );
     color:white;
     box-shadow:0 5px 15px #7b2cbf35;
 }
@@ -133,6 +142,7 @@ nav button:hover{
 }
 
 /* FORMS */
+
 .form-container{
     max-width:600px;
     margin:50px auto;
@@ -191,6 +201,7 @@ nav button:hover{
 }
 
 /* SHOP */
+
 .section-title{
     text-align:center;
     color:#7b2cbf;
@@ -217,7 +228,8 @@ nav button:hover{
     max-width:1200px;
     margin:auto;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    grid-template-columns:
+        repeat(auto-fit,minmax(230px,1fr));
     gap:25px;
     padding-bottom:50px;
 }
@@ -262,6 +274,7 @@ nav button:hover{
 }
 
 /* CART */
+
 .cart-container,
 .checkout-container,
 .orders-container{
@@ -342,9 +355,24 @@ nav button:hover{
 }
 
 /* CHECKOUT */
+
 .checkout-box{
     background:white;
     padding:30px;
     border-radius:20px;
-    box
+    box-shadow:0 8px 25px #0001;
+}
+
+.checkout-box h3{
+    color:#7b2cbf;
+    margin:20px 0 12px;
+}
+
+.checkout-box input[type="text"],
+.checkout-box input[type="number"]{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-bottom:10px;
 ```
