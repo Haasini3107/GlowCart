@@ -4,10 +4,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>GlowCart - Premium Face Creams</title>
 
@@ -16,442 +13,474 @@
 <style>
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  background:#fff7fc;
-  color:#351b35;
+    background:#fff7fc;
+    color:#351b35;
 }
 
+/* HEADER */
+
 header{
-  background:linear-gradient(135deg,#ff4f9a,#8d4de8);
-  color:white;
-  padding:16px 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 5px 20px rgba(120,30,120,.2);
+    background:linear-gradient(135deg,#ff4f9a,#8d4de8);
+    color:white;
+    padding:16px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 5px 20px rgba(120,30,120,.2);
 }
 
 .logo{
-  font-size:28px;
-  font-weight:bold;
+    font-size:28px;
+    font-weight:bold;
 }
 
 nav{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
 nav button{
-  border:none;
-  background:white;
-  color:#8d3ed1;
-  padding:10px 15px;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:bold;
+    border:none;
+    background:white;
+    color:#8d3ed1;
+    padding:10px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
 nav button:hover{
-  transform:translateY(-2px);
+    transform:translateY(-2px);
 }
 
+/* SECTIONS */
+
 section{
-  display:none;
+    display:none;
 }
 
 section.active{
-  display:block;
+    display:block;
 }
 
+/* HERO */
+
 .hero{
-  min-height:560px;
-  padding:80px 7%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:40px;
-  background:
-    linear-gradient(
-      120deg,
-      #ffe3f0,
-      #f2ddff
-    );
+    min-height:560px;
+    padding:80px 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+    background:linear-gradient(120deg,#ffe3f0,#f2ddff);
 }
 
 .hero-text{
-  max-width:600px;
+    max-width:600px;
 }
 
 .hero h1{
-  font-size:55px;
-  color:#7220a5;
-  margin-bottom:20px;
+    font-size:55px;
+    color:#7220a5;
+    margin-bottom:20px;
 }
 
 .hero p{
-  font-size:20px;
-  line-height:1.7;
-  margin-bottom:25px;
+    font-size:20px;
+    line-height:1.7;
+    margin-bottom:25px;
 }
 
 .main-btn{
-  border:none;
-  padding:14px 25px;
-  border-radius:30px;
-  background:linear-gradient(135deg,#ff3f95,#873fe3);
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
+    border:none;
+    padding:14px 25px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff3f95,#873fe3);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.main-btn:hover{
+    transform:translateY(-2px);
 }
 
 .hero-card{
-  width:360px;
-  height:360px;
-  border-radius:40px;
-  overflow:hidden;
-  box-shadow:0 20px 50px rgba(90,20,100,.2);
+    width:360px;
+    height:360px;
+    border-radius:40px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(90,20,100,.2);
 }
 
 .hero-card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
+/* CONTAINER */
+
 .container{
-  width:90%;
-  max-width:1200px;
-  margin:40px auto;
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
 }
 
 .title{
-  text-align:center;
-  font-size:35px;
-  color:#7625a5;
-  margin-bottom:30px;
+    text-align:center;
+    font-size:35px;
+    color:#7625a5;
+    margin-bottom:30px;
 }
 
+/* FORMS */
+
 .form-box{
-  max-width:600px;
-  margin:30px auto;
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 10px 35px rgba(80,20,100,.12);
+    max-width:600px;
+    margin:30px auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 35px rgba(80,20,100,.12);
 }
 
 .form-box h2{
-  text-align:center;
-  color:#8225a8;
-  margin-bottom:20px;
+    text-align:center;
+    color:#8225a8;
+    margin-bottom:20px;
 }
 
 input,
 textarea,
 select{
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  border:1px solid #ddd;
-  border-radius:10px;
-  outline:none;
-  font-size:15px;
+    width:100%;
+    padding:13px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
 }
 
 textarea{
-  resize:vertical;
-  min-height:80px;
+    resize:vertical;
+    min-height:80px;
 }
 
 .form-box button{
-  width:100%;
-  margin-top:12px;
+    width:100%;
+    margin-top:12px;
 }
 
 .message{
-  text-align:center;
-  margin:15px 0;
-  font-weight:bold;
+    text-align:center;
+    margin:15px 0;
+    font-weight:bold;
 }
 
+/* PRODUCTS */
+
 .products{
-  display:grid;
-  grid-template-columns:
-    repeat(auto-fit,minmax(230px,1fr));
-  gap:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:25px;
 }
 
 .product{
-  background:white;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 8px 25px rgba(80,20,100,.12);
-  transition:.25s;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(80,20,100,.12);
+    transition:.25s;
 }
 
 .product:hover{
-  transform:translateY(-6px);
+    transform:translateY(-6px);
 }
 
 .product img{
-  width:100%;
-  height:230px;
-  object-fit:cover;
+    width:100%;
+    height:230px;
+    object-fit:cover;
 }
 
 .product-body{
-  padding:18px;
+    padding:18px;
 }
 
 .product-body h3{
-  color:#6d2398;
-  margin-bottom:8px;
+    color:#6d2398;
+    margin-bottom:8px;
 }
 
 .price{
-  font-size:22px;
-  font-weight:bold;
-  color:#e63886;
-  margin:10px 0;
+    font-size:22px;
+    font-weight:bold;
+    color:#e63886;
+    margin:10px 0;
 }
 
 .product-body button{
-  width:100%;
-  border:none;
-  padding:12px;
-  background:linear-gradient(135deg,#ff4b9a,#873fe3);
-  color:white;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
+    width:100%;
+    border:none;
+    padding:12px;
+    background:linear-gradient(135deg,#ff4b9a,#873fe3);
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
 }
+
+/* SEARCH */
 
 .search{
-  width:100%;
-  max-width:600px;
-  display:block;
-  margin:0 auto 30px;
-  padding:15px;
-  border-radius:30px;
+    width:100%;
+    max-width:600px;
+    display:block;
+    margin:0 auto 30px;
+    padding:15px;
+    border-radius:30px;
 }
 
+/* CART */
+
 .cart-item{
-  background:white;
-  margin:15px 0;
-  padding:18px;
-  border-radius:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  box-shadow:0 5px 20px rgba(80,20,100,.1);
+    background:white;
+    margin:15px 0;
+    padding:18px;
+    border-radius:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    box-shadow:0 5px 20px rgba(80,20,100,.1);
 }
 
 .cart-item img{
-  width:80px;
-  height:80px;
-  object-fit:cover;
-  border-radius:12px;
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:12px;
 }
 
 .cart-left{
-  display:flex;
-  align-items:center;
-  gap:15px;
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
 .qty{
-  display:flex;
-  gap:8px;
-  align-items:center;
+    display:flex;
+    gap:8px;
+    align-items:center;
 }
 
 .qty button{
-  border:none;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  cursor:pointer;
-  background:#ead6ff;
+    border:none;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    cursor:pointer;
+    background:#ead6ff;
 }
 
+/* SUMMARY */
+
 .summary{
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  margin-top:25px;
-  box-shadow:0 8px 25px rgba(80,20,100,.1);
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-top:25px;
+    box-shadow:0 8px 25px rgba(80,20,100,.1);
 }
 
 .summary-row{
-  display:flex;
-  justify-content:space-between;
-  padding:10px 0;
-  font-size:17px;
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    font-size:17px;
 }
 
 .total{
-  font-size:25px;
-  font-weight:bold;
-  color:#d72e86;
-  border-top:1px solid #ddd;
-  margin-top:10px;
-  padding-top:15px;
+    font-size:25px;
+    font-weight:bold;
+    color:#d72e86;
+    border-top:1px solid #ddd;
+    margin-top:10px;
+    padding-top:15px;
 }
 
+/* CHECKOUT */
+
 .checkout-box{
-  max-width:800px;
-  margin:auto;
+    max-width:800px;
+    margin:auto;
 }
 
 .payment-box{
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  margin-top:20px;
-  box-shadow:0 8px 25px rgba(80,20,100,.1);
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-top:20px;
+    box-shadow:0 8px 25px rgba(80,20,100,.1);
 }
 
 .payment-option{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  border:2px solid #eee;
-  padding:15px;
-  border-radius:12px;
-  margin:10px 0;
-  cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border:2px solid #eee;
+    padding:15px;
+    border-radius:12px;
+    margin:10px 0;
+    cursor:pointer;
 }
 
 .payment-option:hover{
-  border-color:#bb55df;
+    border-color:#bb55df;
 }
 
 .payment-option input{
-  width:auto;
-  margin:0;
+    width:auto;
+    margin:0;
 }
 
 .payment-icon{
-  font-size:25px;
+    font-size:25px;
 }
 
+/* SUCCESS */
+
 .order-success{
-  text-align:center;
-  background:white;
-  padding:40px;
-  border-radius:25px;
-  box-shadow:0 10px 35px rgba(80,20,100,.15);
+    text-align:center;
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 35px rgba(80,20,100,.15);
 }
 
 .order-success h2{
-  color:#6d2398;
-  margin-bottom:15px;
+    color:#6d2398;
+    margin-bottom:15px;
 }
 
 .order-id{
-  font-size:22px;
-  font-weight:bold;
-  color:#e23889;
-  margin:15px;
+    font-size:22px;
+    font-weight:bold;
+    color:#e23889;
+    margin:15px;
 }
 
+/* ORDERS */
+
 .orders-card{
-  background:white;
-  padding:20px;
-  border-radius:18px;
-  margin:15px 0;
-  box-shadow:0 6px 20px rgba(80,20,100,.1);
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    margin:15px 0;
+    box-shadow:0 6px 20px rgba(80,20,100,.1);
 }
 
 .orders-card h3{
-  color:#7625a5;
+    color:#7625a5;
 }
 
+hr{
+    border:none;
+    border-top:1px solid #eee;
+}
+
+/* ADMIN */
+
 .admin-table{
-  width:100%;
-  border-collapse:collapse;
-  background:white;
-  border-radius:15px;
-  overflow:hidden;
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
 }
 
 .admin-table th,
 .admin-table td{
-  padding:13px;
-  border-bottom:1px solid #eee;
-  text-align:left;
+    padding:13px;
+    border-bottom:1px solid #eee;
+    text-align:left;
 }
 
 .admin-table th{
-  background:#8d42c8;
-  color:white;
+    background:#8d42c8;
+    color:white;
 }
 
 .member-count{
-  background:linear-gradient(135deg,#ff4b9a,#873fe3);
-  color:white;
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  margin-bottom:25px;
+    background:linear-gradient(135deg,#ff4b9a,#873fe3);
+    color:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    margin-bottom:25px;
 }
 
 .member-count strong{
-  display:block;
-  font-size:45px;
+    display:block;
+    font-size:45px;
 }
 
+/* FOOTER */
+
 footer{
-  background:#30132f;
-  color:white;
-  padding:35px;
-  text-align:center;
-  margin-top:60px;
+    background:#30132f;
+    color:white;
+    padding:35px;
+    text-align:center;
+    margin-top:60px;
 }
+
+/* MOBILE */
 
 @media(max-width:700px){
 
-  header{
-    flex-direction:column;
-    gap:15px;
-  }
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
 
-  .hero{
-    flex-direction:column;
-    text-align:center;
-    padding:50px 5%;
-  }
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding:50px 5%;
+    }
 
-  .hero h1{
-    font-size:40px;
-  }
+    .hero h1{
+        font-size:40px;
+    }
 
-  .hero-card{
-    width:280px;
-    height:280px;
-  }
+    .hero-card{
+        width:280px;
+        height:280px;
+    }
 
-  .cart-item{
-    flex-direction:column;
-    align-items:flex-start;
-  }
+    .cart-item{
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
-  .admin-table{
-    font-size:12px;
-  }
-
+    .admin-table{
+        font-size:12px;
+    }
 }
 
 </style>
@@ -460,49 +489,54 @@ footer{
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
 <div class="logo">
-  ✨ GlowCart
+    ✨ GlowCart
 </div>
 
 <nav>
 
 <button onclick="showPage('home')">
-Home
+    Home
 </button>
 
-<button onclick="showPage('shop')">
-Shop
+<button onclick="goToShop()">
+    Shop
 </button>
 
 <button onclick="showPage('cart')">
-🛒 Cart (<span id="cartCount">0</span>)
+    🛒 Cart (<span id="cartCount">0</span>)
 </button>
 
 <button onclick="showPage('orders')">
-📦 Orders
+    📦 Orders
 </button>
 
 <button onclick="showPage('login')">
-Login
+    Login
 </button>
 
 <button onclick="showPage('register')">
-Register
+    Register
 </button>
 
 <button onclick="showPage('admin')">
-Admin
+    Admin
 </button>
 
 </nav>
 
 </header>
 
-<!-- ================= HOME ================= -->
+
+<!-- =====================================================
+     HOME
+===================================================== -->
 
 <section id="home" class="active">
 
@@ -511,20 +545,23 @@ Admin
 <div class="hero-text">
 
 <h1>
-Glow Naturally ✨
+    Glow Naturally ✨
 </h1>
 
 <p>
-Discover premium face creams made for
-your everyday skincare routine.
-Beautiful skin starts with GlowCart.
+    Discover premium face creams made for
+    your everyday skincare routine.
+    Beautiful skin starts with GlowCart.
 </p>
 
+<!-- IMPORTANT:
+     SHOP NOW NOW GOES TO REGISTER -->
+     
 <button
-  class="main-btn"
-  onclick="showPage('shop')"
+    class="main-btn"
+    onclick="shopNow()"
 >
-Shop Now
+    Shop Now
 </button>
 
 </div>
@@ -542,19 +579,28 @@ alt="GlowCart skincare"
 
 </section>
 
-<!-- ================= REGISTER ================= -->
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
 
 <section id="register">
 
 <div class="container">
 
 <h1 class="title">
-Create Your GlowCart Account
+    Create Your GlowCart Account 💗
 </h1>
 
 <div class="form-box">
 
-<h2>Register</h2>
+<h2>
+    Register Before Shopping
+</h2>
+
+<p style="text-align:center;margin-bottom:20px;color:#777">
+    Please create your account before entering the shop.
+</p>
 
 <input
 id="regName"
@@ -610,8 +656,18 @@ class="message"
 class="main-btn"
 onclick="registerUser()"
 >
-Register Successfully
+    Register & Continue
 </button>
+
+<p style="text-align:center;margin-top:20px">
+    Already registered?
+    <button
+        style="border:none;background:none;color:#8d3ed1;font-weight:bold;cursor:pointer"
+        onclick="showPage('login')"
+    >
+        Login
+    </button>
+</p>
 
 </div>
 
@@ -619,19 +675,24 @@ Register Successfully
 
 </section>
 
-<!-- ================= LOGIN ================= -->
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
 <section id="login">
 
 <div class="container">
 
 <h1 class="title">
-Welcome Back 💜
+    Welcome Back 💜
 </h1>
 
 <div class="form-box">
 
-<h2>Login</h2>
+<h2>
+    Login to GlowCart
+</h2>
 
 <input
 id="loginEmail"
@@ -654,7 +715,7 @@ class="message"
 class="main-btn"
 onclick="loginUser()"
 >
-Login
+    Login & Start Shopping
 </button>
 
 </div>
@@ -663,14 +724,17 @@ Login
 
 </section>
 
-<!-- ================= SHOP ================= -->
+
+<!-- =====================================================
+     SHOP
+===================================================== -->
 
 <section id="shop">
 
 <div class="container">
 
 <h1 class="title">
-Premium Face Creams 💕
+    Premium Face Creams 💕
 </h1>
 
 <input
@@ -689,14 +753,17 @@ class="products"
 
 </section>
 
-<!-- ================= CART ================= -->
+
+<!-- =====================================================
+     CART
+===================================================== -->
 
 <section id="cart">
 
 <div class="container">
 
 <h1 class="title">
-Your Shopping Cart 🛒
+    Your Shopping Cart 🛒
 </h1>
 
 <div id="cartItems"></div>
@@ -710,21 +777,26 @@ class="summary"
 
 </section>
 
-<!-- ================= CHECKOUT ================= -->
+
+<!-- =====================================================
+     CHECKOUT
+===================================================== -->
 
 <section id="checkout">
 
 <div class="container">
 
 <h1 class="title">
-Place Your Order 💗
+    Place Your Order 💗
 </h1>
 
 <div class="checkout-box">
 
 <div class="form-box">
 
-<h2>Delivery Details</h2>
+<h2>
+    Delivery Details
+</h2>
 
 <input
 id="checkoutName"
@@ -755,10 +827,13 @@ maxlength="6"
 
 </div>
 
+
+<!-- PAYMENT -->
+
 <div class="payment-box">
 
 <h2>
-Choose Payment Method
+    Choose Payment Method
 </h2>
 
 <label class="payment-option">
@@ -770,7 +845,9 @@ value="UPI"
 checked
 >
 
-<span class="payment-icon">📱</span>
+<span class="payment-icon">
+    📱
+</span>
 
 <div>
 <strong>UPI</strong>
@@ -780,6 +857,7 @@ Pay using UPI
 
 </label>
 
+
 <label class="payment-option">
 
 <input
@@ -788,7 +866,9 @@ name="payment"
 value="Net Banking"
 >
 
-<span class="payment-icon">🏦</span>
+<span class="payment-icon">
+    🏦
+</span>
 
 <div>
 <strong>Net Banking</strong>
@@ -798,6 +878,7 @@ Pay using Internet Banking
 
 </label>
 
+
 <label class="payment-option">
 
 <input
@@ -806,7 +887,9 @@ name="payment"
 value="Cash on Delivery"
 >
 
-<span class="payment-icon">💵</span>
+<span class="payment-icon">
+    💵
+</span>
 
 <div>
 <strong>Cash on Delivery</strong>
@@ -818,17 +901,21 @@ Pay when your order arrives
 
 </div>
 
+
+<!-- ORDER SUMMARY -->
+
 <div
 id="checkoutSummary"
 class="summary"
 ></div>
+
 
 <button
 class="main-btn"
 style="width:100%;margin-top:20px"
 onclick="placeOrder()"
 >
-Place Order
+    Place Order
 </button>
 
 </div>
@@ -837,7 +924,10 @@ Place Order
 
 </section>
 
-<!-- ================= ORDER SUCCESS ================= -->
+
+<!-- =====================================================
+     SUCCESS
+===================================================== -->
 
 <section id="success">
 
@@ -846,11 +936,11 @@ Place Order
 <div class="order-success">
 
 <h2>
-🎉 Order Placed Successfully!
+    🎉 Order Placed Successfully!
 </h2>
 
 <p>
-Thank you for shopping with GlowCart.
+    Thank you for shopping with GlowCart.
 </p>
 
 <div
@@ -859,14 +949,14 @@ class="order-id"
 ></div>
 
 <p>
-Your order confirmation has been sent to your email.
+    Your order confirmation has been sent to your email.
 </p>
 
 <button
 class="main-btn"
 onclick="showPage('orders');loadOrders()"
 >
-View My Orders
+    View My Orders
 </button>
 
 </div>
@@ -875,14 +965,17 @@ View My Orders
 
 </section>
 
-<!-- ================= ORDERS ================= -->
+
+<!-- =====================================================
+     ORDERS
+===================================================== -->
 
 <section id="orders">
 
 <div class="container">
 
 <h1 class="title">
-My Orders 📦
+    My Orders 📦
 </h1>
 
 <div id="ordersList"></div>
@@ -891,22 +984,28 @@ My Orders 📦
 
 </section>
 
-<!-- ================= ADMIN ================= -->
+
+<!-- =====================================================
+     ADMIN
+===================================================== -->
 
 <section id="admin">
 
 <div class="container">
 
 <h1 class="title">
-GlowCart Admin 👑
+    GlowCart Admin 👑
 </h1>
+
 
 <div
 id="adminLoginBox"
 class="form-box"
 >
 
-<h2>Admin Login</h2>
+<h2>
+    Admin Login
+</h2>
 
 <input
 id="adminEmail"
@@ -929,10 +1028,11 @@ class="message"
 class="main-btn"
 onclick="adminLogin()"
 >
-Admin Login
+    Admin Login
 </button>
 
 </div>
+
 
 <div
 id="adminDashboard"
@@ -942,30 +1042,33 @@ style="display:none"
 <div class="member-count">
 
 <p>
-Total Registered Members
+    Total Registered Members
 </p>
 
 <strong id="memberCount">
-0
+    0
 </strong>
 
 </div>
+
 
 <button
 class="main-btn"
 onclick="loadMembers()"
 style="margin-bottom:20px"
 >
-🔄 Refresh Members
+    🔄 Refresh Members
 </button>
+
 
 <button
 class="main-btn"
 onclick="adminLogout()"
 style="margin-bottom:20px"
 >
-Logout
+    Logout
 </button>
+
 
 <div style="overflow-x:auto">
 
@@ -976,13 +1079,9 @@ Logout
 <tr>
 
 <th>#</th>
-
 <th>Name</th>
-
 <th>Email</th>
-
 <th>Mobile</th>
-
 <th>Registered On</th>
 
 </tr>
@@ -990,7 +1089,6 @@ Logout
 </thead>
 
 <tbody id="membersTable">
-
 </tbody>
 
 </table>
@@ -1003,34 +1101,48 @@ Logout
 
 </section>
 
-<!-- ================= FOOTER ================= -->
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
 <h2>
-✨ GlowCart
+    ✨ GlowCart
 </h2>
 
 <p>
-Premium Face Creams • Beautiful Skin • Happy You
+    Premium Face Creams • Beautiful Skin • Happy You
 </p>
 
 <p style="margin-top:15px">
-© 2026 GlowCart
+    © 2026 GlowCart
 </p>
 
 </footer>
 
+
 <script>
 
-/* =========================================================
-   CONFIG
-========================================================= */
+/* =====================================================
+   API
+===================================================== */
 
 const API =
 "https://glowcart-fxwp.onrender.com";
 
+
+/* =====================================================
+   GST
+===================================================== */
+
 const GST_RATE = 0.18;
+
+
+/* =====================================================
+   EMAILJS
+===================================================== */
 
 const EMAILJS_SERVICE =
 "service_nb7q38o";
@@ -1044,1534 +1156,2290 @@ const EMAILJS_ORDER_TEMPLATE =
 const EMAILJS_WELCOME_TEMPLATE =
 "template_giqmpm9";
 
-/* =========================================================
-   EMAILJS INIT
-========================================================= */
 
 emailjs.init({
-  publicKey: EMAILJS_PUBLIC_KEY
+    publicKey: EMAILJS_PUBLIC_KEY
 });
 
-/* =========================================================
-   STORAGE
-========================================================= */
+
+/* =====================================================
+   DATA
+===================================================== */
 
 let products = [];
 
 let cart =
 JSON.parse(
-  localStorage.getItem("glowcart_cart") || "[]"
+    localStorage.getItem("glowcart_cart") || "[]"
 );
 
 let currentUser =
 JSON.parse(
-  localStorage.getItem("glowcart_user") || "null"
+    localStorage.getItem("glowcart_user") || "null"
 );
 
-/* =========================================================
+
+/* =====================================================
    PAGE NAVIGATION
-========================================================= */
+===================================================== */
 
 function showPage(page){
 
-  document
+    document
     .querySelectorAll("section")
-    .forEach(section=>{
-      section.classList.remove("active");
+    .forEach(section => {
+
+        section.classList.remove("active");
+
     });
 
-  const target =
+
+    const target =
     document.getElementById(page);
 
-  if(target){
-    target.classList.add("active");
-  }
 
-  if(page === "shop"){
-    displayProducts();
-  }
+    if(target){
 
-  if(page === "cart"){
-    displayCart();
-  }
+        target.classList.add("active");
 
-  if(page === "orders"){
-    loadOrders();
-  }
+    }
 
-  if(page === "checkout"){
-    prepareCheckout();
-  }
 
-  if(page === "admin"){
-    checkAdminSession();
-  }
+    if(page === "shop"){
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+        displayProducts();
+
+    }
+
+
+    if(page === "cart"){
+
+        displayCart();
+
+    }
+
+
+    if(page === "orders"){
+
+        loadOrders();
+
+    }
+
+
+    if(page === "checkout"){
+
+        prepareCheckout();
+
+    }
+
+
+    if(page === "admin"){
+
+        checkAdminSession();
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
-/* =========================================================
+
+/* =====================================================
+   SHOP NOW
+   NEW FLOW:
+   HOME → REGISTER
+===================================================== */
+
+function shopNow(){
+
+    /*
+       If already logged in,
+       directly open shop.
+    */
+
+    if(currentUser){
+
+        showPage("shop");
+
+        return;
+
+    }
+
+
+    /*
+       New users must register first.
+    */
+
+    showPage("register");
+
+}
+
+
+/* =====================================================
+   SHOP BUTTON IN HEADER
+===================================================== */
+
+function goToShop(){
+
+    if(currentUser){
+
+        showPage("shop");
+
+    }else{
+
+        alert(
+            "Please register or login before shopping."
+        );
+
+        showPage("register");
+
+    }
+
+}
+
+
+/* =====================================================
    LOAD PRODUCTS
-========================================================= */
+===================================================== */
 
 async function loadProducts(){
 
-  try{
+    try{
 
-    const response =
-      await fetch(API + "/api/products");
+        const response =
+        await fetch(
+            API + "/api/products"
+        );
 
-    const data =
-      await response.json();
 
-    if(Array.isArray(data)){
-      products = data;
-    }else if(Array.isArray(data.products)){
-      products = data.products;
-    }else{
-      products = [];
+        const data =
+        await response.json();
+
+
+        if(Array.isArray(data)){
+
+            products = data;
+
+        }
+        else if(
+            Array.isArray(data.products)
+        ){
+
+            products = data.products;
+
+        }
+        else{
+
+            products = [];
+
+        }
+
+
+        displayProducts();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        document.getElementById(
+            "products"
+        ).innerHTML =
+
+        `
+        <div class="form-box">
+
+            <h2>
+                Unable to load products
+            </h2>
+
+            <p>
+                Please try again later.
+            </p>
+
+        </div>
+        `;
+
     }
 
-    displayProducts();
-
-  }catch(error){
-
-    console.error(error);
-
-    document.getElementById("products").innerHTML =
-      `
-      <div class="form-box">
-        <h2>Unable to load products</h2>
-        <p>Please try again.</p>
-      </div>
-      `;
-  }
 }
 
-/* =========================================================
-   PRODUCTS DISPLAY
-========================================================= */
+
+/* =====================================================
+   DISPLAY PRODUCTS
+===================================================== */
 
 function displayProducts(){
 
-  const box =
+    const box =
     document.getElementById("products");
 
-  if(!box) return;
 
-  const search =
+    if(!box) return;
+
+
+    const search =
     (
-      document.getElementById("searchBox")?.value
-      || ""
+        document.getElementById(
+            "searchBox"
+        )?.value || ""
     ).toLowerCase();
 
-  const filtered =
+
+    const filtered =
     products.filter(product =>
-      String(product.name)
+
+        String(product.name)
         .toLowerCase()
         .includes(search)
+
     );
 
-  if(filtered.length === 0){
+
+    if(filtered.length === 0){
+
+        box.innerHTML =
+
+        `
+        <div class="form-box">
+
+            <h2>
+                No products found
+            </h2>
+
+        </div>
+        `;
+
+        return;
+
+    }
+
 
     box.innerHTML =
-      `
-      <div class="form-box">
-        <h2>No products found</h2>
-      </div>
-      `;
 
-    return;
-  }
-
-  box.innerHTML =
     filtered.map(product => {
 
-      const image =
+        const image =
         product.image ||
         "https://via.placeholder.com/500x400?text=GlowCart";
 
-      return `
-      <div class="product">
 
-        <img
-          src="${image}"
-          alt="${escapeHtml(product.name)}"
-          onerror="this.src='https://via.placeholder.com/500x400?text=GlowCart'"
-        >
+        return `
 
-        <div class="product-body">
+        <div class="product">
 
-          <h3>
-            ${escapeHtml(product.name)}
-          </h3>
+            <img
+                src="${image}"
+                alt="${escapeHtml(product.name)}"
+                onerror="this.src='https://via.placeholder.com/500x400?text=GlowCart'"
+            >
 
-          <p>
-            ${escapeHtml(product.description || "")}
-          </p>
+            <div class="product-body">
 
-          <div class="price">
-            ₹${Number(product.price).toFixed(2)}
-          </div>
+                <h3>
+                    ${escapeHtml(product.name)}
+                </h3>
 
-          <button
-            onclick="addToCart(${product.id})"
-          >
-            Add to Cart 🛒
-          </button>
+                <p>
+                    ${escapeHtml(
+                        product.description || ""
+                    )}
+                </p>
+
+                <div class="price">
+                    ₹${Number(
+                        product.price
+                    ).toFixed(2)}
+                </div>
+
+                <button
+                    onclick="addToCart(${product.id})"
+                >
+                    Add to Cart 🛒
+                </button>
+
+            </div>
 
         </div>
 
-      </div>
-      `;
+        `;
 
     }).join("");
+
 }
 
-/* =========================================================
+
+/* =====================================================
    ESCAPE HTML
-========================================================= */
+===================================================== */
 
 function escapeHtml(value){
 
-  return String(value || "")
+    return String(value || "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
-/* =========================================================
-   ADD CART
-========================================================= */
+
+/* =====================================================
+   ADD TO CART
+===================================================== */
 
 function addToCart(id){
 
-  const product =
+    /*
+       Extra protection:
+       user must be logged in.
+    */
+
+    if(!currentUser){
+
+        alert(
+            "Please register and login before shopping."
+        );
+
+        showPage("register");
+
+        return;
+
+    }
+
+
+    const product =
     products.find(
-      p => String(p.id) === String(id)
+        p =>
+        String(p.id) === String(id)
     );
 
-  if(!product) return;
 
-  const existing =
+    if(!product) return;
+
+
+    const existing =
     cart.find(
-      item => String(item.id) === String(id)
+        item =>
+        String(item.id) === String(id)
     );
 
-  if(existing){
 
-    existing.quantity++;
+    if(existing){
 
-  }else{
+        existing.quantity++;
 
-    cart.push({
-      id:product.id,
-      name:product.name,
-      price:Number(product.price),
-      image:product.image,
-      quantity:1
-    });
+    }
+    else{
 
-  }
+        cart.push({
 
-  saveCart();
+            id:product.id,
 
-  alert(
-    product.name +
-    " added to cart!"
-  );
-}
+            name:product.name,
 
-/* =========================================================
-   SAVE CART
-========================================================= */
+            price:Number(product.price),
 
-function saveCart(){
+            image:product.image,
 
-  localStorage.setItem(
-    "glowcart_cart",
-    JSON.stringify(cart)
-  );
+            quantity:1
 
-  updateCartCount();
-}
+        });
 
-/* =========================================================
-   CART COUNT
-========================================================= */
-
-function updateCartCount(){
-
-  const count =
-    cart.reduce(
-      (sum,item)=>
-        sum + Number(item.quantity || 0),
-      0
-    );
-
-  document.getElementById("cartCount").textContent =
-    count;
-}
-
-/* =========================================================
-   CART DISPLAY
-========================================================= */
-
-function displayCart(){
-
-  const box =
-    document.getElementById("cartItems");
-
-  const summary =
-    document.getElementById("cartSummary");
-
-  if(cart.length === 0){
-
-    box.innerHTML =
-      `
-      <div class="form-box">
-
-        <h2>Your cart is empty 🛒</h2>
-
-        <button
-          class="main-btn"
-          onclick="showPage('shop')"
-        >
-          Continue Shopping
-        </button>
-
-      </div>
-      `;
-
-    summary.innerHTML = "";
-
-    return;
-  }
-
-  box.innerHTML =
-    cart.map((item,index)=>{
-
-      return `
-      <div class="cart-item">
-
-        <div class="cart-left">
-
-          <img
-            src="${item.image}"
-            alt="${escapeHtml(item.name)}"
-          >
-
-          <div>
-
-            <h3>
-              ${escapeHtml(item.name)}
-            </h3>
-
-            <p>
-              ₹${Number(item.price).toFixed(2)}
-            </p>
-
-          </div>
-
-        </div>
-
-        <div class="qty">
-
-          <button
-            onclick="changeQuantity(${index},-1)"
-          >
-            -
-          </button>
-
-          <strong>
-            ${item.quantity}
-          </strong>
-
-          <button
-            onclick="changeQuantity(${index},1)"
-          >
-            +
-          </button>
-
-          <button
-            onclick="removeFromCart(${index})"
-          >
-            ❌
-          </button>
-
-        </div>
-
-      </div>
-      `;
-
-    }).join("");
-
-  const totals =
-    calculateTotals();
-
-  summary.innerHTML =
-    `
-    <div class="summary-row">
-      <span>Subtotal</span>
-      <strong>₹${totals.subtotal.toFixed(2)}</strong>
-    </div>
-
-    <div class="summary-row">
-      <span>GST (18%)</span>
-      <strong>₹${totals.gst.toFixed(2)}</strong>
-    </div>
-
-    <div class="summary-row total">
-      <span>Total Amount</span>
-      <strong>₹${totals.total.toFixed(2)}</strong>
-    </div>
-
-    <button
-      class="main-btn"
-      style="width:100%;margin-top:20px"
-      onclick="showPage('checkout')"
-    >
-      Proceed to Place Order
-    </button>
-    `;
-}
-
-/* =========================================================
-   QUANTITY
-========================================================= */
-
-function changeQuantity(index,change){
-
-  cart[index].quantity += change;
-
-  if(cart[index].quantity <= 0){
-
-    cart.splice(index,1);
-
-  }
-
-  saveCart();
-  displayCart();
-}
-
-/* =========================================================
-   REMOVE
-========================================================= */
-
-function removeFromCart(index){
-
-  cart.splice(index,1);
-
-  saveCart();
-
-  displayCart();
-}
-
-/* =========================================================
-   TOTALS
-========================================================= */
-
-function calculateTotals(){
-
-  let subtotal = 0;
-
-  cart.forEach(item => {
-
-    subtotal +=
-      Number(item.price) *
-      Number(item.quantity);
-
-  });
-
-  const gst =
-    subtotal * GST_RATE;
-
-  const total =
-    subtotal + gst;
-
-  return {
-    subtotal,
-    gst,
-    total
-  };
-}
-
-/* =========================================================
-   REGISTER
-========================================================= */
-
-async function registerUser(){
-
-  const name =
-    document.getElementById("regName").value.trim();
-
-  const email =
-    document.getElementById("regEmail").value.trim();
-
-  const mobile =
-    document.getElementById("regMobile").value.trim();
-
-  const password =
-    document.getElementById("regPassword").value;
-
-  const address =
-    document.getElementById("regAddress").value.trim();
-
-  const pincode =
-    document.getElementById("regPincode").value.trim();
-
-  const address2 =
-    document.getElementById("regAddress2").value.trim();
-
-  const pincode2 =
-    document.getElementById("regPincode2").value.trim();
-
-  const message =
-    document.getElementById("registerMessage");
-
-  message.textContent =
-    "Registering...";
-
-  try{
-
-    const response =
-      await fetch(API + "/api/register",{
-
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-          name,
-          email,
-          mobile,
-          password,
-          address,
-          pincode,
-          address2,
-          pincode2
-        })
-
-      });
-
-    const data =
-      await response.json();
-
-    if(!response.ok || !data.success){
-
-      message.textContent =
-        data.message ||
-        "Registration failed.";
-
-      message.style.color = "red";
-
-      return;
     }
 
-    currentUser = data.user;
-
-    localStorage.setItem(
-      "glowcart_user",
-      JSON.stringify(currentUser)
-    );
-
-    /* EMAIL */
-
-    await sendWelcomeEmail(
-      currentUser
-    );
-
-    message.textContent =
-      "Registration successful! Welcome email sent.";
-
-    message.style.color = "green";
-
-    alert(
-      "Registration successful! 💗\n\n" +
-      "A welcome email has been sent to " +
-      currentUser.email
-    );
-
-    document.getElementById("regName").value="";
-    document.getElementById("regEmail").value="";
-    document.getElementById("regMobile").value="";
-    document.getElementById("regPassword").value="";
-    document.getElementById("regAddress").value="";
-    document.getElementById("regPincode").value="";
-    document.getElementById("regAddress2").value="";
-    document.getElementById("regPincode2").value="";
-
-    showPage("login");
-
-  }catch(error){
-
-    console.error(error);
-
-    message.textContent =
-      "Unable to connect to server.";
-
-    message.style.color = "red";
-  }
-}
-
-/* =========================================================
-   WELCOME EMAIL
-========================================================= */
-
-async function sendWelcomeEmail(user){
-
-  try{
-
-    const result =
-      await emailjs.send(
-        EMAILJS_SERVICE,
-        EMAILJS_WELCOME_TEMPLATE,
-        {
-          to_email:user.email,
-          to_name:user.name,
-          user_name:user.name,
-          user_email:user.email
-        }
-      );
-
-    console.log(
-      "Welcome email sent:",
-      result
-    );
-
-    return true;
-
-  }catch(error){
-
-    console.error(
-      "Welcome EmailJS error:",
-      error
-    );
-
-    return false;
-  }
-}
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-async function loginUser(){
-
-  const email =
-    document.getElementById("loginEmail").value.trim();
-
-  const password =
-    document.getElementById("loginPassword").value;
-
-  const message =
-    document.getElementById("loginMessage");
-
-  message.textContent =
-    "Logging in...";
-
-  try{
-
-    const response =
-      await fetch(API + "/api/login",{
-
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-          email,
-          password
-        })
-
-      });
-
-    const data =
-      await response.json();
-
-    if(!response.ok || !data.success){
-
-      message.textContent =
-        data.message ||
-        "Login failed.";
-
-      message.style.color = "red";
-
-      return;
-    }
-
-    currentUser = data.user;
-
-    localStorage.setItem(
-      "glowcart_user",
-      JSON.stringify(currentUser)
-    );
-
-    await sendWelcomeEmail(
-      currentUser
-    );
-
-    message.textContent =
-      "Login successful!";
-
-    message.style.color = "green";
-
-    alert(
-      "Login successful! Welcome " +
-      currentUser.name
-    );
-
-    showPage("shop");
-
-  }catch(error){
-
-    console.error(error);
-
-    message.textContent =
-      "Unable to connect to server.";
-
-    message.style.color = "red";
-  }
-}
-
-/* =========================================================
-   CHECKOUT
-========================================================= */
-
-function prepareCheckout(){
-
-  if(cart.length === 0){
-
-    alert("Your cart is empty.");
-
-    showPage("shop");
-
-    return;
-  }
-
-  if(currentUser){
-
-    document.getElementById("checkoutName").value =
-      currentUser.name || "";
-
-    document.getElementById("checkoutEmail").value =
-      currentUser.email || "";
-
-    document.getElementById("checkoutMobile").value =
-      currentUser.mobile || "";
-
-    document.getElementById("checkoutAddress").value =
-      currentUser.address || "";
-
-    document.getElementById("checkoutPincode").value =
-      currentUser.pincode || "";
-
-  }
-
-  displayCheckoutSummary();
-}
-
-/* =========================================================
-   CHECKOUT SUMMARY
-========================================================= */
-
-function displayCheckoutSummary(){
-
-  const totals =
-    calculateTotals();
-
-  document.getElementById("checkoutSummary").innerHTML =
-    `
-    <h2>
-      Order Summary
-    </h2>
-
-    ${cart.map(item => `
-      <div class="summary-row">
-
-        <span>
-          ${escapeHtml(item.name)}
-          × ${item.quantity}
-        </span>
-
-        <strong>
-          ₹${(
-            Number(item.price) *
-            Number(item.quantity)
-          ).toFixed(2)}
-        </strong>
-
-      </div>
-    `).join("")}
-
-    <div class="summary-row">
-      <span>Subtotal</span>
-      <strong>
-        ₹${totals.subtotal.toFixed(2)}
-      </strong>
-    </div>
-
-    <div class="summary-row">
-      <span>GST (18%)</span>
-      <strong>
-        ₹${totals.gst.toFixed(2)}
-      </strong>
-    </div>
-
-    <div class="summary-row total">
-      <span>Total Amount</span>
-      <strong>
-        ₹${totals.total.toFixed(2)}
-      </strong>
-    </div>
-    `;
-}
-
-/* =========================================================
-   PLACE ORDER
-========================================================= */
-
-async function placeOrder(){
-
-  if(cart.length === 0){
-
-    alert("Your cart is empty.");
-
-    return;
-  }
-
-  const name =
-    document.getElementById("checkoutName").value.trim();
-
-  const email =
-    document.getElementById("checkoutEmail").value.trim();
-
-  const mobile =
-    document.getElementById("checkoutMobile").value.trim();
-
-  const address =
-    document.getElementById("checkoutAddress").value.trim();
-
-  const pincode =
-    document.getElementById("checkoutPincode").value.trim();
-
-  const payment =
-    document.querySelector(
-      'input[name="payment"]:checked'
-    )?.value;
-
-  if(
-    !name ||
-    !email ||
-    !mobile ||
-    !address ||
-    !pincode
-  ){
-
-    alert(
-      "Please fill all delivery details."
-    );
-
-    return;
-  }
-
-  if(!payment){
-
-    alert(
-      "Please select a payment method."
-    );
-
-    return;
-  }
-
-  const totals =
-    calculateTotals();
-
-  const orderButton =
-    document.querySelector(
-      '#checkout .main-btn'
-    );
-
-  orderButton.disabled = true;
-
-  orderButton.textContent =
-    "Placing Order...";
-
-  try{
-
-    const response =
-      await fetch(API + "/api/orders",{
-
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
-          name,
-
-          email,
-
-          mobile,
-
-          address,
-
-          pincode,
-
-          items:cart,
-
-          subtotal:totals.subtotal,
-
-          paymentMethod:payment
-
-        })
-
-      });
-
-    const data =
-      await response.json();
-
-    if(!response.ok || !data.success){
-
-      throw new Error(
-        data.message ||
-        "Order failed"
-      );
-    }
-
-    const order =
-      data.order;
-
-    /* SAVE ORDER LOCALLY */
-
-    const localOrders =
-      JSON.parse(
-        localStorage.getItem(
-          "glowcart_orders"
-        ) || "[]"
-      );
-
-    localOrders.push(order);
-
-    localStorage.setItem(
-      "glowcart_orders",
-      JSON.stringify(localOrders)
-    );
-
-    /* SEND ORDER EMAIL */
-
-    const emailSent =
-      await sendOrderEmail(order);
-
-    /* CLEAR CART */
-
-    cart = [];
 
     saveCart();
 
-    /* SUCCESS SCREEN */
-
-    document.getElementById(
-      "successDetails"
-    ).innerHTML =
-      `
-      <div>
-        Order ID:
-        <strong>
-          ${escapeHtml(order.orderId)}
-        </strong>
-      </div>
-
-      <div style="margin-top:10px">
-        Payment:
-        <strong>
-          ${escapeHtml(order.paymentMethod)}
-        </strong>
-      </div>
-
-      <div style="margin-top:10px">
-        GST:
-        <strong>
-          ₹${Number(order.gst).toFixed(2)}
-        </strong>
-      </div>
-
-      <div style="margin-top:10px">
-        Total:
-        <strong>
-          ₹${Number(order.total).toFixed(2)}
-        </strong>
-      </div>
-
-      <div style="margin-top:10px;font-size:15px">
-        ${
-          emailSent
-          ? "📧 Order confirmation email sent."
-          : "Order placed. Please check your email configuration."
-        }
-      </div>
-      `;
-
-    showPage("success");
-
-  }catch(error){
-
-    console.error(error);
 
     alert(
-      "Unable to place order.\n\n" +
-      error.message
+        product.name +
+        " added to cart! 🛒"
     );
 
-  }finally{
-
-    orderButton.disabled = false;
-
-    orderButton.textContent =
-      "Place Order";
-  }
 }
 
-/* =========================================================
-   ORDER EMAIL
-========================================================= */
 
-async function sendOrderEmail(order){
+/* =====================================================
+   SAVE CART
+===================================================== */
 
-  try{
+function saveCart(){
 
-    const itemText =
-      order.items
-        .map(item =>
-          `${item.name} x ${item.quantity} - ₹${(
-            Number(item.price) *
-            Number(item.quantity)
-          ).toFixed(2)}`
-        )
-        .join("\n");
-
-    const result =
-      await emailjs.send(
-        EMAILJS_SERVICE,
-        EMAILJS_ORDER_TEMPLATE,
-        {
-          to_email:order.email,
-          to_name:order.name,
-
-          user_name:order.name,
-
-          user_email:order.email,
-
-          order_id:order.orderId,
-
-          order_total:
-            `₹${Number(order.total).toFixed(2)}`,
-
-          order_subtotal:
-            `₹${Number(order.subtotal).toFixed(2)}`,
-
-          order_gst:
-            `₹${Number(order.gst).toFixed(2)}`,
-
-          order_payment:
-            order.paymentMethod,
-
-          order_address:
-            order.address,
-
-          order_pincode:
-            order.pincode,
-
-          order_items:
-            itemText
-        }
-      );
-
-    console.log(
-      "Order email sent:",
-      result
+    localStorage.setItem(
+        "glowcart_cart",
+        JSON.stringify(cart)
     );
 
-    return true;
+    updateCartCount();
 
-  }catch(error){
-
-    console.error(
-      "Order EmailJS error:",
-      error
-    );
-
-    return false;
-  }
 }
 
-/* =========================================================
-   LOAD ORDERS
-========================================================= */
 
-async function loadOrders(){
+/* =====================================================
+   CART COUNT
+===================================================== */
 
-  const box =
-    document.getElementById("ordersList");
+function updateCartCount(){
 
-  if(!currentUser){
+    const count =
+    cart.reduce(
+        (sum,item) =>
+        sum +
+        Number(item.quantity || 0),
+        0
+    );
 
-    box.innerHTML =
-      `
-      <div class="form-box">
 
-        <h2>Please login first.</h2>
+    document.getElementById(
+        "cartCount"
+    ).textContent = count;
 
-        <button
-          class="main-btn"
-          onclick="showPage('login')"
-        >
-          Login
-        </button>
+}
 
-      </div>
-      `;
 
-    return;
-  }
+/* =====================================================
+   DISPLAY CART
+===================================================== */
 
-  box.innerHTML =
-    `
-    <div class="form-box">
-      <h2>Loading orders...</h2>
-    </div>
-    `;
+function displayCart(){
 
-  try{
+    const box =
+    document.getElementById(
+        "cartItems"
+    );
 
-    const response =
-      await fetch(
-        API +
-        "/api/orders/" +
-        encodeURIComponent(
-          currentUser.email
-        )
-      );
 
-    const data =
-      await response.json();
+    const summary =
+    document.getElementById(
+        "cartSummary"
+    );
 
-    const orders =
-      data.orders || [];
 
-    if(orders.length === 0){
+    if(cart.length === 0){
 
-      box.innerHTML =
+        box.innerHTML =
+
         `
         <div class="form-box">
 
-          <h2>No orders yet 📦</h2>
+            <h2>
+                Your cart is empty 🛒
+            </h2>
 
-          <button
-            class="main-btn"
-            onclick="showPage('shop')"
-          >
-            Start Shopping
-          </button>
+            <button
+                class="main-btn"
+                onclick="goToShop()"
+            >
+                Continue Shopping
+            </button>
 
         </div>
         `;
 
-      return;
+
+        summary.innerHTML = "";
+
+        return;
+
     }
 
+
     box.innerHTML =
-      orders
+
+    cart.map((item,index) => {
+
+        return `
+
+        <div class="cart-item">
+
+            <div class="cart-left">
+
+                <img
+                    src="${item.image}"
+                    alt="${escapeHtml(item.name)}"
+                >
+
+                <div>
+
+                    <h3>
+                        ${escapeHtml(item.name)}
+                    </h3>
+
+                    <p>
+                        ₹${Number(
+                            item.price
+                        ).toFixed(2)}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="qty">
+
+                <button
+                    onclick="changeQuantity(${index},-1)"
+                >
+                    -
+                </button>
+
+                <strong>
+                    ${item.quantity}
+                </strong>
+
+                <button
+                    onclick="changeQuantity(${index},1)"
+                >
+                    +
+                </button>
+
+                <button
+                    onclick="removeFromCart(${index})"
+                >
+                    ❌
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }).join("");
+
+
+    const totals =
+    calculateTotals();
+
+
+    summary.innerHTML =
+
+    `
+
+    <div class="summary-row">
+
+        <span>
+            Subtotal
+        </span>
+
+        <strong>
+            ₹${totals.subtotal.toFixed(2)}
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+        <span>
+            GST (18%)
+        </span>
+
+        <strong>
+            ₹${totals.gst.toFixed(2)}
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row total">
+
+        <span>
+            Total Amount
+        </span>
+
+        <strong>
+            ₹${totals.total.toFixed(2)}
+        </strong>
+
+    </div>
+
+
+    <button
+        class="main-btn"
+        style="width:100%;margin-top:20px"
+        onclick="showPage('checkout')"
+    >
+        Proceed to Place Order
+    </button>
+
+    `;
+
+}
+
+
+/* =====================================================
+   CHANGE QUANTITY
+===================================================== */
+
+function changeQuantity(index,change){
+
+    cart[index].quantity += change;
+
+
+    if(cart[index].quantity <= 0){
+
+        cart.splice(index,1);
+
+    }
+
+
+    saveCart();
+
+    displayCart();
+
+}
+
+
+/* =====================================================
+   REMOVE
+===================================================== */
+
+function removeFromCart(index){
+
+    cart.splice(index,1);
+
+    saveCart();
+
+    displayCart();
+
+}
+
+
+/* =====================================================
+   CALCULATE TOTAL
+===================================================== */
+
+function calculateTotals(){
+
+    let subtotal = 0;
+
+
+    cart.forEach(item => {
+
+        subtotal +=
+        Number(item.price) *
+        Number(item.quantity);
+
+    });
+
+
+    const gst =
+    subtotal * GST_RATE;
+
+
+    const total =
+    subtotal + gst;
+
+
+    return {
+
+        subtotal,
+        gst,
+        total
+
+    };
+
+}
+
+
+/* =====================================================
+   REGISTER USER
+===================================================== */
+
+async function registerUser(){
+
+    const name =
+    document.getElementById(
+        "regName"
+    ).value.trim();
+
+
+    const email =
+    document.getElementById(
+        "regEmail"
+    ).value.trim();
+
+
+    const mobile =
+    document.getElementById(
+        "regMobile"
+    ).value.trim();
+
+
+    const password =
+    document.getElementById(
+        "regPassword"
+    ).value;
+
+
+    const address =
+    document.getElementById(
+        "regAddress"
+    ).value.trim();
+
+
+    const pincode =
+    document.getElementById(
+        "regPincode"
+    ).value.trim();
+
+
+    const address2 =
+    document.getElementById(
+        "regAddress2"
+    ).value.trim();
+
+
+    const pincode2 =
+    document.getElementById(
+        "regPincode2"
+    ).value.trim();
+
+
+    const message =
+    document.getElementById(
+        "registerMessage"
+    );
+
+
+    if(
+        !name ||
+        !email ||
+        !mobile ||
+        !password ||
+        !address ||
+        !pincode
+    ){
+
+        message.textContent =
+        "Please fill all required fields.";
+
+        message.style.color="red";
+
+        return;
+
+    }
+
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        message.textContent =
+        "Mobile number must contain 10 digits.";
+
+        message.style.color="red";
+
+        return;
+
+    }
+
+
+    if(!/^[0-9]{6}$/.test(pincode)){
+
+        message.textContent =
+        "Pincode must contain 6 digits.";
+
+        message.style.color="red";
+
+        return;
+
+    }
+
+
+    message.textContent =
+    "Creating your account...";
+
+    message.style.color="#8d3ed1";
+
+
+    try{
+
+        const response =
+        await fetch(
+            API + "/api/register",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    name,
+                    email,
+                    mobile,
+                    password,
+                    address,
+                    pincode,
+                    address2,
+                    pincode2
+
+                })
+
+            }
+        );
+
+
+        const data =
+        await response.json();
+
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            message.textContent =
+            data.message ||
+            "Registration failed.";
+
+            message.style.color="red";
+
+            return;
+
+        }
+
+
+        currentUser =
+        data.user;
+
+
+        localStorage.setItem(
+            "glowcart_user",
+            JSON.stringify(
+                currentUser
+            )
+        );
+
+
+        /*
+           SEND REGISTERED SUCCESSFULLY EMAIL
+        */
+
+        const emailSent =
+        await sendWelcomeEmail(
+            currentUser
+        );
+
+
+        if(emailSent){
+
+            message.textContent =
+            "Registration successful! Welcome email sent.";
+
+        }
+        else{
+
+            message.textContent =
+            "Registration successful, but email could not be sent.";
+
+        }
+
+
+        message.style.color="green";
+
+
+        alert(
+            "Registration Successful! 💗\n\n" +
+            "Welcome email sent to:\n" +
+            currentUser.email +
+            "\n\nPlease login to continue shopping."
+        );
+
+
+        /*
+           Clear registration form
+        */
+
+        document.getElementById(
+            "regName"
+        ).value="";
+
+        document.getElementById(
+            "regEmail"
+        ).value="";
+
+        document.getElementById(
+            "regMobile"
+        ).value="";
+
+        document.getElementById(
+            "regPassword"
+        ).value="";
+
+        document.getElementById(
+            "regAddress"
+        ).value="";
+
+        document.getElementById(
+            "regPincode"
+        ).value="";
+
+        document.getElementById(
+            "regAddress2"
+        ).value="";
+
+        document.getElementById(
+            "regPincode2"
+        ).value="";
+
+
+        /*
+           Registration → Login
+        */
+
+        showPage("login");
+
+
+        /*
+           Pre-fill email
+        */
+
+        document.getElementById(
+            "loginEmail"
+        ).value =
+        currentUser.email;
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        message.textContent =
+        "Unable to connect to GlowCart server.";
+
+        message.style.color="red";
+
+    }
+
+}
+
+
+/* =====================================================
+   WELCOME EMAIL
+===================================================== */
+
+async function sendWelcomeEmail(user){
+
+    try{
+
+        const result =
+        await emailjs.send(
+
+            EMAILJS_SERVICE,
+
+            EMAILJS_WELCOME_TEMPLATE,
+
+            {
+
+                to_email:
+                user.email,
+
+                to_name:
+                user.name,
+
+                user_name:
+                user.name,
+
+                user_email:
+                user.email
+
+            }
+
+        );
+
+
+        console.log(
+            "Welcome email sent:",
+            result
+        );
+
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(
+            "Welcome email error:",
+            error
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function loginUser(){
+
+    const email =
+    document.getElementById(
+        "loginEmail"
+    ).value.trim();
+
+
+    const password =
+    document.getElementById(
+        "loginPassword"
+    ).value;
+
+
+    const message =
+    document.getElementById(
+        "loginMessage"
+    );
+
+
+    if(!email || !password){
+
+        message.textContent =
+        "Please enter email and password.";
+
+        message.style.color="red";
+
+        return;
+
+    }
+
+
+    message.textContent =
+    "Logging in...";
+
+
+    try{
+
+        const response =
+        await fetch(
+            API + "/api/login",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    email,
+                    password
+
+                })
+
+            }
+        );
+
+
+        const data =
+        await response.json();
+
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            message.textContent =
+            data.message ||
+            "Invalid email or password.";
+
+            message.style.color="red";
+
+            return;
+
+        }
+
+
+        currentUser =
+        data.user;
+
+
+        localStorage.setItem(
+            "glowcart_user",
+            JSON.stringify(
+                currentUser
+            )
+        );
+
+
+        message.textContent =
+        "Login successful!";
+
+        message.style.color="green";
+
+
+        alert(
+            "Login successful! 💜\n\n" +
+            "Welcome " +
+            currentUser.name +
+            "!"
+        );
+
+
+        /*
+           LOGIN → SHOP
+        */
+
+        showPage("shop");
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        message.textContent =
+        "Unable to connect to server.";
+
+        message.style.color="red";
+
+    }
+
+}
+
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+function prepareCheckout(){
+
+    if(!currentUser){
+
+        alert(
+            "Please register and login first."
+        );
+
+        showPage("register");
+
+        return;
+
+    }
+
+
+    if(cart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        showPage("shop");
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "checkoutName"
+    ).value =
+    currentUser.name || "";
+
+
+    document.getElementById(
+        "checkoutEmail"
+    ).value =
+    currentUser.email || "";
+
+
+    document.getElementById(
+        "checkoutMobile"
+    ).value =
+    currentUser.mobile || "";
+
+
+    document.getElementById(
+        "checkoutAddress"
+    ).value =
+    currentUser.address || "";
+
+
+    document.getElementById(
+        "checkoutPincode"
+    ).value =
+    currentUser.pincode || "";
+
+
+    displayCheckoutSummary();
+
+}
+
+
+/* =====================================================
+   CHECKOUT SUMMARY
+===================================================== */
+
+function displayCheckoutSummary(){
+
+    const totals =
+    calculateTotals();
+
+
+    document.getElementById(
+        "checkoutSummary"
+    ).innerHTML =
+
+    `
+
+    <h2>
+        Order Summary
+    </h2>
+
+
+    ${
+        cart.map(item => `
+
+            <div class="summary-row">
+
+                <span>
+                    ${escapeHtml(item.name)}
+                    × ${item.quantity}
+                </span>
+
+                <strong>
+                    ₹${(
+                        Number(item.price) *
+                        Number(item.quantity)
+                    ).toFixed(2)}
+                </strong>
+
+            </div>
+
+        `).join("")
+    }
+
+
+    <div class="summary-row">
+
+        <span>
+            Subtotal
+        </span>
+
+        <strong>
+            ₹${totals.subtotal.toFixed(2)}
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+        <span>
+            GST (18%)
+        </span>
+
+        <strong>
+            ₹${totals.gst.toFixed(2)}
+        </strong>
+
+    </div>
+
+
+    <div class="summary-row total">
+
+        <span>
+            Total Amount
+        </span>
+
+        <strong>
+            ₹${totals.total.toFixed(2)}
+        </strong>
+
+    </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+async function placeOrder(){
+
+    if(!currentUser){
+
+        alert(
+            "Please login first."
+        );
+
+        showPage("login");
+
+        return;
+
+    }
+
+
+    if(cart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        showPage("shop");
+
+        return;
+
+    }
+
+
+    const name =
+    document.getElementById(
+        "checkoutName"
+    ).value.trim();
+
+
+    const email =
+    document.getElementById(
+        "checkoutEmail"
+    ).value.trim();
+
+
+    const mobile =
+    document.getElementById(
+        "checkoutMobile"
+    ).value.trim();
+
+
+    const address =
+    document.getElementById(
+        "checkoutAddress"
+    ).value.trim();
+
+
+    const pincode =
+    document.getElementById(
+        "checkoutPincode"
+    ).value.trim();
+
+
+    const payment =
+    document.querySelector(
+        'input[name="payment"]:checked'
+    )?.value;
+
+
+    if(
+        !name ||
+        !email ||
+        !mobile ||
+        !address ||
+        !pincode
+    ){
+
+        alert(
+            "Please fill all delivery details."
+        );
+
+        return;
+
+    }
+
+
+    if(!payment){
+
+        alert(
+            "Please select a payment method."
+        );
+
+        return;
+
+    }
+
+
+    const totals =
+    calculateTotals();
+
+
+    const button =
+    document.querySelector(
+        "#checkout .main-btn"
+    );
+
+
+    button.disabled=true;
+
+    button.textContent=
+    "Placing Order...";
+
+
+    try{
+
+        const response =
+        await fetch(
+            API + "/api/orders",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+
+                    name,
+
+                    email,
+
+                    mobile,
+
+                    address,
+
+                    pincode,
+
+                    items:cart,
+
+                    subtotal:
+                    totals.subtotal,
+
+                    paymentMethod:
+                    payment
+
+                })
+
+            }
+        );
+
+
+        const data =
+        await response.json();
+
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            throw new Error(
+                data.message ||
+                "Order failed."
+            );
+
+        }
+
+
+        const order =
+        data.order;
+
+
+        /*
+           Save local order
+        */
+
+        const localOrders =
+        JSON.parse(
+            localStorage.getItem(
+                "glowcart_orders"
+            ) || "[]"
+        );
+
+
+        localOrders.push(order);
+
+
+        localStorage.setItem(
+            "glowcart_orders",
+            JSON.stringify(
+                localOrders
+            )
+        );
+
+
+        /*
+           ORDER EMAIL
+        */
+
+        const emailSent =
+        await sendOrderEmail(order);
+
+
+        /*
+           CLEAR CART
+        */
+
+        cart=[];
+
+        saveCart();
+
+
+        /*
+           SUCCESS
+        */
+
+        document.getElementById(
+            "successDetails"
+        ).innerHTML =
+
+        `
+
+        <div>
+            Order ID:
+            <strong>
+                ${escapeHtml(order.orderId)}
+            </strong>
+        </div>
+
+
+        <div style="margin-top:10px">
+            Payment:
+            <strong>
+                ${escapeHtml(
+                    order.paymentMethod
+                )}
+            </strong>
+        </div>
+
+
+        <div style="margin-top:10px">
+            Subtotal:
+            <strong>
+                ₹${Number(
+                    order.subtotal
+                ).toFixed(2)}
+            </strong>
+        </div>
+
+
+        <div style="margin-top:10px">
+            GST (18%):
+            <strong>
+                ₹${Number(
+                    order.gst
+                ).toFixed(2)}
+            </strong>
+        </div>
+
+
+        <div style="margin-top:10px">
+            Total:
+            <strong>
+                ₹${Number(
+                    order.total
+                ).toFixed(2)}
+            </strong>
+        </div>
+
+
+        <div style="margin-top:15px;font-size:15px">
+
+            ${
+                emailSent
+                ?
+                "📧 Order confirmation email sent."
+                :
+                "Order placed successfully."
+            }
+
+        </div>
+
+        `;
+
+
+        showPage("success");
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Unable to place order.\n\n" +
+            error.message
+        );
+
+    }
+    finally{
+
+        button.disabled=false;
+
+        button.textContent=
+        "Place Order";
+
+    }
+
+}
+
+
+/* =====================================================
+   ORDER EMAIL
+===================================================== */
+
+async function sendOrderEmail(order){
+
+    try{
+
+        const itemText =
+        order.items
+        .map(item =>
+
+            `${item.name} x ${item.quantity} - ₹${(
+                Number(item.price) *
+                Number(item.quantity)
+            ).toFixed(2)}`
+
+        )
+        .join("\n");
+
+
+        await emailjs.send(
+
+            EMAILJS_SERVICE,
+
+            EMAILJS_ORDER_TEMPLATE,
+
+            {
+
+                to_email:
+                order.email,
+
+                to_name:
+                order.name,
+
+                user_name:
+                order.name,
+
+                user_email:
+                order.email,
+
+                order_id:
+                order.orderId,
+
+                order_items:
+                itemText,
+
+                order_subtotal:
+                `₹${Number(
+                    order.subtotal
+                ).toFixed(2)}`,
+
+                order_gst:
+                `₹${Number(
+                    order.gst
+                ).toFixed(2)}`,
+
+                order_total:
+                `₹${Number(
+                    order.total
+                ).toFixed(2)}`,
+
+                order_payment:
+                order.paymentMethod,
+
+                order_address:
+                order.address,
+
+                order_pincode:
+                order.pincode
+
+            }
+
+        );
+
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(
+            "Order email error:",
+            error
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD ORDERS
+===================================================== */
+
+async function loadOrders(){
+
+    const box =
+    document.getElementById(
+        "ordersList"
+    );
+
+
+    if(!currentUser){
+
+        box.innerHTML =
+
+        `
+        <div class="form-box">
+
+            <h2>
+                Please login first.
+            </h2>
+
+            <button
+                class="main-btn"
+                onclick="showPage('login')"
+            >
+                Login
+            </button>
+
+        </div>
+        `;
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+
+    `
+    <div class="form-box">
+        <h2>
+            Loading orders...
+        </h2>
+    </div>
+    `;
+
+
+    try{
+
+        const response =
+        await fetch(
+            API +
+            "/api/orders/" +
+            encodeURIComponent(
+                currentUser.email
+            )
+        );
+
+
+        const data =
+        await response.json();
+
+
+        const orders =
+        data.orders || [];
+
+
+        if(orders.length === 0){
+
+            box.innerHTML =
+
+            `
+            <div class="form-box">
+
+                <h2>
+                    No orders yet 📦
+                </h2>
+
+                <button
+                    class="main-btn"
+                    onclick="showPage('shop')"
+                >
+                    Start Shopping
+                </button>
+
+            </div>
+            `;
+
+            return;
+
+        }
+
+
+        box.innerHTML =
+
+        orders
         .slice()
         .reverse()
         .map(order => {
 
-          return `
-          <div class="orders-card">
+            return `
 
-            <h3>
-              Order #${escapeHtml(order.orderId)}
-            </h3>
+            <div class="orders-card">
 
-            <p>
-              📅
-              ${new Date(
-                order.orderedAt
-              ).toLocaleString()}
-            </p>
+                <h3>
+                    Order #${escapeHtml(
+                        order.orderId
+                    )}
+                </h3>
 
-            <p>
-              💳 Payment:
-              <strong>
-                ${escapeHtml(
-                  order.paymentMethod
-                )}
-              </strong>
-            </p>
 
-            <p>
-              📦 Status:
-              <strong>
-                ${escapeHtml(
-                  order.status
-                )}
-              </strong>
-            </p>
-
-            <hr style="margin:12px 0">
-
-            ${
-              order.items.map(item => `
-                <p>
-                  ${escapeHtml(item.name)}
-                  × ${item.quantity}
-                  —
-                  ₹${(
-                    Number(item.price) *
-                    Number(item.quantity)
-                  ).toFixed(2)}
+                <p style="margin-top:10px">
+                    📅
+                    ${new Date(
+                        order.orderedAt
+                    ).toLocaleString()}
                 </p>
-              `).join("")
-            }
 
-            <div class="summary-row">
-              <span>Subtotal</span>
-              <strong>
-                ₹${Number(
-                  order.subtotal
-                ).toFixed(2)}
-              </strong>
+
+                <p style="margin-top:8px">
+                    💳 Payment:
+                    <strong>
+                        ${escapeHtml(
+                            order.paymentMethod
+                        )}
+                    </strong>
+                </p>
+
+
+                <p style="margin-top:8px">
+                    📦 Status:
+                    <strong>
+                        ${escapeHtml(
+                            order.status
+                        )}
+                    </strong>
+                </p>
+
+
+                <hr
+                    style="margin:15px 0"
+                >
+
+
+                ${
+                    order.items
+                    .map(item => `
+
+                        <p style="margin:7px 0">
+
+                            ${escapeHtml(
+                                item.name
+                            )}
+
+                            × ${item.quantity}
+
+                            —
+                            ₹${(
+                                Number(item.price) *
+                                Number(item.quantity)
+                            ).toFixed(2)}
+
+                        </p>
+
+                    `).join("")
+                }
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong>
+                        ₹${Number(
+                            order.subtotal
+                        ).toFixed(2)}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        GST (18%)
+                    </span>
+
+                    <strong>
+                        ₹${Number(
+                            order.gst
+                        ).toFixed(2)}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row total">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong>
+                        ₹${Number(
+                            order.total
+                        ).toFixed(2)}
+                    </strong>
+
+                </div>
+
             </div>
 
-            <div class="summary-row">
-              <span>GST (18%)</span>
-              <strong>
-                ₹${Number(
-                  order.gst
-                ).toFixed(2)}
-              </strong>
-            </div>
+            `;
 
-            <div class="summary-row total">
-              <span>Total Amount</span>
-              <strong>
-                ₹${Number(
-                  order.total
-                ).toFixed(2)}
-              </strong>
-            </div>
+        }).join("");
 
-          </div>
-          `;
+    }
+    catch(error){
 
-        })
-        .join("");
+        console.error(error);
 
-  }catch(error){
+        box.innerHTML =
 
-    console.error(error);
+        `
+        <div class="form-box">
 
-    box.innerHTML =
-      `
-      <div class="form-box">
+            <h2>
+                Unable to load orders
+            </h2>
 
-        <h2>
-          Unable to load orders
-        </h2>
+        </div>
+        `;
 
-      </div>
-      `;
-  }
+    }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    ADMIN SESSION
-========================================================= */
+===================================================== */
 
 function checkAdminSession(){
 
-  const token =
+    const token =
     sessionStorage.getItem(
-      "glowcart_admin_token"
+        "glowcart_admin_token"
     );
 
-  if(token){
 
-    document.getElementById(
-      "adminLoginBox"
-    ).style.display = "none";
+    if(token){
 
-    document.getElementById(
-      "adminDashboard"
-    ).style.display = "block";
+        document.getElementById(
+            "adminLoginBox"
+        ).style.display="none";
 
-    loadMembers();
 
-  }else{
+        document.getElementById(
+            "adminDashboard"
+        ).style.display="block";
 
-    document.getElementById(
-      "adminLoginBox"
-    ).style.display = "block";
 
-    document.getElementById(
-      "adminDashboard"
-    ).style.display = "none";
-  }
+        loadMembers();
+
+    }
+    else{
+
+        document.getElementById(
+            "adminLoginBox"
+        ).style.display="block";
+
+
+        document.getElementById(
+            "adminDashboard"
+        ).style.display="none";
+
+    }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    ADMIN LOGIN
-========================================================= */
+===================================================== */
 
 async function adminLogin(){
 
-  const email =
+    const email =
     document.getElementById(
-      "adminEmail"
+        "adminEmail"
     ).value.trim();
 
-  const password =
+
+    const password =
     document.getElementById(
-      "adminPassword"
+        "adminPassword"
     ).value;
 
-  const message =
+
+    const message =
     document.getElementById(
-      "adminMessage"
+        "adminMessage"
     );
 
-  message.textContent =
+
+    message.textContent =
     "Logging in...";
 
-  try{
 
-    const response =
-      await fetch(
-        API + "/api/admin/login",
-        {
-          method:"POST",
+    try{
 
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
+        const response =
+        await fetch(
+            API + "/api/admin/login",
+            {
 
-          body:JSON.stringify({
-            email,
-            password
-          })
-        }
-      );
+                method:"POST",
 
-    const data =
-      await response.json();
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
 
-    if(!response.ok || !data.success){
+                body:JSON.stringify({
 
-      message.textContent =
-        data.message ||
-        "Admin login failed.";
+                    email,
+                    password
 
-      message.style.color = "red";
+                })
 
-      return;
-    }
-
-    sessionStorage.setItem(
-      "glowcart_admin_token",
-      data.token
-    );
-
-    message.textContent =
-      "Admin login successful!";
-
-    message.style.color = "green";
-
-    document.getElementById(
-      "adminLoginBox"
-    ).style.display = "none";
-
-    document.getElementById(
-      "adminDashboard"
-    ).style.display = "block";
-
-    loadMembers();
-
-  }catch(error){
-
-    console.error(error);
-
-    message.textContent =
-      "Admin API not reachable. Deploy server.js again.";
-
-    message.style.color = "red";
-  }
-}
-
-/* =========================================================
-   LOAD MEMBERS
-========================================================= */
-
-async function loadMembers(){
-
-  const token =
-    sessionStorage.getItem(
-      "glowcart_admin_token"
-    );
-
-  if(!token) return;
-
-  try{
-
-    const response =
-      await fetch(
-        API + "/api/admin/users",
-        {
-          headers:{
-            Authorization:
-              "Bearer " + token
-          }
-        }
-      );
-
-    const data =
-      await response.json();
-
-    if(!response.ok || !data.success){
-
-      if(response.status === 401){
-
-        sessionStorage.removeItem(
-          "glowcart_admin_token"
+            }
         );
+
+
+        const data =
+        await response.json();
+
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            message.textContent =
+            data.message ||
+            "Admin login failed.";
+
+            message.style.color="red";
+
+            return;
+
+        }
+
+
+        sessionStorage.setItem(
+            "glowcart_admin_token",
+            data.token
+        );
+
+
+        message.textContent =
+        "Admin login successful!";
+
+        message.style.color="green";
+
 
         checkAdminSession();
 
-        return;
-      }
+    }
+    catch(error){
 
-      throw new Error(
-        data.message ||
-        "Unable to load members"
-      );
+        console.error(error);
+
+        message.textContent =
+        "Admin API not reachable.";
+
+        message.style.color="red";
+
     }
 
-    document.getElementById(
-      "memberCount"
-    ).textContent =
-      data.totalMembers;
-
-    const table =
-      document.getElementById(
-        "membersTable"
-      );
-
-    table.innerHTML =
-      data.users.map(
-        (user,index) => {
-
-          return `
-          <tr>
-
-            <td>
-              ${index + 1}
-            </td>
-
-            <td>
-              ${escapeHtml(user.name)}
-            </td>
-
-            <td>
-              ${escapeHtml(user.email)}
-            </td>
-
-            <td>
-              ${escapeHtml(user.mobile)}
-            </td>
-
-            <td>
-              ${
-                user.registeredAt
-                ? new Date(
-                    user.registeredAt
-                  ).toLocaleString()
-                : "-"
-              }
-            </td>
-
-          </tr>
-          `;
-
-        }
-      ).join("");
-
-  }catch(error){
-
-    console.error(error);
-
-    alert(
-      "Unable to load registered members."
-    );
-  }
 }
 
-/* =========================================================
+
+/* =====================================================
+   LOAD MEMBERS
+===================================================== */
+
+async function loadMembers(){
+
+    const token =
+    sessionStorage.getItem(
+        "glowcart_admin_token"
+    );
+
+
+    if(!token) return;
+
+
+    try{
+
+        const response =
+        await fetch(
+            API + "/api/admin/users",
+            {
+
+                headers:{
+                    Authorization:
+                    "Bearer " + token
+                }
+
+            }
+        );
+
+
+        const data =
+        await response.json();
+
+
+        if(
+            !response.ok ||
+            !data.success
+        ){
+
+            throw new Error(
+                data.message ||
+                "Unable to load members."
+            );
+
+        }
+
+
+        document.getElementById(
+            "memberCount"
+        ).textContent =
+        data.totalMembers;
+
+
+        const table =
+        document.getElementById(
+            "membersTable"
+        );
+
+
+        table.innerHTML =
+
+        data.users
+        .map((user,index) => {
+
+            return `
+
+            <tr>
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        user.name
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        user.email
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        user.mobile
+                    )}
+                </td>
+
+                <td>
+                    ${
+                        user.registeredAt
+                        ?
+                        new Date(
+                            user.registeredAt
+                        ).toLocaleString()
+                        :
+                        "-"
+                    }
+                </td>
+
+            </tr>
+
+            `;
+
+        }).join("");
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Unable to load registered members."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    ADMIN LOGOUT
-========================================================= */
+===================================================== */
 
 async function adminLogout(){
 
-  const token =
+    const token =
     sessionStorage.getItem(
-      "glowcart_admin_token"
+        "glowcart_admin_token"
     );
 
-  try{
 
-    await fetch(
-      API + "/api/admin/logout",
-      {
-        method:"POST",
+    try{
 
-        headers:{
-          Authorization:
-            "Bearer " + token
-        }
-      }
-    );
+        await fetch(
+            API + "/api/admin/logout",
+            {
 
-  }catch(error){
+                method:"POST",
 
-    console.error(error);
+                headers:{
+                    Authorization:
+                    "Bearer " + token
+                }
 
-  }finally{
+            }
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
 
     sessionStorage.removeItem(
-      "glowcart_admin_token"
+        "glowcart_admin_token"
     );
 
+
     checkAdminSession();
-  }
+
 }
 
-/* =========================================================
+
+/* =====================================================
    INITIALIZE
-========================================================= */
+===================================================== */
 
 updateCartCount();
 
 loadProducts();
+
 
 </script>
 
