@@ -5,36 +5,42 @@ const path = require("path");
 const crypto = require("crypto");
 
 const app = express();
+const PORT = process.env.PORT || 10000;
 
-app.use(cors({
-    origin: "*"
-}));
+// =====================================================
+// MIDDLEWARE
+// =====================================================
 
-app.use(express.json({
-    limit: "5mb"
-}));
+app.use(
+    cors({
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"]
+    })
+);
 
-// ===============================
-// FILE LOCATIONS
-// ===============================
+app.use(express.json({ limit: "5mb" }));
+
+// =====================================================
+// FILE PATHS
+// =====================================================
 
 const PRODUCTS_FILE = path.join(__dirname, "products.json");
 const USERS_FILE = path.join(__dirname, "users.json");
 const ORDERS_FILE = path.join(__dirname, "place.json");
 
-// ===============================
-// ADMIN SETTINGS
-// ===============================
+// =====================================================
+// ADMIN ENVIRONMENT VARIABLES
+// =====================================================
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
-// Temporary admin token
 let ADMIN_TOKEN = null;
 
-// ===============================
-// FILE FUNCTIONS
-// ===============================
+// =====================================================
+// CREATE FILES
+// =====================================================
 
 function createFile(file, defaultData) {
     if (!fs.existsSync(file)) {
@@ -45,24 +51,39 @@ function createFile(file, defaultData) {
     }
 }
 
+createFile(PRODUCTS_FILE, []);
+createFile(USERS_FILE, []);
+createFile(ORDERS_FILE);
+
+// =====================================================
+// READ JSON
+// =====================================================
+
 function readJson(file) {
     try {
         if (!fs.existsSync(file)) {
             return [];
         }
 
-        const data = fs.readFileSync(file, "utf8");
+        const text = fs.readFileSync(file, "utf8");
 
-        if (!data.trim()) {
+        if (!text.trim()) {
             return [];
         }
 
-        return JSON.parse(data);
+        const data = JSON.parse(text);
+
+        return Array.isArray(data) ? data : [];
+
     } catch (error) {
-        console.error("Read JSON error:", error);
+        console.error("READ JSON ERROR:", error.message);
         return [];
     }
 }
+
+// =====================================================
+// WRITE JSON
+// =====================================================
 
 function writeJson(file, data) {
     fs.writeFileSync(
@@ -71,83 +92,96 @@ function writeJson(file, data) {
     );
 }
 
-// Create files if they don't exist
-createFile(PRODUCTS_FILE, []);
-createFile(USERS_FILE, []);
-createFile(ORDERS_FILE);
-
-// ===============================
+// =====================================================
 // HOME
-// ===============================
+// =====================================================
 
 app.get("/", (req, res) => {
-    res.json({
+    res.status(200).json({
         success: true,
-        message: "GlowCart Backend is Online"
+        message: "GlowCart backend is running",
+        status: "online"
     });
 });
 
-// ===============================
+// =====================================================
 // HEALTH
-// ===============================
+// =====================================================
 
 app.get("/api/health", (req, res) => {
-    res.json({
+    res.status(200).json({
         success: true,
-        message: "GlowCart API is healthy"
+        message: "GlowCart API is healthy",
+        status: "online"
     });
 });
 
-// ===============================
+// =====================================================
 // EMAILJS CONFIG
-// ===============================
+// =====================================================
 
 app.get("/api/emailjs-config", (req, res) => {
     res.json({
-        serviceId: process.env.EMAILJS_SERVICE_ID || "",
-        publicKey: process.env.EMAILJS_PUBLIC_KEY || "",
-        orderTemplateId: process.env.EMAILJS_ORDER_TEMPLATE_ID || "",
-        welcomeTemplateId: process.env.EMAILJS_WELCOME_TEMPLATE_ID || ""
+        success: true,
+        publicKey:
+            process.env.EMAILJS_PUBLIC_KEY || "",
+        serviceId:
+            process.env.EMAILJS_SERVICE_ID || "",
+        welcomeTemplateId:
+            process.env.EMAILJS_WELCOME_TEMPLATE_ID ||
+            "template_giqmpm9",
+        orderTemplateId:
+            process.env.EMAILJS_ORDER_TEMPLATE_ID ||
+            "template_ykzf36"
     });
 });
 
-// ===============================
+// =====================================================
 // PRODUCTS
-// ===============================
+// =====================================================
 
 app.get("/api/products", (req, res) => {
-    const products = readJson(PRODUCTS_FILE);
+    try {
+        const products = readJson(PRODUCTS_FILE);
+        res.status(200).json(products);
 
-    res.json({
-        success: true,
-        products: products
-    });
+    } catch (error) {
+        console.error("PRODUCT ERROR:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to load products."
+        });
+    }
 });
+
+// =====================================================
+// SINGLE PRODUCT
+// =====================================================
 
 app.get("/api/products/:id", (req, res) => {
 
     const products = readJson(PRODUCTS_FILE);
 
     const product = products.find(
-        p => String(p.id) === String(req.params.id)
+        item =>
+            String(item.id) ===
+            String(req.params.id)
     );
 
     if (!product) {
         return res.status(404).json({
             success: false,
-            message: "Product not found"
+            message: "Product not found."
         });
     }
 
-    res.json({
-        success: true,
-        product: product
-    });
+    res.json(product);
 });
 
-// ===============================
+// =====================================================
 // REGISTER
-// ===============================
+// =====================================================
 
 app.post("/api/register", (req, res) => {
 
@@ -174,95 +208,166 @@ app.post("/api/register", (req, res) => {
         ) {
             return res.status(400).json({
                 success: false,
-                message: "Please fill all required fields"
+                message:
+                    "Please fill all required fields."
             });
         }
 
-        const users = readJson(USERS_FILE);
+        if (
+            !/^\d{10}$/.test(
+                String(mobile)
+            )
+        ) {
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Enter a valid 10-digit mobile number."
+            });
+        }
 
-        const cleanEmail = String(email)
-            .trim()
-            .toLowerCase();
+        if (
+            !/^\d{6}$/.test(
+                String(pincode)
+            )
+        ) {
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Enter a valid 6-digit pincode."
+            });
+        }
 
-        const existingUser = users.find(
-            user =>
-                String(user.email).toLowerCase() === cleanEmail
-        );
+        const users =
+            readJson(USERS_FILE);
 
-        if (existingUser) {
+        const cleanEmail =
+            String(email)
+                .trim()
+                .toLowerCase();
+
+        const alreadyExists =
+            users.find(
+                user =>
+                    String(user.email)
+                        .toLowerCase() ===
+                    cleanEmail
+            );
+
+        if (alreadyExists) {
             return res.status(409).json({
                 success: false,
-                message: "Email already registered"
+                message:
+                    "Email is already registered."
             });
         }
 
         const newUser = {
-            id: "USER" + Date.now(),
 
-            name: String(name).trim(),
+            id:
+                "USER" +
+                Date.now(),
 
-            email: cleanEmail,
+            name:
+                String(name).trim(),
 
-            mobile: String(mobile).trim(),
+            email:
+                cleanEmail,
 
-            // Existing project behavior retained.
-            // For production, passwords should be hashed.
-            password: String(password),
+            mobile:
+                String(mobile).trim(),
 
-            address: String(address).trim(),
+            password:
+                String(password),
 
-            pincode: String(pincode).trim(),
+            address:
+                String(address).trim(),
 
-            address2: address2
-                ? String(address2).trim()
-                : "",
+            pincode:
+                String(pincode).trim(),
 
-            pincode2: pincode2
-                ? String(pincode2).trim()
-                : "",
+            address2:
+                address2
+                    ? String(address2).trim()
+                    : "",
 
-            registeredAt: new Date().toISOString()
+            pincode2:
+                pincode2
+                    ? String(pincode2).trim()
+                    : "",
+
+            registeredAt:
+                new Date().toISOString()
         };
 
         users.push(newUser);
 
-        writeJson(USERS_FILE, users);
+        writeJson(
+            USERS_FILE,
+            users
+        );
 
         console.log(
-            "New member registered:",
+            "REGISTERED:",
             newUser.email
         );
 
         res.status(201).json({
+
             success: true,
-            message: "Registration successful",
+
+            message:
+                "Registration successful!",
+
             user: {
-                id: newUser.id,
-                name: newUser.name,
-                email: newUser.email,
-                mobile: newUser.mobile,
-                address: newUser.address,
-                pincode: newUser.pincode,
-                address2: newUser.address2,
-                pincode2: newUser.pincode2,
-                registeredAt: newUser.registeredAt
+
+                id:
+                    newUser.id,
+
+                name:
+                    newUser.name,
+
+                email:
+                    newUser.email,
+
+                mobile:
+                    newUser.mobile,
+
+                address:
+                    newUser.address,
+
+                pincode:
+                    newUser.pincode,
+
+                address2:
+                    newUser.address2,
+
+                pincode2:
+                    newUser.pincode2,
+
+                registeredAt:
+                    newUser.registeredAt
             }
+
         });
 
     } catch (error) {
 
-        console.error("Registration error:", error);
+        console.error(
+            "REGISTER ERROR:",
+            error
+        );
 
         res.status(500).json({
             success: false,
-            message: "Registration failed"
+            message:
+                "Registration failed."
         });
     }
 });
 
-// ===============================
+// =====================================================
 // LOGIN
-// ===============================
+// =====================================================
 
 app.post("/api/login", (req, res) => {
 
@@ -274,156 +379,252 @@ app.post("/api/login", (req, res) => {
         } = req.body;
 
         if (!email || !password) {
+
             return res.status(400).json({
                 success: false,
-                message: "Email and password are required"
+                message:
+                    "Email and password are required."
             });
         }
 
-        const users = readJson(USERS_FILE);
+        const users =
+            readJson(USERS_FILE);
 
-        const cleanEmail = String(email)
-            .trim()
-            .toLowerCase();
+        const cleanEmail =
+            String(email)
+                .trim()
+                .toLowerCase();
 
-        const user = users.find(
-            u =>
-                String(u.email).toLowerCase() === cleanEmail &&
-                String(u.password) === String(password)
-        );
+        const user =
+            users.find(
+                item =>
+                    String(item.email)
+                        .toLowerCase() ===
+                    cleanEmail &&
+                    String(item.password) ===
+                    String(password)
+            );
 
         if (!user) {
+
             return res.status(401).json({
                 success: false,
-                message: "Invalid email or password"
+                message:
+                    "Invalid email or password."
             });
         }
 
-        res.json({
+        res.status(200).json({
+
             success: true,
-            message: "Login successful",
+
+            message:
+                "Login successful!",
 
             user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                mobile: user.mobile,
-                address: user.address,
-                pincode: user.pincode,
-                address2: user.address2,
-                pincode2: user.pincode2,
-                registeredAt: user.registeredAt
+
+                id:
+                    user.id,
+
+                name:
+                    user.name,
+
+                email:
+                    user.email,
+
+                mobile:
+                    user.mobile,
+
+                address:
+                    user.address,
+
+                pincode:
+                    user.pincode,
+
+                address2:
+                    user.address2 || "",
+
+                pincode2:
+                    user.pincode2 || "",
+
+                registeredAt:
+                    user.registeredAt
             }
+
         });
 
     } catch (error) {
 
-        console.error("Login error:", error);
+        console.error(
+            "LOGIN ERROR:",
+            error
+        );
 
         res.status(500).json({
             success: false,
-            message: "Login failed"
+            message:
+                "Login failed."
         });
     }
 });
 
-// ======================================================
-// ADMIN LOGIN
-// ======================================================
+// =====================================================
+// 🔐 ADMIN LOGIN
+// =====================================================
 
 app.post("/api/admin/login", (req, res) => {
 
     try {
 
+        console.log("ADMIN LOGIN REQUEST");
+
         const {
             email,
             password
-        } = req.body;
+        } = req.body || {};
 
-        if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
-
-            return res.status(500).json({
-                success: false,
-                message: "Admin credentials are not configured in Render"
-            });
-        }
-
+        // Check Render variables
         if (
-            String(email).trim().toLowerCase() !==
-            String(ADMIN_EMAIL).trim().toLowerCase()
+            !ADMIN_EMAIL ||
+            !ADMIN_PASSWORD
         ) {
 
-            return res.status(401).json({
+            console.error(
+                "ADMIN_EMAIL or ADMIN_PASSWORD is missing in Render."
+            );
+
+            return res.status(500).json({
+
                 success: false,
-                message: "Invalid admin email or password"
+
+                message:
+                    "Admin credentials are not configured in Render."
+
             });
         }
 
+        const enteredEmail =
+            String(email || "")
+                .trim()
+                .toLowerCase();
+
+        const savedEmail =
+            String(ADMIN_EMAIL)
+                .trim()
+                .toLowerCase();
+
+        const enteredPassword =
+            String(password || "");
+
         if (
-            String(password) !==
+            enteredEmail !== savedEmail ||
+            enteredPassword !==
             String(ADMIN_PASSWORD)
         ) {
 
+            console.log(
+                "INVALID ADMIN LOGIN"
+            );
+
             return res.status(401).json({
+
                 success: false,
-                message: "Invalid admin email or password"
+
+                message:
+                    "Invalid admin email or password."
+
             });
         }
 
-        // Generate temporary token
-        ADMIN_TOKEN = crypto
-            .randomBytes(32)
-            .toString("hex");
+        // Create admin token
+        ADMIN_TOKEN =
+            crypto
+                .randomBytes(32)
+                .toString("hex");
 
-        console.log("Admin logged in");
+        console.log(
+            "ADMIN LOGIN SUCCESS"
+        );
 
-        res.json({
+        res.status(200).json({
+
             success: true,
-            message: "Admin login successful",
-            token: ADMIN_TOKEN
+
+            message:
+                "Admin login successful!",
+
+            token:
+                ADMIN_TOKEN
+
         });
 
     } catch (error) {
 
-        console.error("Admin login error:", error);
+        console.error(
+            "ADMIN LOGIN ERROR:",
+            error
+        );
 
         res.status(500).json({
+
             success: false,
-            message: "Admin login failed"
+
+            message:
+                "Admin login failed."
+
         });
     }
 });
 
-// ======================================================
-// ADMIN AUTHENTICATION
-// ======================================================
+// =====================================================
+// 🔐 ADMIN AUTH CHECK
+// =====================================================
 
 function checkAdmin(req, res, next) {
 
-    const authHeader = req.headers.authorization || "";
+    const authorization =
+        req.headers.authorization || "";
 
-    const token = authHeader.startsWith("Bearer ")
-        ? authHeader.substring(7)
-        : "";
+    if (
+        !authorization.startsWith(
+            "Bearer "
+        )
+    ) {
+
+        return res.status(401).json({
+
+            success: false,
+
+            message:
+                "Admin authentication required."
+
+        });
+    }
+
+    const token =
+        authorization.substring(7);
 
     if (
         !ADMIN_TOKEN ||
-        !token ||
         token !== ADMIN_TOKEN
     ) {
 
         return res.status(401).json({
+
             success: false,
-            message: "Unauthorized admin access"
+
+            message:
+                "Invalid or expired admin session."
+
         });
     }
 
     next();
 }
 
-// ======================================================
-// ADMIN - GET REGISTERED MEMBERS
-// ======================================================
+// =====================================================
+// 👥 ADMIN - REGISTERED MEMBERS
+// =====================================================
 
 app.get(
     "/api/admin/users",
@@ -432,47 +633,78 @@ app.get(
 
         try {
 
-            const users = readJson(USERS_FILE);
+            const users =
+                readJson(USERS_FILE);
 
-            // NEVER send passwords to frontend
-            const safeUsers = users.map(user => ({
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                mobile: user.mobile,
-                address: user.address,
-                pincode: user.pincode,
-                address2: user.address2,
-                pincode2: user.pincode2,
-                registeredAt: user.registeredAt
-            }));
+            // NEVER send passwords
+            const safeUsers =
+                users.map(
+                    user => ({
 
-            res.json({
+                        id:
+                            user.id,
+
+                        name:
+                            user.name,
+
+                        email:
+                            user.email,
+
+                        mobile:
+                            user.mobile,
+
+                        address:
+                            user.address,
+
+                        pincode:
+                            user.pincode,
+
+                        address2:
+                            user.address2 || "",
+
+                        pincode2:
+                            user.pincode2 || "",
+
+                        registeredAt:
+                            user.registeredAt
+
+                    })
+                );
+
+            res.status(200).json({
+
                 success: true,
 
-                totalMembers: safeUsers.length,
+                totalMembers:
+                    safeUsers.length,
 
-                users: safeUsers
+                users:
+                    safeUsers
+
             });
 
         } catch (error) {
 
             console.error(
-                "Admin users error:",
+                "ADMIN USERS ERROR:",
                 error
             );
 
             res.status(500).json({
+
                 success: false,
-                message: "Unable to load members"
+
+                message:
+                    "Unable to load registered members."
+
             });
         }
     }
 );
 
-// ======================================================
-// ADMIN LOGOUT
-// ======================================================
+// =====================================================
+// 🔐 ADMIN LOGOUT
+// =====================================================
 
 app.post(
     "/api/admin/logout",
@@ -481,91 +713,238 @@ app.post(
 
         ADMIN_TOKEN = null;
 
-        res.json({
+        res.status(200).json({
+
             success: true,
-            message: "Admin logged out"
+
+            message:
+                "Admin logged out."
+
         });
     }
 );
 
-// ======================================================
-// ORDERS - CREATE
-// ======================================================
+// =====================================================
+// PLACE ORDER
+// =====================================================
 
 app.post("/api/orders", (req, res) => {
 
     try {
 
-        const {
-            email,
-            items,
-            address,
-            pincode
-        } = req.body;
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "NEW GLOWCART ORDER"
+        );
+
+        console.log(
+            "================================"
+        );
+
+        const body =
+            req.body || {};
+
+        if (!body.email) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Customer email is required."
+            });
+        }
 
         if (
-            !email ||
-            !Array.isArray(items) ||
-            items.length === 0 ||
-            !address ||
-            !pincode
+            !Array.isArray(body.items) ||
+            body.items.length === 0
         ) {
 
             return res.status(400).json({
                 success: false,
-                message: "Invalid order details"
+                message:
+                    "Your cart is empty."
             });
         }
 
+        if (!body.address) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Delivery address is required."
+            });
+        }
+
+        if (
+            !body.pincode ||
+            !/^\d{6}$/.test(
+                String(body.pincode)
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Valid 6-digit pincode is required."
+            });
+        }
+
+        const orderId =
+            body.orderId ||
+            body.id ||
+            "GC" + Date.now();
+
+        const orderDate =
+            body.date ||
+            new Date().toLocaleString(
+                "en-IN"
+            );
+
         let subtotal = 0;
 
-        items.forEach(item => {
+        const cleanItems =
+            body.items.map(
+                item => {
 
-            const price =
-                Number(item.price) || 0;
+                    const price =
+                        Number(
+                            item.price
+                        ) || 0;
 
-            const quantity =
-                Number(item.quantity) || 1;
+                    const qty =
+                        Number(
+                            item.qty ??
+                            item.quantity ??
+                            1
+                        );
 
-            subtotal += price * quantity;
-        });
+                    const safeQty =
+                        qty > 0
+                            ? qty
+                            : 1;
+
+                    const itemTotal =
+                        price *
+                        safeQty;
+
+                    subtotal +=
+                        itemTotal;
+
+                    return {
+
+                        id:
+                            item.id,
+
+                        name:
+                            item.name ||
+                            "Product",
+
+                        price:
+                            price,
+
+                        qty:
+                            safeQty,
+
+                        quantity:
+                            safeQty,
+
+                        image:
+                            item.image ||
+                            ""
+                    };
+                }
+            );
+
+        subtotal =
+            Number(
+                subtotal.toFixed(2)
+            );
+
+        const gstRate = 18;
 
         const gst =
-            Number((subtotal * 0.18).toFixed(2));
+            Number(
+                (
+                    subtotal *
+                    gstRate /
+                    100
+                ).toFixed(2)
+            );
 
         const total =
-            Number((subtotal + gst).toFixed(2));
+            Number(
+                (
+                    subtotal +
+                    gst
+                ).toFixed(2)
+            );
 
-        const orders = readJson(ORDERS_FILE);
+        const savedOrder = {
 
-        const order = {
+            id:
+                orderId,
 
             orderId:
-                "ORD" +
-                Date.now() +
-                Math.floor(Math.random() * 1000),
+                orderId,
 
-            email: String(email)
-                .trim()
-                .toLowerCase(),
+            date:
+                orderDate,
 
-            items: items,
+            createdAt:
+                new Date().toISOString(),
 
-            address: String(address).trim(),
+            name:
+                body.name || "",
 
-            pincode: String(pincode).trim(),
+            email:
+                String(body.email)
+                    .trim()
+                    .toLowerCase(),
 
-            subtotal: subtotal,
+            mobile:
+                body.mobile || "",
 
-            gst: gst,
+            address:
+                body.address || "",
 
-            total: total,
+            pincode:
+                body.pincode || "",
 
-            orderedAt:
-                new Date().toISOString()
+            items:
+                cleanItems,
+
+            subtotal:
+                subtotal,
+
+            gst:
+                gst,
+
+            gstRate:
+                gstRate,
+
+            total:
+                total,
+
+            paymentMethod:
+                body.paymentMethod ||
+                "Cash on Delivery",
+
+            paymentDetails:
+                body.paymentDetails ||
+                "",
+
+            status:
+                "Order Placed"
         };
 
-        orders.push(order);
+        const orders =
+            readJson(ORDERS_FILE);
+
+        orders.push(
+            savedOrder
+        );
 
         writeJson(
             ORDERS_FILE,
@@ -573,102 +952,180 @@ app.post("/api/orders", (req, res) => {
         );
 
         console.log(
-            "Order placed:",
-            order.orderId
+            "ORDER SAVED:",
+            savedOrder.orderId
         );
 
         res.status(201).json({
+
             success: true,
-            message: "Order placed successfully",
-            order: order
+
+            message:
+                "Order placed successfully!",
+
+            emailSent:
+                false,
+
+            order:
+                savedOrder
+
         });
 
     } catch (error) {
 
         console.error(
-            "Order error:",
+            "PLACE ORDER ERROR:",
             error
         );
 
         res.status(500).json({
+
             success: false,
-            message: "Order failed"
+
+            message:
+                "Unable to place order. Please try again."
+
         });
     }
 });
 
-// ======================================================
-// ALL ORDERS
-// ======================================================
+// =====================================================
+// GET ALL ORDERS
+// =====================================================
 
 app.get("/api/orders", (req, res) => {
 
-    const orders = readJson(ORDERS_FILE);
+    try {
 
-    res.json({
-        success: true,
-        orders: orders
-    });
+        const orders =
+            readJson(ORDERS_FILE);
+
+        res.status(200).json({
+
+            success: true,
+
+            orders:
+                orders
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "GET ORDERS ERROR:",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Unable to load orders."
+
+        });
+    }
 });
 
-// ======================================================
-// USER ORDERS
-// ======================================================
+// =====================================================
+// GET ORDERS FOR EMAIL
+// =====================================================
 
-app.get("/api/orders/:email", (req, res) => {
+app.get(
+    "/api/orders/:email",
+    (req, res) => {
 
-    const orders = readJson(ORDERS_FILE);
+        try {
 
-    const email = String(req.params.email)
-        .trim()
-        .toLowerCase();
+            const orders =
+                readJson(ORDERS_FILE);
 
-    const userOrders = orders.filter(
-        order =>
-            String(order.email).toLowerCase() === email
-    );
+            const email =
+                decodeURIComponent(
+                    req.params.email
+                )
+                .trim()
+                .toLowerCase();
 
-    res.json({
-        success: true,
-        orders: userOrders
-    });
-});
+            const userOrders =
+                orders.filter(
+                    order =>
+                        String(
+                            order.email
+                        )
+                        .toLowerCase() ===
+                        email
+                );
 
-// ======================================================
+            res.json({
+
+                success: true,
+
+                orders:
+                    userOrders
+
+            });
+
+        } catch (error) {
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load orders."
+
+            });
+        }
+    }
+);
+
+// =====================================================
 // 404
-// ======================================================
+// =====================================================
 
-app.use((req, res) => {
+app.use(
+    (req, res) => {
 
-    res.status(404).json({
-        success: false,
-        message: "API endpoint not found"
-    });
-});
+        res.status(404).json({
 
-// ======================================================
+            success: false,
+
+            message:
+                "API endpoint not found."
+
+        });
+
+    }
+);
+
+// =====================================================
 // ERROR HANDLER
-// ======================================================
+// =====================================================
 
-app.use((error, req, res, next) => {
+app.use(
+    (error, req, res, next) => {
 
-    console.error(
-        "Server error:",
-        error
-    );
+        console.error(
+            "SERVER ERROR:",
+            error
+        );
 
-    res.status(500).json({
-        success: false,
-        message: "Internal server error"
-    });
-});
+        res.status(500).json({
 
-// ======================================================
+            success: false,
+
+            message:
+                "Internal server error."
+
+        });
+
+    }
+);
+
+// =====================================================
 // START SERVER
-// ======================================================
-
-const PORT =
-    process.env.PORT || 10000;
+// =====================================================
 
 app.listen(
     PORT,
@@ -676,14 +1133,39 @@ app.listen(
     () => {
 
         console.log(
-            `GlowCart server running on port ${PORT}`
+            "========================================"
         );
 
         console.log(
-            "Admin system:",
-            ADMIN_EMAIL
-                ? "Configured"
-                : "NOT CONFIGURED"
+            "       GLOWCART BACKEND RUNNING"
         );
+
+        console.log(
+            "========================================"
+        );
+
+        console.log(
+            "Port:",
+            PORT
+        );
+
+        console.log(
+            "Admin email configured:",
+            ADMIN_EMAIL
+                ? "YES"
+                : "NO"
+        );
+
+        console.log(
+            "Admin password configured:",
+            ADMIN_PASSWORD
+                ? "YES"
+                : "NO"
+        );
+
+        console.log(
+            "========================================"
+        );
+
     }
 );
