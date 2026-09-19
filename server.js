@@ -19,25 +19,16 @@ const HOST = "0.0.0.0";
 ========================================================= */
 
 if (!process.env.DATABASE_URL) {
-    console.error("================================================");
     console.error("ERROR: DATABASE_URL is not configured.");
-    console.error("Add DATABASE_URL in Render Environment Variables.");
-    console.error("================================================");
 }
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-
     ssl: process.env.DATABASE_URL
-        ? {
-              rejectUnauthorized: false
-          }
+        ? { rejectUnauthorized: false }
         : false,
-
     max: 10,
-
     idleTimeoutMillis: 30000,
-
     connectionTimeoutMillis: 10000
 });
 
@@ -92,12 +83,48 @@ app.use(
 );
 
 /* =========================================================
+   FRONTEND CONFIGURATION
+   Automatically finds index.html either:
+   1. beside server.js
+   2. one folder above server.js
+========================================================= */
+
+const possibleFrontendFiles = [
+    path.join(__dirname, "index.html"),
+    path.join(__dirname, "..", "index.html")
+];
+
+let FRONTEND_FILE = null;
+
+for (const file of possibleFrontendFiles) {
+    if (fs.existsSync(file)) {
+        FRONTEND_FILE = file;
+        break;
+    }
+}
+
+console.log(
+    "Frontend file:",
+    FRONTEND_FILE || "NOT FOUND"
+);
+
+if (FRONTEND_FILE) {
+
+    const FRONTEND_DIR = path.dirname(FRONTEND_FILE);
+
+    app.use(
+        express.static(FRONTEND_DIR, {
+            index: false
+        })
+    );
+}
+
+/* =========================================================
    DATABASE HELPER
 ========================================================= */
 
 async function query(text, params = []) {
-    const result = await pool.query(text, params);
-    return result;
+    return await pool.query(text, params);
 }
 
 /* =========================================================
@@ -105,82 +132,72 @@ async function query(text, params = []) {
 ========================================================= */
 
 async function initializeDatabase() {
-    try {
-        await query(`
-            CREATE TABLE IF NOT EXISTS users (
-                id BIGSERIAL PRIMARY KEY,
-                name TEXT NOT NULL,
-                email TEXT UNIQUE NOT NULL,
-                mobile TEXT NOT NULL,
-                password TEXT NOT NULL,
-                address TEXT DEFAULT '',
-                address2 TEXT DEFAULT '',
-                pincode TEXT DEFAULT '',
-                registered_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
 
-        await query(`
-            CREATE TABLE IF NOT EXISTS products (
-                id BIGSERIAL PRIMARY KEY,
-                name TEXT NOT NULL,
-                price NUMERIC(10,2) NOT NULL,
-                description TEXT DEFAULT '',
-                image TEXT DEFAULT '',
-                created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-            )
-        `);
+    await query(`
+        CREATE TABLE IF NOT EXISTS users (
+            id BIGSERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            mobile TEXT NOT NULL,
+            password TEXT NOT NULL,
+            address TEXT DEFAULT '',
+            address2 TEXT DEFAULT '',
+            pincode TEXT DEFAULT '',
+            registered_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
 
-        await query(`
-            CREATE TABLE IF NOT EXISTS orders (
-                id BIGSERIAL PRIMARY KEY,
-                order_id TEXT UNIQUE NOT NULL,
-                user_id BIGINT,
-                name TEXT NOT NULL,
-                email TEXT NOT NULL,
-                mobile TEXT DEFAULT '',
-                address TEXT NOT NULL,
-                address2 TEXT DEFAULT '',
-                pincode TEXT NOT NULL,
-                payment_method TEXT DEFAULT 'Cash on Delivery',
-                items JSONB NOT NULL DEFAULT '[]'::jsonb,
-                subtotal NUMERIC(10,2) DEFAULT 0,
-                gst NUMERIC(10,2) DEFAULT 0,
-                total NUMERIC(10,2) DEFAULT 0,
-                status TEXT DEFAULT 'Placed',
-                created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMPTZ
-            )
-        `);
+    await query(`
+        CREATE TABLE IF NOT EXISTS products (
+            id BIGSERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            price NUMERIC(10,2) NOT NULL,
+            description TEXT DEFAULT '',
+            image TEXT DEFAULT '',
+            created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
 
-        await query(`
-            CREATE INDEX IF NOT EXISTS users_email_index
-            ON users(email)
-        `);
+    await query(`
+        CREATE TABLE IF NOT EXISTS orders (
+            id BIGSERIAL PRIMARY KEY,
+            order_id TEXT UNIQUE NOT NULL,
+            user_id BIGINT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            mobile TEXT DEFAULT '',
+            address TEXT NOT NULL,
+            address2 TEXT DEFAULT '',
+            pincode TEXT NOT NULL,
+            payment_method TEXT DEFAULT 'Cash on Delivery',
+            items JSONB NOT NULL DEFAULT '[]'::jsonb,
+            subtotal NUMERIC(10,2) DEFAULT 0,
+            gst NUMERIC(10,2) DEFAULT 0,
+            total NUMERIC(10,2) DEFAULT 0,
+            status TEXT DEFAULT 'Placed',
+            created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMPTZ
+        )
+    `);
 
-        await query(`
-            CREATE INDEX IF NOT EXISTS orders_email_index
-            ON orders(email)
-        `);
+    await query(`
+        CREATE INDEX IF NOT EXISTS users_email_index
+        ON users(email)
+    `);
 
-        await query(`
-            CREATE INDEX IF NOT EXISTS orders_created_index
-            ON orders(created_at DESC)
-        `);
+    await query(`
+        CREATE INDEX IF NOT EXISTS orders_email_index
+        ON orders(email)
+    `);
 
-        await seedProducts();
+    await query(`
+        CREATE INDEX IF NOT EXISTS orders_created_index
+        ON orders(created_at DESC)
+    `);
 
-        console.log("======================================");
-        console.log("DATABASE INITIALIZED SUCCESSFULLY");
-        console.log("======================================");
+    await seedProducts();
 
-    } catch (error) {
-
-        console.error("DATABASE INITIALIZATION ERROR:");
-        console.error(error);
-
-        throw error;
-    }
+    console.log("DATABASE INITIALIZED SUCCESSFULLY");
 }
 
 /* =========================================================
@@ -208,7 +225,6 @@ async function seedProducts() {
             image:
                 "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
         },
-
         {
             name: "Vitamin C Face Cream",
             price: 349,
@@ -217,7 +233,6 @@ async function seedProducts() {
             image:
                 "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=80"
         },
-
         {
             name: "Hydra Moisturizing Cream",
             price: 279,
@@ -226,7 +241,6 @@ async function seedProducts() {
             image:
                 "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=700&q=80"
         },
-
         {
             name: "Aloe Vera Face Cream",
             price: 249,
@@ -243,7 +257,7 @@ async function seedProducts() {
             `
             INSERT INTO products
             (name, price, description, image)
-            VALUES ($1, $2, $3, $4)
+            VALUES ($1,$2,$3,$4)
             `,
             [
                 product.name,
@@ -258,8 +272,7 @@ async function seedProducts() {
 }
 
 /* =========================================================
-   LEGACY USERS MIGRATION
-   Imports users.json ONCE if it exists.
+   OLD USERS MIGRATION
 ========================================================= */
 
 async function migrateOldUsers() {
@@ -274,10 +287,7 @@ async function migrateOldUsers() {
         }
 
         const raw =
-            fs.readFileSync(
-                usersFile,
-                "utf8"
-            );
+            fs.readFileSync(usersFile, "utf8");
 
         if (!raw.trim()) {
             return;
@@ -302,11 +312,7 @@ async function migrateOldUsers() {
 
             const existing =
                 await query(
-                    `
-                    SELECT id
-                    FROM users
-                    WHERE email = $1
-                    `,
+                    `SELECT id FROM users WHERE email = $1`,
                     [email]
                 );
 
@@ -344,19 +350,15 @@ async function migrateOldUsers() {
                 ]
             );
 
-            console.log(
-                "Migrated old user:",
-                email
-            );
+            console.log("Migrated old user:", email);
         }
 
     } catch (error) {
 
         console.error(
-            "OLD USER MIGRATION ERROR:"
+            "OLD USER MIGRATION ERROR:",
+            error
         );
-
-        console.error(error);
     }
 }
 
@@ -377,11 +379,8 @@ function checkAdmin(req, res, next) {
     if (token !== ADMIN_TOKEN) {
 
         return res.status(401).json({
-
             success: false,
-
-            message:
-                "Admin authentication required."
+            message: "Admin authentication required."
         });
     }
 
@@ -389,25 +388,21 @@ function checkAdmin(req, res, next) {
 }
 
 /* =========================================================
-   HOME
+   HOME - SERVE GLOWCART WEBSITE
 ========================================================= */
 
 app.get("/", (req, res) => {
 
-    res.status(200).json({
+    if (!FRONTEND_FILE) {
 
-        success: true,
+        return res.status(500).send(`
+            <h1>GlowCart Frontend Not Found</h1>
+            <p>index.html was not found.</p>
+            <p>Put index.html in the GlowCart root folder.</p>
+        `);
+    }
 
-        message:
-            "GlowCart Backend API is running!",
-
-        server: "online",
-
-        database:
-            process.env.DATABASE_URL
-                ? "PostgreSQL connected"
-                : "DATABASE_URL missing"
-    });
+    return res.sendFile(FRONTEND_FILE);
 });
 
 /* =========================================================
@@ -421,33 +416,21 @@ app.get("/api/health", async (req, res) => {
         await query("SELECT 1");
 
         res.status(200).json({
-
             success: true,
-
-            message:
-                "GlowCart API is working!",
-
+            message: "GlowCart API is working!",
             server: "online",
-
             database: "connected",
-
             port: PORT
         });
 
     } catch (error) {
 
-        console.error(
-            "HEALTH DATABASE ERROR:",
-            error
-        );
+        console.error("HEALTH DATABASE ERROR:", error);
 
         res.status(500).json({
-
             success: false,
-
             message:
                 "API is running but database connection failed.",
-
             database: "disconnected"
         });
     }
@@ -461,8 +444,7 @@ app.get("/api/products", async (req, res) => {
 
     try {
 
-        const result = await query(
-            `
+        const result = await query(`
             SELECT
                 id,
                 name,
@@ -471,48 +453,29 @@ app.get("/api/products", async (req, res) => {
                 image
             FROM products
             ORDER BY id ASC
-            `
-        );
+        `);
 
         const products =
-            result.rows.map(function (product) {
-
-                return {
-
-                    id: Number(product.id),
-
-                    name: product.name,
-
-                    price: Number(product.price),
-
-                    description:
-                        product.description || "",
-
-                    image:
-                        product.image || ""
-                };
-            });
+            result.rows.map(product => ({
+                id: Number(product.id),
+                name: product.name,
+                price: Number(product.price),
+                description: product.description || "",
+                image: product.image || ""
+            }));
 
         res.status(200).json({
-
             success: true,
-
-            products: products
+            products
         });
 
     } catch (error) {
 
-        console.error(
-            "PRODUCTS ERROR:",
-            error
-        );
+        console.error("PRODUCTS ERROR:", error);
 
         res.status(500).json({
-
             success: false,
-
-            message:
-                "Could not load products."
+            message: "Could not load products."
         });
     }
 });
@@ -537,11 +500,8 @@ app.post("/api/register", async (req, res) => {
             pincode
         } = req.body;
 
-        const userName =
-            name || fullName;
-
-        const userMobile =
-            mobile || phone;
+        const userName = name || fullName;
+        const userMobile = mobile || phone;
 
         if (
             !userName ||
@@ -551,9 +511,7 @@ app.post("/api/register", async (req, res) => {
         ) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message:
                     "Please fill all required registration fields."
             });
@@ -575,20 +533,14 @@ app.post("/api/register", async (req, res) => {
 
         const existing =
             await query(
-                `
-                SELECT id
-                FROM users
-                WHERE email = $1
-                `,
+                `SELECT id FROM users WHERE email = $1`,
                 [cleanEmail]
             );
 
         if (existing.rows.length > 0) {
 
             return res.status(409).json({
-
                 success: false,
-
                 message:
                     "Email is already registered."
             });
@@ -636,38 +588,18 @@ app.post("/api/register", async (req, res) => {
                 ]
             );
 
-        const user =
-            result.rows[0];
+        const user = result.rows[0];
 
         const safeUser = {
-
             id: Number(user.id),
-
             name: user.name,
-
             email: user.email,
-
             mobile: user.mobile,
-
-            address:
-                user.address || "",
-
-            address2:
-                user.address2 || "",
-
-            pincode:
-                user.pincode || "",
-
-            registeredAt:
-                user.registered_at
+            address: user.address || "",
+            address2: user.address2 || "",
+            pincode: user.pincode || "",
+            registeredAt: user.registered_at
         };
-
-        /*
-           SEND WELCOME EMAIL
-           This is optional.
-           If RESEND_API_KEY is configured,
-           the backend sends the welcome email.
-        */
 
         let emailSent = false;
 
@@ -685,75 +617,61 @@ app.post("/api/register", async (req, res) => {
                         "Welcome to GlowCart!",
 
                     html: `
+                    <div style="
+                        font-family:Arial,sans-serif;
+                        max-width:600px;
+                        margin:auto;
+                        padding:30px;
+                        border-radius:20px;
+                        background:#fff0f8;
+                    ">
+
+                        <h1 style="color:#b5179e;">
+                            Welcome to GlowCart 💖
+                        </h1>
+
+                        <p>
+                            Hello
+                            <strong>
+                                ${escapeHtml(safeUser.name)}
+                            </strong>,
+                        </p>
+
+                        <p>
+                            Your GlowCart account has
+                            been registered successfully.
+                        </p>
+
+                        <p>
+                            Thank you for joining
+                            GlowCart - Premium Face Creams.
+                        </p>
+
                         <div style="
-                            font-family:Arial,sans-serif;
-                            max-width:600px;
-                            margin:auto;
-                            padding:30px;
-                            border-radius:20px;
-                            background:#fff0f8;
+                            margin-top:25px;
+                            padding:15px;
+                            background:white;
+                            border-radius:12px;
                         ">
 
-                            <h1 style="
-                                color:#b5179e;
-                            ">
-                                Welcome to GlowCart 💖
-                            </h1>
+                            <strong>Registered Email:</strong>
+                            ${escapeHtml(safeUser.email)}
 
-                            <p>
-                                Hello
-                                <strong>
-                                    ${escapeHtml(
-                                        safeUser.name
-                                    )}
-                                </strong>,
-                            </p>
+                            <br><br>
 
-                            <p>
-                                Your GlowCart account has
-                                been registered successfully.
-                            </p>
-
-                            <p>
-                                Thank you for joining
-                                GlowCart - Premium Face Creams.
-                            </p>
-
-                            <div style="
-                                margin-top:25px;
-                                padding:15px;
-                                background:white;
-                                border-radius:12px;
-                            ">
-
-                                <strong>
-                                    Registered Email:
-                                </strong>
-
-                                ${escapeHtml(
-                                    safeUser.email
-                                )}
-
-                                <br><br>
-
-                                <strong>
-                                    Mobile:
-                                </strong>
-
-                                ${escapeHtml(
-                                    safeUser.mobile
-                                )}
-
-                            </div>
-
-                            <p style="
-                                margin-top:25px;
-                                color:#777;
-                            ">
-                                Enjoy shopping with GlowCart ✨
-                            </p>
+                            <strong>Mobile:</strong>
+                            ${escapeHtml(safeUser.mobile)}
 
                         </div>
+
+                        <p style="
+                            margin-top:25px;
+                            color:#777;
+                        ">
+                            Enjoy shopping with GlowCart ✨
+                        </p>
+
+                    </div>
                     `
                 });
 
@@ -775,24 +693,18 @@ app.post("/api/register", async (req, res) => {
             message:
                 "Registration successful!",
 
-            emailSent: emailSent,
+            emailSent,
 
             user: safeUser
         });
 
     } catch (error) {
 
-        console.error(
-            "REGISTER ERROR:",
-            error
-        );
+        console.error("REGISTER ERROR:", error);
 
         return res.status(500).json({
-
             success: false,
-
-            message:
-                "Registration failed."
+            message: "Registration failed."
         });
     }
 });
@@ -813,9 +725,7 @@ app.post("/api/login", async (req, res) => {
         if (!email || !password) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message:
                     "Please enter email and password."
             });
@@ -848,16 +758,13 @@ app.post("/api/login", async (req, res) => {
         if (result.rows.length === 0) {
 
             return res.status(401).json({
-
                 success: false,
-
                 message:
                     "Invalid email or password."
             });
         }
 
-        const user =
-            result.rows[0];
+        const user = result.rows[0];
 
         if (
             String(user.password) !==
@@ -865,9 +772,7 @@ app.post("/api/login", async (req, res) => {
         ) {
 
             return res.status(401).json({
-
                 success: false,
-
                 message:
                     "Invalid email or password."
             });
@@ -881,48 +786,30 @@ app.post("/api/login", async (req, res) => {
                 "Login successful!",
 
             user: {
-
                 id: Number(user.id),
-
                 name: user.name,
-
                 email: user.email,
-
                 mobile: user.mobile,
-
-                address:
-                    user.address || "",
-
-                address2:
-                    user.address2 || "",
-
-                pincode:
-                    user.pincode || "",
-
-                registeredAt:
-                    user.registered_at
+                address: user.address || "",
+                address2: user.address2 || "",
+                pincode: user.pincode || "",
+                registeredAt: user.registered_at
             }
         });
 
     } catch (error) {
 
-        console.error(
-            "LOGIN ERROR:",
-            error
-        );
+        console.error("LOGIN ERROR:", error);
 
         return res.status(500).json({
-
             success: false,
-
-            message:
-                "Login failed."
+            message: "Login failed."
         });
     }
 });
 
 /* =========================================================
-   GET USERS
+   USERS
 ========================================================= */
 
 app.get("/api/users", async (req, res) => {
@@ -930,8 +817,7 @@ app.get("/api/users", async (req, res) => {
     try {
 
         const result =
-            await query(
-                `
+            await query(`
                 SELECT
                     id,
                     name,
@@ -943,58 +829,33 @@ app.get("/api/users", async (req, res) => {
                     registered_at
                 FROM users
                 ORDER BY registered_at DESC
-                `
-            );
+            `);
 
         const users =
-            result.rows.map(function (user) {
-
-                return {
-
-                    id: Number(user.id),
-
-                    name: user.name,
-
-                    email: user.email,
-
-                    mobile: user.mobile,
-
-                    address:
-                        user.address || "",
-
-                    address2:
-                        user.address2 || "",
-
-                    pincode:
-                        user.pincode || "",
-
-                    registeredAt:
-                        user.registered_at
-                };
-            });
+            result.rows.map(user => ({
+                id: Number(user.id),
+                name: user.name,
+                email: user.email,
+                mobile: user.mobile,
+                address: user.address || "",
+                address2: user.address2 || "",
+                pincode: user.pincode || "",
+                registeredAt: user.registered_at
+            }));
 
         return res.status(200).json({
-
             success: true,
-
             count: users.length,
-
-            users: users
+            users
         });
 
     } catch (error) {
 
-        console.error(
-            "USERS ERROR:",
-            error
-        );
+        console.error("USERS ERROR:", error);
 
         return res.status(500).json({
-
             success: false,
-
-            message:
-                "Could not load users."
+            message: "Could not load users."
         });
     }
 });
@@ -1022,25 +883,19 @@ app.post("/api/admin/login", (req, res) => {
 
         if (
             enteredEmail === configuredEmail &&
-            enteredPassword ===
-                String(ADMIN_PASSWORD)
+            enteredPassword === String(ADMIN_PASSWORD)
         ) {
 
             return res.status(200).json({
-
                 success: true,
-
                 message:
                     "Admin login successful!",
-
                 token: ADMIN_TOKEN
             });
         }
 
         return res.status(401).json({
-
             success: false,
-
             message:
                 "Invalid admin email or password."
         });
@@ -1053,9 +908,7 @@ app.post("/api/admin/login", (req, res) => {
         );
 
         return res.status(500).json({
-
             success: false,
-
             message:
                 "Admin login failed."
         });
@@ -1074,8 +927,7 @@ app.get(
         try {
 
             const result =
-                await query(
-                    `
+                await query(`
                     SELECT
                         id,
                         name,
@@ -1087,45 +939,24 @@ app.get(
                         registered_at
                     FROM users
                     ORDER BY registered_at DESC
-                    `
-                );
+                `);
 
             const users =
-                result.rows.map(
-                    function (user) {
-
-                        return {
-
-                            id: Number(user.id),
-
-                            name: user.name,
-
-                            email: user.email,
-
-                            mobile: user.mobile,
-
-                            address:
-                                user.address || "",
-
-                            address2:
-                                user.address2 || "",
-
-                            pincode:
-                                user.pincode || "",
-
-                            registeredAt:
-                                user.registered_at
-                        };
-                    }
-                );
+                result.rows.map(user => ({
+                    id: Number(user.id),
+                    name: user.name,
+                    email: user.email,
+                    mobile: user.mobile,
+                    address: user.address || "",
+                    address2: user.address2 || "",
+                    pincode: user.pincode || "",
+                    registeredAt: user.registered_at
+                }));
 
             return res.status(200).json({
-
                 success: true,
-
                 count: users.length,
-
-                users: users
+                users
             });
 
         } catch (error) {
@@ -1136,9 +967,7 @@ app.get(
             );
 
             return res.status(500).json({
-
                 success: false,
-
                 message:
                     "Could not load registered members."
             });
@@ -1156,11 +985,8 @@ app.post(
     (req, res) => {
 
         return res.status(200).json({
-
             success: true,
-
-            message:
-                "Admin logged out."
+            message: "Admin logged out."
         });
     }
 );
@@ -1197,9 +1023,7 @@ app.post("/api/orders", async (req, res) => {
         ) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message:
                     "Please provide all order details."
             });
@@ -1211,9 +1035,7 @@ app.post("/api/orders", async (req, res) => {
         ) {
 
             return res.status(400).json({
-
                 success: false,
-
                 message:
                     "Your cart is empty."
             });
@@ -1222,10 +1044,10 @@ app.post("/api/orders", async (req, res) => {
         const generatedOrderId =
             orderId ||
             "GC" +
-                Date.now() +
-                Math.floor(
-                    Math.random() * 1000
-                );
+            Date.now() +
+            Math.floor(
+                Math.random() * 1000
+            );
 
         let numericUserId = null;
 
@@ -1298,26 +1120,18 @@ app.post("/api/orders", async (req, res) => {
             formatOrder(result.rows[0]);
 
         return res.status(201).json({
-
             success: true,
-
             message:
                 "Order placed successfully!",
-
-            order: order
+            order
         });
 
     } catch (error) {
 
-        console.error(
-            "ORDER ERROR:",
-            error
-        );
+        console.error("ORDER ERROR:", error);
 
         return res.status(500).json({
-
             success: false,
-
             message:
                 "Order placement failed."
         });
@@ -1333,37 +1147,27 @@ app.get("/api/orders", async (req, res) => {
     try {
 
         const result =
-            await query(
-                `
+            await query(`
                 SELECT *
                 FROM orders
                 ORDER BY created_at DESC
-                `
-            );
+            `);
 
         const orders =
             result.rows.map(formatOrder);
 
         return res.status(200).json({
-
             success: true,
-
             count: orders.length,
-
-            orders: orders
+            orders
         });
 
     } catch (error) {
 
-        console.error(
-            "ORDERS ERROR:",
-            error
-        );
+        console.error("ORDERS ERROR:", error);
 
         return res.status(500).json({
-
             success: false,
-
             message:
                 "Could not load orders."
         });
@@ -1371,7 +1175,7 @@ app.get("/api/orders", async (req, res) => {
 });
 
 /* =========================================================
-   GET ORDERS BY EMAIL
+   USER ORDERS
 ========================================================= */
 
 app.get(
@@ -1384,8 +1188,8 @@ app.get(
                 decodeURIComponent(
                     req.params.email
                 )
-                    .trim()
-                    .toLowerCase();
+                .trim()
+                .toLowerCase();
 
             const result =
                 await query(
@@ -1402,12 +1206,9 @@ app.get(
                 result.rows.map(formatOrder);
 
             return res.status(200).json({
-
                 success: true,
-
                 count: orders.length,
-
-                orders: orders
+                orders
             });
 
         } catch (error) {
@@ -1418,9 +1219,7 @@ app.get(
             );
 
             return res.status(500).json({
-
                 success: false,
-
                 message:
                     "Could not load user orders."
             });
@@ -1429,7 +1228,7 @@ app.get(
 );
 
 /* =========================================================
-   GET SINGLE ORDER
+   SINGLE ORDER
 ========================================================= */
 
 app.get(
@@ -1453,22 +1252,16 @@ app.get(
             if (result.rows.length === 0) {
 
                 return res.status(404).json({
-
                     success: false,
-
                     message:
                         "Order not found."
                 });
             }
 
             return res.status(200).json({
-
                 success: true,
-
                 order:
-                    formatOrder(
-                        result.rows[0]
-                    )
+                    formatOrder(result.rows[0])
             });
 
         } catch (error) {
@@ -1479,9 +1272,7 @@ app.get(
             );
 
             return res.status(500).json({
-
                 success: false,
-
                 message:
                     "Could not find order."
             });
@@ -1499,16 +1290,12 @@ app.put(
 
         try {
 
-            const {
-                status
-            } = req.body;
+            const { status } = req.body;
 
             if (!status) {
 
                 return res.status(400).json({
-
                     success: false,
-
                     message:
                         "Status is required."
                 });
@@ -1534,25 +1321,18 @@ app.put(
             if (result.rows.length === 0) {
 
                 return res.status(404).json({
-
                     success: false,
-
                     message:
                         "Order not found."
                 });
             }
 
             return res.status(200).json({
-
                 success: true,
-
                 message:
                     "Order status updated.",
-
                 order:
-                    formatOrder(
-                        result.rows[0]
-                    )
+                    formatOrder(result.rows[0])
             });
 
         } catch (error) {
@@ -1563,9 +1343,7 @@ app.put(
             );
 
             return res.status(500).json({
-
                 success: false,
-
                 message:
                     "Could not update order."
             });
@@ -1600,15 +1378,13 @@ app.get(
                 );
 
             const salesResult =
-                await query(
-                    `
+                await query(`
                     SELECT COALESCE(
                         SUM(total),
                         0
                     ) AS total
                     FROM orders
-                    `
-                );
+                `);
 
             return res.status(200).json({
 
@@ -1646,9 +1422,7 @@ app.get(
             );
 
             return res.status(500).json({
-
                 success: false,
-
                 message:
                     "Could not load dashboard."
             });
@@ -1657,47 +1431,37 @@ app.get(
 );
 
 /* =========================================================
-   404
+   API 404
 ========================================================= */
 
-app.use(
-    function (req, res) {
+app.use((req, res) => {
 
-        res.status(404).json({
+    res.status(404).json({
 
-            success: false,
+        success: false,
 
-            message:
-                "GlowCart API endpoint not found.",
+        message:
+            "GlowCart API endpoint not found.",
 
-            path:
-                req.originalUrl
-        });
-    }
-);
+        path:
+            req.originalUrl
+    });
+});
 
 /* =========================================================
    ERROR HANDLER
 ========================================================= */
 
 app.use(
-    function (
-        error,
-        req,
-        res,
-        next
-    ) {
+    (error, req, res, next) => {
 
         console.error(
-            "SERVER ERROR:"
+            "SERVER ERROR:",
+            error
         );
 
-        console.error(error);
-
         res.status(500).json({
-
             success: false,
-
             message:
                 "Internal server error."
         });
@@ -1705,7 +1469,7 @@ app.use(
 );
 
 /* =========================================================
-   HTML ESCAPE FOR EMAIL
+   HTML ESCAPE
 ========================================================= */
 
 function escapeHtml(value) {
@@ -1729,9 +1493,15 @@ function formatOrder(order) {
     try {
 
         if (Array.isArray(order.items)) {
+
             items = order.items;
-        } else if (typeof order.items === "string") {
-            items = JSON.parse(order.items);
+
+        } else if (
+            typeof order.items === "string"
+        ) {
+
+            items =
+                JSON.parse(order.items);
         }
 
     } catch (error) {
@@ -1773,6 +1543,7 @@ function formatOrder(order) {
             "Cash on Delivery",
 
         items:
+
             items,
 
         subtotal:
@@ -1796,7 +1567,7 @@ function formatOrder(order) {
 }
 
 /* =========================================================
-   DATABASE + SERVER START
+   START SERVER
 ========================================================= */
 
 async function startServer() {
@@ -1823,60 +1594,38 @@ async function startServer() {
         app.listen(
             PORT,
             HOST,
-            function () {
+            () => {
 
                 console.log("");
                 console.log(
                     "======================================"
                 );
-
                 console.log(
-                    "          GLOWCART BACKEND"
+                    "          GLOWCART SERVER"
                 );
-
                 console.log(
                     "======================================"
                 );
-
                 console.log(
                     "Server running on port:",
                     PORT
                 );
-
                 console.log(
-                    "Host:",
-                    HOST
+                    "Frontend:",
+                    FRONTEND_FILE || "NOT FOUND"
                 );
-
                 console.log(
                     "Database: PostgreSQL"
                 );
-
-                console.log(
-                    "Admin email:",
-                    process.env.ADMIN_EMAIL
-                        ? "configured"
-                        : "default"
-                );
-
-                console.log(
-                    "Admin password:",
-                    process.env.ADMIN_PASSWORD
-                        ? "configured"
-                        : "default"
-                );
-
                 console.log(
                     "Welcome email:",
                     process.env.RESEND_API_KEY
                         ? "enabled"
                         : "disabled"
                 );
-
                 console.log(
                     "======================================"
                 );
-
                 console.log("");
             }
         );
@@ -1887,15 +1636,12 @@ async function startServer() {
         console.error(
             "======================================"
         );
-
         console.error(
             "GLOWCART SERVER START FAILED"
         );
-
         console.error(
             "======================================"
         );
-
         console.error(error);
 
         process.exit(1);
