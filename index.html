@@ -16,6 +16,10 @@
     padding:0;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:#fff7fc;
@@ -116,7 +120,7 @@ header{
 .btn-white{
     background:white;
     color:#8e2de2;
-    border:1px solid #ead8ed;
+    border:2px solid #8e2de2;
 }
 
 .btn-danger{
@@ -145,6 +149,7 @@ header{
     border:1px solid #e5cbe9;
     border-radius:12px;
     outline:none;
+    font-size:15px;
 }
 
 .input:focus{
@@ -207,6 +212,7 @@ header{
     padding:13px;
     border:1px solid #e5cbe9;
     border-radius:25px;
+    outline:none;
 }
 
 .products{
@@ -310,10 +316,10 @@ header{
 }
 
 .pay-option input{
-    margin-right:5px;
+    margin-right:7px;
 }
 
-.pay-option:has(input:checked){
+.pay-option.selected{
     border-color:#8e2de2;
     background:#faf0ff;
 }
@@ -438,7 +444,6 @@ footer{
     .nav{
         justify-content:center;
     }
-
 }
 
 </style>
@@ -454,23 +459,17 @@ footer{
 
     <div class="nav">
 
-        <button type="button" onclick="goHome()">Home</button>
+        <button onclick="goHome()">Home</button>
 
-        <button type="button" onclick="startShopping()">
-            Shop
-        </button>
+        <button onclick="startShopping()">Shop</button>
 
-        <button type="button" onclick="openCart()">
+        <button onclick="openCart()">
             🛒 Cart <span id="cartCount">0</span>
         </button>
 
-        <button type="button" onclick="openOrders()">
-            Orders
-        </button>
+        <button onclick="openOrders()">Orders</button>
 
-        <button type="button" onclick="openAdmin()">
-            Admin
-        </button>
+        <button onclick="openAdmin()">Admin</button>
 
     </div>
 
@@ -497,7 +496,6 @@ footer{
             </p>
 
             <button
-                type="button"
                 class="btn"
                 onclick="startShopping()"
             >
@@ -517,9 +515,7 @@ footer{
 
     <div class="form-wrap">
 
-        <h2>
-            ✨ Create Your GlowCart Account
-        </h2>
+        <h2>✨ Create Your GlowCart Account</h2>
 
         <div id="registerMessage" class="message"></div>
 
@@ -614,9 +610,7 @@ footer{
 
     <div class="form-wrap">
 
-        <h2>
-            🔐 GlowCart Login
-        </h2>
+        <h2>🔐 GlowCart Login</h2>
 
         <div id="loginMessage" class="message"></div>
 
@@ -674,9 +668,7 @@ footer{
 
         <div>
 
-            <h2>
-                💖 Premium Face Creams
-            </h2>
+            <h2>💖 Premium Face Creams</h2>
 
             <p class="small">
                 Choose your favourite skincare products.
@@ -713,9 +705,7 @@ footer{
 
     <div class="panel">
 
-        <h2>
-            🛒 Your Shopping Cart
-        </h2>
+        <h2>🛒 Your Shopping Cart</h2>
 
         <div id="cartItems"></div>
 
@@ -732,17 +722,13 @@ footer{
 
     <div class="panel">
 
-        <h2>
-            📦 Place Your Order
-        </h2>
+        <h2>📦 Place Your Order</h2>
 
         <div id="checkoutMessage" class="message"></div>
 
         <div class="address-box">
 
-            <h3>
-                Delivery Address
-            </h3>
+            <h3>Delivery Address</h3>
 
             <input
                 id="orderAddress"
@@ -764,9 +750,7 @@ footer{
 
         </div>
 
-        <h3>
-            Payment Method
-        </h3>
+        <h3>Payment Method</h3>
 
         <div class="payment">
 
@@ -812,7 +796,6 @@ footer{
         <div id="checkoutSummary"></div>
 
         <button
-            type="button"
             class="btn"
             onclick="placeOrder()"
         >
@@ -820,7 +803,6 @@ footer{
         </button>
 
         <button
-            type="button"
             class="btn btn-white"
             onclick="openCart()"
         >
@@ -838,9 +820,7 @@ footer{
 
     <div class="panel">
 
-        <h2>
-            📦 My Orders
-        </h2>
+        <h2>📦 My Orders</h2>
 
         <div id="ordersList"></div>
 
@@ -855,9 +835,7 @@ footer{
 
     <div class="form-wrap">
 
-        <h2>
-            👑 Admin Login
-        </h2>
+        <h2>👑 Admin Login</h2>
 
         <div id="adminLoginMessage" class="message"></div>
 
@@ -908,14 +886,11 @@ footer{
                     👑 GlowCart Admin Dashboard
                 </h2>
 
-                <p>
-                    Registered members
-                </p>
+                <p>Registered members</p>
 
             </div>
 
             <button
-                type="button"
                 class="btn btn-danger"
                 onclick="adminLogout()"
             >
@@ -932,7 +907,6 @@ footer{
             </h3>
 
             <button
-                type="button"
                 class="btn"
                 onclick="loadAdminMembers()"
             >
@@ -967,7 +941,7 @@ footer{
                             colspan="7"
                             style="text-align:center"
                         >
-                            No members loaded yet.
+                            Loading...
                         </td>
 
                     </tr>
@@ -992,9 +966,9 @@ footer{
 
 <script>
 
-/* =========================================================
-   GLOWCART CONFIGURATION
-========================================================= */
+/* =====================================================
+   CONFIGURATION
+===================================================== */
 
 const API = "https://glowcart-fxwp.onrender.com";
 
@@ -1009,20 +983,18 @@ const ORDER_TEMPLATE = "template_ykzf36";
 const GST_RATE = 18;
 
 
-/* =========================================================
+/* =====================================================
    EMAILJS SAFE INITIALIZATION
-   IMPORTANT FIX:
-   EmailJS failure must NOT stop the website navigation.
-========================================================= */
+   IMPORTANT FIX
+===================================================== */
 
 let emailJSReady = false;
 
-try{
+if(
+    typeof window.emailjs !== "undefined"
+){
 
-    if(
-        typeof window.emailjs !== "undefined" &&
-        typeof window.emailjs.init === "function"
-    ){
+    try{
 
         window.emailjs.init({
             publicKey: EMAIL_PUBLIC_KEY
@@ -1032,92 +1004,49 @@ try{
 
         console.log("EmailJS initialized successfully.");
 
-    }else{
+    }catch(error){
 
-        console.warn(
-            "EmailJS library is not available."
+        console.error(
+            "EmailJS initialization error:",
+            error
         );
 
     }
 
-}catch(error){
+}else{
 
-    console.error(
-        "EmailJS initialization error:",
-        error
+    console.warn(
+        "EmailJS script did not load. Website navigation will still work."
     );
-
-    emailJSReady = false;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    DATA
-========================================================= */
+===================================================== */
 
-let currentUser = null;
+let currentUser =
+JSON.parse(
+    localStorage.getItem("glowcart_user") || "null"
+);
 
-try{
+let cart =
+JSON.parse(
+    localStorage.getItem("glowcart_cart") || "[]"
+);
 
-    currentUser =
-    JSON.parse(
-        localStorage.getItem("glowcart_user") || "null"
-    );
-
-}catch(error){
-
-    currentUser = null;
-
-}
-
-
-let cart = [];
-
-try{
-
-    cart =
-    JSON.parse(
-        localStorage.getItem("glowcart_cart") || "[]"
-    );
-
-    if(!Array.isArray(cart)){
-        cart = [];
-    }
-
-}catch(error){
-
-    cart = [];
-
-}
-
-
-let orders = [];
-
-try{
-
-    orders =
-    JSON.parse(
-        localStorage.getItem("glowcart_orders") || "[]"
-    );
-
-    if(!Array.isArray(orders)){
-        orders = [];
-    }
-
-}catch(error){
-
-    orders = [];
-
-}
-
+let orders =
+JSON.parse(
+    localStorage.getItem("glowcart_orders") || "[]"
+);
 
 let products = [];
 
 
-/* =========================================================
+/* =====================================================
    PAGE CONTROL
-========================================================= */
+===================================================== */
 
 function showPage(id){
 
@@ -1126,42 +1055,41 @@ function showPage(id){
     const pages =
     document.querySelectorAll(".page");
 
-    pages.forEach(function(page){
+    pages.forEach(
+        function(page){
 
-        page.classList.remove("active");
+            page.classList.remove("active");
 
-        page.style.display = "none";
+        }
+    );
 
-    });
-
-
-    const page =
+    const selected =
     document.getElementById(id);
 
+    if(selected){
 
-    if(!page){
+        selected.classList.add("active");
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }else{
 
         console.error(
             "Page not found:",
             id
         );
 
-        return;
-
     }
-
-
-    page.classList.add("active");
-
-    page.style.display = "block";
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
 
 }
 
+
+/* =====================================================
+   HOME
+===================================================== */
 
 function goHome(){
 
@@ -1170,10 +1098,9 @@ function goHome(){
 }
 
 
-/* =========================================================
+/* =====================================================
    SHOP FLOW
-   HOME -> REGISTER -> LOGIN -> PRODUCTS
-========================================================= */
+===================================================== */
 
 function startShopping(){
 
@@ -1181,7 +1108,6 @@ function startShopping(){
         "Shop Now clicked. Current user:",
         currentUser
     );
-
 
     if(currentUser){
 
@@ -1204,49 +1130,42 @@ function startShopping(){
 }
 
 
+/* =====================================================
+   REGISTER PAGE
+===================================================== */
+
 function showRegister(){
 
-    console.log(
-        "Opening REGISTER page"
-    );
+    console.log("Opening REGISTER page.");
 
     showPage("registerPage");
 
 }
 
 
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
+
 function showLogin(){
 
-    console.log(
-        "Opening LOGIN page"
-    );
+    console.log("Opening LOGIN page.");
 
     showPage("loginPage");
 
 }
 
 
-/* =========================================================
+/* =====================================================
    MESSAGE
-========================================================= */
+===================================================== */
 
 function showMessage(id,text,type){
 
     const element =
     document.getElementById(id);
 
-
-    if(!element){
-
-        console.error(
-            "Message element not found:",
-            id
-        );
-
-        return;
-
-    }
-
+    if(!element)return;
 
     element.className =
     "message show " + type;
@@ -1256,9 +1175,9 @@ function showMessage(id,text,type){
 }
 
 
-/* =========================================================
+/* =====================================================
    ESCAPE HTML
-========================================================= */
+===================================================== */
 
 function escapeHTML(value){
 
@@ -1272,462 +1191,372 @@ function escapeHTML(value){
 }
 
 
-/* =========================================================
+/* =====================================================
    REGISTER
-========================================================= */
+===================================================== */
 
-const registerForm =
-document.getElementById("registerForm");
+document.getElementById(
+    "registerForm"
+).addEventListener(
+    "submit",
+    async function(event){
 
+        event.preventDefault();
 
-if(registerForm){
+        const name =
+        document.getElementById(
+            "regName"
+        ).value.trim();
 
-    registerForm.addEventListener(
-        "submit",
-        async function(event){
+        const email =
+        document.getElementById(
+            "regEmail"
+        ).value.trim();
 
-            event.preventDefault();
+        const mobile =
+        document.getElementById(
+            "regMobile"
+        ).value.trim();
 
+        const password =
+        document.getElementById(
+            "regPassword"
+        ).value;
 
-            const name =
-            document.getElementById(
-                "regName"
-            ).value.trim();
+        const address =
+        document.getElementById(
+            "regAddress"
+        ).value.trim();
 
-            const email =
-            document.getElementById(
-                "regEmail"
-            ).value.trim();
+        const address2 =
+        document.getElementById(
+            "regAddress2"
+        ).value.trim();
 
-            const mobile =
-            document.getElementById(
-                "regMobile"
-            ).value.trim();
-
-            const password =
-            document.getElementById(
-                "regPassword"
-            ).value;
-
-            const address =
-            document.getElementById(
-                "regAddress"
-            ).value.trim();
-
-            const address2 =
-            document.getElementById(
-                "regAddress2"
-            ).value.trim();
-
-            const pincode =
-            document.getElementById(
-                "regPincode"
-            ).value.trim();
+        const pincode =
+        document.getElementById(
+            "regPincode"
+        ).value.trim();
 
 
-            if(
-                !name ||
-                !email ||
-                !mobile ||
-                !password ||
-                !address ||
-                !pincode
-            ){
-
-                showMessage(
-                    "registerMessage",
-                    "Please fill all required fields.",
-                    "error"
-                );
-
-                return;
-
-            }
+        showMessage(
+            "registerMessage",
+            "Registering... Please wait.",
+            "info"
+        );
 
 
-            showMessage(
-                "registerMessage",
-                "Registering... Please wait.",
-                "info"
+        try{
+
+            const response =
+            await fetch(
+                API + "/api/register",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        name:name,
+                        email:email,
+                        mobile:mobile,
+                        password:password,
+                        address:address,
+                        address2:address2,
+                        pincode:pincode
+
+                    })
+
+                }
             );
 
 
-            try{
+            const data =
+            await response.json();
 
-                const response =
-                await fetch(
-                    API + "/api/register",
-                    {
-                        method:"POST",
 
-                        headers:{
-                            "Content-Type":
-                            "application/json"
-                        },
+            if(
+                !response.ok ||
+                data.success === false
+            ){
 
-                        body:JSON.stringify({
-
-                            name:name,
-                            email:email,
-                            mobile:mobile,
-                            password:password,
-                            address:address,
-                            address2:address2,
-                            pincode:pincode
-
-                        })
-
-                    }
-                );
-
-
-                let data = {};
-
-                try{
-
-                    data =
-                    await response.json();
-
-                }catch(jsonError){
-
-                    throw new Error(
-                        "Server returned an invalid response."
-                    );
-
-                }
-
-
-                if(
-                    !response.ok ||
-                    data.success === false
-                ){
-
-                    throw new Error(
-                        data.message ||
-                        "Registration failed."
-                    );
-
-                }
-
-
-                /* -----------------------------------------
-                   SAVE LOGIN INFORMATION LOCALLY ONLY
-                   Member itself is stored in PostgreSQL
-                   by the backend.
-                ----------------------------------------- */
-
-
-                /* -----------------------------------------
-                   WELCOME EMAIL
-                ----------------------------------------- */
-
-                let emailSent = false;
-
-
-                if(emailJSReady){
-
-                    try{
-
-                        await window.emailjs.send(
-                            EMAIL_SERVICE,
-                            WELCOME_TEMPLATE,
-                            {
-
-                                to_email:email,
-
-                                email:email,
-
-                                user_email:email,
-
-                                name:name,
-
-                                user_name:name,
-
-                                mobile:mobile,
-
-                                address:address,
-
-                                address2:address2,
-
-                                pincode:pincode
-
-                            }
-                        );
-
-
-                        emailSent = true;
-
-                        console.log(
-                            "Welcome email sent."
-                        );
-
-
-                    }catch(emailError){
-
-                        console.error(
-                            "Welcome email error:",
-                            emailError
-                        );
-
-                    }
-
-                }
-
-
-                registerForm.reset();
-
-
-                if(emailSent){
-
-                    showMessage(
-                        "registerMessage",
-                        "✅ Registration successful! Welcome email sent. Opening login...",
-                        "success"
-                    );
-
-                }else{
-
-                    showMessage(
-                        "registerMessage",
-                        "✅ Registration successful! Opening login...",
-                        "success"
-                    );
-
-                }
-
-
-                /* -----------------------------------------
-                   ALWAYS OPEN LOGIN AFTER REGISTRATION
-                ----------------------------------------- */
-
-                setTimeout(
-                    function(){
-
-                        document.getElementById(
-                            "loginEmail"
-                        ).value = email;
-
-                        document.getElementById(
-                            "loginPassword"
-                        ).value = "";
-
-                        showPage("loginPage");
-
-                        showMessage(
-                            "loginMessage",
-                            "Registration successful. Please login.",
-                            "success"
-                        );
-
-                    },
-                    1200
-                );
-
-
-            }catch(error){
-
-                console.error(
-                    "REGISTER ERROR:",
-                    error
-                );
-
-
-                showMessage(
-                    "registerMessage",
-                    error.message ||
-                    "Unable to connect to server.",
-                    "error"
+                throw new Error(
+                    data.message ||
+                    "Registration failed."
                 );
 
             }
 
+
+            /* =========================================
+               SEND WELCOME EMAIL
+            ========================================= */
+
+            let emailSent = false;
+
+
+            if(emailJSReady){
+
+                try{
+
+                    await window.emailjs.send(
+                        EMAIL_SERVICE,
+                        WELCOME_TEMPLATE,
+                        {
+
+                            to_email:email,
+
+                            email:email,
+
+                            user_email:email,
+
+                            name:name,
+
+                            user_name:name,
+
+                            mobile:mobile,
+
+                            address:address,
+
+                            address2:address2,
+
+                            pincode:pincode
+
+                        }
+                    );
+
+
+                    emailSent = true;
+
+                    console.log(
+                        "WELCOME EMAIL SENT"
+                    );
+
+
+                }catch(emailError){
+
+                    console.error(
+                        "WELCOME EMAIL ERROR:",
+                        emailError
+                    );
+
+                }
+
+            }
+
+
+            document.getElementById(
+                "registerForm"
+            ).reset();
+
+
+            if(emailSent){
+
+                showMessage(
+                    "registerMessage",
+                    "✅ Registration successful! Welcome email sent. Opening login...",
+                    "success"
+                );
+
+            }else{
+
+                showMessage(
+                    "registerMessage",
+                    "✅ Registration successful! Opening login...",
+                    "success"
+                );
+
+            }
+
+
+            /* =========================================
+               OPEN LOGIN AFTER REGISTRATION
+            ========================================= */
+
+            setTimeout(
+                function(){
+
+                    document.getElementById(
+                        "loginEmail"
+                    ).value = email;
+
+                    showPage("loginPage");
+
+                    showMessage(
+                        "loginMessage",
+                        "Registration successful. Please login.",
+                        "success"
+                    );
+
+                },
+                1500
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "REGISTER ERROR:",
+                error
+            );
+
+            showMessage(
+                "registerMessage",
+                error.message ||
+                "Unable to connect to server.",
+                "error"
+            );
+
         }
-    );
 
-}
+    }
+);
 
 
-/* =========================================================
+/* =====================================================
    LOGIN
-========================================================= */
+===================================================== */
 
-const loginForm =
-document.getElementById("loginForm");
+document.getElementById(
+    "loginForm"
+).addEventListener(
+    "submit",
+    async function(event){
 
-
-if(loginForm){
-
-    loginForm.addEventListener(
-        "submit",
-        async function(event){
-
-            event.preventDefault();
+        event.preventDefault();
 
 
-            const email =
-            document.getElementById(
-                "loginEmail"
-            ).value.trim();
+        const email =
+        document.getElementById(
+            "loginEmail"
+        ).value.trim();
 
-            const password =
-            document.getElementById(
-                "loginPassword"
-            ).value;
+        const password =
+        document.getElementById(
+            "loginPassword"
+        ).value;
+
+
+        showMessage(
+            "loginMessage",
+            "Logging in...",
+            "info"
+        );
+
+
+        try{
+
+            const response =
+            await fetch(
+                API + "/api/login",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        email:email,
+
+                        password:password
+
+                    })
+
+                }
+            );
+
+
+            const data =
+            await response.json();
+
+
+            if(
+                !response.ok ||
+                data.success === false
+            ){
+
+                throw new Error(
+                    data.message ||
+                    "Invalid email or password."
+                );
+
+            }
+
+
+            currentUser =
+            data.user ||
+            data.data;
+
+
+            if(!currentUser){
+
+                throw new Error(
+                    "Login successful but user information was not received."
+                );
+
+            }
+
+
+            localStorage.setItem(
+                "glowcart_user",
+                JSON.stringify(currentUser)
+            );
 
 
             showMessage(
                 "loginMessage",
-                "Logging in...",
-                "info"
+                "✅ Login successful! Opening GlowCart...",
+                "success"
             );
 
 
-            try{
+            setTimeout(
+                function(){
 
-                const response =
-                await fetch(
-                    API + "/api/login",
-                    {
-                        method:"POST",
+                    showPage("shopPage");
 
-                        headers:{
-                            "Content-Type":
-                            "application/json"
-                        },
+                    loadProducts();
 
-                        body:JSON.stringify({
-
-                            email:email,
-                            password:password
-
-                        })
-
-                    }
-                );
+                },
+                1000
+            );
 
 
-                let data = {};
+        }catch(error){
 
-                try{
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
 
-                    data =
-                    await response.json();
-
-                }catch(jsonError){
-
-                    throw new Error(
-                        "Server returned an invalid response."
-                    );
-
-                }
-
-
-                if(
-                    !response.ok ||
-                    data.success === false
-                ){
-
-                    throw new Error(
-                        data.message ||
-                        "Invalid email or password."
-                    );
-
-                }
-
-
-                /*
-                  Correctly get user from different
-                  possible backend response formats.
-                */
-
-                if(data.user){
-
-                    currentUser = data.user;
-
-                }else if(data.data){
-
-                    currentUser = data.data;
-
-                }else{
-
-                    currentUser = {
-                        name:data.name || "",
-                        email:data.email || email,
-                        mobile:data.mobile || "",
-                        address:data.address || "",
-                        address2:data.address2 || "",
-                        pincode:data.pincode || ""
-                    };
-
-                }
-
-
-                if(!currentUser.email){
-
-                    currentUser.email = email;
-
-                }
-
-
-                localStorage.setItem(
-                    "glowcart_user",
-                    JSON.stringify(currentUser)
-                );
-
-
-                showMessage(
-                    "loginMessage",
-                    "✅ Login successful! Opening GlowCart products...",
-                    "success"
-                );
-
-
-                setTimeout(
-                    function(){
-
-                        showPage("shopPage");
-
-                        loadProducts();
-
-                    },
-                    700
-                );
-
-
-            }catch(error){
-
-                console.error(
-                    "LOGIN ERROR:",
-                    error
-                );
-
-
-                showMessage(
-                    "loginMessage",
-                    error.message ||
-                    "Login failed.",
-                    "error"
-                );
-
-            }
+            showMessage(
+                "loginMessage",
+                error.message ||
+                "Login failed.",
+                "error"
+            );
 
         }
-    );
 
-}
+    }
+);
 
 
-/* =========================================================
+/* =====================================================
    PRODUCTS
-========================================================= */
+===================================================== */
 
 async function loadProducts(){
 
     const box =
     document.getElementById("products");
-
-
-    if(!box)return;
 
 
     box.innerHTML =
@@ -1779,7 +1608,6 @@ async function loadProducts(){
             error
         );
 
-
         box.innerHTML =
         `
         <div class="empty">
@@ -1791,16 +1619,6 @@ async function loadProducts(){
             <p>
                 Please refresh the page.
             </p>
-
-            <br>
-
-            <button
-                type="button"
-                class="btn"
-                onclick="loadProducts()"
-            >
-                Try Again
-            </button>
 
         </div>
         `;
@@ -1814,9 +1632,6 @@ function renderProducts(list){
 
     const box =
     document.getElementById("products");
-
-
-    if(!box)return;
 
 
     if(!list.length){
@@ -1842,12 +1657,10 @@ function renderProducts(list){
             product._id ||
             product.productId;
 
-
             const name =
             product.name ||
             product.title ||
             "Face Cream";
-
 
             const price =
             Number(
@@ -1856,12 +1669,10 @@ function renderProducts(list){
                 0
             );
 
-
             const image =
             product.image ||
             product.imageUrl ||
             "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80";
-
 
             const description =
             product.description ||
@@ -1894,9 +1705,8 @@ function renderProducts(list){
                     <div class="card-actions">
 
                         <button
-                            type="button"
                             class="btn"
-                            onclick="addToCart('${String(id).replace(/'/g,"\\'")}')"
+                            onclick="addToCart('${escapeHTML(id)}')"
                         >
                             Add to Cart
                         </button>
@@ -1934,7 +1744,6 @@ function filterProducts(){
                 ""
             ).toLowerCase();
 
-
             const description =
             String(
                 product.description ||
@@ -1956,9 +1765,9 @@ function filterProducts(){
 }
 
 
-/* =========================================================
+/* =====================================================
    CART
-========================================================= */
+===================================================== */
 
 function addToCart(id){
 
@@ -2069,15 +1878,9 @@ function updateCartCount(){
     );
 
 
-    const countElement =
-    document.getElementById("cartCount");
-
-
-    if(countElement){
-
-        countElement.textContent = count;
-
-    }
+    document.getElementById(
+        "cartCount"
+    ).textContent = count;
 
 }
 
@@ -2119,9 +1922,6 @@ function renderCart(){
     );
 
 
-    if(!items || !summary)return;
-
-
     if(!cart.length){
 
         items.innerHTML =
@@ -2135,7 +1935,6 @@ function renderCart(){
             <br>
 
             <button
-                type="button"
                 class="btn"
                 onclick="startShopping()"
             >
@@ -2145,7 +1944,7 @@ function renderCart(){
         </div>
         `;
 
-        summary.innerHTML = "";
+        summary.innerHTML="";
 
         return;
 
@@ -2170,7 +1969,6 @@ function renderCart(){
 
                     <img
                         src="${escapeHTML(item.image)}"
-                        alt="${escapeHTML(item.name)}"
                     >
 
                     <div>
@@ -2193,8 +1991,7 @@ function renderCart(){
                 <div class="qty">
 
                     <button
-                        type="button"
-                        onclick="changeQuantity('${item.id}',-1)"
+                        onclick="changeQuantity('${escapeHTML(item.id)}',-1)"
                     >
                         −
                     </button>
@@ -2204,8 +2001,7 @@ function renderCart(){
                     </strong>
 
                     <button
-                        type="button"
-                        onclick="changeQuantity('${item.id}',1)"
+                        onclick="changeQuantity('${escapeHTML(item.id)}',1)"
                     >
                         +
                     </button>
@@ -2214,9 +2010,8 @@ function renderCart(){
 
 
                 <button
-                    type="button"
                     class="btn btn-danger"
-                    onclick="removeFromCart('${item.id}')"
+                    onclick="removeFromCart('${escapeHTML(item.id)}')"
                 >
                     Remove
                 </button>
@@ -2242,7 +2037,6 @@ function renderCart(){
     const gst =
     subtotal * GST_RATE / 100;
 
-
     const total =
     subtotal + gst;
 
@@ -2253,9 +2047,7 @@ function renderCart(){
 
         <div class="row">
 
-            <span>
-                Subtotal
-            </span>
+            <span>Subtotal</span>
 
             <strong>
                 ₹${subtotal.toFixed(2)}
@@ -2277,9 +2069,7 @@ function renderCart(){
 
         <div class="row total">
 
-            <span>
-                Total
-            </span>
+            <span>Total</span>
 
             <span>
                 ₹${total.toFixed(2)}
@@ -2288,7 +2078,6 @@ function renderCart(){
         </div>
 
         <button
-            type="button"
             class="btn"
             style="width:100%;margin-top:15px"
             onclick="openCheckout()"
@@ -2351,21 +2140,15 @@ function removeFromCart(id){
 }
 
 
-/* =========================================================
+/* =====================================================
    CHECKOUT
-========================================================= */
+===================================================== */
 
 function openCheckout(){
 
     if(!currentUser){
 
         showLogin();
-
-        showMessage(
-            "loginMessage",
-            "Please login first.",
-            "info"
-        );
 
         return;
 
@@ -2422,7 +2205,6 @@ function renderCheckout(){
     const gst =
     subtotal * GST_RATE / 100;
 
-
     const total =
     subtotal + gst;
 
@@ -2434,9 +2216,7 @@ function renderCheckout(){
 
     <div class="address-box">
 
-        <h3>
-            Order Summary
-        </h3>
+        <h3>Order Summary</h3>
 
         ${cart.map(
             item =>
@@ -2464,9 +2244,7 @@ function renderCheckout(){
 
         <div class="row">
 
-            <span>
-                Subtotal
-            </span>
+            <span>Subtotal</span>
 
             <strong>
                 ₹${subtotal.toFixed(2)}
@@ -2477,9 +2255,7 @@ function renderCheckout(){
 
         <div class="row">
 
-            <span>
-                GST (${GST_RATE}%)
-            </span>
+            <span>GST</span>
 
             <strong>
                 ₹${gst.toFixed(2)}
@@ -2490,9 +2266,7 @@ function renderCheckout(){
 
         <div class="row total">
 
-            <span>
-                Total
-            </span>
+            <span>Total</span>
 
             <span>
                 ₹${total.toFixed(2)}
@@ -2507,38 +2281,72 @@ function renderCheckout(){
 }
 
 
-/* =========================================================
-   PLACE ORDER
-========================================================= */
+/* =====================================================
+   PAYMENT SELECTION
+===================================================== */
 
-async function placeOrder(){
+document.addEventListener(
+    "change",
+    function(event){
 
-    if(!currentUser){
+        if(
+            event.target &&
+            event.target.name === "payment"
+        ){
 
-        showLogin();
+            document
+            .querySelectorAll(".pay-option")
+            .forEach(
+                function(option){
 
-        return;
+                    option.classList.remove(
+                        "selected"
+                    );
+
+                }
+            );
+
+
+            const parent =
+            event.target.closest(
+                ".pay-option"
+            );
+
+
+            if(parent){
+
+                parent.classList.add(
+                    "selected"
+                );
+
+            }
+
+        }
 
     }
+);
 
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+async function placeOrder(){
 
     const address =
     document.getElementById(
         "orderAddress"
     ).value.trim();
 
-
     const address2 =
     document.getElementById(
         "orderAddress2"
     ).value.trim();
 
-
     const pincode =
     document.getElementById(
         "orderPincode"
     ).value.trim();
-
 
     const payment =
     document.querySelector(
@@ -2559,19 +2367,6 @@ async function placeOrder(){
     }
 
 
-    if(!cart.length){
-
-        showMessage(
-            "checkoutMessage",
-            "Your cart is empty.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
     const subtotal =
     cart.reduce(
         (sum,item)=>
@@ -2584,7 +2379,6 @@ async function placeOrder(){
 
     const gst =
     subtotal * GST_RATE / 100;
-
 
     const total =
     subtotal + gst;
@@ -2713,9 +2507,9 @@ async function placeOrder(){
         );
 
 
-        /* -----------------------------------------
+        /* =========================================
            ORDER EMAIL
-        ----------------------------------------- */
+        ========================================= */
 
         if(emailJSReady){
 
@@ -2780,7 +2574,7 @@ async function placeOrder(){
 
 
                 console.log(
-                    "Order confirmation email sent."
+                    "ORDER EMAIL SENT"
                 );
 
 
@@ -2796,7 +2590,7 @@ async function placeOrder(){
         }
 
 
-        cart = [];
+        cart=[];
 
         saveCart();
 
@@ -2827,7 +2621,6 @@ async function placeOrder(){
             error
         );
 
-
         showMessage(
             "checkoutMessage",
             error.message ||
@@ -2840,20 +2633,11 @@ async function placeOrder(){
 }
 
 
-/* =========================================================
+/* =====================================================
    ORDERS
-========================================================= */
+===================================================== */
 
 async function loadOrders(){
-
-    if(!currentUser){
-
-        showLogin();
-
-        return;
-
-    }
-
 
     const box =
     document.getElementById(
@@ -2881,36 +2665,24 @@ async function loadOrders(){
         await response.json();
 
 
-        let list = [];
+        let list=[];
 
 
         if(Array.isArray(data)){
 
-            list = data;
+            list=data;
 
         }else if(
             Array.isArray(data.orders)
         ){
 
-            list = data.orders;
+            list=data.orders;
 
         }else if(
             Array.isArray(data.data)
         ){
 
-            list = data.data;
-
-        }
-
-
-        if(!list.length){
-
-            list =
-            orders.filter(
-                order =>
-                order.email ===
-                currentUser.email
-            );
+            list=data.data;
 
         }
 
@@ -2947,9 +2719,6 @@ function renderOrders(list){
     );
 
 
-    if(!box)return;
-
-
     if(!list.length){
 
         box.innerHTML =
@@ -2960,10 +2729,7 @@ function renderOrders(list){
                 No orders yet 📦
             </h3>
 
-            <br>
-
             <button
-                type="button"
                 class="btn"
                 onclick="startShopping()"
             >
@@ -3056,9 +2822,7 @@ function renderOrders(list){
 
             <div class="row total">
 
-                <span>
-                    Total
-                </span>
+                <span>Total</span>
 
                 <span>
                     ₹${Number(
@@ -3100,9 +2864,9 @@ function openOrders(){
 }
 
 
-/* =========================================================
+/* =====================================================
    ADMIN
-========================================================= */
+===================================================== */
 
 function openAdmin(){
 
@@ -3127,136 +2891,126 @@ function openAdmin(){
 }
 
 
-/* =========================================================
+/* =====================================================
    ADMIN LOGIN
-========================================================= */
+===================================================== */
 
-const adminLoginForm =
 document.getElementById(
     "adminLoginForm"
-);
+).addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
 
 
-if(adminLoginForm){
+        const email =
+        document.getElementById(
+            "adminEmail"
+        ).value.trim();
 
-    adminLoginForm.addEventListener(
-        "submit",
-        async function(event){
-
-            event.preventDefault();
-
-
-            const email =
-            document.getElementById(
-                "adminEmail"
-            ).value.trim();
+        const password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
 
 
-            const password =
-            document.getElementById(
-                "adminPassword"
-            ).value;
+        showMessage(
+            "adminLoginMessage",
+            "Checking admin login...",
+            "info"
+        );
 
 
-            showMessage(
-                "adminLoginMessage",
-                "Checking admin login...",
-                "info"
+        try{
+
+            const response =
+            await fetch(
+                API + "/api/admin/login",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+
+                    body:JSON.stringify({
+                        email:email,
+                        password:password
+                    })
+
+                }
             );
 
 
-            try{
-
-                const response =
-                await fetch(
-                    API + "/api/admin/login",
-                    {
-                        method:"POST",
-
-                        headers:{
-                            "Content-Type":
-                            "application/json"
-                        },
-
-                        body:JSON.stringify({
-                            email:email,
-                            password:password
-                        })
-
-                    }
-                );
+            const data =
+            await response.json();
 
 
-                const data =
-                await response.json();
+            if(
+                !response.ok ||
+                data.success === false
+            ){
 
-
-                if(
-                    !response.ok ||
-                    data.success === false
-                ){
-
-                    throw new Error(
-                        data.message ||
-                        "Admin login failed."
-                    );
-
-                }
-
-
-                const token =
-                data.token ||
-                data.adminToken ||
-                data.sessionToken ||
-                data.accessToken;
-
-
-                if(!token){
-
-                    throw new Error(
-                        "No admin token received from server."
-                    );
-
-                }
-
-
-                sessionStorage.setItem(
-                    "glowcart_admin_token",
-                    token
-                );
-
-
-                showPage("adminPage");
-
-                loadAdminMembers();
-
-
-            }catch(error){
-
-                console.error(
-                    "ADMIN LOGIN ERROR:",
-                    error
-                );
-
-
-                showMessage(
-                    "adminLoginMessage",
-                    error.message ||
-                    "Admin login failed.",
-                    "error"
+                throw new Error(
+                    data.message ||
+                    "Admin login failed."
                 );
 
             }
 
+
+            const token =
+            data.token ||
+            data.adminToken ||
+            data.sessionToken ||
+            data.accessToken;
+
+
+            if(!token){
+
+                throw new Error(
+                    "No admin token received."
+                );
+
+            }
+
+
+            sessionStorage.setItem(
+                "glowcart_admin_token",
+                token
+            );
+
+
+            showPage("adminPage");
+
+            loadAdminMembers();
+
+
+        }catch(error){
+
+            console.error(
+                "ADMIN LOGIN ERROR:",
+                error
+            );
+
+            showMessage(
+                "adminLoginMessage",
+                error.message ||
+                "Admin login failed.",
+                "error"
+            );
+
         }
-    );
 
-}
+    }
+);
 
 
-/* =========================================================
+/* =====================================================
    ADMIN MEMBERS
-========================================================= */
+===================================================== */
 
 async function loadAdminMembers(){
 
@@ -3319,9 +3073,7 @@ async function loadAdminMembers(){
         await response.json();
 
 
-        if(
-            response.status === 401
-        ){
+        if(response.status === 401){
 
             sessionStorage.removeItem(
                 "glowcart_admin_token"
@@ -3353,30 +3105,30 @@ async function loadAdminMembers(){
         }
 
 
-        let members = [];
+        let members=[];
 
 
         if(Array.isArray(data)){
 
-            members = data;
+            members=data;
 
         }else if(
             Array.isArray(data.users)
         ){
 
-            members = data.users;
+            members=data.users;
 
         }else if(
             Array.isArray(data.members)
         ){
 
-            members = data.members;
+            members=data.members;
 
         }else if(
             Array.isArray(data.data)
         ){
 
-            members = data.data;
+            members=data.data;
 
         }
 
@@ -3454,7 +3206,6 @@ async function loadAdminMembers(){
                 </td>
 
                 <td>
-
                     ${
                         member.registeredAt
                         ?
@@ -3462,9 +3213,14 @@ async function loadAdminMembers(){
                             member.registeredAt
                         ).toLocaleString()
                         :
+                        member.createdAt
+                        ?
+                        new Date(
+                            member.createdAt
+                        ).toLocaleString()
+                        :
                         ""
                     }
-
                 </td>
 
             </tr>
@@ -3479,7 +3235,6 @@ async function loadAdminMembers(){
             "ADMIN MEMBERS ERROR:",
             error
         );
-
 
         tbody.innerHTML =
         `
@@ -3513,49 +3268,33 @@ function adminLogout(){
 
     showPage("adminLoginPage");
 
-    document.getElementById(
-        "adminLoginForm"
-    ).reset();
-
 }
 
 
-/* =========================================================
+/* =====================================================
    STARTUP
-========================================================= */
+===================================================== */
 
 updateCartCount();
 
 
-console.log(
-    "===================================="
+/* Make COD selected visually */
+
+const defaultPayment =
+document.querySelector(
+    'input[name="payment"]:checked'
 );
 
-console.log(
-    "GlowCart frontend loaded successfully."
-);
+if(defaultPayment){
 
-console.log(
-    "API:",
-    API
-);
+    defaultPayment
+    .closest(".pay-option")
+    ?.classList.add("selected");
 
-console.log(
-    "Current User:",
-    currentUser
-);
-
-console.log(
-    "EmailJS Ready:",
-    emailJSReady
-);
-
-console.log(
-    "===================================="
-);
+}
 
 
-/* Backend test */
+/* Backend health check */
 
 fetch(API + "/api/health")
 .then(
@@ -3577,11 +3316,21 @@ fetch(API + "/api/health")
 );
 
 
-/* =========================================================
-   FORCE HOME PAGE ON FIRST LOAD IF NO USER
-========================================================= */
+console.log(
+    "===================================="
+);
 
-showPage("homePage");
+console.log(
+    "GlowCart frontend loaded successfully."
+);
+
+console.log(
+    "Shop → Register → Login → Products"
+);
+
+console.log(
+    "===================================="
+);
 
 </script>
 
