@@ -1,14 +1,17 @@
 {
   "name": "glowcart-backend",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "GlowCart skincare shopping backend",
   "main": "server.js",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "pg": "^8.16.3"
+    "resend": "^4.0.1"
   }
 }
