@@ -1,18 +1,20 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>GlowCart - Premium Face Creams</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 }
 
 body{
@@ -38,12 +40,12 @@ header{
 }
 
 nav button{
-    background:none;
     border:none;
+    background:none;
     color:white;
+    cursor:pointer;
     margin-left:15px;
     font-size:15px;
-    cursor:pointer;
 }
 
 .hero{
@@ -52,25 +54,23 @@ nav button{
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:40px 20px;
     background:linear-gradient(135deg,#ffe0ef,#ead5ff);
 }
 
-.hero-content h1{
-    font-size:55px;
+.hero h1{
+    font-size:58px;
     color:#8e44ad;
-    margin-bottom:15px;
 }
 
-.hero-content h2{
-    font-size:28px;
+.hero h2{
     color:#ff4081;
-    margin-bottom:15px;
+    margin:15px 0;
+    font-size:28px;
 }
 
-.hero-content p{
+.hero p{
     font-size:18px;
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
 
 .btn{
@@ -79,14 +79,13 @@ nav button{
     border-radius:25px;
     background:linear-gradient(135deg,#ff4081,#8e44ad);
     color:white;
-    font-size:16px;
     cursor:pointer;
+    font-size:16px;
     margin:5px;
 }
 
 .btn:hover{
     opacity:.9;
-    transform:scale(1.02);
 }
 
 .page{
@@ -101,7 +100,7 @@ nav button{
 
 .form-box{
     max-width:500px;
-    margin:20px auto;
+    margin:30px auto;
     background:white;
     padding:30px;
     border-radius:20px;
@@ -114,24 +113,19 @@ nav button{
     margin-bottom:25px;
 }
 
-input,select{
+input{
     width:100%;
     padding:13px;
     margin:8px 0 15px;
     border:1px solid #ddd;
     border-radius:10px;
-    outline:none;
-}
-
-input:focus,select:focus{
-    border-color:#b84dce;
 }
 
 .section-title{
     text-align:center;
     color:#8e44ad;
-    font-size:32px;
     margin-bottom:30px;
+    font-size:32px;
 }
 
 .products{
@@ -144,8 +138,8 @@ input:focus,select:focus{
     background:white;
     padding:18px;
     border-radius:18px;
-    box-shadow:0 6px 20px rgba(0,0,0,.1);
     text-align:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.1);
 }
 
 .product img{
@@ -156,8 +150,8 @@ input:focus,select:focus{
 }
 
 .product h3{
-    margin:12px 0 8px;
     color:#7d3c98;
+    margin:12px 0;
 }
 
 .price{
@@ -168,12 +162,12 @@ input:focus,select:focus{
 }
 
 .cart-item{
-    background:white;
-    margin:12px auto;
-    padding:18px;
     max-width:800px;
+    margin:15px auto;
+    padding:18px;
+    background:white;
     border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -196,23 +190,8 @@ input:focus,select:focus{
 
 .grand-total{
     font-size:23px;
-    color:#8e44ad;
     font-weight:bold;
-}
-
-.success{
-    text-align:center;
-    max-width:600px;
-    margin:80px auto;
-    background:white;
-    padding:45px;
-    border-radius:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,.12);
-}
-
-.success h2{
     color:#8e44ad;
-    margin-bottom:15px;
 }
 
 .payment{
@@ -227,6 +206,30 @@ input:focus,select:focus{
     margin:12px 0;
 }
 
+.payment input{
+    width:auto;
+    margin-right:8px;
+}
+
+.success{
+    max-width:600px;
+    margin:80px auto;
+    padding:45px;
+    text-align:center;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+}
+
+.success h2{
+    color:#8e44ad;
+    margin-bottom:15px;
+}
+
+.hidden{
+    display:none !important;
+}
+
 footer{
     background:linear-gradient(135deg,#8e44ad,#ff4081);
     color:white;
@@ -234,25 +237,870 @@ footer{
     padding:20px;
 }
 
-.hidden{
-    display:none;
-}
-
 @media(max-width:700px){
-    .hero-content h1{
-        font-size:40px;
-    }
-
     header{
         flex-direction:column;
         gap:10px;
     }
 
+    .hero h1{
+        font-size:42px;
+    }
+
     nav button{
-        margin:4px;
+        margin:5px;
     }
 
     .cart-item{
         flex-direction:column;
         gap:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">✨ GlowCart</div>
+
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="shopNow()">Shop Now</button>
+<button onclick="goCart()">Cart</button>
+<button onclick="goOrders()">Orders</button>
+
+<button id="loginBtn" onclick="showPage('login')">
+Login
+</button>
+
+<button id="logoutBtn"
+        class="hidden"
+        onclick="logout()">
+Logout
+</button>
+</nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active hero">
+
+<div>
+
+<h1>GlowCart</h1>
+
+<h2>Premium Face Creams</h2>
+
+<p>
+Beautiful skincare products for your glowing skin.
+</p>
+
+<!-- SHOP NOW ALWAYS OPENS REGISTER -->
+
+<button class="btn" onclick="shopNow()">
+🛍️ Shop Now
+</button>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page">
+
+<div class="form-box">
+
+<h2>Create Your GlowCart Account</h2>
+
+<form id="registerForm">
+
+<input
+id="regName"
+type="text"
+placeholder="Full Name"
+required
+>
+
+<input
+id="regEmail"
+type="email"
+placeholder="Email"
+required
+>
+
+<input
+id="regMobile"
+type="tel"
+placeholder="10 Digit Mobile Number"
+maxlength="10"
+required
+>
+
+<input
+id="regPassword"
+type="password"
+placeholder="Password"
+required
+>
+
+<input
+id="regAddress"
+type="text"
+placeholder="Permanent Address"
+required
+>
+
+<input
+id="regPincode"
+type="text"
+placeholder="Pincode"
+maxlength="6"
+required
+>
+
+<input
+id="regAddress2"
+type="text"
+placeholder="Second Address (Optional)"
+>
+
+<input
+id="regPincode2"
+type="text"
+placeholder="Second Pincode (Optional)"
+maxlength="6"
+>
+
+<button class="btn" type="submit">
+Register
+</button>
+
+</form>
+
+<p style="text-align:center;margin-top:15px;">
+Already registered?
+<button class="btn" onclick="showPage('login')">
+Login
+</button>
+</p>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+<div class="form-box">
+
+<h2>Login to GlowCart</h2>
+
+<form id="loginForm">
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Email"
+required
+>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+required
+>
+
+<button class="btn" type="submit">
+Login
+</button>
+
+</form>
+
+<p style="text-align:center;margin-top:15px;">
+New user?
+<button class="btn" onclick="showPage('register')">
+Register
+</button>
+</p>
+
+</div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section id="shop" class="page">
+
+<h2 class="section-title">
+💖 Premium Face Creams
+</h2>
+
+<div style="max-width:500px;margin:0 auto 30px;">
+<input
+id="searchBox"
+type="text"
+placeholder="🔍 Search face creams..."
+oninput="searchProducts()"
+>
+</div>
+
+<div id="products" class="products"></div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="page">
+
+<h2 class="section-title">
+🛒 Your Cart
+</h2>
+
+<div id="cartItems"></div>
+
+<div class="total-box">
+
+<p>
+<span>Subtotal</span>
+<span id="cartSubtotal">₹0.00</span>
+</p>
+
+<p>
+<span>GST 18%</span>
+<span id="cartGST">₹0.00</span>
+</p>
+
+<p class="grand-total">
+<span>Total</span>
+<span id="cartTotal">₹0.00</span>
+</p>
+
+<button
+class="btn"
+style="width:100%;"
+onclick="openCheckout()"
+>
+Place Order
+</button>
+
+</div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkout" class="page">
+
+<h2 class="section-title">
+📦 Place Your Order
+</h2>
+
+<div class="form-box">
+
+<h3 style="color:#8e44ad;margin-bottom:15px;">
+Delivery Details
+</h3>
+
+<input
+id="orderAddress"
+type="text"
+placeholder="Delivery Address"
+required
+>
+
+<input
+id="orderPincode"
+type="text"
+placeholder="Pincode"
+maxlength="6"
+required
+>
+
+<div class="payment">
+
+<h3 style="color:#8e44ad;">
+Payment Method
+</h3>
+
+<label>
+<input
+type="radio"
+name="payment"
+value="UPI"
+checked
+>
+UPI
+</label>
+
+<label>
+<input
+type="radio"
+name="payment"
+value="Net Banking"
+>
+Net Banking
+</label>
+
+<label>
+<input
+type="radio"
+name="payment"
+value="Cash on Delivery"
+>
+Cash on Delivery
+</label>
+
+</div>
+
+<div id="checkoutSummary"></div>
+
+<button
+class="btn"
+style="width:100%;"
+onclick="placeOrder()"
+>
+Confirm Order
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SUCCESS -->
+
+<section id="success" class="page">
+
+<div class="success">
+
+<h2>🎉 Order Placed Successfully!</h2>
+
+<p id="successMessage"></p>
+
+<br>
+
+<button class="btn" onclick="goOrders()">
+View Orders
+</button>
+
+<button class="btn" onclick="showPage('shop')">
+Continue Shopping
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+<h2 class="section-title">
+📋 My Orders
+</h2>
+
+<div id="ordersList"></div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="page">
+
+<div class="form-box">
+
+<h2>Admin Login</h2>
+
+<input
+id="adminEmail"
+type="email"
+placeholder="Admin Email"
+>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Admin Password"
+>
+
+<button class="btn" onclick="adminLogin()">
+Admin Login
+</button>
+
+<div id="adminDashboard"
+class="hidden">
+
+<h3>
+Total Members:
+<span id="memberCount">0</span>
+</h3>
+
+<div id="membersTable"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+© 2026 GlowCart - Premium Face Creams
+</footer>
+
+
+<script>
+
+/* =========================
+   CONFIG
+========================= */
+
+const API =
+"https://glowcart-fxwp.onrender.com";
+
+const GST_RATE = 0.18;
+
+const EMAILJS_SERVICE =
+"service_nb7q38o";
+
+const EMAILJS_PUBLIC_KEY =
+"O8MGjkU2KThjrZ31Y";
+
+const EMAILJS_ORDER_TEMPLATE =
+"template_ykzf36";
+
+const EMAILJS_WELCOME_TEMPLATE =
+"template_giqmpm9";
+
+
+emailjs.init({
+publicKey:EMAILJS_PUBLIC_KEY
+});
+
+
+/* =========================
+   DATA
+========================= */
+
+let products = [];
+
+let cart =
+JSON.parse(
+localStorage.getItem("glowcart_cart") || "[]"
+);
+
+let currentUser =
+JSON.parse(
+localStorage.getItem("glowcart_user") || "null"
+);
+
+
+/* =========================
+   LOGIN STATUS
+========================= */
+
+function isLoggedIn(){
+
+return (
+currentUser !== null &&
+localStorage.getItem("glowcart_logged_in")
+===
+"true"
+);
+
+}
+
+
+/* =========================
+   PAGE CONTROL
+========================= */
+
+function showPage(page){
+
+const protectedPages = [
+"shop",
+"cart",
+"checkout",
+"orders",
+"success"
+];
+
+/*
+WITHOUT LOGIN:
+NO PRODUCTS
+NO CART
+NO CHECKOUT
+NO ORDERS
+*/
+
+if(
+protectedPages.includes(page) &&
+!isLoggedIn()
+){
+
+alert(
+"Please Register and Login first."
+);
+
+showPage("register");
+
+return;
+}
+
+
+document
+.querySelectorAll(".page")
+.forEach(function(p){
+
+p.classList.remove("active");
+
+});
+
+
+const target =
+document.getElementById(page);
+
+if(target){
+
+target.classList.add("active");
+
+}
+
+
+window.scrollTo(0,0);
+
+
+if(page === "shop"){
+loadProducts();
+}
+
+if(page === "cart"){
+displayCart();
+}
+
+if(page === "checkout"){
+displayCheckout();
+}
+
+if(page === "orders"){
+loadOrders();
+}
+
+}
+
+
+/* =========================
+   SHOP NOW
+========================= */
+
+/*
+EXACT FLOW:
+
+SHOP NOW
+   ↓
+REGISTER
+   ↓
+LOGIN
+   ↓
+PRODUCTS
+*/
+
+function shopNow(){
+
+/*
+ALWAYS REGISTER FIRST
+if user is not logged in
+*/
+
+if(!isLoggedIn()){
+
+showPage("register");
+
+return;
+
+}
+
+showPage("shop");
+
+}
+
+
+/* =========================
+   CART NAVIGATION
+========================= */
+
+function goCart(){
+
+if(!isLoggedIn()){
+
+alert(
+"Please Register and Login first."
+);
+
+showPage("register");
+
+return;
+
+}
+
+showPage("cart");
+
+}
+
+
+/* =========================
+   ORDERS NAVIGATION
+========================= */
+
+function goOrders(){
+
+if(!isLoggedIn()){
+
+alert(
+"Please Register and Login first."
+);
+
+showPage("register");
+
+return;
+
+}
+
+showPage("orders");
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+document
+.getElementById("registerForm")
+.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
+
+const user = {
+
+name:
+document
+.getElementById("regName")
+.value
+.trim(),
+
+email:
+document
+.getElementById("regEmail")
+.value
+.trim(),
+
+mobile:
+document
+.getElementById("regMobile")
+.value
+.trim(),
+
+password:
+document
+.getElementById("regPassword")
+.value,
+
+address:
+document
+.getElementById("regAddress")
+.value
+.trim(),
+
+pincode:
+document
+.getElementById("regPincode")
+.value
+.trim(),
+
+address2:
+document
+.getElementById("regAddress2")
+.value
+.trim(),
+
+pincode2:
+document
+.getElementById("regPincode2")
+.value
+.trim()
+
+};
+
+
+if(!/^[0-9]{10}$/.test(user.mobile)){
+
+alert(
+"Enter valid 10 digit mobile number."
+);
+
+return;
+
+}
+
+
+if(!/^[0-9]{6}$/.test(user.pincode)){
+
+alert(
+"Enter valid 6 digit pincode."
+);
+
+return;
+
+}
+
+
+try{
+
+const response =
+await fetch(
+API + "/api/register",
+{
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify(user)
+
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(
+!response.ok ||
+!data.success
+){
+
+alert(
+data.message ||
+"Registration failed."
+);
+
+return;
+
+}
+
+
+/*
+VERY IMPORTANT:
+
+DO NOT LOGIN USER HERE.
+
+Registration is completed,
+but LOGIN is still required.
+*/
+
+localStorage.removeItem(
+"glowcart_user"
+);
+
+localStorage.removeItem(
+"glowcart_logged_in"
+);
+
+
+localStorage.setItem(
+"glowcart_registered_email",
+user.email
+);
+
+
+/* SEND WELCOME EMAIL */
+
+sendWelcomeEmail(user);
+
+
+alert(
+"Registration successful! Please Login."
+);
+
+
+/*
+GO TO LOGIN PAGE.
+
+NOT PRODUCTS.
+*/
+
+document
+.getElementById("loginEmail")
+.value =
+user.email;
+
+document
+.getElementById("loginPassword")
+.value =
+"";
+
+
+showPage("login");
+
+
+}
+catch(error){
+
+console.error(error);
+
+alert(
+"Registration failed. Please try again."
+);
+
+}
+
+});
+
+
+/* =========================
+   WELCOME EMAIL
+========================= */
+
+async function sendWelcomeEmail(user){
+
+try{
+
+await emailjs.send(
+EMAILJS_SERVICE,
+EMAILJS_WELCOME_TEMPLATE,
+{
+
+to_email:
+user.email,
+
+to_name:
+user.name,
+
+user_name:
+user.name,
+
+user_email:
+user.ema
 ```
