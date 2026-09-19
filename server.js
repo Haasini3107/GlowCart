@@ -7,19 +7,15 @@ const { Resend } = require("resend");
 
 const app = express();
 
-/* =========================================================
-   RENDER CONFIGURATION
-========================================================= */
-
 const PORT = Number(process.env.PORT) || 10000;
 const HOST = "0.0.0.0";
 
 /* =========================================================
-   DATABASE CONFIGURATION
+   DATABASE
 ========================================================= */
 
 if (!process.env.DATABASE_URL) {
-    console.error("ERROR: DATABASE_URL is not configured.");
+    console.error("ERROR: DATABASE_URL is missing.");
 }
 
 const pool = new Pool({
@@ -33,7 +29,7 @@ const pool = new Pool({
 });
 
 /* =========================================================
-   EMAIL CONFIGURATION
+   EMAIL
 ========================================================= */
 
 const resend = process.env.RESEND_API_KEY
@@ -45,7 +41,7 @@ const EMAIL_FROM =
     "GlowCart <onboarding@resend.dev>";
 
 /* =========================================================
-   ADMIN CONFIGURATION
+   ADMIN
 ========================================================= */
 
 const ADMIN_EMAIL =
@@ -56,7 +52,8 @@ const ADMIN_PASSWORD =
     process.env.ADMIN_PASSWORD ||
     "admin123";
 
-const ADMIN_TOKEN = "glowcart-admin-session";
+const ADMIN_TOKEN =
+    "glowcart-admin-session";
 
 /* =========================================================
    MIDDLEWARE
@@ -83,290 +80,242 @@ app.use(
 );
 
 /* =========================================================
-   FRONTEND CONFIGURATION
-   Automatically finds index.html either:
-   1. beside server.js
-   2. one folder above server.js
+   FRONTEND
 ========================================================= */
 
-const possibleFrontendFiles = [
+const frontendFiles = [
     path.join(__dirname, "index.html"),
     path.join(__dirname, "..", "index.html")
 ];
 
 let FRONTEND_FILE = null;
 
-for (const file of possibleFrontendFiles) {
+for (const file of frontendFiles) {
+
     if (fs.existsSync(file)) {
+
         FRONTEND_FILE = file;
+
         break;
     }
 }
 
 console.log(
-    "Frontend file:",
+    "Frontend:",
     FRONTEND_FILE || "NOT FOUND"
 );
 
 if (FRONTEND_FILE) {
 
-    const FRONTEND_DIR = path.dirname(FRONTEND_FILE);
-
     app.use(
-        express.static(FRONTEND_DIR, {
-            index: false
-        })
+        express.static(
+            path.dirname(FRONTEND_FILE),
+            { index:false }
+        )
     );
 }
 
 /* =========================================================
-   DATABASE HELPER
+   DATABASE QUERY
 ========================================================= */
 
 async function query(text, params = []) {
-    return await pool.query(text, params);
+
+    return await pool.query(
+        text,
+        params
+    );
 }
 
 /* =========================================================
    DATABASE INITIALIZATION
 ========================================================= */
 
-async function initializeDatabase() {
+async function initializeDatabase(){
 
     await query(`
         CREATE TABLE IF NOT EXISTS users (
+
             id BIGSERIAL PRIMARY KEY,
+
             name TEXT NOT NULL,
+
             email TEXT UNIQUE NOT NULL,
+
             mobile TEXT NOT NULL,
+
             password TEXT NOT NULL,
+
             address TEXT DEFAULT '',
+
             address2 TEXT DEFAULT '',
+
             pincode TEXT DEFAULT '',
-            registered_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+
+            registered_at
+                TIMESTAMPTZ
+                DEFAULT CURRENT_TIMESTAMP
         )
     `);
+
 
     await query(`
         CREATE TABLE IF NOT EXISTS products (
+
             id BIGSERIAL PRIMARY KEY,
+
             name TEXT NOT NULL,
+
             price NUMERIC(10,2) NOT NULL,
+
             description TEXT DEFAULT '',
+
             image TEXT DEFAULT '',
-            created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+
+            created_at
+                TIMESTAMPTZ
+                DEFAULT CURRENT_TIMESTAMP
         )
     `);
 
+
     await query(`
         CREATE TABLE IF NOT EXISTS orders (
+
             id BIGSERIAL PRIMARY KEY,
+
             order_id TEXT UNIQUE NOT NULL,
+
             user_id BIGINT,
+
             name TEXT NOT NULL,
+
             email TEXT NOT NULL,
+
             mobile TEXT DEFAULT '',
+
             address TEXT NOT NULL,
+
             address2 TEXT DEFAULT '',
+
             pincode TEXT NOT NULL,
-            payment_method TEXT DEFAULT 'Cash on Delivery',
-            items JSONB NOT NULL DEFAULT '[]'::jsonb,
+
+            payment_method
+                TEXT DEFAULT 'Cash on Delivery',
+
+            items JSONB
+                NOT NULL
+                DEFAULT '[]'::jsonb,
+
             subtotal NUMERIC(10,2) DEFAULT 0,
+
             gst NUMERIC(10,2) DEFAULT 0,
+
             total NUMERIC(10,2) DEFAULT 0,
+
             status TEXT DEFAULT 'Placed',
-            created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+
+            created_at
+                TIMESTAMPTZ
+                DEFAULT CURRENT_TIMESTAMP,
+
             updated_at TIMESTAMPTZ
         )
     `);
+
 
     await query(`
         CREATE INDEX IF NOT EXISTS users_email_index
         ON users(email)
     `);
 
+
     await query(`
         CREATE INDEX IF NOT EXISTS orders_email_index
         ON orders(email)
     `);
 
-    await query(`
-        CREATE INDEX IF NOT EXISTS orders_created_index
-        ON orders(created_at DESC)
-    `);
 
     await seedProducts();
 
-    console.log("DATABASE INITIALIZED SUCCESSFULLY");
+    console.log(
+        "DATABASE INITIALIZED"
+    );
 }
 
 /* =========================================================
-   PRODUCT SEEDING
+   PRODUCTS
 ========================================================= */
 
-async function seedProducts() {
+async function seedProducts(){
 
-    const result = await query(
-        `SELECT COUNT(*) AS count FROM products`
-    );
+    const result =
+        await query(
+            `SELECT COUNT(*) AS count FROM products`
+        );
 
-    const count = Number(result.rows[0].count);
 
-    if (count > 0) {
+    if(Number(result.rows[0].count) > 0){
         return;
     }
 
+
     const products = [
-        {
-            name: "Glow Radiance Cream",
-            price: 299,
-            description:
-                "Brightening face cream for radiant looking skin.",
-            image:
-                "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            name: "Vitamin C Face Cream",
-            price: 349,
-            description:
-                "Vitamin C enriched cream for fresh and glowing skin.",
-            image:
-                "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            name: "Hydra Moisturizing Cream",
-            price: 279,
-            description:
-                "Deep moisturizing cream for soft and hydrated skin.",
-            image:
-                "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=700&q=80"
-        },
-        {
-            name: "Aloe Vera Face Cream",
-            price: 249,
-            description:
-                "Aloe Vera based soothing face cream.",
-            image:
-                "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=700&q=80"
-        }
+
+        [
+            "Glow Radiance Cream",
+            299,
+            "Brightening face cream.",
+            "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=700&q=80"
+        ],
+
+        [
+            "Vitamin C Face Cream",
+            349,
+            "Vitamin C enriched cream.",
+            "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=80"
+        ],
+
+        [
+            "Hydra Moisturizing Cream",
+            279,
+            "Deep moisturizing cream.",
+            "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=700&q=80"
+        ],
+
+        [
+            "Aloe Vera Face Cream",
+            249,
+            "Soothing Aloe Vera cream.",
+            "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=700&q=80"
+        ]
+
     ];
 
-    for (const product of products) {
+
+    for(const product of products){
 
         await query(
             `
             INSERT INTO products
-            (name, price, description, image)
-            VALUES ($1,$2,$3,$4)
+            (name,price,description,image)
+            VALUES($1,$2,$3,$4)
             `,
-            [
-                product.name,
-                product.price,
-                product.description,
-                product.image
-            ]
+            product
         );
     }
 
-    console.log("Default GlowCart products inserted.");
+
+    console.log(
+        "Default products inserted."
+    );
 }
 
 /* =========================================================
-   OLD USERS MIGRATION
+   ADMIN AUTH
 ========================================================= */
 
-async function migrateOldUsers() {
-
-    try {
-
-        const usersFile =
-            path.join(__dirname, "users.json");
-
-        if (!fs.existsSync(usersFile)) {
-            return;
-        }
-
-        const raw =
-            fs.readFileSync(usersFile, "utf8");
-
-        if (!raw.trim()) {
-            return;
-        }
-
-        const oldUsers = JSON.parse(raw);
-
-        if (!Array.isArray(oldUsers)) {
-            return;
-        }
-
-        for (const user of oldUsers) {
-
-            if (!user.email || !user.password) {
-                continue;
-            }
-
-            const email =
-                String(user.email)
-                    .trim()
-                    .toLowerCase();
-
-            const existing =
-                await query(
-                    `SELECT id FROM users WHERE email = $1`,
-                    [email]
-                );
-
-            if (existing.rows.length > 0) {
-                continue;
-            }
-
-            await query(
-                `
-                INSERT INTO users
-                (
-                    name,
-                    email,
-                    mobile,
-                    password,
-                    address,
-                    address2,
-                    pincode,
-                    registered_at
-                )
-                VALUES
-                ($1,$2,$3,$4,$5,$6,$7,$8)
-                `,
-                [
-                    user.name || user.fullName || "",
-                    email,
-                    user.mobile || user.phone || "",
-                    String(user.password),
-                    user.address || "",
-                    user.address2 || "",
-                    user.pincode || "",
-                    user.registeredAt
-                        ? new Date(user.registeredAt)
-                        : new Date()
-                ]
-            );
-
-            console.log("Migrated old user:", email);
-        }
-
-    } catch (error) {
-
-        console.error(
-            "OLD USER MIGRATION ERROR:",
-            error
-        );
-    }
-}
-
-/* =========================================================
-   ADMIN AUTHENTICATION
-========================================================= */
-
-function checkAdmin(req, res, next) {
+function checkAdmin(req,res,next){
 
     const authorization =
         req.headers.authorization || "";
@@ -376,555 +325,557 @@ function checkAdmin(req, res, next) {
             ? authorization.substring(7)
             : "";
 
-    if (token !== ADMIN_TOKEN) {
+
+    if(token !== ADMIN_TOKEN){
 
         return res.status(401).json({
-            success: false,
-            message: "Admin authentication required."
+
+            success:false,
+
+            message:
+                "Admin authentication required."
         });
     }
+
 
     next();
 }
 
 /* =========================================================
-   HOME - SERVE GLOWCART WEBSITE
+   HOME
 ========================================================= */
 
-app.get("/", (req, res) => {
+app.get("/",(req,res)=>{
 
-    if (!FRONTEND_FILE) {
+    if(!FRONTEND_FILE){
 
-        return res.status(500).send(`
-            <h1>GlowCart Frontend Not Found</h1>
-            <p>index.html was not found.</p>
-            <p>Put index.html in the GlowCart root folder.</p>
-        `);
+        return res.status(500).send(
+            "<h1>GlowCart index.html not found</h1>"
+        );
     }
 
-    return res.sendFile(FRONTEND_FILE);
+
+    res.sendFile(
+        FRONTEND_FILE
+    );
 });
 
 /* =========================================================
    HEALTH
 ========================================================= */
 
-app.get("/api/health", async (req, res) => {
+app.get(
+    "/api/health",
+    async(req,res)=>{
 
-    try {
+        try{
 
-        await query("SELECT 1");
+            await query(
+                "SELECT 1"
+            );
 
-        res.status(200).json({
-            success: true,
-            message: "GlowCart API is working!",
-            server: "online",
-            database: "connected",
-            port: PORT
-        });
 
-    } catch (error) {
+            res.json({
 
-        console.error("HEALTH DATABASE ERROR:", error);
+                success:true,
 
-        res.status(500).json({
-            success: false,
-            message:
-                "API is running but database connection failed.",
-            database: "disconnected"
-        });
+                message:
+                    "GlowCart Backend API is running!",
+
+                server:"online",
+
+                database:
+                    "PostgreSQL connected"
+            });
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                    "Database connection failed."
+            });
+        }
     }
-});
+);
 
 /* =========================================================
    PRODUCTS
 ========================================================= */
 
-app.get("/api/products", async (req, res) => {
+app.get(
+    "/api/products",
+    async(req,res)=>{
 
-    try {
+        try{
 
-        const result = await query(`
-            SELECT
-                id,
-                name,
-                price,
-                description,
-                image
-            FROM products
-            ORDER BY id ASC
-        `);
+            const result =
+                await query(`
+                    SELECT
+                        id,
+                        name,
+                        price,
+                        description,
+                        image
+                    FROM products
+                    ORDER BY id ASC
+                `);
 
-        const products =
-            result.rows.map(product => ({
-                id: Number(product.id),
-                name: product.name,
-                price: Number(product.price),
-                description: product.description || "",
-                image: product.image || ""
-            }));
 
-        res.status(200).json({
-            success: true,
-            products
-        });
+            const products =
+                result.rows.map(product=>({
 
-    } catch (error) {
+                    id:Number(product.id),
 
-        console.error("PRODUCTS ERROR:", error);
+                    name:product.name,
 
-        res.status(500).json({
-            success: false,
-            message: "Could not load products."
-        });
+                    price:Number(product.price),
+
+                    description:
+                        product.description || "",
+
+                    image:
+                        product.image || ""
+                }));
+
+
+            res.json({
+
+                success:true,
+
+                products
+            });
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                    "Could not load products."
+            });
+        }
     }
-});
+);
 
 /* =========================================================
    REGISTER
 ========================================================= */
 
-app.post("/api/register", async (req, res) => {
+app.post(
+    "/api/register",
+    async(req,res)=>{
 
-    try {
+        try{
 
-        const {
-            name,
-            fullName,
-            email,
-            mobile,
-            phone,
-            password,
-            address,
-            address2,
-            pincode
-        } = req.body;
+            const {
+                name,
+                fullName,
+                email,
+                mobile,
+                phone,
+                password,
+                address,
+                address2,
+                pincode
+            } = req.body;
 
-        const userName = name || fullName;
-        const userMobile = mobile || phone;
 
-        if (
-            !userName ||
-            !email ||
-            !userMobile ||
-            !password
-        ) {
+            const userName =
+                name || fullName;
 
-            return res.status(400).json({
-                success: false,
-                message:
-                    "Please fill all required registration fields."
-            });
-        }
+            const userMobile =
+                mobile || phone;
 
-        const cleanName =
-            String(userName).trim();
 
-        const cleanEmail =
-            String(email)
-                .trim()
-                .toLowerCase();
+            if(
+                !userName ||
+                !email ||
+                !userMobile ||
+                !password
+            ){
 
-        const cleanMobile =
-            String(userMobile).trim();
+                return res.status(400).json({
 
-        const cleanPassword =
-            String(password);
+                    success:false,
 
-        const existing =
-            await query(
-                `SELECT id FROM users WHERE email = $1`,
-                [cleanEmail]
-            );
-
-        if (existing.rows.length > 0) {
-
-            return res.status(409).json({
-                success: false,
-                message:
-                    "Email is already registered."
-            });
-        }
-
-        const result =
-            await query(
-                `
-                INSERT INTO users
-                (
-                    name,
-                    email,
-                    mobile,
-                    password,
-                    address,
-                    address2,
-                    pincode
-                )
-                VALUES
-                ($1,$2,$3,$4,$5,$6,$7)
-                RETURNING
-                    id,
-                    name,
-                    email,
-                    mobile,
-                    address,
-                    address2,
-                    pincode,
-                    registered_at
-                `,
-                [
-                    cleanName,
-                    cleanEmail,
-                    cleanMobile,
-                    cleanPassword,
-                    address
-                        ? String(address).trim()
-                        : "",
-                    address2
-                        ? String(address2).trim()
-                        : "",
-                    pincode
-                        ? String(pincode).trim()
-                        : ""
-                ]
-            );
-
-        const user = result.rows[0];
-
-        const safeUser = {
-            id: Number(user.id),
-            name: user.name,
-            email: user.email,
-            mobile: user.mobile,
-            address: user.address || "",
-            address2: user.address2 || "",
-            pincode: user.pincode || "",
-            registeredAt: user.registered_at
-        };
-
-        let emailSent = false;
-
-        if (resend) {
-
-            try {
-
-                await resend.emails.send({
-
-                    from: EMAIL_FROM,
-
-                    to: [safeUser.email],
-
-                    subject:
-                        "Welcome to GlowCart!",
-
-                    html: `
-                    <div style="
-                        font-family:Arial,sans-serif;
-                        max-width:600px;
-                        margin:auto;
-                        padding:30px;
-                        border-radius:20px;
-                        background:#fff0f8;
-                    ">
-
-                        <h1 style="color:#b5179e;">
-                            Welcome to GlowCart 💖
-                        </h1>
-
-                        <p>
-                            Hello
-                            <strong>
-                                ${escapeHtml(safeUser.name)}
-                            </strong>,
-                        </p>
-
-                        <p>
-                            Your GlowCart account has
-                            been registered successfully.
-                        </p>
-
-                        <p>
-                            Thank you for joining
-                            GlowCart - Premium Face Creams.
-                        </p>
-
-                        <div style="
-                            margin-top:25px;
-                            padding:15px;
-                            background:white;
-                            border-radius:12px;
-                        ">
-
-                            <strong>Registered Email:</strong>
-                            ${escapeHtml(safeUser.email)}
-
-                            <br><br>
-
-                            <strong>Mobile:</strong>
-                            ${escapeHtml(safeUser.mobile)}
-
-                        </div>
-
-                        <p style="
-                            margin-top:25px;
-                            color:#777;
-                        ">
-                            Enjoy shopping with GlowCart ✨
-                        </p>
-
-                    </div>
-                    `
+                    message:
+                        "Please fill all required fields."
                 });
-
-                emailSent = true;
-
-            } catch (emailError) {
-
-                console.error(
-                    "WELCOME EMAIL ERROR:",
-                    emailError
-                );
             }
+
+
+            const cleanName =
+                String(userName).trim();
+
+            const cleanEmail =
+                String(email)
+                    .trim()
+                    .toLowerCase();
+
+            const cleanMobile =
+                String(userMobile).trim();
+
+
+            const existing =
+                await query(
+                    `
+                    SELECT id
+                    FROM users
+                    WHERE email=$1
+                    `,
+                    [cleanEmail]
+                );
+
+
+            if(existing.rows.length){
+
+                return res.status(409).json({
+
+                    success:false,
+
+                    message:
+                        "Email is already registered."
+                });
+            }
+
+
+            const result =
+                await query(
+                    `
+                    INSERT INTO users
+                    (
+                        name,
+                        email,
+                        mobile,
+                        password,
+                        address,
+                        address2,
+                        pincode
+                    )
+                    VALUES
+                    ($1,$2,$3,$4,$5,$6,$7)
+
+                    RETURNING
+                        id,
+                        name,
+                        email,
+                        mobile,
+                        address,
+                        address2,
+                        pincode,
+                        registered_at
+                    `,
+                    [
+                        cleanName,
+                        cleanEmail,
+                        cleanMobile,
+                        String(password),
+                        String(address || ""),
+                        String(address2 || ""),
+                        String(pincode || "")
+                    ]
+                );
+
+
+            const user =
+                result.rows[0];
+
+
+            let emailSent = false;
+
+
+            /* RESEND EMAIL */
+
+            if(resend){
+
+                try{
+
+                    await resend.emails.send({
+
+                        from:EMAIL_FROM,
+
+                        to:[user.email],
+
+                        subject:
+                            "Welcome to GlowCart!",
+
+                        html:`
+                            <div style="
+                                font-family:Arial;
+                                padding:30px;
+                                background:#fff0f8;
+                            ">
+
+                                <h1 style="color:#b5179e">
+                                    Welcome to GlowCart 💖
+                                </h1>
+
+                                <p>
+                                    Hello
+                                    <strong>
+                                        ${escapeHtml(user.name)}
+                                    </strong>
+                                </p>
+
+                                <p>
+                                    Your GlowCart
+                                    registration was successful.
+                                </p>
+
+                                <p>
+                                    Registered Email:
+                                    ${escapeHtml(user.email)}
+                                </p>
+
+                                <p>
+                                    Thank you for joining GlowCart.
+                                </p>
+
+                            </div>
+                        `
+                    });
+
+
+                    emailSent = true;
+
+                }catch(error){
+
+                    console.error(
+                        "EMAIL ERROR:",
+                        error
+                    );
+                }
+            }
+
+
+            res.status(201).json({
+
+                success:true,
+
+                message:
+                    "Registration successful!",
+
+                emailSent,
+
+                user:{
+                    id:Number(user.id),
+                    name:user.name,
+                    email:user.email,
+                    mobile:user.mobile,
+                    address:user.address || "",
+                    address2:user.address2 || "",
+                    pincode:user.pincode || "",
+                    registeredAt:
+                        user.registered_at
+                }
+            });
+
+
+        }catch(error){
+
+            console.error(
+                "REGISTER ERROR:",
+                error
+            );
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                    "Registration failed."
+            });
         }
-
-        return res.status(201).json({
-
-            success: true,
-
-            message:
-                "Registration successful!",
-
-            emailSent,
-
-            user: safeUser
-        });
-
-    } catch (error) {
-
-        console.error("REGISTER ERROR:", error);
-
-        return res.status(500).json({
-            success: false,
-            message: "Registration failed."
-        });
     }
-});
+);
 
 /* =========================================================
    LOGIN
 ========================================================= */
 
-app.post("/api/login", async (req, res) => {
+app.post(
+    "/api/login",
+    async(req,res)=>{
 
-    try {
+        try{
 
-        const {
-            email,
-            password
-        } = req.body;
+            const {
+                email,
+                password
+            } = req.body;
 
-        if (!email || !password) {
 
-            return res.status(400).json({
-                success: false,
-                message:
-                    "Please enter email and password."
-            });
-        }
+            const cleanEmail =
+                String(email || "")
+                    .trim()
+                    .toLowerCase();
 
-        const cleanEmail =
-            String(email)
-                .trim()
-                .toLowerCase();
 
-        const result =
-            await query(
-                `
-                SELECT
-                    id,
-                    name,
-                    email,
-                    mobile,
-                    password,
-                    address,
-                    address2,
-                    pincode,
-                    registered_at
-                FROM users
-                WHERE email = $1
-                `,
-                [cleanEmail]
-            );
+            const result =
+                await query(
+                    `
+                    SELECT *
+                    FROM users
+                    WHERE email=$1
+                    `,
+                    [cleanEmail]
+                );
 
-        if (result.rows.length === 0) {
 
-            return res.status(401).json({
-                success: false,
-                message:
-                    "Invalid email or password."
-            });
-        }
+            if(!result.rows.length){
 
-        const user = result.rows[0];
+                return res.status(401).json({
 
-        if (
-            String(user.password) !==
-            String(password)
-        ) {
+                    success:false,
 
-            return res.status(401).json({
-                success: false,
-                message:
-                    "Invalid email or password."
-            });
-        }
-
-        return res.status(200).json({
-
-            success: true,
-
-            message:
-                "Login successful!",
-
-            user: {
-                id: Number(user.id),
-                name: user.name,
-                email: user.email,
-                mobile: user.mobile,
-                address: user.address || "",
-                address2: user.address2 || "",
-                pincode: user.pincode || "",
-                registeredAt: user.registered_at
+                    message:
+                        "Invalid email or password."
+                });
             }
-        });
 
-    } catch (error) {
 
-        console.error("LOGIN ERROR:", error);
+            const user =
+                result.rows[0];
 
-        return res.status(500).json({
-            success: false,
-            message: "Login failed."
-        });
+
+            if(
+                String(user.password) !==
+                String(password)
+            ){
+
+                return res.status(401).json({
+
+                    success:false,
+
+                    message:
+                        "Invalid email or password."
+                });
+            }
+
+
+            res.json({
+
+                success:true,
+
+                message:
+                    "Login successful!",
+
+                user:{
+
+                    id:Number(user.id),
+
+                    name:user.name,
+
+                    email:user.email,
+
+                    mobile:user.mobile,
+
+                    address:user.address || "",
+
+                    address2:
+                        user.address2 || "",
+
+                    pincode:
+                        user.pincode || "",
+
+                    registeredAt:
+                        user.registered_at
+                }
+            });
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                    "Login failed."
+            });
+        }
     }
-});
-
-/* =========================================================
-   USERS
-========================================================= */
-
-app.get("/api/users", async (req, res) => {
-
-    try {
-
-        const result =
-            await query(`
-                SELECT
-                    id,
-                    name,
-                    email,
-                    mobile,
-                    address,
-                    address2,
-                    pincode,
-                    registered_at
-                FROM users
-                ORDER BY registered_at DESC
-            `);
-
-        const users =
-            result.rows.map(user => ({
-                id: Number(user.id),
-                name: user.name,
-                email: user.email,
-                mobile: user.mobile,
-                address: user.address || "",
-                address2: user.address2 || "",
-                pincode: user.pincode || "",
-                registeredAt: user.registered_at
-            }));
-
-        return res.status(200).json({
-            success: true,
-            count: users.length,
-            users
-        });
-
-    } catch (error) {
-
-        console.error("USERS ERROR:", error);
-
-        return res.status(500).json({
-            success: false,
-            message: "Could not load users."
-        });
-    }
-});
+);
 
 /* =========================================================
    ADMIN LOGIN
 ========================================================= */
 
-app.post("/api/admin/login", (req, res) => {
+app.post(
+    "/api/admin/login",
+    (req,res)=>{
 
-    try {
-
-        const enteredEmail =
+        const email =
             String(req.body.email || "")
                 .trim()
                 .toLowerCase();
 
-        const enteredPassword =
-            String(req.body.password || "");
+        const password =
+            String(
+                req.body.password || ""
+            );
 
-        const configuredEmail =
-            String(ADMIN_EMAIL)
-                .trim()
-                .toLowerCase();
 
-        if (
-            enteredEmail === configuredEmail &&
-            enteredPassword === String(ADMIN_PASSWORD)
-        ) {
+        if(
+            email ===
+                String(ADMIN_EMAIL)
+                    .trim()
+                    .toLowerCase()
+            &&
+            password ===
+                String(ADMIN_PASSWORD)
+        ){
 
-            return res.status(200).json({
-                success: true,
+            return res.json({
+
+                success:true,
+
                 message:
                     "Admin login successful!",
-                token: ADMIN_TOKEN
+
+                token:
+                    ADMIN_TOKEN
             });
         }
 
+
         return res.status(401).json({
-            success: false,
+
+            success:false,
+
             message:
                 "Invalid admin email or password."
         });
-
-    } catch (error) {
-
-        console.error(
-            "ADMIN LOGIN ERROR:",
-            error
-        );
-
-        return res.status(500).json({
-            success: false,
-            message:
-                "Admin login failed."
-        });
     }
-});
+);
 
 /* =========================================================
    ADMIN USERS
+   PERMANENT POSTGRESQL DATA
 ========================================================= */
 
 app.get(
     "/api/admin/users",
     checkAdmin,
-    async (req, res) => {
+    async(req,res)=>{
 
-        try {
+        try{
 
             const result =
                 await query(`
@@ -941,411 +892,56 @@ app.get(
                     ORDER BY registered_at DESC
                 `);
 
+
             const users =
-                result.rows.map(user => ({
-                    id: Number(user.id),
-                    name: user.name,
-                    email: user.email,
-                    mobile: user.mobile,
-                    address: user.address || "",
-                    address2: user.address2 || "",
-                    pincode: user.pincode || "",
-                    registeredAt: user.registered_at
+                result.rows.map(user=>({
+
+                    id:Number(user.id),
+
+                    name:user.name,
+
+                    email:user.email,
+
+                    mobile:user.mobile,
+
+                    address:
+                        user.address || "",
+
+                    address2:
+                        user.address2 || "",
+
+                    pincode:
+                        user.pincode || "",
+
+                    registeredAt:
+                        user.registered_at
                 }));
 
-            return res.status(200).json({
-                success: true,
-                count: users.length,
+
+            res.json({
+
+                success:true,
+
+                count:users.length,
+
                 users
             });
 
-        } catch (error) {
+
+        }catch(error){
 
             console.error(
                 "ADMIN USERS ERROR:",
                 error
             );
 
-            return res.status(500).json({
-                success: false,
+
+            res.status(500).json({
+
+                success:false,
+
                 message:
                     "Could not load registered members."
-            });
-        }
-    }
-);
-
-/* =========================================================
-   ADMIN LOGOUT
-========================================================= */
-
-app.post(
-    "/api/admin/logout",
-    checkAdmin,
-    (req, res) => {
-
-        return res.status(200).json({
-            success: true,
-            message: "Admin logged out."
-        });
-    }
-);
-
-/* =========================================================
-   PLACE ORDER
-========================================================= */
-
-app.post("/api/orders", async (req, res) => {
-
-    try {
-
-        const {
-            userId,
-            orderId,
-            name,
-            email,
-            mobile,
-            address,
-            address2,
-            pincode,
-            paymentMethod,
-            items,
-            subtotal,
-            gst,
-            total
-        } = req.body;
-
-        if (
-            !name ||
-            !email ||
-            !address ||
-            !pincode
-        ) {
-
-            return res.status(400).json({
-                success: false,
-                message:
-                    "Please provide all order details."
-            });
-        }
-
-        if (
-            !Array.isArray(items) ||
-            items.length === 0
-        ) {
-
-            return res.status(400).json({
-                success: false,
-                message:
-                    "Your cart is empty."
-            });
-        }
-
-        const generatedOrderId =
-            orderId ||
-            "GC" +
-            Date.now() +
-            Math.floor(
-                Math.random() * 1000
-            );
-
-        let numericUserId = null;
-
-        if (userId) {
-
-            const parsed =
-                Number(userId);
-
-            if (
-                Number.isInteger(parsed) &&
-                parsed > 0
-            ) {
-                numericUserId = parsed;
-            }
-        }
-
-        const result =
-            await query(
-                `
-                INSERT INTO orders
-                (
-                    order_id,
-                    user_id,
-                    name,
-                    email,
-                    mobile,
-                    address,
-                    address2,
-                    pincode,
-                    payment_method,
-                    items,
-                    subtotal,
-                    gst,
-                    total,
-                    status
-                )
-                VALUES
-                (
-                    $1,$2,$3,$4,$5,$6,$7,$8,
-                    $9,$10::jsonb,$11,$12,$13,$14
-                )
-                RETURNING *
-                `,
-                [
-                    generatedOrderId,
-                    numericUserId,
-                    String(name).trim(),
-                    String(email)
-                        .trim()
-                        .toLowerCase(),
-                    mobile
-                        ? String(mobile).trim()
-                        : "",
-                    String(address).trim(),
-                    address2
-                        ? String(address2).trim()
-                        : "",
-                    String(pincode).trim(),
-                    paymentMethod ||
-                        "Cash on Delivery",
-                    JSON.stringify(items),
-                    Number(subtotal) || 0,
-                    Number(gst) || 0,
-                    Number(total) || 0,
-                    "Placed"
-                ]
-            );
-
-        const order =
-            formatOrder(result.rows[0]);
-
-        return res.status(201).json({
-            success: true,
-            message:
-                "Order placed successfully!",
-            order
-        });
-
-    } catch (error) {
-
-        console.error("ORDER ERROR:", error);
-
-        return res.status(500).json({
-            success: false,
-            message:
-                "Order placement failed."
-        });
-    }
-});
-
-/* =========================================================
-   GET ALL ORDERS
-========================================================= */
-
-app.get("/api/orders", async (req, res) => {
-
-    try {
-
-        const result =
-            await query(`
-                SELECT *
-                FROM orders
-                ORDER BY created_at DESC
-            `);
-
-        const orders =
-            result.rows.map(formatOrder);
-
-        return res.status(200).json({
-            success: true,
-            count: orders.length,
-            orders
-        });
-
-    } catch (error) {
-
-        console.error("ORDERS ERROR:", error);
-
-        return res.status(500).json({
-            success: false,
-            message:
-                "Could not load orders."
-        });
-    }
-});
-
-/* =========================================================
-   USER ORDERS
-========================================================= */
-
-app.get(
-    "/api/orders/user/:email",
-    async (req, res) => {
-
-        try {
-
-            const email =
-                decodeURIComponent(
-                    req.params.email
-                )
-                .trim()
-                .toLowerCase();
-
-            const result =
-                await query(
-                    `
-                    SELECT *
-                    FROM orders
-                    WHERE email = $1
-                    ORDER BY created_at DESC
-                    `,
-                    [email]
-                );
-
-            const orders =
-                result.rows.map(formatOrder);
-
-            return res.status(200).json({
-                success: true,
-                count: orders.length,
-                orders
-            });
-
-        } catch (error) {
-
-            console.error(
-                "USER ORDERS ERROR:",
-                error
-            );
-
-            return res.status(500).json({
-                success: false,
-                message:
-                    "Could not load user orders."
-            });
-        }
-    }
-);
-
-/* =========================================================
-   SINGLE ORDER
-========================================================= */
-
-app.get(
-    "/api/orders/:id",
-    async (req, res) => {
-
-        try {
-
-            const result =
-                await query(
-                    `
-                    SELECT *
-                    FROM orders
-                    WHERE id::text = $1
-                       OR order_id = $1
-                    LIMIT 1
-                    `,
-                    [String(req.params.id)]
-                );
-
-            if (result.rows.length === 0) {
-
-                return res.status(404).json({
-                    success: false,
-                    message:
-                        "Order not found."
-                });
-            }
-
-            return res.status(200).json({
-                success: true,
-                order:
-                    formatOrder(result.rows[0])
-            });
-
-        } catch (error) {
-
-            console.error(
-                "SINGLE ORDER ERROR:",
-                error
-            );
-
-            return res.status(500).json({
-                success: false,
-                message:
-                    "Could not find order."
-            });
-        }
-    }
-);
-
-/* =========================================================
-   UPDATE ORDER STATUS
-========================================================= */
-
-app.put(
-    "/api/orders/:id/status",
-    async (req, res) => {
-
-        try {
-
-            const { status } = req.body;
-
-            if (!status) {
-
-                return res.status(400).json({
-                    success: false,
-                    message:
-                        "Status is required."
-                });
-            }
-
-            const result =
-                await query(
-                    `
-                    UPDATE orders
-                    SET
-                        status = $1,
-                        updated_at = CURRENT_TIMESTAMP
-                    WHERE id::text = $2
-                       OR order_id = $2
-                    RETURNING *
-                    `,
-                    [
-                        String(status),
-                        String(req.params.id)
-                    ]
-                );
-
-            if (result.rows.length === 0) {
-
-                return res.status(404).json({
-                    success: false,
-                    message:
-                        "Order not found."
-                });
-            }
-
-            return res.status(200).json({
-                success: true,
-                message:
-                    "Order status updated.",
-                order:
-                    formatOrder(result.rows[0])
-            });
-
-        } catch (error) {
-
-            console.error(
-                "UPDATE ORDER ERROR:",
-                error
-            );
-
-            return res.status(500).json({
-                success: false,
-                message:
-                    "Could not update order."
             });
         }
     }
@@ -1358,161 +954,345 @@ app.put(
 app.get(
     "/api/admin/dashboard",
     checkAdmin,
-    async (req, res) => {
+    async(req,res)=>{
 
-        try {
+        try{
 
-            const usersResult =
+            const users =
                 await query(
-                    `SELECT COUNT(*) FROM users`
+                    "SELECT COUNT(*) FROM users"
                 );
 
-            const ordersResult =
+
+            const orders =
                 await query(
-                    `SELECT COUNT(*) FROM orders`
+                    "SELECT COUNT(*) FROM orders"
                 );
 
-            const productsResult =
+
+            const products =
                 await query(
-                    `SELECT COUNT(*) FROM products`
+                    "SELECT COUNT(*) FROM products"
                 );
 
-            const salesResult =
-                await query(`
-                    SELECT COALESCE(
-                        SUM(total),
-                        0
-                    ) AS total
-                    FROM orders
-                `);
 
-            return res.status(200).json({
+            res.json({
 
-                success: true,
+                success:true,
 
-                statistics: {
+                statistics:{
 
                     registeredMembers:
                         Number(
-                            usersResult.rows[0].count
+                            users.rows[0].count
                         ),
 
                     totalOrders:
                         Number(
-                            ordersResult.rows[0].count
+                            orders.rows[0].count
                         ),
 
                     totalProducts:
                         Number(
-                            productsResult.rows[0].count
-                        ),
-
-                    totalSales:
-                        Number(
-                            salesResult.rows[0].total
+                            products.rows[0].count
                         )
                 }
             });
 
-        } catch (error) {
 
-            console.error(
-                "DASHBOARD ERROR:",
-                error
-            );
+        }catch(error){
 
-            return res.status(500).json({
-                success: false,
+            console.error(error);
+
+
+            res.status(500).json({
+
+                success:false,
+
                 message:
-                    "Could not load dashboard."
+                    "Dashboard failed."
             });
         }
     }
 );
 
 /* =========================================================
-   API 404
+   PLACE ORDER
 ========================================================= */
 
-app.use((req, res) => {
+app.post(
+    "/api/orders",
+    async(req,res)=>{
 
-    res.status(404).json({
+        try{
 
-        success: false,
+            const {
+                userId,
+                name,
+                email,
+                mobile,
+                address,
+                address2,
+                pincode,
+                paymentMethod,
+                items,
+                subtotal,
+                gst,
+                total
+            } = req.body;
 
-        message:
-            "GlowCart API endpoint not found.",
 
-        path:
-            req.originalUrl
-    });
-});
+            if(
+                !name ||
+                !email ||
+                !address ||
+                !pincode
+            ){
 
-/* =========================================================
-   ERROR HANDLER
-========================================================= */
+                return res.status(400).json({
 
-app.use(
-    (error, req, res, next) => {
+                    success:false,
 
-        console.error(
-            "SERVER ERROR:",
-            error
-        );
+                    message:
+                        "Please provide all order details."
+                });
+            }
 
-        res.status(500).json({
-            success: false,
-            message:
-                "Internal server error."
-        });
+
+            if(
+                !Array.isArray(items) ||
+                !items.length
+            ){
+
+                return res.status(400).json({
+
+                    success:false,
+
+                    message:
+                        "Your cart is empty."
+                });
+            }
+
+
+            const orderId =
+                "GC" +
+                Date.now() +
+                Math.floor(
+                    Math.random()*1000
+                );
+
+
+            const result =
+                await query(
+                    `
+                    INSERT INTO orders
+                    (
+                        order_id,
+                        user_id,
+                        name,
+                        email,
+                        mobile,
+                        address,
+                        address2,
+                        pincode,
+                        payment_method,
+                        items,
+                        subtotal,
+                        gst,
+                        total,
+                        status
+                    )
+                    VALUES
+                    (
+                        $1,$2,$3,$4,$5,$6,$7,$8,
+                        $9,$10::jsonb,$11,$12,$13,$14
+                    )
+                    RETURNING *
+                    `,
+                    [
+                        orderId,
+                        userId || null,
+                        name,
+                        String(email)
+                            .trim()
+                            .toLowerCase(),
+                        mobile || "",
+                        address,
+                        address2 || "",
+                        pincode,
+                        paymentMethod ||
+                            "Cash on Delivery",
+                        JSON.stringify(items),
+                        Number(subtotal)||0,
+                        Number(gst)||0,
+                        Number(total)||0,
+                        "Placed"
+                    ]
+                );
+
+
+            res.status(201).json({
+
+                success:true,
+
+                message:
+                    "Order placed successfully!",
+
+                order:
+                    formatOrder(
+                        result.rows[0]
+                    )
+            });
+
+
+        }catch(error){
+
+            console.error(
+                "ORDER ERROR:",
+                error
+            );
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                    "Order placement failed."
+            });
+        }
     }
 );
 
 /* =========================================================
-   HTML ESCAPE
+   USER ORDERS
 ========================================================= */
 
-function escapeHtml(value) {
+app.get(
+    "/api/orders/user/:email",
+    async(req,res)=>{
 
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+        try{
+
+            const email =
+                decodeURIComponent(
+                    req.params.email
+                )
+                .trim()
+                .toLowerCase();
+
+
+            const result =
+                await query(
+                    `
+                    SELECT *
+                    FROM orders
+                    WHERE email=$1
+                    ORDER BY created_at DESC
+                    `,
+                    [email]
+                );
+
+
+            res.json({
+
+                success:true,
+
+                count:
+                    result.rows.length,
+
+                orders:
+                    result.rows.map(
+                        formatOrder
+                    )
+            });
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                    "Could not load orders."
+            });
+        }
+    }
+);
+
+/* =========================================================
+   ALL ORDERS
+========================================================= */
+
+app.get(
+    "/api/orders",
+    async(req,res)=>{
+
+        try{
+
+            const result =
+                await query(`
+                    SELECT *
+                    FROM orders
+                    ORDER BY created_at DESC
+                `);
+
+
+            res.json({
+
+                success:true,
+
+                orders:
+                    result.rows.map(
+                        formatOrder
+                    )
+            });
+
+
+        }catch(error){
+
+            res.status(500).json({
+
+                success:false,
+
+                message:
+                    "Could not load orders."
+            });
+        }
+    }
+);
 
 /* =========================================================
    ORDER FORMATTER
 ========================================================= */
 
-function formatOrder(order) {
+function formatOrder(order){
 
-    let items = [];
+    let items=[];
 
-    try {
 
-        if (Array.isArray(order.items)) {
+    try{
 
-            items = order.items;
+        items =
+            Array.isArray(order.items)
+                ? order.items
+                : JSON.parse(
+                    order.items || "[]"
+                  );
 
-        } else if (
-            typeof order.items === "string"
-        ) {
+    }catch(error){
 
-            items =
-                JSON.parse(order.items);
-        }
-
-    } catch (error) {
-
-        items = [];
+        items=[];
     }
+
 
     return {
 
-        id:
-            order.id,
+        id:order.id,
 
         orderId:
             order.order_id,
@@ -1542,107 +1322,128 @@ function formatOrder(order) {
             order.payment_method ||
             "Cash on Delivery",
 
-        items:
-
-            items,
+        items,
 
         subtotal:
-            Number(order.subtotal) || 0,
+            Number(order.subtotal)||0,
 
         gst:
-            Number(order.gst) || 0,
+            Number(order.gst)||0,
 
         total:
-            Number(order.total) || 0,
+            Number(order.total)||0,
 
         status:
             order.status || "Placed",
 
         createdAt:
-            order.created_at,
-
-        updatedAt:
-            order.updated_at
+            order.created_at
     };
 }
 
 /* =========================================================
-   START SERVER
+   ESCAPE
 ========================================================= */
 
-async function startServer() {
+function escapeHtml(value){
 
-    try {
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
 
-        if (!process.env.DATABASE_URL) {
+/* =========================================================
+   404
+========================================================= */
+
+app.use((req,res)=>{
+
+    res.status(404).json({
+
+        success:false,
+
+        message:
+            "GlowCart endpoint not found.",
+
+        path:req.originalUrl
+    });
+});
+
+/* =========================================================
+   START
+========================================================= */
+
+async function startServer(){
+
+    try{
+
+        if(!process.env.DATABASE_URL){
 
             throw new Error(
-                "DATABASE_URL is missing in Render Environment Variables."
+                "DATABASE_URL is missing."
             );
         }
 
-        await query("SELECT NOW()");
 
-        console.log(
-            "PostgreSQL connection successful."
+        await query(
+            "SELECT NOW()"
         );
+
 
         await initializeDatabase();
 
-        await migrateOldUsers();
 
         app.listen(
             PORT,
             HOST,
-            () => {
+            ()=>{
+                console.log(
+                    "================================"
+                );
 
-                console.log("");
                 console.log(
-                    "======================================"
+                    "       GLOWCART SERVER"
                 );
+
                 console.log(
-                    "          GLOWCART SERVER"
+                    "================================"
                 );
+
                 console.log(
-                    "======================================"
-                );
-                console.log(
-                    "Server running on port:",
+                    "Port:",
                     PORT
                 );
+
+                console.log(
+                    "Database: PostgreSQL"
+                );
+
                 console.log(
                     "Frontend:",
                     FRONTEND_FILE || "NOT FOUND"
                 );
+
                 console.log(
-                    "Database: PostgreSQL"
+                    "Admin:",
+                    ADMIN_EMAIL
                 );
+
                 console.log(
-                    "Welcome email:",
-                    process.env.RESEND_API_KEY
-                        ? "enabled"
-                        : "disabled"
+                    "================================"
                 );
-                console.log(
-                    "======================================"
-                );
-                console.log("");
             }
         );
 
-    } catch (error) {
 
-        console.error("");
+    }catch(error){
+
         console.error(
-            "======================================"
+            "SERVER START ERROR:",
+            error
         );
-        console.error(
-            "GLOWCART SERVER START FAILED"
-        );
-        console.error(
-            "======================================"
-        );
-        console.error(error);
 
         process.exit(1);
     }
