@@ -1,3275 +1,2577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>GlowCart - Premium Face Creams</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <style>
+
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,Helvetica,sans-serif;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-    background:#fff7fc;
-    color:#333;
-}
-
-button{
-    cursor:pointer;
+  background:#fff7fc;
+  color:#351b35;
 }
 
 header{
-    background:linear-gradient(135deg,#ec4899,#9333ea);
-    color:white;
-    padding:18px 6%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,.12);
+  background:linear-gradient(135deg,#ff4f9a,#8d4de8);
+  color:white;
+  padding:16px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 5px 20px rgba(120,30,120,.2);
 }
 
 .logo{
-    font-size:28px;
-    font-weight:bold;
+  font-size:28px;
+  font-weight:bold;
 }
 
-.nav-buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+nav{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-.nav-buttons button{
-    border:1px solid rgba(255,255,255,.6);
-    background:rgba(255,255,255,.15);
-    color:white;
-    padding:9px 15px;
-    border-radius:20px;
-    font-weight:bold;
+nav button{
+  border:none;
+  background:white;
+  color:#8d3ed1;
+  padding:10px 15px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-.nav-buttons button:hover{
-    background:white;
-    color:#9333ea;
+nav button:hover{
+  transform:translateY(-2px);
 }
 
 section{
-    padding:50px 6%;
+  display:none;
+}
+
+section.active{
+  display:block;
 }
 
 .hero{
-    min-height:480px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    background:
-    radial-gradient(circle at top right,#f9a8d4,transparent 35%),
-    linear-gradient(135deg,#fff0f8,#f5eaff);
+  min-height:560px;
+  padding:80px 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+  background:
+    linear-gradient(
+      120deg,
+      #ffe3f0,
+      #f2ddff
+    );
 }
 
-.hero-content{
-    max-width:800px;
+.hero-text{
+  max-width:600px;
 }
 
 .hero h1{
-    font-size:52px;
-    color:#9333ea;
-    margin-bottom:15px;
-}
-
-.hero h1 span{
-    color:#ec4899;
+  font-size:55px;
+  color:#7220a5;
+  margin-bottom:20px;
 }
 
 .hero p{
-    font-size:19px;
-    color:#666;
-    margin-bottom:25px;
+  font-size:20px;
+  line-height:1.7;
+  margin-bottom:25px;
 }
 
-.primary-btn{
-    border:none;
-    padding:14px 28px;
-    border-radius:25px;
-    color:white;
-    background:linear-gradient(135deg,#ec4899,#9333ea);
-    font-size:16px;
-    font-weight:bold;
-    box-shadow:0 5px 15px rgba(147,51,234,.25);
+.main-btn{
+  border:none;
+  padding:14px 25px;
+  border-radius:30px;
+  background:linear-gradient(135deg,#ff3f95,#873fe3);
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.primary-btn:hover{
-    transform:translateY(-2px);
+.hero-card{
+  width:360px;
+  height:360px;
+  border-radius:40px;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(90,20,100,.2);
 }
 
-.features{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    background:white;
+.hero-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.feature-card{
-    padding:30px;
-    border-radius:20px;
-    background:linear-gradient(135deg,#fff7fc,#f8efff);
-    text-align:center;
-    box-shadow:0 5px 20px rgba(100,50,120,.08);
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:40px auto;
 }
 
-.feature-card h3{
-    color:#9333ea;
-    margin:10px 0;
+.title{
+  text-align:center;
+  font-size:35px;
+  color:#7625a5;
+  margin-bottom:30px;
 }
 
-.form-section{
-    background:linear-gradient(135deg,#fff0f8,#f7edff);
+.form-box{
+  max-width:600px;
+  margin:30px auto;
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 35px rgba(80,20,100,.12);
 }
 
-.form-card{
-    max-width:600px;
-    margin:auto;
-    background:white;
-    padding:35px;
-    border-radius:25px;
-    box-shadow:0 10px 35px rgba(120,50,130,.12);
+.form-box h2{
+  text-align:center;
+  color:#8225a8;
+  margin-bottom:20px;
 }
 
-.form-card h2{
-    text-align:center;
-    color:#9333ea;
-    margin-bottom:25px;
+input,
+textarea,
+select{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
 }
 
-.form-group{
-    margin-bottom:15px;
+textarea{
+  resize:vertical;
+  min-height:80px;
 }
 
-.form-group label{
-    display:block;
-    margin-bottom:6px;
-    font-weight:bold;
-    color:#555;
-}
-
-.form-group input{
-    width:100%;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    outline:none;
-}
-
-.form-group input:focus{
-    border-color:#9333ea;
+.form-box button{
+  width:100%;
+  margin-top:12px;
 }
 
 .message{
-    text-align:center;
-    margin-top:15px;
-    font-weight:bold;
-}
-
-.hidden{
-    display:none !important;
-}
-
-.page-title{
-    text-align:center;
-    color:#9333ea;
-    font-size:35px;
-    margin-bottom:30px;
-}
-
-.shopping-section{
-    background:#fff7fc;
-}
-
-.shop-top{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-    flex-wrap:wrap;
-    margin-bottom:30px;
-}
-
-.search-box{
-    flex:1;
-    min-width:250px;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:25px;
+  text-align:center;
+  margin:15px 0;
+  font-weight:bold;
 }
 
 .products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:25px;
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+  gap:25px;
 }
 
-.product-card{
-    background:white;
-    border-radius:22px;
-    padding:20px;
-    box-shadow:0 8px 25px rgba(100,50,120,.1);
-    transition:.2s;
+.product{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(80,20,100,.12);
+  transition:.25s;
 }
 
-.product-card:hover{
-    transform:translateY(-5px);
+.product:hover{
+  transform:translateY(-6px);
 }
 
-.product-image{
-    height:180px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#fce7f3,#ede9fe);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:70px;
-    margin-bottom:15px;
+.product img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
 }
 
-.product-card h3{
-    color:#7e22ce;
-    margin-bottom:8px;
+.product-body{
+  padding:18px;
 }
 
-.product-card p{
-    color:#777;
-    min-height:42px;
+.product-body h3{
+  color:#6d2398;
+  margin-bottom:8px;
 }
 
 .price{
-    font-size:22px;
-    color:#ec4899;
-    font-weight:bold;
-    margin:12px 0;
+  font-size:22px;
+  font-weight:bold;
+  color:#e63886;
+  margin:10px 0;
 }
 
-.add-cart{
-    width:100%;
-    border:none;
-    padding:12px;
-    border-radius:12px;
-    color:white;
-    background:linear-gradient(135deg,#ec4899,#9333ea);
-    font-weight:bold;
+.product-body button{
+  width:100%;
+  border:none;
+  padding:12px;
+  background:linear-gradient(135deg,#ff4b9a,#873fe3);
+  color:white;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-.cart-box,
-.checkout-box,
-.orders-box{
-    max-width:900px;
-    margin:30px auto;
-    background:white;
-    padding:25px;
-    border-radius:20px;
-    box-shadow:0 8px 25px rgba(100,50,120,.1);
+.search{
+  width:100%;
+  max-width:600px;
+  display:block;
+  margin:0 auto 30px;
+  padding:15px;
+  border-radius:30px;
 }
 
 .cart-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    padding:15px 0;
-    border-bottom:1px solid #eee;
-    flex-wrap:wrap;
+  background:white;
+  margin:15px 0;
+  padding:18px;
+  border-radius:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  box-shadow:0 5px 20px rgba(80,20,100,.1);
 }
 
-.qty-buttons button{
-    border:none;
-    padding:5px 10px;
-    border-radius:8px;
-    background:#f3e8ff;
-    color:#7e22ce;
-    font-weight:bold;
+.cart-item img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.cart-left{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.qty{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.qty button{
+  border:none;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  cursor:pointer;
+  background:#ead6ff;
+}
+
+.summary{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  margin-top:25px;
+  box-shadow:0 8px 25px rgba(80,20,100,.1);
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  font-size:17px;
 }
 
 .total{
-    text-align:right;
-    font-size:24px;
-    color:#9333ea;
-    font-weight:bold;
-    margin-top:20px;
+  font-size:25px;
+  font-weight:bold;
+  color:#d72e86;
+  border-top:1px solid #ddd;
+  margin-top:10px;
+  padding-top:15px;
 }
 
-.address-card{
-    padding:15px;
-    background:#fff7fc;
-    border:1px solid #f0d5ec;
-    border-radius:12px;
-    margin:10px 0;
+.checkout-box{
+  max-width:800px;
+  margin:auto;
 }
 
-.order-card{
-    padding:18px;
-    margin:15px 0;
-    border-radius:15px;
-    background:#fff7fc;
-    border-left:5px solid #9333ea;
+.payment-box{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  margin-top:20px;
+  box-shadow:0 8px 25px rgba(80,20,100,.1);
 }
 
-footer{
-    background:#24102d;
-    color:white;
-    text-align:center;
-    padding:30px;
+.payment-option{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:2px solid #eee;
+  padding:15px;
+  border-radius:12px;
+  margin:10px 0;
+  cursor:pointer;
 }
 
-footer button{
-    margin-top:15px;
-    border:none;
-    background:none;
-    color:#f9a8d4;
-    font-weight:bold;
+.payment-option:hover{
+  border-color:#bb55df;
 }
 
-/* ADMIN */
-
-#adminSection{
-    min-height:100vh;
-    padding:50px 6%;
-    background:linear-gradient(135deg,#fff0f8,#f5eaff);
+.payment-option input{
+  width:auto;
+  margin:0;
 }
 
-.admin-login-box{
-    max-width:450px;
-    margin:20px auto;
-    background:white;
-    padding:35px;
-    border-radius:25px;
-    box-shadow:0 10px 35px rgba(150,80,150,.18);
+.payment-icon{
+  font-size:25px;
 }
 
-.admin-login-box h2{
-    text-align:center;
-    color:#9c27b0;
-    margin-bottom:10px;
+.order-success{
+  text-align:center;
+  background:white;
+  padding:40px;
+  border-radius:25px;
+  box-shadow:0 10px 35px rgba(80,20,100,.15);
 }
 
-.admin-login-box p{
-    text-align:center;
-    color:#777;
-    margin-bottom:25px;
+.order-success h2{
+  color:#6d2398;
+  margin-bottom:15px;
 }
 
-.admin-input{
-    width:100%;
-    padding:14px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:12px;
+.order-id{
+  font-size:22px;
+  font-weight:bold;
+  color:#e23889;
+  margin:15px;
 }
 
-.admin-login-btn{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(135deg,#ec4899,#9333ea);
-    color:white;
-    font-size:16px;
-    font-weight:bold;
+.orders-card{
+  background:white;
+  padding:20px;
+  border-radius:18px;
+  margin:15px 0;
+  box-shadow:0 6px 20px rgba(80,20,100,.1);
 }
 
-.admin-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    flex-wrap:wrap;
-    margin-bottom:25px;
+.orders-card h3{
+  color:#7625a5;
 }
 
-.admin-header h1{
-    color:#8e24aa;
+.admin-table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
 }
 
-.admin-header p{
-    color:#777;
-    margin-top:7px;
+.admin-table th,
+.admin-table td{
+  padding:13px;
+  border-bottom:1px solid #eee;
+  text-align:left;
 }
 
-.logout-btn{
-    padding:12px 20px;
-    border:none;
-    border-radius:12px;
-    background:#ef4444;
-    color:white;
-    font-weight:bold;
-}
-
-.member-count-card{
-    background:linear-gradient(135deg,#ec4899,#9333ea);
-    color:white;
-    border-radius:22px;
-    padding:25px;
-    margin-bottom:25px;
-    box-shadow:0 10px 30px rgba(150,80,150,.2);
-}
-
-.member-count-title{
-    font-size:16px;
-    opacity:.9;
+.admin-table th{
+  background:#8d42c8;
+  color:white;
 }
 
 .member-count{
-    font-size:45px;
-    font-weight:bold;
-    margin-top:5px;
+  background:linear-gradient(135deg,#ff4b9a,#873fe3);
+  color:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  margin-bottom:25px;
 }
 
-.member-table-box{
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    overflow-x:auto;
-    box-shadow:0 10px 30px rgba(100,50,120,.12);
+.member-count strong{
+  display:block;
+  font-size:45px;
 }
 
-.member-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:750px;
+footer{
+  background:#30132f;
+  color:white;
+  padding:35px;
+  text-align:center;
+  margin-top:60px;
 }
 
-.member-table th{
-    padding:15px;
-    background:#f8e8ff;
-    color:#7b1fa2;
-    text-align:left;
-}
+@media(max-width:700px){
 
-.member-table td{
-    padding:15px;
-    border-bottom:1px solid #eee;
-}
+  header{
+    flex-direction:column;
+    gap:15px;
+  }
 
-.member-table th:first-child,
-.member-table td:first-child{
+  .hero{
+    flex-direction:column;
     text-align:center;
+    padding:50px 5%;
+  }
+
+  .hero h1{
+    font-size:40px;
+  }
+
+  .hero-card{
+    width:280px;
+    height:280px;
+  }
+
+  .cart-item{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .admin-table{
+    font-size:12px;
+  }
+
 }
 
-@media(max-width:600px){
-    .hero h1{
-        font-size:38px;
-    }
-
-    section{
-        padding:35px 5%;
-    }
-
-    header{
-        justify-content:center;
-    }
-}
 </style>
+
 </head>
 
 <body>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- ================= HEADER ================= -->
 
 <header>
 
-    <div class="logo">
-        🌸 GlowCart
-    </div>
+<div class="logo">
+  ✨ GlowCart
+</div>
 
-    <div class="nav-buttons">
+<nav>
 
-        <button onclick="showHome()">
-            Home
-        </button>
+<button onclick="showPage('home')">
+Home
+</button>
 
-        <button onclick="showShopping()">
-            🛍️ Shop
-        </button>
+<button onclick="showPage('shop')">
+Shop
+</button>
 
-        <button onclick="showCart()">
-            🛒 Cart
-            (<span id="cartCount">0</span>)
-        </button>
+<button onclick="showPage('cart')">
+🛒 Cart (<span id="cartCount">0</span>)
+</button>
 
-        <button onclick="showOrders()">
-            📦 Orders
-        </button>
+<button onclick="showPage('orders')">
+📦 Orders
+</button>
 
-        <button onclick="showAdmin()">
-            🔐 Admin
-        </button>
+<button onclick="showPage('login')">
+Login
+</button>
 
-    </div>
+<button onclick="showPage('register')">
+Register
+</button>
+
+<button onclick="showPage('admin')">
+Admin
+</button>
+
+</nav>
 
 </header>
 
+<!-- ================= HOME ================= -->
 
-<!-- =====================================================
-     HOME
-===================================================== -->
+<section id="home" class="active">
 
-<div id="homePage">
+<div class="hero">
 
-    <section class="hero">
+<div class="hero-text">
 
-        <div class="hero-content">
+<h1>
+Glow Naturally ✨
+</h1>
 
-            <h1>
-                Glow <span>Beautifully</span>
-            </h1>
+<p>
+Discover premium face creams made for
+your everyday skincare routine.
+Beautiful skin starts with GlowCart.
+</p>
 
-            <p>
-                Discover premium face creams for healthy,
-                radiant and glowing skin.
-            </p>
-
-            <button
-                class="primary-btn"
-                onclick="showRegister()"
-            >
-                Start Shopping 💖
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <section class="features">
-
-        <div class="feature-card">
-            <div style="font-size:45px;">🌸</div>
-            <h3>Premium Care</h3>
-            <p>
-                Carefully selected face creams
-                for your daily skincare.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <div style="font-size:45px;">💰</div>
-            <h3>Affordable Prices</h3>
-            <p>
-                Quality skincare at pocket-friendly
-                prices.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <div style="font-size:45px;">🚚</div>
-            <h3>Easy Ordering</h3>
-            <p>
-                Simple and convenient online shopping.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <div style="font-size:45px;">💌</div>
-            <h3>Email Updates</h3>
-            <p>
-                Get confirmation emails for your
-                registration and orders.
-            </p>
-        </div>
-
-    </section>
+<button
+  class="main-btn"
+  onclick="showPage('shop')"
+>
+Shop Now
+</button>
 
 </div>
 
+<div class="hero-card">
 
-<!-- =====================================================
-     REGISTER
-===================================================== -->
-
-<section
-    id="registerSection"
-    class="form-section hidden"
+<img
+src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80"
+alt="GlowCart skincare"
 >
 
-    <div class="form-card">
+</div>
 
-        <h2>
-            🌸 Create Your GlowCart Account
-        </h2>
-
-        <form id="registerForm">
-
-            <div class="form-group">
-                <label>Full Name *</label>
-
-                <input
-                    type="text"
-                    id="regName"
-                    required
-                    placeholder="Enter your full name"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Email *</label>
-
-                <input
-                    type="email"
-                    id="regEmail"
-                    required
-                    placeholder="Enter your email"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Mobile *</label>
-
-                <input
-                    type="tel"
-                    id="regMobile"
-                    required
-                    placeholder="Enter mobile number"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Password *</label>
-
-                <input
-                    type="password"
-                    id="regPassword"
-                    required
-                    placeholder="Create password"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Primary Address *</label>
-
-                <input
-                    type="text"
-                    id="regAddress"
-                    required
-                    placeholder="Enter your address"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>Pincode *</label>
-
-                <input
-                    type="text"
-                    id="regPincode"
-                    required
-                    placeholder="Enter pincode"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>
-                    Second Address
-                    <small>(Optional)</small>
-                </label>
-
-                <input
-                    type="text"
-                    id="regAddress2"
-                    placeholder="Optional second address"
-                >
-            </div>
-
-            <div class="form-group">
-                <label>
-                    Second Pincode
-                    <small>(Optional)</small>
-                </label>
-
-                <input
-                    type="text"
-                    id="regPincode2"
-                    placeholder="Optional second pincode"
-                >
-            </div>
-
-            <button
-                type="submit"
-                class="primary-btn"
-                style="width:100%;"
-            >
-                Register 💖
-            </button>
-
-        </form>
-
-        <p
-            id="registerMessage"
-            class="message"
-        ></p>
-
-        <p style="
-            text-align:center;
-            margin-top:20px;
-        ">
-            Already registered?
-
-            <button
-                onclick="showLogin()"
-                style="
-                    border:none;
-                    background:none;
-                    color:#9333ea;
-                    font-weight:bold;
-                "
-            >
-                Login
-            </button>
-        </p>
-
-    </div>
+</div>
 
 </section>
 
+<!-- ================= REGISTER ================= -->
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<section id="register">
 
-<section
-    id="loginSection"
-    class="form-section hidden"
+<div class="container">
+
+<h1 class="title">
+Create Your GlowCart Account
+</h1>
+
+<div class="form-box">
+
+<h2>Register</h2>
+
+<input
+id="regName"
+placeholder="Full Name"
 >
 
-    <div class="form-card">
+<input
+id="regEmail"
+type="email"
+placeholder="Email Address"
+>
 
-        <h2>
-            💖 Welcome Back
-        </h2>
+<input
+id="regMobile"
+maxlength="10"
+placeholder="Mobile Number"
+>
 
-        <form id="loginForm">
+<input
+id="regPassword"
+type="password"
+placeholder="Password"
+>
 
-            <div class="form-group">
+<textarea
+id="regAddress"
+placeholder="Permanent Address"
+></textarea>
 
-                <label>Email</label>
+<input
+id="regPincode"
+maxlength="6"
+placeholder="Pincode"
+>
 
-                <input
-                    type="email"
-                    id="loginEmail"
-                    required
-                    placeholder="Enter email"
-                >
+<textarea
+id="regAddress2"
+placeholder="Second / Optional Address"
+></textarea>
 
-            </div>
+<input
+id="regPincode2"
+maxlength="6"
+placeholder="Second Address Pincode"
+>
 
-            <div class="form-group">
+<div
+id="registerMessage"
+class="message"
+></div>
 
-                <label>Password</label>
+<button
+class="main-btn"
+onclick="registerUser()"
+>
+Register Successfully
+</button>
 
-                <input
-                    type="password"
-                    id="loginPassword"
-                    required
-                    placeholder="Enter password"
-                >
+</div>
 
-            </div>
-
-            <button
-                type="submit"
-                class="primary-btn"
-                style="width:100%;"
-            >
-                Login
-            </button>
-
-        </form>
-
-        <p
-            id="loginMessage"
-            class="message"
-        ></p>
-
-        <p style="
-            text-align:center;
-            margin-top:20px;
-        ">
-            New to GlowCart?
-
-            <button
-                onclick="showRegister()"
-                style="
-                    border:none;
-                    background:none;
-                    color:#9333ea;
-                    font-weight:bold;
-                "
-            >
-                Register
-            </button>
-        </p>
-
-    </div>
+</div>
 
 </section>
 
+<!-- ================= LOGIN ================= -->
 
-<!-- =====================================================
-     SHOPPING
-===================================================== -->
+<section id="login">
 
-<section
-    id="shoppingPage"
-    class="shopping-section hidden"
+<div class="container">
+
+<h1 class="title">
+Welcome Back 💜
+</h1>
+
+<div class="form-box">
+
+<h2>Login</h2>
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Email Address"
 >
 
-    <h2 class="page-title">
-        ✨ Premium Face Creams
-    </h2>
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+>
 
-    <div class="shop-top">
+<div
+id="loginMessage"
+class="message"
+></div>
 
-        <input
-            type="text"
-            id="searchInput"
-            class="search-box"
-            placeholder="🔍 Search face creams..."
-            oninput="renderProducts()"
-        >
+<button
+class="main-btn"
+onclick="loginUser()"
+>
+Login
+</button>
 
-    </div>
+</div>
 
-    <div
-        id="productsContainer"
-        class="products"
-    ></div>
+</div>
 
 </section>
 
+<!-- ================= SHOP ================= -->
 
-<!-- =====================================================
-     CART
-===================================================== -->
+<section id="shop">
 
-<section
-    id="cartPage"
-    class="hidden"
+<div class="container">
+
+<h1 class="title">
+Premium Face Creams 💕
+</h1>
+
+<input
+class="search"
+id="searchBox"
+placeholder="🔍 Search face creams..."
+oninput="displayProducts()"
 >
 
-    <h2 class="page-title">
-        🛒 Your Cart
-    </h2>
+<div
+id="products"
+class="products"
+></div>
 
-    <div class="cart-box">
-
-        <div id="cartItems"></div>
-
-        <div
-            id="cartEmpty"
-            style="
-                text-align:center;
-                padding:30px;
-                color:#777;
-            "
-        >
-            Your cart is empty.
-        </div>
-
-        <div
-            id="cartSummary"
-            class="hidden"
-        >
-
-            <div class="total">
-                Subtotal:
-                ₹<span id="subtotal">0</span>
-            </div>
-
-            <div style="
-                text-align:right;
-                margin-top:8px;
-                color:#777;
-            ">
-                GST (18%):
-                ₹<span id="gst">0</span>
-            </div>
-
-            <div class="total">
-                Total:
-                ₹<span id="total">0</span>
-            </div>
-
-            <button
-                class="primary-btn"
-                style="
-                    width:100%;
-                    margin-top:20px;
-                "
-                onclick="showCheckout()"
-            >
-                Place Order 🛍️
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
+<!-- ================= CART ================= -->
 
-<!-- =====================================================
-     CHECKOUT
-===================================================== -->
+<section id="cart">
 
-<section
-    id="checkoutPage"
-    class="form-section hidden"
->
+<div class="container">
 
-    <div class="form-card">
+<h1 class="title">
+Your Shopping Cart 🛒
+</h1>
 
-        <h2>
-            📦 Place Your Order
-        </h2>
+<div id="cartItems"></div>
 
-        <div id="savedAddresses"></div>
+<div
+id="cartSummary"
+class="summary"
+></div>
 
-        <div class="form-group">
-
-            <label>
-                Delivery Address
-            </label>
-
-            <input
-                type="text"
-                id="checkoutAddress"
-                placeholder="Delivery address"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-                Pincode
-            </label>
-
-            <input
-                type="text"
-                id="checkoutPincode"
-                placeholder="Pincode"
-            >
-
-        </div>
-
-        <button
-            class="primary-btn"
-            style="width:100%;"
-            onclick="placeOrder()"
-        >
-            Confirm Order 💖
-        </button>
-
-        <p
-            id="orderMessage"
-            class="message"
-        ></p>
-
-    </div>
+</div>
 
 </section>
 
+<!-- ================= CHECKOUT ================= -->
 
-<!-- =====================================================
-     ORDERS
-===================================================== -->
+<section id="checkout">
 
-<section
-    id="ordersPage"
-    class="hidden"
+<div class="container">
+
+<h1 class="title">
+Place Your Order 💗
+</h1>
+
+<div class="checkout-box">
+
+<div class="form-box">
+
+<h2>Delivery Details</h2>
+
+<input
+id="checkoutName"
+placeholder="Full Name"
 >
 
-    <h2 class="page-title">
-        📦 My Orders
-    </h2>
+<input
+id="checkoutEmail"
+type="email"
+placeholder="Email"
+>
 
-    <div class="orders-box">
+<input
+id="checkoutMobile"
+placeholder="Mobile Number"
+>
 
-        <div id="ordersContainer"></div>
+<textarea
+id="checkoutAddress"
+placeholder="Delivery Address"
+></textarea>
 
-    </div>
+<input
+id="checkoutPincode"
+placeholder="Pincode"
+maxlength="6"
+>
+
+</div>
+
+<div class="payment-box">
+
+<h2>
+Choose Payment Method
+</h2>
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="payment"
+value="UPI"
+checked
+>
+
+<span class="payment-icon">📱</span>
+
+<div>
+<strong>UPI</strong>
+<br>
+Pay using UPI
+</div>
+
+</label>
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="payment"
+value="Net Banking"
+>
+
+<span class="payment-icon">🏦</span>
+
+<div>
+<strong>Net Banking</strong>
+<br>
+Pay using Internet Banking
+</div>
+
+</label>
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="payment"
+value="Cash on Delivery"
+>
+
+<span class="payment-icon">💵</span>
+
+<div>
+<strong>Cash on Delivery</strong>
+<br>
+Pay when your order arrives
+</div>
+
+</label>
+
+</div>
+
+<div
+id="checkoutSummary"
+class="summary"
+></div>
+
+<button
+class="main-btn"
+style="width:100%;margin-top:20px"
+onclick="placeOrder()"
+>
+Place Order
+</button>
+
+</div>
+
+</div>
 
 </section>
 
+<!-- ================= ORDER SUCCESS ================= -->
 
-<!-- =====================================================
-     ADMIN
-===================================================== -->
+<section id="success">
 
-<section
-    id="adminSection"
-    class="hidden"
+<div class="container">
+
+<div class="order-success">
+
+<h2>
+🎉 Order Placed Successfully!
+</h2>
+
+<p>
+Thank you for shopping with GlowCart.
+</p>
+
+<div
+id="successDetails"
+class="order-id"
+></div>
+
+<p>
+Your order confirmation has been sent to your email.
+</p>
+
+<button
+class="main-btn"
+onclick="showPage('orders');loadOrders()"
 >
+View My Orders
+</button>
 
-    <!-- ADMIN LOGIN -->
+</div>
 
-    <div
-        id="adminLoginBox"
-        class="admin-login-box"
-    >
-
-        <h2>
-            🔐 GlowCart Admin
-        </h2>
-
-        <p>
-            Login to view registered members
-        </p>
-
-        <input
-            id="adminEmail"
-            type="email"
-            class="admin-input"
-            placeholder="Admin Email"
-        >
-
-        <input
-            id="adminPassword"
-            type="password"
-            class="admin-input"
-            placeholder="Admin Password"
-        >
-
-        <button
-            onclick="adminLogin()"
-            class="admin-login-btn"
-        >
-            Login as Admin
-        </button>
-
-        <p
-            id="adminLoginMessage"
-            class="message"
-        ></p>
-
-    </div>
-
-
-    <!-- ADMIN DASHBOARD -->
-
-    <div
-        id="adminDashboard"
-        class="hidden"
-    >
-
-        <div class="admin-header">
-
-            <div>
-
-                <h1>
-                    👥 Registered Members
-                </h1>
-
-                <p>
-                    GlowCart Admin Dashboard
-                </p>
-
-            </div>
-
-            <button
-                onclick="adminLogout()"
-                class="logout-btn"
-            >
-                Logout
-            </button>
-
-        </div>
-
-
-        <!-- COUNT -->
-
-        <div class="member-count-card">
-
-            <div class="member-count-title">
-                Total Registered Members
-            </div>
-
-            <div
-                id="memberCount"
-                class="member-count"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <!-- TABLE -->
-
-        <div class="member-table-box">
-
-            <table class="member-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>#</th>
-
-                        <th>Name</th>
-
-                        <th>Email</th>
-
-                        <th>Mobile</th>
-
-                        <th>Registered On</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody
-                    id="membersTableBody"
-                ></tbody>
-
-            </table>
-
-        </div>
-
-        <p
-            id="adminTableMessage"
-            class="message"
-        ></p>
-
-    </div>
+</div>
 
 </section>
 
+<!-- ================= ORDERS ================= -->
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+<section id="orders">
+
+<div class="container">
+
+<h1 class="title">
+My Orders 📦
+</h1>
+
+<div id="ordersList"></div>
+
+</div>
+
+</section>
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin">
+
+<div class="container">
+
+<h1 class="title">
+GlowCart Admin 👑
+</h1>
+
+<div
+id="adminLoginBox"
+class="form-box"
+>
+
+<h2>Admin Login</h2>
+
+<input
+id="adminEmail"
+type="email"
+placeholder="Admin Email"
+>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Admin Password"
+>
+
+<div
+id="adminMessage"
+class="message"
+></div>
+
+<button
+class="main-btn"
+onclick="adminLogin()"
+>
+Admin Login
+</button>
+
+</div>
+
+<div
+id="adminDashboard"
+style="display:none"
+>
+
+<div class="member-count">
+
+<p>
+Total Registered Members
+</p>
+
+<strong id="memberCount">
+0
+</strong>
+
+</div>
+
+<button
+class="main-btn"
+onclick="loadMembers()"
+style="margin-bottom:20px"
+>
+🔄 Refresh Members
+</button>
+
+<button
+class="main-btn"
+onclick="adminLogout()"
+style="margin-bottom:20px"
+>
+Logout
+</button>
+
+<div style="overflow-x:auto">
+
+<table class="admin-table">
+
+<thead>
+
+<tr>
+
+<th>#</th>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Mobile</th>
+
+<th>Registered On</th>
+
+</tr>
+
+</thead>
+
+<tbody id="membersTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
-    <p>
-        © 2026 GlowCart. All Rights Reserved.
-    </p>
+<h2>
+✨ GlowCart
+</h2>
 
-    <button onclick="showAdmin()">
-        🔐 Admin Login
-    </button>
+<p>
+Premium Face Creams • Beautiful Skin • Happy You
+</p>
+
+<p style="margin-top:15px">
+© 2026 GlowCart
+</p>
 
 </footer>
 
-
 <script>
 
-// =====================================================
-// CONFIG
-// =====================================================
+/* =========================================================
+   CONFIG
+========================================================= */
 
 const API =
-    "https://glowcart-fxwp.onrender.com";
+"https://glowcart-fxwp.onrender.com";
 
 const GST_RATE = 0.18;
 
-
-// =====================================================
-// EMAILJS
-// =====================================================
-
-const EMAILJS_SERVICE_ID =
-    "service_nb7q38o";
+const EMAILJS_SERVICE =
+"service_nb7q38o";
 
 const EMAILJS_PUBLIC_KEY =
-    "O8MGjkU2KThjrZ31Y";
+"O8MGjkU2KThjrZ31Y";
 
-const EMAILJS_ORDER_TEMPLATE_ID =
-    "template_ykzf36";
+const EMAILJS_ORDER_TEMPLATE =
+"template_ykzf36";
 
-const EMAILJS_WELCOME_TEMPLATE_ID =
-    "template_giqmpm9";
+const EMAILJS_WELCOME_TEMPLATE =
+"template_giqmpm9";
 
+/* =========================================================
+   EMAILJS INIT
+========================================================= */
 
 emailjs.init({
-    publicKey: EMAILJS_PUBLIC_KEY
+  publicKey: EMAILJS_PUBLIC_KEY
 });
 
+/* =========================================================
+   STORAGE
+========================================================= */
 
-// =====================================================
-// DATA
-// =====================================================
-
-let products = [
-
-    {
-        id:1,
-        name:"Glow Radiance Cream",
-        price:299,
-        description:"Daily cream for radiant glowing skin."
-    },
-
-    {
-        id:2,
-        name:"Vitamin C Face Cream",
-        price:349,
-        description:"Vitamin C enriched cream for bright skin."
-    },
-
-    {
-        id:3,
-        name:"Hydra Moisturizing Cream",
-        price:279,
-        description:"Deep hydration for soft moisturized skin."
-    },
-
-    {
-        id:4,
-        name:"Aloe Vera Face Cream",
-        price:249,
-        description:"Soothing aloe vera care for your skin."
-    },
-
-    {
-        id:5,
-        name:"Rose Glow Cream",
-        price:299,
-        description:"Rose enriched cream for natural glow."
-    },
-
-    {
-        id:6,
-        name:"Night Repair Cream",
-        price:399,
-        description:"Night cream for overnight skin care."
-    },
-
-    {
-        id:7,
-        name:"Pearl Bright Cream",
-        price:329,
-        description:"Brightening face cream for smooth skin."
-    },
-
-    {
-        id:8,
-        name:"Coconut Hydration Cream",
-        price:289,
-        description:"Coconut based hydration for soft skin."
-    }
-
-];
-
+let products = [];
 
 let cart =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_cart"
-        )
-    ) || [];
+JSON.parse(
+  localStorage.getItem("glowcart_cart") || "[]"
+);
 
 let currentUser =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_user"
-        )
-    ) || null;
+JSON.parse(
+  localStorage.getItem("glowcart_user") || "null"
+);
 
-let orders =
-    JSON.parse(
-        localStorage.getItem(
-            "glowcart_orders"
-        )
-    ) || [];
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
 
+function showPage(page){
 
-// =====================================================
-// PAGE FUNCTIONS
-// =====================================================
-
-function hideAllPages(){
-
-    const ids = [
-        "homePage",
-        "registerSection",
-        "loginSection",
-        "shoppingPage",
-        "cartPage",
-        "checkoutPage",
-        "ordersPage",
-        "adminSection"
-    ];
-
-    ids.forEach(id => {
-
-        const element =
-            document.getElementById(id);
-
-        if(element){
-            element.classList.add("hidden");
-        }
-
+  document
+    .querySelectorAll("section")
+    .forEach(section=>{
+      section.classList.remove("active");
     });
+
+  const target =
+    document.getElementById(page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  if(page === "shop"){
+    displayProducts();
+  }
+
+  if(page === "cart"){
+    displayCart();
+  }
+
+  if(page === "orders"){
+    loadOrders();
+  }
+
+  if(page === "checkout"){
+    prepareCheckout();
+  }
+
+  if(page === "admin"){
+    checkAdminSession();
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
 
+/* =========================================================
+   LOAD PRODUCTS
+========================================================= */
 
-function showHome(){
+async function loadProducts(){
 
-    hideAllPages();
+  try{
 
-    document
-        .getElementById("homePage")
-        .classList.remove("hidden");
+    const response =
+      await fetch(API + "/api/products");
 
-}
+    const data =
+      await response.json();
 
-
-function showRegister(){
-
-    hideAllPages();
-
-    document
-        .getElementById("registerSection")
-        .classList.remove("hidden");
-
-}
-
-
-function showLogin(){
-
-    hideAllPages();
-
-    document
-        .getElementById("loginSection")
-        .classList.remove("hidden");
-
-}
-
-
-function showShopping(){
-
-    hideAllPages();
-
-    document
-        .getElementById("shoppingPage")
-        .classList.remove("hidden");
-
-    renderProducts();
-
-}
-
-
-function showCart(){
-
-    hideAllPages();
-
-    document
-        .getElementById("cartPage")
-        .classList.remove("hidden");
-
-    renderCart();
-
-}
-
-
-function showCheckout(){
-
-    if(!currentUser){
-
-        alert(
-            "Please login first."
-        );
-
-        showLogin();
-
-        return;
+    if(Array.isArray(data)){
+      products = data;
+    }else if(Array.isArray(data.products)){
+      products = data.products;
+    }else{
+      products = [];
     }
 
-    if(cart.length === 0){
+    displayProducts();
 
-        alert(
-            "Your cart is empty."
-        );
+  }catch(error){
 
-        return;
-    }
+    console.error(error);
 
-    hideAllPages();
-
-    document
-        .getElementById("checkoutPage")
-        .classList.remove("hidden");
-
-    loadSavedAddresses();
-
+    document.getElementById("products").innerHTML =
+      `
+      <div class="form-box">
+        <h2>Unable to load products</h2>
+        <p>Please try again.</p>
+      </div>
+      `;
+  }
 }
 
+/* =========================================================
+   PRODUCTS DISPLAY
+========================================================= */
 
-function showOrders(){
+function displayProducts(){
 
-    hideAllPages();
+  const box =
+    document.getElementById("products");
 
-    document
-        .getElementById("ordersPage")
-        .classList.remove("hidden");
+  if(!box) return;
 
-    renderOrders();
+  const search =
+    (
+      document.getElementById("searchBox")?.value
+      || ""
+    ).toLowerCase();
 
-}
-
-
-// =====================================================
-// REGISTER
-// =====================================================
-
-document
-.getElementById("registerForm")
-.addEventListener(
-    "submit",
-    async function(e){
-
-        e.preventDefault();
-
-        const name =
-            document
-            .getElementById("regName")
-            .value
-            .trim();
-
-        const email =
-            document
-            .getElementById("regEmail")
-            .value
-            .trim();
-
-        const mobile =
-            document
-            .getElementById("regMobile")
-            .value
-            .trim();
-
-        const password =
-            document
-            .getElementById("regPassword")
-            .value;
-
-        const address =
-            document
-            .getElementById("regAddress")
-            .value
-            .trim();
-
-        const pincode =
-            document
-            .getElementById("regPincode")
-            .value
-            .trim();
-
-        const address2 =
-            document
-            .getElementById("regAddress2")
-            .value
-            .trim();
-
-        const pincode2 =
-            document
-            .getElementById("regPincode2")
-            .value
-            .trim();
-
-        const message =
-            document
-            .getElementById(
-                "registerMessage"
-            );
-
-        message.style.color =
-            "#777";
-
-        message.innerText =
-            "Creating your account...";
-
-        try{
-
-            const response =
-                await fetch(
-                    API + "/api/register",
-                    {
-                        method:"POST",
-
-                        headers:{
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:JSON.stringify({
-
-                            name,
-                            email,
-                            mobile,
-                            password,
-                            address,
-                            pincode,
-                            address2,
-                            pincode2
-
-                        })
-                    }
-                );
-
-            const data =
-                await response.json();
-
-            if(
-                !response.ok ||
-                !data.success
-            ){
-
-                message.style.color =
-                    "red";
-
-                message.innerText =
-                    data.message ||
-                    "Registration failed.";
-
-                return;
-            }
-
-
-            // SAVE USER
-            currentUser =
-                data.user;
-
-            localStorage.setItem(
-                "glowcart_user",
-                JSON.stringify(
-                    currentUser
-                )
-            );
-
-
-            // SAVE ADDRESSES
-            localStorage.setItem(
-                "glowcart_address",
-                address
-            );
-
-            localStorage.setItem(
-                "glowcart_pincode",
-                pincode
-            );
-
-            if(address2){
-
-                localStorage.setItem(
-                    "glowcart_address2",
-                    address2
-                );
-
-            }
-
-            if(pincode2){
-
-                localStorage.setItem(
-                    "glowcart_pincode2",
-                    pincode2
-                );
-
-            }
-
-
-            // WELCOME EMAIL
-            try{
-
-                await emailjs.send(
-                    EMAILJS_SERVICE_ID,
-                    EMAILJS_WELCOME_TEMPLATE_ID,
-                    {
-
-                        to_email:email,
-
-                        to_name:name,
-
-                        user_name:name,
-
-                        user_email:email
-
-                    }
-                );
-
-                console.log(
-                    "Welcome email sent"
-                );
-
-            }catch(emailError){
-
-                console.error(
-                    "Welcome email error:",
-                    emailError
-                );
-
-            }
-
-
-            message.style.color =
-                "green";
-
-            message.innerText =
-                "Registration successful! Welcome email sent. Please login.";
-
-
-            setTimeout(
-                function(){
-
-                    showLogin();
-
-                    document
-                    .getElementById(
-                        "loginEmail"
-                    )
-                    .value =
-                        email;
-
-                },
-                1500
-            );
-
-        }catch(error){
-
-            console.error(
-                "Registration error:",
-                error
-            );
-
-            message.style.color =
-                "red";
-
-            message.innerText =
-                "Unable to connect to server.";
-
-        }
-
-    }
-);
-
-
-// =====================================================
-// LOGIN
-// =====================================================
-
-document
-.getElementById("loginForm")
-.addEventListener(
-    "submit",
-    async function(e){
-
-        e.preventDefault();
-
-        const email =
-            document
-            .getElementById("loginEmail")
-            .value
-            .trim();
-
-        const password =
-            document
-            .getElementById("loginPassword")
-            .value;
-
-        const message =
-            document
-            .getElementById(
-                "loginMessage"
-            );
-
-        message.style.color =
-            "#777";
-
-        message.innerText =
-            "Logging in...";
-
-        try{
-
-            const response =
-                await fetch(
-                    API + "/api/login",
-                    {
-                        method:"POST",
-
-                        headers:{
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:JSON.stringify({
-                            email,
-                            password
-                        })
-                    }
-                );
-
-            const data =
-                await response.json();
-
-            if(
-                !response.ok ||
-                !data.success
-            ){
-
-                message.style.color =
-                    "red";
-
-                message.innerText =
-                    data.message ||
-                    "Invalid email or password.";
-
-                return;
-            }
-
-
-            currentUser =
-                data.user;
-
-            localStorage.setItem(
-                "glowcart_user",
-                JSON.stringify(
-                    currentUser
-                )
-            );
-
-
-            message.style.color =
-                "green";
-
-            message.innerText =
-                "Login successful!";
-
-
-            // Login email
-            try{
-
-                await emailjs.send(
-                    EMAILJS_SERVICE_ID,
-                    EMAILJS_WELCOME_TEMPLATE_ID,
-                    {
-
-                        to_email:
-                            currentUser.email,
-
-                        to_name:
-                            currentUser.name,
-
-                        user_name:
-                            currentUser.name,
-
-                        user_email:
-                            currentUser.email
-
-                    }
-                );
-
-            }catch(error){
-
-                console.log(
-                    "Login email error:",
-                    error
-                );
-
-            }
-
-
-            setTimeout(
-                function(){
-
-                    showShopping();
-
-                },
-                800
-            );
-
-        }catch(error){
-
-            console.error(
-                error
-            );
-
-            message.style.color =
-                "red";
-
-            message.innerText =
-                "Server connection failed.";
-
-        }
-
-    }
-);
-
-
-// =====================================================
-// PRODUCTS
-// =====================================================
-
-function renderProducts(){
-
-    const container =
-        document.getElementById(
-            "productsContainer"
-        );
-
-    const search =
-        document.getElementById(
-            "searchInput"
-        )
-        .value
+  const filtered =
+    products.filter(product =>
+      String(product.name)
         .toLowerCase()
-        .trim();
-
-    const filtered =
-        products.filter(
-            product =>
-                product.name
-                .toLowerCase()
-                .includes(search)
-        );
-
-
-    container.innerHTML = "";
-
-
-    if(filtered.length === 0){
-
-        container.innerHTML = `
-            <p style="
-                grid-column:1/-1;
-                text-align:center;
-                color:#777;
-                padding:30px;
-            ">
-                No products found.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    filtered.forEach(
-        product => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-            card.className =
-                "product-card";
-
-            card.innerHTML = `
-
-                <div class="product-image">
-                    🧴
-                </div>
-
-                <h3>
-                    ${escapeHTML(
-                        product.name
-                    )}
-                </h3>
-
-                <p>
-                    ${escapeHTML(
-                        product.description
-                    )}
-                </p>
-
-                <div class="price">
-                    ₹${product.price}
-                </div>
-
-                <button
-                    class="add-cart"
-                    onclick="addToCart(${product.id})"
-                >
-                    Add to Cart 🛒
-                </button>
-
-            `;
-
-            container.appendChild(
-                card
-            );
-
-        }
+        .includes(search)
     );
 
+  if(filtered.length === 0){
+
+    box.innerHTML =
+      `
+      <div class="form-box">
+        <h2>No products found</h2>
+      </div>
+      `;
+
+    return;
+  }
+
+  box.innerHTML =
+    filtered.map(product => {
+
+      const image =
+        product.image ||
+        "https://via.placeholder.com/500x400?text=GlowCart";
+
+      return `
+      <div class="product">
+
+        <img
+          src="${image}"
+          alt="${escapeHtml(product.name)}"
+          onerror="this.src='https://via.placeholder.com/500x400?text=GlowCart'"
+        >
+
+        <div class="product-body">
+
+          <h3>
+            ${escapeHtml(product.name)}
+          </h3>
+
+          <p>
+            ${escapeHtml(product.description || "")}
+          </p>
+
+          <div class="price">
+            ₹${Number(product.price).toFixed(2)}
+          </div>
+
+          <button
+            onclick="addToCart(${product.id})"
+          >
+            Add to Cart 🛒
+          </button>
+
+        </div>
+
+      </div>
+      `;
+
+    }).join("");
 }
 
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-// =====================================================
-// CART
-// =====================================================
+function escapeHtml(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+/* =========================================================
+   ADD CART
+========================================================= */
 
 function addToCart(id){
 
-    const product =
-        products.find(
-            p => p.id === id
-        );
-
-    if(!product){
-        return;
-    }
-
-    const existing =
-        cart.find(
-            item =>
-                item.id === id
-        );
-
-    if(existing){
-
-        existing.quantity++;
-
-    }else{
-
-        cart.push({
-
-            id:product.id,
-
-            name:product.name,
-
-            price:product.price,
-
-            quantity:1
-
-        });
-
-    }
-
-    saveCart();
-
-    alert(
-        product.name +
-        " added to cart!"
+  const product =
+    products.find(
+      p => String(p.id) === String(id)
     );
 
+  if(!product) return;
+
+  const existing =
+    cart.find(
+      item => String(item.id) === String(id)
+    );
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+      id:product.id,
+      name:product.name,
+      price:Number(product.price),
+      image:product.image,
+      quantity:1
+    });
+
+  }
+
+  saveCart();
+
+  alert(
+    product.name +
+    " added to cart!"
+  );
 }
 
+/* =========================================================
+   SAVE CART
+========================================================= */
 
 function saveCart(){
 
-    localStorage.setItem(
-        "glowcart_cart",
-        JSON.stringify(cart)
-    );
+  localStorage.setItem(
+    "glowcart_cart",
+    JSON.stringify(cart)
+  );
 
-    updateCartCount();
-
+  updateCartCount();
 }
 
+/* =========================================================
+   CART COUNT
+========================================================= */
 
 function updateCartCount(){
 
-    const count =
-        cart.reduce(
-            (sum,item) =>
-                sum + item.quantity,
-            0
-        );
-
-    document
-    .getElementById(
-        "cartCount"
-    )
-    .innerText =
-        count;
-
-}
-
-
-function renderCart(){
-
-    const container =
-        document.getElementById(
-            "cartItems"
-        );
-
-    const empty =
-        document.getElementById(
-            "cartEmpty"
-        );
-
-    const summary =
-        document.getElementById(
-            "cartSummary"
-        );
-
-    container.innerHTML = "";
-
-
-    if(cart.length === 0){
-
-        empty.classList.remove(
-            "hidden"
-        );
-
-        summary.classList.add(
-            "hidden"
-        );
-
-        return;
-
-    }
-
-
-    empty.classList.add(
-        "hidden"
+  const count =
+    cart.reduce(
+      (sum,item)=>
+        sum + Number(item.quantity || 0),
+      0
     );
 
-    summary.classList.remove(
-        "hidden"
-    );
-
-
-    let subtotal = 0;
-
-
-    cart.forEach(
-        (item,index) => {
-
-            subtotal +=
-                item.price *
-                item.quantity;
-
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className =
-                "cart-item";
-
-            div.innerHTML = `
-
-                <div>
-                    <strong>
-                        ${escapeHTML(
-                            item.name
-                        )}
-                    </strong>
-
-                    <div style="
-                        color:#ec4899;
-                        margin-top:5px;
-                    ">
-                        ₹${item.price}
-                    </div>
-                </div>
-
-                <div class="qty-buttons">
-
-                    <button
-                        onclick="changeQuantity(${index},-1)"
-                    >
-                        −
-                    </button>
-
-                    <strong style="
-                        margin:0 10px;
-                    ">
-                        ${item.quantity}
-                    </strong>
-
-                    <button
-                        onclick="changeQuantity(${index},1)"
-                    >
-                        +
-                    </button>
-
-                    <button
-                        onclick="removeFromCart(${index})"
-                        style="
-                            margin-left:10px;
-                            background:#fee2e2;
-                            color:#dc2626;
-                        "
-                    >
-                        Remove
-                    </button>
-
-                </div>
-            `;
-
-            container.appendChild(
-                div
-            );
-
-        }
-    );
-
-
-    const gst =
-        subtotal * GST_RATE;
-
-    const total =
-        subtotal + gst;
-
-
-    document.getElementById(
-        "subtotal"
-    ).innerText =
-        subtotal.toFixed(2);
-
-    document.getElementById(
-        "gst"
-    ).innerText =
-        gst.toFixed(2);
-
-    document.getElementById(
-        "total"
-    ).innerText =
-        total.toFixed(2);
-
+  document.getElementById("cartCount").textContent =
+    count;
 }
 
+/* =========================================================
+   CART DISPLAY
+========================================================= */
 
-function changeQuantity(
-    index,
-    change
-){
+function displayCart(){
 
-    cart[index].quantity +=
-        change;
+  const box =
+    document.getElementById("cartItems");
 
-    if(
-        cart[index].quantity <= 0
-    ){
+  const summary =
+    document.getElementById("cartSummary");
 
-        cart.splice(
-            index,
-            1
-        );
+  if(cart.length === 0){
 
-    }
+    box.innerHTML =
+      `
+      <div class="form-box">
 
-    saveCart();
+        <h2>Your cart is empty 🛒</h2>
 
-    renderCart();
+        <button
+          class="main-btn"
+          onclick="showPage('shop')"
+        >
+          Continue Shopping
+        </button>
 
+      </div>
+      `;
+
+    summary.innerHTML = "";
+
+    return;
+  }
+
+  box.innerHTML =
+    cart.map((item,index)=>{
+
+      return `
+      <div class="cart-item">
+
+        <div class="cart-left">
+
+          <img
+            src="${item.image}"
+            alt="${escapeHtml(item.name)}"
+          >
+
+          <div>
+
+            <h3>
+              ${escapeHtml(item.name)}
+            </h3>
+
+            <p>
+              ₹${Number(item.price).toFixed(2)}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="qty">
+
+          <button
+            onclick="changeQuantity(${index},-1)"
+          >
+            -
+          </button>
+
+          <strong>
+            ${item.quantity}
+          </strong>
+
+          <button
+            onclick="changeQuantity(${index},1)"
+          >
+            +
+          </button>
+
+          <button
+            onclick="removeFromCart(${index})"
+          >
+            ❌
+          </button>
+
+        </div>
+
+      </div>
+      `;
+
+    }).join("");
+
+  const totals =
+    calculateTotals();
+
+  summary.innerHTML =
+    `
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <strong>₹${totals.subtotal.toFixed(2)}</strong>
+    </div>
+
+    <div class="summary-row">
+      <span>GST (18%)</span>
+      <strong>₹${totals.gst.toFixed(2)}</strong>
+    </div>
+
+    <div class="summary-row total">
+      <span>Total Amount</span>
+      <strong>₹${totals.total.toFixed(2)}</strong>
+    </div>
+
+    <button
+      class="main-btn"
+      style="width:100%;margin-top:20px"
+      onclick="showPage('checkout')"
+    >
+      Proceed to Place Order
+    </button>
+    `;
 }
 
+/* =========================================================
+   QUANTITY
+========================================================= */
+
+function changeQuantity(index,change){
+
+  cart[index].quantity += change;
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
+
+  }
+
+  saveCart();
+  displayCart();
+}
+
+/* =========================================================
+   REMOVE
+========================================================= */
 
 function removeFromCart(index){
 
-    cart.splice(
-        index,
-        1
+  cart.splice(index,1);
+
+  saveCart();
+
+  displayCart();
+}
+
+/* =========================================================
+   TOTALS
+========================================================= */
+
+function calculateTotals(){
+
+  let subtotal = 0;
+
+  cart.forEach(item => {
+
+    subtotal +=
+      Number(item.price) *
+      Number(item.quantity);
+
+  });
+
+  const gst =
+    subtotal * GST_RATE;
+
+  const total =
+    subtotal + gst;
+
+  return {
+    subtotal,
+    gst,
+    total
+  };
+}
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+async function registerUser(){
+
+  const name =
+    document.getElementById("regName").value.trim();
+
+  const email =
+    document.getElementById("regEmail").value.trim();
+
+  const mobile =
+    document.getElementById("regMobile").value.trim();
+
+  const password =
+    document.getElementById("regPassword").value;
+
+  const address =
+    document.getElementById("regAddress").value.trim();
+
+  const pincode =
+    document.getElementById("regPincode").value.trim();
+
+  const address2 =
+    document.getElementById("regAddress2").value.trim();
+
+  const pincode2 =
+    document.getElementById("regPincode2").value.trim();
+
+  const message =
+    document.getElementById("registerMessage");
+
+  message.textContent =
+    "Registering...";
+
+  try{
+
+    const response =
+      await fetch(API + "/api/register",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          name,
+          email,
+          mobile,
+          password,
+          address,
+          pincode,
+          address2,
+          pincode2
+        })
+
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok || !data.success){
+
+      message.textContent =
+        data.message ||
+        "Registration failed.";
+
+      message.style.color = "red";
+
+      return;
+    }
+
+    currentUser = data.user;
+
+    localStorage.setItem(
+      "glowcart_user",
+      JSON.stringify(currentUser)
     );
 
-    saveCart();
+    /* EMAIL */
 
-    renderCart();
+    await sendWelcomeEmail(
+      currentUser
+    );
 
+    message.textContent =
+      "Registration successful! Welcome email sent.";
+
+    message.style.color = "green";
+
+    alert(
+      "Registration successful! 💗\n\n" +
+      "A welcome email has been sent to " +
+      currentUser.email
+    );
+
+    document.getElementById("regName").value="";
+    document.getElementById("regEmail").value="";
+    document.getElementById("regMobile").value="";
+    document.getElementById("regPassword").value="";
+    document.getElementById("regAddress").value="";
+    document.getElementById("regPincode").value="";
+    document.getElementById("regAddress2").value="";
+    document.getElementById("regPincode2").value="";
+
+    showPage("login");
+
+  }catch(error){
+
+    console.error(error);
+
+    message.textContent =
+      "Unable to connect to server.";
+
+    message.style.color = "red";
+  }
 }
 
+/* =========================================================
+   WELCOME EMAIL
+========================================================= */
 
-// =====================================================
-// SAVED ADDRESSES
-// =====================================================
+async function sendWelcomeEmail(user){
 
-function loadSavedAddresses(){
+  try{
 
-    const container =
-        document.getElementById(
-            "savedAddresses"
-        );
+    const result =
+      await emailjs.send(
+        EMAILJS_SERVICE,
+        EMAILJS_WELCOME_TEMPLATE,
+        {
+          to_email:user.email,
+          to_name:user.name,
+          user_name:user.name,
+          user_email:user.email
+        }
+      );
 
-    container.innerHTML = "";
+    console.log(
+      "Welcome email sent:",
+      result
+    );
 
+    return true;
 
-    if(!currentUser){
-        return;
-    }
+  }catch(error){
 
+    console.error(
+      "Welcome EmailJS error:",
+      error
+    );
 
-    if(currentUser.address){
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className =
-            "address-card";
-
-        div.innerHTML = `
-            <strong>
-                Primary Address
-            </strong>
-
-            <br>
-
-            ${escapeHTML(
-                currentUser.address
-            )}
-
-            <br>
-
-            Pincode:
-            ${escapeHTML(
-                currentUser.pincode
-            )}
-
-            <br><br>
-
-            <button
-                class="primary-btn"
-                onclick="selectAddress(1)"
-                style="
-                    padding:8px 15px;
-                "
-            >
-                Use This Address
-            </button>
-        `;
-
-        container.appendChild(
-            div
-        );
-
-    }
-
-
-    if(currentUser.address2){
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-        div.className =
-            "address-card";
-
-        div.innerHTML = `
-            <strong>
-                Second Address
-            </strong>
-
-            <br>
-
-            ${escapeHTML(
-                currentUser.address2
-            )}
-
-            <br>
-
-            Pincode:
-            ${escapeHTML(
-                currentUser.pincode2
-            )}
-
-            <br><br>
-
-            <button
-                class="primary-btn"
-                onclick="selectAddress(2)"
-                style="
-                    padding:8px 15px;
-                "
-            >
-                Use This Address
-            </button>
-        `;
-
-        container.appendChild(
-            div
-        );
-
-    }
-
+    return false;
+  }
 }
 
+/* =========================================================
+   LOGIN
+========================================================= */
 
-function selectAddress(number){
+async function loginUser(){
 
-    if(!currentUser){
-        return;
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+  message.textContent =
+    "Logging in...";
+
+  try{
+
+    const response =
+      await fetch(API + "/api/login",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          email,
+          password
+        })
+
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok || !data.success){
+
+      message.textContent =
+        data.message ||
+        "Login failed.";
+
+      message.style.color = "red";
+
+      return;
     }
 
+    currentUser = data.user;
 
-    if(number === 1){
+    localStorage.setItem(
+      "glowcart_user",
+      JSON.stringify(currentUser)
+    );
 
-        document.getElementById(
-            "checkoutAddress"
-        ).value =
-            currentUser.address || "";
+    await sendWelcomeEmail(
+      currentUser
+    );
 
-        document.getElementById(
-            "checkoutPincode"
-        ).value =
-            currentUser.pincode || "";
+    message.textContent =
+      "Login successful!";
 
-    }
+    message.style.color = "green";
 
+    alert(
+      "Login successful! Welcome " +
+      currentUser.name
+    );
 
-    if(number === 2){
+    showPage("shop");
 
-        document.getElementById(
-            "checkoutAddress"
-        ).value =
-            currentUser.address2 || "";
+  }catch(error){
 
-        document.getElementById(
-            "checkoutPincode"
-        ).value =
-            currentUser.pincode2 || "";
+    console.error(error);
 
-    }
+    message.textContent =
+      "Unable to connect to server.";
 
+    message.style.color = "red";
+  }
 }
 
+/* =========================================================
+   CHECKOUT
+========================================================= */
 
-// =====================================================
-// PLACE ORDER
-// =====================================================
+function prepareCheckout(){
+
+  if(cart.length === 0){
+
+    alert("Your cart is empty.");
+
+    showPage("shop");
+
+    return;
+  }
+
+  if(currentUser){
+
+    document.getElementById("checkoutName").value =
+      currentUser.name || "";
+
+    document.getElementById("checkoutEmail").value =
+      currentUser.email || "";
+
+    document.getElementById("checkoutMobile").value =
+      currentUser.mobile || "";
+
+    document.getElementById("checkoutAddress").value =
+      currentUser.address || "";
+
+    document.getElementById("checkoutPincode").value =
+      currentUser.pincode || "";
+
+  }
+
+  displayCheckoutSummary();
+}
+
+/* =========================================================
+   CHECKOUT SUMMARY
+========================================================= */
+
+function displayCheckoutSummary(){
+
+  const totals =
+    calculateTotals();
+
+  document.getElementById("checkoutSummary").innerHTML =
+    `
+    <h2>
+      Order Summary
+    </h2>
+
+    ${cart.map(item => `
+      <div class="summary-row">
+
+        <span>
+          ${escapeHtml(item.name)}
+          × ${item.quantity}
+        </span>
+
+        <strong>
+          ₹${(
+            Number(item.price) *
+            Number(item.quantity)
+          ).toFixed(2)}
+        </strong>
+
+      </div>
+    `).join("")}
+
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <strong>
+        ₹${totals.subtotal.toFixed(2)}
+      </strong>
+    </div>
+
+    <div class="summary-row">
+      <span>GST (18%)</span>
+      <strong>
+        ₹${totals.gst.toFixed(2)}
+      </strong>
+    </div>
+
+    <div class="summary-row total">
+      <span>Total Amount</span>
+      <strong>
+        ₹${totals.total.toFixed(2)}
+      </strong>
+    </div>
+    `;
+}
+
+/* =========================================================
+   PLACE ORDER
+========================================================= */
 
 async function placeOrder(){
 
-    if(!currentUser){
+  if(cart.length === 0){
 
-        alert(
-            "Please login first."
-        );
+    alert("Your cart is empty.");
 
-        showLogin();
+    return;
+  }
 
-        return;
-    }
+  const name =
+    document.getElementById("checkoutName").value.trim();
 
+  const email =
+    document.getElementById("checkoutEmail").value.trim();
 
-    if(cart.length === 0){
+  const mobile =
+    document.getElementById("checkoutMobile").value.trim();
 
-        alert(
-            "Your cart is empty."
-        );
+  const address =
+    document.getElementById("checkoutAddress").value.trim();
 
-        return;
-    }
+  const pincode =
+    document.getElementById("checkoutPincode").value.trim();
 
+  const payment =
+    document.querySelector(
+      'input[name="payment"]:checked'
+    )?.value;
 
-    const address =
-        document.getElementById(
-            "checkoutAddress"
-        ).value.trim();
+  if(
+    !name ||
+    !email ||
+    !mobile ||
+    !address ||
+    !pincode
+  ){
 
-    const pincode =
-        document.getElementById(
-            "checkoutPincode"
-        ).value.trim();
-
-    const message =
-        document.getElementById(
-            "orderMessage"
-        );
-
-
-    if(!address || !pincode){
-
-        message.style.color =
-            "red";
-
-        message.innerText =
-            "Please enter delivery address and pincode.";
-
-        return;
-    }
-
-
-    message.style.color =
-        "#777";
-
-    message.innerText =
-        "Placing your order...";
-
-
-    try{
-
-        const response =
-            await fetch(
-                API + "/api/orders",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        email:
-                            currentUser.email,
-
-                        items:
-                            cart,
-
-                        address:
-                            address,
-
-                        pincode:
-                            pincode
-
-                    })
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !response.ok ||
-            !data.success
-        ){
-
-            message.style.color =
-                "red";
-
-            message.innerText =
-                data.message ||
-                "Order failed.";
-
-            return;
-        }
-
-
-        const order =
-            data.order;
-
-
-        // EMAIL
-        try{
-
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                EMAILJS_ORDER_TEMPLATE_ID,
-                {
-
-                    to_email:
-                        currentUser.email,
-
-                    to_name:
-                        currentUser.name,
-
-                    user_name:
-                        currentUser.name,
-
-                    user_email:
-                        currentUser.email,
-
-                    order_id:
-                        order.orderId,
-
-                    order_total:
-                        order.total,
-
-                    order_address:
-                        order.address,
-
-                    order_pincode:
-                        order.pincode
-
-                }
-            );
-
-            console.log(
-                "Order email sent"
-            );
-
-        }catch(emailError){
-
-            console.error(
-                "Order email error:",
-                emailError
-            );
-
-        }
-
-
-        // SAVE LOCAL ORDER
-        orders.push(
-            order
-        );
-
-        localStorage.setItem(
-            "glowcart_orders",
-            JSON.stringify(
-                orders
-            )
-        );
-
-
-        cart = [];
-
-        saveCart();
-
-
-        message.style.color =
-            "green";
-
-        message.innerText =
-            "Order placed successfully! Confirmation email sent.";
-
-
-        setTimeout(
-            function(){
-
-                showOrders();
-
-            },
-            1500
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Order error:",
-            error
-        );
-
-        message.style.color =
-            "red";
-
-        message.innerText =
-            "Unable to connect to server.";
-
-    }
-
-}
-
-
-// =====================================================
-// ORDERS
-// =====================================================
-
-function renderOrders(){
-
-    const container =
-        document.getElementById(
-            "ordersContainer"
-        );
-
-    container.innerHTML = "";
-
-
-    if(!currentUser){
-
-        container.innerHTML = `
-            <p style="
-                text-align:center;
-                color:#777;
-            ">
-                Please login to see your orders.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    const userOrders =
-        orders.filter(
-            order =>
-                String(order.email)
-                .toLowerCase() ===
-                String(currentUser.email)
-                .toLowerCase()
-        );
-
-
-    if(userOrders.length === 0){
-
-        container.innerHTML = `
-            <p style="
-                text-align:center;
-                color:#777;
-                padding:30px;
-            ">
-                You have no orders yet.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    userOrders
-    .slice()
-    .reverse()
-    .forEach(
-        order => {
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className =
-                "order-card";
-
-
-            let itemText = "";
-
-            order.items.forEach(
-                item => {
-
-                    itemText += `
-                        ${escapeHTML(
-                            item.name
-                        )}
-                        × ${item.quantity}
-                        <br>
-                    `;
-
-                }
-            );
-
-
-            div.innerHTML = `
-
-                <h3 style="
-                    color:#9333ea;
-                    margin-bottom:10px;
-                ">
-                    Order ID:
-                    ${escapeHTML(
-                        order.orderId
-                    )}
-                </h3>
-
-                <p>
-                    <strong>
-                        Products:
-                    </strong>
-                </p>
-
-                <p style="
-                    margin:8px 0;
-                ">
-                    ${itemText}
-                </p>
-
-                <p>
-                    <strong>
-                        Address:
-                    </strong>
-                    ${escapeHTML(
-                        order.address
-                    )}
-                </p>
-
-                <p>
-                    <strong>
-                        Pincode:
-                    </strong>
-                    ${escapeHTML(
-                        order.pincode
-                    )}
-                </p>
-
-                <p style="
-                    margin-top:8px;
-                    color:#777;
-                ">
-                    ${new Date(
-                        order.orderedAt
-                    ).toLocaleString("en-IN")}
-                </p>
-
-                <div style="
-                    margin-top:12px;
-                    font-size:20px;
-                    font-weight:bold;
-                    color:#ec4899;
-                ">
-                    Total: ₹${Number(
-                        order.total
-                    ).toFixed(2)}
-                </div>
-
-            `;
-
-            container.appendChild(
-                div
-            );
-
-        }
+    alert(
+      "Please fill all delivery details."
     );
 
+    return;
+  }
+
+  if(!payment){
+
+    alert(
+      "Please select a payment method."
+    );
+
+    return;
+  }
+
+  const totals =
+    calculateTotals();
+
+  const orderButton =
+    document.querySelector(
+      '#checkout .main-btn'
+    );
+
+  orderButton.disabled = true;
+
+  orderButton.textContent =
+    "Placing Order...";
+
+  try{
+
+    const response =
+      await fetch(API + "/api/orders",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          name,
+
+          email,
+
+          mobile,
+
+          address,
+
+          pincode,
+
+          items:cart,
+
+          subtotal:totals.subtotal,
+
+          paymentMethod:payment
+
+        })
+
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok || !data.success){
+
+      throw new Error(
+        data.message ||
+        "Order failed"
+      );
+    }
+
+    const order =
+      data.order;
+
+    /* SAVE ORDER LOCALLY */
+
+    const localOrders =
+      JSON.parse(
+        localStorage.getItem(
+          "glowcart_orders"
+        ) || "[]"
+      );
+
+    localOrders.push(order);
+
+    localStorage.setItem(
+      "glowcart_orders",
+      JSON.stringify(localOrders)
+    );
+
+    /* SEND ORDER EMAIL */
+
+    const emailSent =
+      await sendOrderEmail(order);
+
+    /* CLEAR CART */
+
+    cart = [];
+
+    saveCart();
+
+    /* SUCCESS SCREEN */
+
+    document.getElementById(
+      "successDetails"
+    ).innerHTML =
+      `
+      <div>
+        Order ID:
+        <strong>
+          ${escapeHtml(order.orderId)}
+        </strong>
+      </div>
+
+      <div style="margin-top:10px">
+        Payment:
+        <strong>
+          ${escapeHtml(order.paymentMethod)}
+        </strong>
+      </div>
+
+      <div style="margin-top:10px">
+        GST:
+        <strong>
+          ₹${Number(order.gst).toFixed(2)}
+        </strong>
+      </div>
+
+      <div style="margin-top:10px">
+        Total:
+        <strong>
+          ₹${Number(order.total).toFixed(2)}
+        </strong>
+      </div>
+
+      <div style="margin-top:10px;font-size:15px">
+        ${
+          emailSent
+          ? "📧 Order confirmation email sent."
+          : "Order placed. Please check your email configuration."
+        }
+      </div>
+      `;
+
+    showPage("success");
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Unable to place order.\n\n" +
+      error.message
+    );
+
+  }finally{
+
+    orderButton.disabled = false;
+
+    orderButton.textContent =
+      "Place Order";
+  }
 }
 
+/* =========================================================
+   ORDER EMAIL
+========================================================= */
 
-// =====================================================
-// ADMIN
-// =====================================================
+async function sendOrderEmail(order){
 
-let adminToken =
+  try{
+
+    const itemText =
+      order.items
+        .map(item =>
+          `${item.name} x ${item.quantity} - ₹${(
+            Number(item.price) *
+            Number(item.quantity)
+          ).toFixed(2)}`
+        )
+        .join("\n");
+
+    const result =
+      await emailjs.send(
+        EMAILJS_SERVICE,
+        EMAILJS_ORDER_TEMPLATE,
+        {
+          to_email:order.email,
+          to_name:order.name,
+
+          user_name:order.name,
+
+          user_email:order.email,
+
+          order_id:order.orderId,
+
+          order_total:
+            `₹${Number(order.total).toFixed(2)}`,
+
+          order_subtotal:
+            `₹${Number(order.subtotal).toFixed(2)}`,
+
+          order_gst:
+            `₹${Number(order.gst).toFixed(2)}`,
+
+          order_payment:
+            order.paymentMethod,
+
+          order_address:
+            order.address,
+
+          order_pincode:
+            order.pincode,
+
+          order_items:
+            itemText
+        }
+      );
+
+    console.log(
+      "Order email sent:",
+      result
+    );
+
+    return true;
+
+  }catch(error){
+
+    console.error(
+      "Order EmailJS error:",
+      error
+    );
+
+    return false;
+  }
+}
+
+/* =========================================================
+   LOAD ORDERS
+========================================================= */
+
+async function loadOrders(){
+
+  const box =
+    document.getElementById("ordersList");
+
+  if(!currentUser){
+
+    box.innerHTML =
+      `
+      <div class="form-box">
+
+        <h2>Please login first.</h2>
+
+        <button
+          class="main-btn"
+          onclick="showPage('login')"
+        >
+          Login
+        </button>
+
+      </div>
+      `;
+
+    return;
+  }
+
+  box.innerHTML =
+    `
+    <div class="form-box">
+      <h2>Loading orders...</h2>
+    </div>
+    `;
+
+  try{
+
+    const response =
+      await fetch(
+        API +
+        "/api/orders/" +
+        encodeURIComponent(
+          currentUser.email
+        )
+      );
+
+    const data =
+      await response.json();
+
+    const orders =
+      data.orders || [];
+
+    if(orders.length === 0){
+
+      box.innerHTML =
+        `
+        <div class="form-box">
+
+          <h2>No orders yet 📦</h2>
+
+          <button
+            class="main-btn"
+            onclick="showPage('shop')"
+          >
+            Start Shopping
+          </button>
+
+        </div>
+        `;
+
+      return;
+    }
+
+    box.innerHTML =
+      orders
+        .slice()
+        .reverse()
+        .map(order => {
+
+          return `
+          <div class="orders-card">
+
+            <h3>
+              Order #${escapeHtml(order.orderId)}
+            </h3>
+
+            <p>
+              📅
+              ${new Date(
+                order.orderedAt
+              ).toLocaleString()}
+            </p>
+
+            <p>
+              💳 Payment:
+              <strong>
+                ${escapeHtml(
+                  order.paymentMethod
+                )}
+              </strong>
+            </p>
+
+            <p>
+              📦 Status:
+              <strong>
+                ${escapeHtml(
+                  order.status
+                )}
+              </strong>
+            </p>
+
+            <hr style="margin:12px 0">
+
+            ${
+              order.items.map(item => `
+                <p>
+                  ${escapeHtml(item.name)}
+                  × ${item.quantity}
+                  —
+                  ₹${(
+                    Number(item.price) *
+                    Number(item.quantity)
+                  ).toFixed(2)}
+                </p>
+              `).join("")
+            }
+
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <strong>
+                ₹${Number(
+                  order.subtotal
+                ).toFixed(2)}
+              </strong>
+            </div>
+
+            <div class="summary-row">
+              <span>GST (18%)</span>
+              <strong>
+                ₹${Number(
+                  order.gst
+                ).toFixed(2)}
+              </strong>
+            </div>
+
+            <div class="summary-row total">
+              <span>Total Amount</span>
+              <strong>
+                ₹${Number(
+                  order.total
+                ).toFixed(2)}
+              </strong>
+            </div>
+
+          </div>
+          `;
+
+        })
+        .join("");
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      `
+      <div class="form-box">
+
+        <h2>
+          Unable to load orders
+        </h2>
+
+      </div>
+      `;
+  }
+}
+
+/* =========================================================
+   ADMIN SESSION
+========================================================= */
+
+function checkAdminSession(){
+
+  const token =
     sessionStorage.getItem(
-        "glowcart_admin_token"
-    ) || "";
-
-
-function showAdmin(){
-
-    hideAllPages();
-
-    document
-    .getElementById(
-        "adminSection"
-    )
-    .classList.remove(
-        "hidden"
+      "glowcart_admin_token"
     );
 
+  if(token){
 
-    if(adminToken){
+    document.getElementById(
+      "adminLoginBox"
+    ).style.display = "none";
 
-        document
-        .getElementById(
-            "adminLoginBox"
-        )
-        .classList.add(
-            "hidden"
-        );
+    document.getElementById(
+      "adminDashboard"
+    ).style.display = "block";
 
-        document
-        .getElementById(
-            "adminDashboard"
-        )
-        .classList.remove(
-            "hidden"
-        );
+    loadMembers();
 
-        loadMembers();
+  }else{
 
-    }else{
+    document.getElementById(
+      "adminLoginBox"
+    ).style.display = "block";
 
-        document
-        .getElementById(
-            "adminLoginBox"
-        )
-        .classList.remove(
-            "hidden"
-        );
-
-        document
-        .getElementById(
-            "adminDashboard"
-        )
-        .classList.add(
-            "hidden"
-        );
-
-    }
-
+    document.getElementById(
+      "adminDashboard"
+    ).style.display = "none";
+  }
 }
 
-
-// =====================================================
-// ADMIN LOGIN
-// =====================================================
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
 
 async function adminLogin(){
 
-    const email =
-        document
-        .getElementById(
-            "adminEmail"
-        )
-        .value
-        .trim();
+  const email =
+    document.getElementById(
+      "adminEmail"
+    ).value.trim();
 
-    const password =
-        document
-        .getElementById(
-            "adminPassword"
-        )
-        .value;
+  const password =
+    document.getElementById(
+      "adminPassword"
+    ).value;
 
-    const message =
-        document
-        .getElementById(
-            "adminLoginMessage"
-        );
+  const message =
+    document.getElementById(
+      "adminMessage"
+    );
 
+  message.textContent =
+    "Logging in...";
 
-    if(!email || !password){
+  try{
 
-        message.style.color =
-            "red";
+    const response =
+      await fetch(
+        API + "/api/admin/login",
+        {
+          method:"POST",
 
-        message.innerText =
-            "Please enter admin email and password.";
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
 
-        return;
-    }
-
-
-    message.style.color =
-        "#777";
-
-    message.innerText =
-        "Checking admin login...";
-
-
-    try{
-
-        const response =
-            await fetch(
-                API + "/api/admin/login",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-                        email,
-                        password
-                    })
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !response.ok ||
-            !data.success
-        ){
-
-            message.style.color =
-                "red";
-
-            message.innerText =
-                data.message ||
-                "Invalid admin login.";
-
-            return;
+          body:JSON.stringify({
+            email,
+            password
+          })
         }
+      );
 
+    const data =
+      await response.json();
 
-        adminToken =
-            data.token;
+    if(!response.ok || !data.success){
 
+      message.textContent =
+        data.message ||
+        "Admin login failed.";
 
-        sessionStorage.setItem(
-            "glowcart_admin_token",
-            adminToken
-        );
+      message.style.color = "red";
 
-
-        message.style.color =
-            "green";
-
-        message.innerText =
-            "Admin login successful!";
-
-
-        document
-        .getElementById(
-            "adminLoginBox"
-        )
-        .classList.add(
-            "hidden"
-        );
-
-
-        document
-        .getElementById(
-            "adminDashboard"
-        )
-        .classList.remove(
-            "hidden"
-        );
-
-
-        loadMembers();
-
-
-    }catch(error){
-
-        console.error(
-            error
-        );
-
-        message.style.color =
-            "red";
-
-        message.innerText =
-            "Server connection failed.";
-
+      return;
     }
 
+    sessionStorage.setItem(
+      "glowcart_admin_token",
+      data.token
+    );
+
+    message.textContent =
+      "Admin login successful!";
+
+    message.style.color = "green";
+
+    document.getElementById(
+      "adminLoginBox"
+    ).style.display = "none";
+
+    document.getElementById(
+      "adminDashboard"
+    ).style.display = "block";
+
+    loadMembers();
+
+  }catch(error){
+
+    console.error(error);
+
+    message.textContent =
+      "Admin API not reachable. Deploy server.js again.";
+
+    message.style.color = "red";
+  }
 }
 
-
-// =====================================================
-// LOAD MEMBERS
-// =====================================================
+/* =========================================================
+   LOAD MEMBERS
+========================================================= */
 
 async function loadMembers(){
 
-    const tableBody =
-        document.getElementById(
-            "membersTableBody"
-        );
+  const token =
+    sessionStorage.getItem(
+      "glowcart_admin_token"
+    );
 
-    const count =
-        document.getElementById(
-            "memberCount"
-        );
+  if(!token) return;
 
-    const message =
-        document.getElementById(
-            "adminTableMessage"
-        );
+  try{
 
-
-    tableBody.innerHTML = `
-        <tr>
-            <td colspan="5"
-                style="
-                    text-align:center;
-                    padding:25px;
-                "
-            >
-                Loading members...
-            </td>
-        </tr>
-    `;
-
-
-    try{
-
-        const response =
-            await fetch(
-                API + "/api/admin/users",
-                {
-                    method:"GET",
-
-                    headers:{
-                        "Authorization":
-                            "Bearer " +
-                            adminToken
-                    }
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            response.status === 401 ||
-            !data.success
-        ){
-
-            adminToken = "";
-
-            sessionStorage.removeItem(
-                "glowcart_admin_token"
-            );
-
-
-            document
-            .getElementById(
-                "adminLoginBox"
-            )
-            .classList.remove(
-                "hidden"
-            );
-
-
-            document
-            .getElementById(
-                "adminDashboard"
-            )
-            .classList.add(
-                "hidden"
-            );
-
-
-            return;
+    const response =
+      await fetch(
+        API + "/api/admin/users",
+        {
+          headers:{
+            Authorization:
+              "Bearer " + token
+          }
         }
+      );
 
+    const data =
+      await response.json();
 
-        // TOTAL MEMBERS
-        count.innerText =
-            data.totalMembers || 0;
+    if(!response.ok || !data.success){
 
+      if(response.status === 401){
 
-        tableBody.innerHTML = "";
-
-
-        if(
-            !data.users ||
-            data.users.length === 0
-        ){
-
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="5"
-                        style="
-                            text-align:center;
-                            padding:30px;
-                            color:#777;
-                        "
-                    >
-                        No members registered yet.
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
-
-
-        // TABLE ROWS
-        data.users.forEach(
-            (user,index) => {
-
-                const row =
-                    document.createElement(
-                        "tr"
-                    );
-
-
-                const registeredDate =
-                    user.registeredAt
-                    ? new Date(
-                        user.registeredAt
-                    ).toLocaleString(
-                        "en-IN"
-                    )
-                    : "-";
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${index + 1}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            user.name
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            user.email
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            user.mobile
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            registeredDate
-                        )}
-                    </td>
-
-                `;
-
-
-                tableBody.appendChild(
-                    row
-                );
-
-            }
+        sessionStorage.removeItem(
+          "glowcart_admin_token"
         );
 
+        checkAdminSession();
 
-        message.style.color =
-            "#777";
+        return;
+      }
 
-        message.innerText =
-            "Showing " +
-            data.users.length +
-            " registered member(s).";
-
-
-    }catch(error){
-
-        console.error(
-            "Members error:",
-            error
-        );
-
-
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="5"
-                    style="
-                        text-align:center;
-                        padding:30px;
-                        color:red;
-                    "
-                >
-                    Unable to load members.
-                </td>
-            </tr>
-        `;
-
+      throw new Error(
+        data.message ||
+        "Unable to load members"
+      );
     }
 
+    document.getElementById(
+      "memberCount"
+    ).textContent =
+      data.totalMembers;
+
+    const table =
+      document.getElementById(
+        "membersTable"
+      );
+
+    table.innerHTML =
+      data.users.map(
+        (user,index) => {
+
+          return `
+          <tr>
+
+            <td>
+              ${index + 1}
+            </td>
+
+            <td>
+              ${escapeHtml(user.name)}
+            </td>
+
+            <td>
+              ${escapeHtml(user.email)}
+            </td>
+
+            <td>
+              ${escapeHtml(user.mobile)}
+            </td>
+
+            <td>
+              ${
+                user.registeredAt
+                ? new Date(
+                    user.registeredAt
+                  ).toLocaleString()
+                : "-"
+              }
+            </td>
+
+          </tr>
+          `;
+
+        }
+      ).join("");
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Unable to load registered members."
+    );
+  }
 }
 
-
-// =====================================================
-// ADMIN LOGOUT
-// =====================================================
+/* =========================================================
+   ADMIN LOGOUT
+========================================================= */
 
 async function adminLogout(){
 
-    try{
+  const token =
+    sessionStorage.getItem(
+      "glowcart_admin_token"
+    );
 
-        if(adminToken){
+  try{
 
-            await fetch(
-                API + "/api/admin/logout",
-                {
-                    method:"POST",
+    await fetch(
+      API + "/api/admin/logout",
+      {
+        method:"POST",
 
-                    headers:{
-                        "Authorization":
-                            "Bearer " +
-                            adminToken
-                    }
-                }
-            );
-
+        headers:{
+          Authorization:
+            "Bearer " + token
         }
+      }
+    );
 
-    }catch(error){
+  }catch(error){
 
-        console.log(
-            error
-        );
+    console.error(error);
 
-    }
-
-
-    adminToken = "";
+  }finally{
 
     sessionStorage.removeItem(
-        "glowcart_admin_token"
+      "glowcart_admin_token"
     );
 
-
-    document
-    .getElementById(
-        "adminDashboard"
-    )
-    .classList.add(
-        "hidden"
-    );
-
-
-    document
-    .getElementById(
-        "adminLoginBox"
-    )
-    .classList.remove(
-        "hidden"
-    );
-
-
-    document
-    .getElementById(
-        "adminEmail"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "adminPassword"
-    )
-    .value = "";
-
-
-    document
-    .getElementById(
-        "adminLoginMessage"
-    )
-    .innerText = "";
-
+    checkAdminSession();
+  }
 }
 
-
-// =====================================================
-// ESCAPE HTML
-// =====================================================
-
-function escapeHTML(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-// =====================================================
-// INITIAL LOAD
-// =====================================================
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
 updateCartCount();
 
-showHome();
+loadProducts();
 
 </script>
 
