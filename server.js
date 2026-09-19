@@ -30,18 +30,12 @@ const USERS_FILE = path.join(__dirname, "users.json");
 const ORDERS_FILE = path.join(__dirname, "place.json");
 
 /* =========================
-   ADMIN SETTINGS
-   These MUST be in Render
-   Environment Variables
+   ADMIN
 ========================= */
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
-/*
-   Demo admin token.
-   It will reset whenever the server restarts.
-*/
 let ADMIN_TOKEN = null;
 
 /* =========================
@@ -54,7 +48,7 @@ function createFile(file, defaultData) {
       fs.writeFileSync(file, JSON.stringify(defaultData, null, 2));
     }
   } catch (error) {
-    console.error("Error creating file:", file, error);
+    console.error("Create file error:", error);
   }
 }
 
@@ -72,7 +66,7 @@ function readJson(file) {
 
     return JSON.parse(data);
   } catch (error) {
-    console.error("Error reading JSON:", file, error);
+    console.error("Read JSON error:", error);
     return [];
   }
 }
@@ -82,7 +76,7 @@ function writeJson(file, data) {
     fs.writeFileSync(file, JSON.stringify(data, null, 2));
     return true;
   } catch (error) {
-    console.error("Error writing JSON:", file, error);
+    console.error("Write JSON error:", error);
     return false;
   }
 }
@@ -103,12 +97,11 @@ app.get("/", (req, res) => {
   res.json({
     success: true,
     message: "GlowCart Backend API is running!",
-    version: "2.0",
   });
 });
 
 /* =========================
-   HEALTH CHECK
+   HEALTH
 ========================= */
 
 app.get("/api/health", (req, res) => {
@@ -116,7 +109,20 @@ app.get("/api/health", (req, res) => {
     success: true,
     message: "GlowCart API is working!",
     server: "online",
-    time: new Date().toISOString(),
+  });
+});
+
+/* =========================
+   ADMIN STATUS
+========================= */
+
+app.get("/api/admin/status", (req, res) => {
+  res.json({
+    success: true,
+    adminApi: true,
+    emailConfigured: Boolean(ADMIN_EMAIL),
+    passwordConfigured: Boolean(ADMIN_PASSWORD),
+    message: "Admin API is available.",
   });
 });
 
@@ -129,8 +135,10 @@ app.get("/api/emailjs-config", (req, res) => {
     success: true,
     serviceId: process.env.EMAILJS_SERVICE_ID || "",
     publicKey: process.env.EMAILJS_PUBLIC_KEY || "",
-    welcomeTemplateId: process.env.EMAILJS_WELCOME_TEMPLATE_ID || "",
-    orderTemplateId: process.env.EMAILJS_ORDER_TEMPLATE_ID || "",
+    welcomeTemplateId:
+      process.env.EMAILJS_WELCOME_TEMPLATE_ID || "",
+    orderTemplateId:
+      process.env.EMAILJS_ORDER_TEMPLATE_ID || "",
   });
 });
 
@@ -139,24 +147,9 @@ app.get("/api/emailjs-config", (req, res) => {
 ========================= */
 
 app.get("/api/products", (req, res) => {
-  try {
-    const products = readJson(PRODUCTS_FILE);
+  const products = readJson(PRODUCTS_FILE);
 
-    /*
-      IMPORTANT:
-      Existing GlowCart frontend expects
-      an ARRAY here.
-    */
-
-    res.json(products);
-  } catch (error) {
-    console.error("Products error:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Unable to load products",
-    });
-  }
+  res.json(products);
 });
 
 /* =========================
@@ -164,33 +157,24 @@ app.get("/api/products", (req, res) => {
 ========================= */
 
 app.get("/api/products/:id", (req, res) => {
-  try {
-    const products = readJson(PRODUCTS_FILE);
+  const products = readJson(PRODUCTS_FILE);
 
-    const product = products.find(
-      (item) => String(item.id) === String(req.params.id)
-    );
+  const product = products.find(
+    (p) => String(p.id) === String(req.params.id)
+  );
 
-    if (!product) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found",
-      });
-    }
-
-    res.json(product);
-  } catch (error) {
-    console.error("Single product error:", error);
-
-    res.status(500).json({
+  if (!product) {
+    return res.status(404).json({
       success: false,
-      message: "Unable to load product",
+      message: "Product not found",
     });
   }
+
+  res.json(product);
 });
 
 /* =========================================================
-   REGISTER USER
+   REGISTER
 ========================================================= */
 
 app.post("/api/register", (req, res) => {
@@ -206,8 +190,6 @@ app.post("/api/register", (req, res) => {
       pincode2,
     } = req.body || {};
 
-    /* Required fields */
-
     if (
       !name ||
       !email ||
@@ -222,44 +204,39 @@ app.post("/api/register", (req, res) => {
       });
     }
 
-    /* Mobile validation */
-
     if (!/^[0-9]{10}$/.test(String(mobile))) {
       return res.status(400).json({
         success: false,
-        message: "Mobile number must contain exactly 10 digits.",
+        message: "Mobile number must contain 10 digits.",
       });
     }
-
-    /* Pincode validation */
 
     if (!/^[0-9]{6}$/.test(String(pincode))) {
       return res.status(400).json({
         success: false,
-        message: "Pincode must contain exactly 6 digits.",
+        message: "Pincode must contain 6 digits.",
       });
     }
 
-    /* Second pincode validation */
-
-    if (pincode2 && !/^[0-9]{6}$/.test(String(pincode2))) {
+    if (
+      pincode2 &&
+      !/^[0-9]{6}$/.test(String(pincode2))
+    ) {
       return res.status(400).json({
         success: false,
-        message: "Second pincode must contain exactly 6 digits.",
+        message: "Second pincode must contain 6 digits.",
       });
     }
 
     const users = readJson(USERS_FILE);
 
-    /* Duplicate email */
-
-    const existingUser = users.find(
-      (user) =>
-        String(user.email).toLowerCase() ===
+    const exists = users.find(
+      (u) =>
+        String(u.email).toLowerCase() ===
         String(email).trim().toLowerCase()
     );
 
-    if (existingUser) {
+    if (exists) {
       return res.status(409).json({
         success: false,
         message: "Email is already registered.",
@@ -268,40 +245,25 @@ app.post("/api/register", (req, res) => {
 
     const newUser = {
       id: Date.now().toString(),
-
       name: String(name).trim(),
-
       email: String(email).trim().toLowerCase(),
-
       mobile: String(mobile).trim(),
-
       password: String(password),
-
       address: String(address).trim(),
-
       pincode: String(pincode).trim(),
-
       address2: address2 ? String(address2).trim() : "",
-
       pincode2: pincode2 ? String(pincode2).trim() : "",
-
       registeredAt: new Date().toISOString(),
     };
 
     users.push(newUser);
 
-    const saved = writeJson(USERS_FILE, users);
-
-    if (!saved) {
+    if (!writeJson(USERS_FILE, users)) {
       return res.status(500).json({
         success: false,
         message: "Unable to save registration.",
       });
     }
-
-    /*
-      Password is NOT returned to frontend.
-    */
 
     const safeUser = {
       id: newUser.id,
@@ -331,7 +293,7 @@ app.post("/api/register", (req, res) => {
 });
 
 /* =========================================================
-   USER LOGIN
+   LOGIN
 ========================================================= */
 
 app.post("/api/login", (req, res) => {
@@ -348,10 +310,10 @@ app.post("/api/login", (req, res) => {
     const users = readJson(USERS_FILE);
 
     const user = users.find(
-      (item) =>
-        String(item.email).toLowerCase() ===
+      (u) =>
+        String(u.email).toLowerCase() ===
           String(email).trim().toLowerCase() &&
-        String(item.password) === String(password)
+        String(u.password) === String(password)
     );
 
     if (!user) {
@@ -389,21 +351,6 @@ app.post("/api/login", (req, res) => {
 });
 
 /* =========================================================
-   ADMIN STATUS
-   EASY TESTING ENDPOINT
-========================================================= */
-
-app.get("/api/admin/status", (req, res) => {
-  res.json({
-    success: true,
-    adminApi: true,
-    emailConfigured: Boolean(ADMIN_EMAIL),
-    passwordConfigured: Boolean(ADMIN_PASSWORD),
-    message: "Admin API is available.",
-  });
-});
-
-/* =========================================================
    ADMIN LOGIN
 ========================================================= */
 
@@ -411,35 +358,18 @@ app.post("/api/admin/login", (req, res) => {
   try {
     const { email, password } = req.body || {};
 
-    console.log("Admin login request received");
-
-    /* Check Render environment variables */
-
     if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
-      console.error("ADMIN_EMAIL or ADMIN_PASSWORD is missing.");
-
       return res.status(500).json({
         success: false,
         message:
-          "Admin credentials are not configured in Render Environment Variables.",
+          "Admin credentials are not configured in Render.",
       });
     }
 
-    /* Check submitted credentials */
-
-    const enteredEmail = String(email || "")
-      .trim()
-      .toLowerCase();
-
-    const correctEmail = String(ADMIN_EMAIL)
-      .trim()
-      .toLowerCase();
-
-    const enteredPassword = String(password || "");
-
     if (
-      enteredEmail !== correctEmail ||
-      enteredPassword !== String(ADMIN_PASSWORD)
+      String(email || "").trim().toLowerCase() !==
+        String(ADMIN_EMAIL).trim().toLowerCase() ||
+      String(password || "") !== String(ADMIN_PASSWORD)
     ) {
       return res.status(401).json({
         success: false,
@@ -447,13 +377,9 @@ app.post("/api/admin/login", (req, res) => {
       });
     }
 
-    /* Create admin token */
-
     ADMIN_TOKEN = crypto.randomBytes(32).toString("hex");
 
-    console.log("Admin login successful.");
-
-    return res.json({
+    res.json({
       success: true,
       message: "Admin login successful!",
       token: ADMIN_TOKEN,
@@ -461,7 +387,7 @@ app.post("/api/admin/login", (req, res) => {
   } catch (error) {
     console.error("Admin login error:", error);
 
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       message: "Admin login failed.",
     });
@@ -469,67 +395,52 @@ app.post("/api/admin/login", (req, res) => {
 });
 
 /* =========================================================
-   ADMIN AUTHENTICATION MIDDLEWARE
+   ADMIN AUTH
 ========================================================= */
 
 function checkAdmin(req, res, next) {
-  try {
-    const authorization = req.headers.authorization || "";
+  const authorization = req.headers.authorization || "";
 
-    if (!authorization.startsWith("Bearer ")) {
-      return res.status(401).json({
-        success: false,
-        message: "Admin authorization required.",
-      });
-    }
-
-    const token = authorization.substring(7);
-
-    if (!ADMIN_TOKEN || token !== ADMIN_TOKEN) {
-      return res.status(401).json({
-        success: false,
-        message: "Admin session expired. Please login again.",
-      });
-    }
-
-    next();
-  } catch (error) {
-    console.error("Admin authentication error:", error);
-
+  if (!authorization.startsWith("Bearer ")) {
     return res.status(401).json({
       success: false,
-      message: "Invalid admin authentication.",
+      message: "Admin authorization required.",
     });
   }
+
+  const token = authorization.substring(7);
+
+  if (!ADMIN_TOKEN || token !== ADMIN_TOKEN) {
+    return res.status(401).json({
+      success: false,
+      message: "Admin session expired. Login again.",
+    });
+  }
+
+  next();
 }
 
 /* =========================================================
-   GET REGISTERED MEMBERS
+   ADMIN MEMBERS
 ========================================================= */
 
 app.get("/api/admin/users", checkAdmin, (req, res) => {
   try {
     const users = readJson(USERS_FILE);
 
-    /*
-      IMPORTANT:
-      NEVER send customer passwords
-      to the admin frontend.
-    */
-
-    const safeUsers = users.map((user) => ({
-      id: user.id || "",
-      name: user.name || "",
-      email: user.email || "",
-      mobile: user.mobile || "",
-      address: user.address || "",
-      pincode: user.pincode || "",
-      address2: user.address2 || "",
-      pincode2: user.pincode2 || "",
-      registeredAt: user.registeredAt || "",
+    const safeUsers = users.map((u) => ({
+      id: u.id || "",
+      name: u.name || "",
+      email: u.email || "",
+      mobile: u.mobile || "",
+      address: u.address || "",
+      pincode: u.pincode || "",
+      address2: u.address2 || "",
+      pincode2: u.pincode2 || "",
+      registeredAt: u.registeredAt || "",
     }));
 
-    return res.json({
+    res.json({
       success: true,
       totalMembers: safeUsers.length,
       users: safeUsers,
@@ -537,9 +448,9 @@ app.get("/api/admin/users", checkAdmin, (req, res) => {
   } catch (error) {
     console.error("Admin users error:", error);
 
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      message: "Unable to load registered members.",
+      message: "Unable to load members.",
     });
   }
 });
@@ -553,7 +464,7 @@ app.post("/api/admin/logout", checkAdmin, (req, res) => {
 
   res.json({
     success: true,
-    message: "Admin logged out successfully.",
+    message: "Admin logged out.",
   });
 });
 
@@ -571,42 +482,48 @@ app.post("/api/orders", (req, res) => {
       pincode,
       items,
       subtotal,
-      total,
+      paymentMethod,
     } = req.body || {};
 
     if (!name || !email || !address || !pincode) {
       return res.status(400).json({
         success: false,
-        message: "Customer and delivery details are required.",
+        message: "Customer details are required.",
       });
     }
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
+    if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
         success: false,
         message: "Cart is empty.",
       });
     }
 
-    const subtotalValue = Number(subtotal) || 0;
+    const subtotalAmount = Number(subtotal) || 0;
 
-    const gst = Number((subtotalValue * 0.18).toFixed(2));
+    const gst = Number(
+      (subtotalAmount * 0.18).toFixed(2)
+    );
 
-    const totalValue =
-      Number(total) || Number((subtotalValue + gst).toFixed(2));
+    const total = Number(
+      (subtotalAmount + gst).toFixed(2)
+    );
 
     const orderId =
-      "GC" +
-      Date.now().toString().slice(-8);
+      "GC" + Date.now().toString().slice(-8);
 
     const order = {
       orderId,
 
       name: String(name).trim(),
 
-      email: String(email).trim().toLowerCase(),
+      email: String(email)
+        .trim()
+        .toLowerCase(),
 
-      mobile: mobile ? String(mobile).trim() : "",
+      mobile: mobile
+        ? String(mobile).trim()
+        : "",
 
       address: String(address).trim(),
 
@@ -614,15 +531,23 @@ app.post("/api/orders", (req, res) => {
 
       items,
 
-      subtotal: subtotalValue,
-
-      gst,
+      subtotal: subtotalAmount,
 
       gstRate: 18,
 
-      total: totalValue,
+      gst,
 
-      status: "Placed",
+      total,
+
+      paymentMethod:
+        paymentMethod || "Cash on Delivery",
+
+      paymentStatus:
+        paymentMethod === "Cash on Delivery"
+          ? "Pending"
+          : "Demo Payment Selected",
+
+      status: "Order Placed",
 
       orderedAt: new Date().toISOString(),
     };
@@ -631,9 +556,7 @@ app.post("/api/orders", (req, res) => {
 
     orders.push(order);
 
-    const saved = writeJson(ORDERS_FILE, orders);
-
-    if (!saved) {
+    if (!writeJson(ORDERS_FILE, orders)) {
       return res.status(500).json({
         success: false,
         message: "Unable to save order.",
@@ -643,7 +566,6 @@ app.post("/api/orders", (req, res) => {
     res.status(201).json({
       success: true,
       message: "Order placed successfully!",
-      emailSent: false,
       order,
     });
   } catch (error) {
@@ -657,29 +579,20 @@ app.post("/api/orders", (req, res) => {
 });
 
 /* =========================================================
-   GET ALL ORDERS
+   ALL ORDERS
 ========================================================= */
 
 app.get("/api/orders", (req, res) => {
-  try {
-    const orders = readJson(ORDERS_FILE);
+  const orders = readJson(ORDERS_FILE);
 
-    res.json({
-      success: true,
-      orders,
-    });
-  } catch (error) {
-    console.error("Orders error:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Unable to load orders.",
-    });
-  }
+  res.json({
+    success: true,
+    orders,
+  });
 });
 
 /* =========================================================
-   GET ORDERS BY EMAIL
+   USER ORDERS
 ========================================================= */
 
 app.get("/api/orders/:email", (req, res) => {
@@ -704,7 +617,7 @@ app.get("/api/orders/:email", (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: "Unable to load user orders.",
+      message: "Unable to load orders.",
     });
   }
 });
@@ -714,8 +627,6 @@ app.get("/api/orders/:email", (req, res) => {
 ========================================================= */
 
 app.use((req, res) => {
-  console.log("API endpoint not found:", req.method, req.originalUrl);
-
   res.status(404).json({
     success: false,
     message: "API endpoint not found.",
@@ -725,11 +636,11 @@ app.use((req, res) => {
 });
 
 /* =========================================================
-   ERROR HANDLER
+   ERROR
 ========================================================= */
 
 app.use((error, req, res, next) => {
-  console.error("Server error:", error);
+  console.error(error);
 
   res.status(500).json({
     success: false,
@@ -738,14 +649,20 @@ app.use((error, req, res, next) => {
 });
 
 /* =========================================================
-   START SERVER
+   START
 ========================================================= */
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("======================================");
+  console.log("==================================");
   console.log("GlowCart Backend Started");
-  console.log("Port:", PORT);
-  console.log("Admin Email Configured:", Boolean(ADMIN_EMAIL));
-  console.log("Admin Password Configured:", Boolean(ADMIN_PASSWORD));
-  console.log("======================================");
+  console.log("PORT:", PORT);
+  console.log(
+    "ADMIN_EMAIL configured:",
+    Boolean(ADMIN_EMAIL)
+  );
+  console.log(
+    "ADMIN_PASSWORD configured:",
+    Boolean(ADMIN_PASSWORD)
+  );
+  console.log("==================================");
 });
