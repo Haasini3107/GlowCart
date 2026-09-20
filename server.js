@@ -1,44 +1,41 @@
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
-const fs = require("fs");
 const path = require("path");
 const { Resend } = require("resend");
 
 const app = express();
 
 /* =========================================================
-   RENDER CONFIGURATION
+   CONFIGURATION
 ========================================================= */
 
 const PORT = Number(process.env.PORT) || 10000;
 const HOST = "0.0.0.0";
 
-/* =========================================================
-   ENVIRONMENT VARIABLES
-========================================================= */
-
 const DATABASE_URL = process.env.DATABASE_URL;
 
 const ADMIN_EMAIL =
-  process.env.ADMIN_EMAIL || "hasiniambati07@gmail.com";
+  process.env.ADMIN_EMAIL || "admin@example.com";
 
 const ADMIN_PASSWORD =
-  process.env.ADMIN_PASSWORD || "";
+  process.env.ADMIN_PASSWORD || "change-this-password";
 
-const RESEND_API_KEY =
-  process.env.RESEND_API_KEY || "";
+const ADMIN_TOKEN = "glowcart-admin-session";
 
 const EMAIL_FROM =
-  process.env.EMAIL_FROM ||
-  "GlowCart <onboarding@resend.dev>";
+  process.env.EMAIL_FROM || "GlowCart <onboarding@resend.dev>";
+
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 /* =========================================================
    DATABASE
 ========================================================= */
 
 if (!DATABASE_URL) {
-  console.error("ERROR: DATABASE_URL is not configured.");
+  console.error("DATABASE_URL is not configured.");
 }
 
 const pool = new Pool({
@@ -49,15 +46,7 @@ const pool = new Pool({
 });
 
 /* =========================================================
-   RESEND
-========================================================= */
-
-const resend = RESEND_API_KEY
-  ? new Resend(RESEND_API_KEY)
-  : null;
-
-/* =========================================================
-   EXPRESS MIDDLEWARE
+   MIDDLEWARE
 ========================================================= */
 
 app.use(
@@ -72,80 +61,63 @@ app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 /* =========================================================
-   SERVE FRONTEND
+   FRONTEND
 ========================================================= */
-
-const possibleIndexFiles = [
-  path.join(__dirname, "index.html"),
-  path.join(__dirname, "..", "index.html")
-];
-
-let indexFile = null;
-
-for (const file of possibleIndexFiles) {
-  if (fs.existsSync(file)) {
-    indexFile = file;
-    break;
-  }
-}
 
 app.get("/", (req, res) => {
-  if (indexFile) {
-    return res.sendFile(indexFile);
-  }
-
-  res.json({
-    message: "GlowCart backend is running successfully."
-  });
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-/* =========================================================
-   HEALTH CHECK
-========================================================= */
-
-app.get("/api/health", async (req, res) => {
-  try {
-    await pool.query("SELECT NOW()");
-
-    res.json({
-      success: true,
-      message: "GlowCart backend is running",
-      database: "connected",
-      emailService: resend ? "configured" : "not configured"
-    });
-  } catch (error) {
-    console.error("Health error:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Backend is running but database connection failed."
-    });
-  }
-});
+app.use(express.static(__dirname));
 
 /* =========================================================
-   DATABASE TABLES
+   DATABASE INITIALIZATION
 ========================================================= */
 
 async function initializeDatabase() {
   try {
+    console.log("Connecting to PostgreSQL...");
+
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         full_name VARCHAR(150) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         mobile VARCHAR(30),
-        password VARCHAR(255) NOT NULL,
+        password TEXT NOT NULL,
+        permanent_address TEXT,
+        another_address TEXT,
+        pincode VARCHAR(20),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
+    `);
+
+    /*
+      If your old users table already exists without the new
+      address columns, these ALTER commands add them safely.
+    */
+
+    await pool.query(`
+      ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS permanent_address TEXT
+    `);
+
+    await pool.query(`
+      ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS another_address TEXT
+    `);
+
+    await pool.query(`
+      ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS pincode VARCHAR(20)
     `);
 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS products (
         id SERIAL PRIMARY KEY,
         name VARCHAR(200) NOT NULL,
-        price NUMERIC(10,2) NOT NULL,
         description TEXT,
+        price NUMERIC(10,2) NOT NULL,
         image TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
@@ -175,69 +147,415 @@ async function initializeDatabase() {
       ON orders(user_email)
     `);
 
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_orders_created_at
-      ON orders(created_at)
-    `);
-
-    /* =====================================================
-       SEED PRODUCTS ONLY IF EMPTY
-    ===================================================== */
-
     const productCount = await pool.query(
-      "SELECT COUNT(*) FROM products"
+      "SELECT COUNT(*) AS count FROM products"
     );
 
     if (Number(productCount.rows[0].count) === 0) {
-      const products = [
+      await pool.query(
+        `
+        INSERT INTO products
+        (name, description, price, image)
+        VALUES
+        ($1, $2, $3, $4),
+        ($5, $6, $7, $8),
+        ($9, $10, $11, $12),
+        ($13, $14, $15, $16)
+        `,
         [
           "Glow Radiance Cream",
+          "Brightening face cream for radiant looking skin.",
           499,
-          "Brightening face cream for a natural glow.",
-          "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=600&q=80"
-        ],
-        [
+          "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80",
+
           "Vitamin C Face Cream",
+          "Vitamin C face cream for a fresh and glowing look.",
           599,
-          "Vitamin C enriched cream for healthy-looking skin.",
-          "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
-        ],
-        [
+          "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80",
+
           "Hydra Moisturizing Cream",
+          "Hydrating cream for soft and moisturized skin.",
           449,
-          "Deep moisturizing cream for soft and hydrated skin.",
-          "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80"
-        ],
-        [
+          "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?auto=format&fit=crop&w=600&q=80",
+
           "Aloe Vera Face Cream",
+          "Gentle aloe vera cream for everyday skincare.",
           399,
-          "Soothing aloe vera cream for everyday skincare.",
-          "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80"
+          "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80"
         ]
-      ];
+      );
 
-      for (const product of products) {
-        await pool.query(
-          `
-          INSERT INTO products
-          (name, price, description, image)
-          VALUES ($1, $2, $3, $4)
-          `,
-          product
-        );
-      }
-
-      console.log("Default GlowCart products inserted.");
+      console.log("Default products inserted.");
     }
 
-    console.log("Database initialized successfully.");
+    console.log("PostgreSQL database ready.");
   } catch (error) {
     console.error("Database initialization error:", error);
   }
 }
 
 /* =========================================================
-   EMAIL HELPER
+   HEALTH
+========================================================= */
+
+app.get("/api/health", async (req, res) => {
+  try {
+    await pool.query("SELECT 1");
+
+    res.json({
+      success: true,
+      message: "GlowCart backend is running.",
+      database: "connected"
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Backend is running but database connection failed."
+    });
+  }
+});
+
+/* =========================================================
+   ADMIN AUTHENTICATION
+========================================================= */
+
+function checkAdmin(req, res, next) {
+  const auth = req.headers.authorization || "";
+
+  const token = auth.startsWith("Bearer ")
+    ? auth.substring(7)
+    : "";
+
+  if (token !== ADMIN_TOKEN) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized admin access."
+    });
+  }
+
+  next();
+}
+
+/* =========================================================
+   EMAIL - WELCOME
+========================================================= */
+
+async function sendWelcomeEmail(user) {
+  if (!resend) {
+    console.log("Resend is not configured.");
+    return {
+      sent: false,
+      reason: "RESEND_API_KEY is not configured."
+    };
+  }
+
+  try {
+    const response = await resend.emails.send({
+      from: EMAIL_FROM,
+      to: [user.email],
+      subject: "Welcome to GlowCart 💖",
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <body style="
+          margin:0;
+          padding:0;
+          font-family:Arial,sans-serif;
+          background:#fdf2f8;
+        ">
+
+          <div style="
+            max-width:600px;
+            margin:30px auto;
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 5px 20px rgba(0,0,0,0.08);
+          ">
+
+            <div style="
+              padding:30px;
+              text-align:center;
+              background:linear-gradient(
+                135deg,
+                #ec4899,
+                #8b5cf6
+              );
+              color:white;
+            ">
+              <h1 style="margin:0;">
+                GlowCart 💖
+              </h1>
+
+              <p style="margin-top:10px;">
+                Premium Face Creams
+              </p>
+            </div>
+
+            <div style="padding:30px;">
+
+              <h2>
+                Welcome, ${escapeHtml(user.full_name)}!
+              </h2>
+
+              <p>
+                Thank you for registering with GlowCart.
+              </p>
+
+              <p>
+                Your account has been successfully created.
+              </p>
+
+              <div style="
+                background:#fdf2f8;
+                padding:18px;
+                border-radius:12px;
+                margin:20px 0;
+              ">
+                <strong>Registered Email:</strong>
+                ${escapeHtml(user.email)}
+                <br><br>
+
+                <strong>Mobile:</strong>
+                ${escapeHtml(user.mobile || "")}
+              </div>
+
+              <p>
+                You can now login and explore our skincare collection.
+              </p>
+
+              <p style="color:#777;">
+                Thank you for choosing GlowCart 💕
+              </p>
+
+            </div>
+
+          </div>
+
+        </body>
+        </html>
+      `
+    });
+
+    if (response.error) {
+      console.error("Welcome email error:", response.error);
+
+      return {
+        sent: false,
+        error: response.error
+      };
+    }
+
+    return {
+      sent: true,
+      id: response.data?.id || null
+    };
+  } catch (error) {
+    console.error("Welcome email exception:", error);
+
+    return {
+      sent: false,
+      error: error.message
+    };
+  }
+}
+
+/* =========================================================
+   EMAIL - ORDER
+========================================================= */
+
+async function sendOrderEmail(order) {
+  if (!resend) {
+    return {
+      sent: false,
+      reason: "RESEND_API_KEY is not configured."
+    };
+  }
+
+  try {
+    const itemRows = (order.items || [])
+      .map(
+        (item) => `
+          <tr>
+            <td style="padding:10px;border-bottom:1px solid #eee;">
+              ${escapeHtml(item.name)}
+            </td>
+
+            <td style="
+              padding:10px;
+              border-bottom:1px solid #eee;
+              text-align:center;
+            ">
+              ${Number(item.quantity || 1)}
+            </td>
+
+            <td style="
+              padding:10px;
+              border-bottom:1px solid #eee;
+              text-align:right;
+            ">
+              ₹${(
+                Number(item.price || 0) *
+                Number(item.quantity || 1)
+              ).toFixed(2)}
+            </td>
+          </tr>
+        `
+      )
+      .join("");
+
+    const response = await resend.emails.send({
+      from: EMAIL_FROM,
+      to: [order.user_email],
+      subject: `GlowCart Order Confirmation #${order.id} 💖`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <body style="
+          margin:0;
+          padding:0;
+          font-family:Arial,sans-serif;
+          background:#fdf2f8;
+        ">
+
+          <div style="
+            max-width:650px;
+            margin:30px auto;
+            background:#fff;
+            border-radius:20px;
+            overflow:hidden;
+          ">
+
+            <div style="
+              background:linear-gradient(
+                135deg,
+                #ec4899,
+                #8b5cf6
+              );
+              padding:30px;
+              color:white;
+              text-align:center;
+            ">
+              <h1 style="margin:0;">
+                GlowCart 💖
+              </h1>
+
+              <p>
+                Order Confirmation
+              </p>
+            </div>
+
+            <div style="padding:30px;">
+
+              <h2>
+                Thank you, ${escapeHtml(order.customer_name || "")}!
+              </h2>
+
+              <p>
+                Your order has been successfully placed.
+              </p>
+
+              <p>
+                <strong>Order ID:</strong> #${order.id}
+              </p>
+
+              <table style="
+                width:100%;
+                border-collapse:collapse;
+                margin-top:20px;
+              ">
+
+                <thead>
+                  <tr style="background:#fdf2f8;">
+                    <th style="padding:10px;text-align:left;">
+                      Product
+                    </th>
+
+                    <th style="padding:10px;">
+                      Qty
+                    </th>
+
+                    <th style="padding:10px;text-align:right;">
+                      Price
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  ${itemRows}
+                </tbody>
+
+              </table>
+
+              <h2 style="
+                text-align:right;
+                margin-top:25px;
+                color:#8b5cf6;
+              ">
+                Total: ₹${Number(order.total).toFixed(2)}
+              </h2>
+
+              <div style="
+                background:#fdf2f8;
+                padding:18px;
+                border-radius:12px;
+                margin-top:20px;
+              ">
+
+                <strong>Delivery Address</strong>
+
+                <p>
+                  ${escapeHtml(order.address || "")}
+                </p>
+
+                <p>
+                  <strong>Pincode:</strong>
+                  ${escapeHtml(order.pincode || "")}
+                </p>
+
+              </div>
+
+              <p style="
+                margin-top:25px;
+                color:#777;
+              ">
+                Thank you for shopping with GlowCart 💕
+              </p>
+
+            </div>
+
+          </div>
+
+        </body>
+        </html>
+      `
+    });
+
+    if (response.error) {
+      console.error("Order email error:", response.error);
+
+      return {
+        sent: false,
+        error: response.error
+      };
+    }
+
+    return {
+      sent: true,
+      id: response.data?.id || null
+    };
+  } catch (error) {
+    console.error("Order email exception:", error);
+
+    return {
+      sent: false,
+      error: error.message
+    };
+  }
+}
+
+/* =========================================================
+   HTML ESCAPE
 ========================================================= */
 
 function escapeHtml(value) {
@@ -250,503 +568,19 @@ function escapeHtml(value) {
 }
 
 /* =========================================================
-   SEND WELCOME EMAIL
-========================================================= */
-
-async function sendWelcomeEmail(user) {
-  if (!resend) {
-    return {
-      success: false,
-      message: "RESEND_API_KEY is not configured."
-    };
-  }
-
-  try {
-    const safeName = escapeHtml(user.full_name);
-    const safeEmail = escapeHtml(user.email);
-
-    const { data, error } = await resend.emails.send({
-      from: EMAIL_FROM,
-      to: [user.email],
-      subject: "Welcome to GlowCart 💖",
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport"
-                content="width=device-width, initial-scale=1.0">
-          <title>Welcome to GlowCart</title>
-        </head>
-
-        <body style="
-          margin:0;
-          padding:0;
-          background:#fff0f7;
-          font-family:Arial,Helvetica,sans-serif;
-        ">
-
-          <div style="
-            max-width:600px;
-            margin:30px auto;
-            background:white;
-            border-radius:20px;
-            overflow:hidden;
-            box-shadow:0 8px 30px rgba(0,0,0,0.08);
-          ">
-
-            <div style="
-              background:linear-gradient(135deg,#ff4f9a,#8e44ad);
-              padding:35px 25px;
-              text-align:center;
-              color:white;
-            ">
-              <h1 style="
-                margin:0;
-                font-size:32px;
-              ">
-                GlowCart 💖
-              </h1>
-
-              <p style="
-                margin:10px 0 0;
-                font-size:16px;
-              ">
-                Premium Face Creams
-              </p>
-            </div>
-
-            <div style="
-              padding:35px 30px;
-              color:#333;
-            ">
-
-              <h2 style="
-                color:#d63384;
-                margin-top:0;
-              ">
-                Welcome, ${safeName}! 🎉
-              </h2>
-
-              <p>
-                Thank you for registering with
-                <strong>GlowCart</strong>.
-              </p>
-
-              <p>
-                Your GlowCart account has been created successfully.
-              </p>
-
-              <div style="
-                background:#fff4fa;
-                padding:20px;
-                border-radius:12px;
-                margin:25px 0;
-              ">
-                <p style="margin:5px 0;">
-                  <strong>Registered Email:</strong>
-                  ${safeEmail}
-                </p>
-
-                <p style="margin:5px 0;">
-                  <strong>Account Status:</strong>
-                  Active ✅
-                </p>
-              </div>
-
-              <p>
-                You can now explore our products,
-                add your favourite face creams to your cart,
-                and place orders.
-              </p>
-
-              <div style="
-                text-align:center;
-                margin:30px 0;
-              ">
-                <span style="
-                  display:inline-block;
-                  background:linear-gradient(135deg,#ff4f9a,#8e44ad);
-                  color:white;
-                  padding:14px 30px;
-                  border-radius:30px;
-                  font-weight:bold;
-                ">
-                  Happy Shopping 💕
-                </span>
-              </div>
-
-              <p style="color:#777;">
-                Thank you for choosing GlowCart.
-              </p>
-
-            </div>
-
-            <div style="
-              text-align:center;
-              padding:18px;
-              background:#fafafa;
-              color:#888;
-              font-size:13px;
-            ">
-              © 2026 GlowCart. All rights reserved.
-            </div>
-
-          </div>
-
-        </body>
-        </html>
-      `
-    });
-
-    if (error) {
-      console.error(
-        "Resend welcome email error:",
-        error
-      );
-
-      return {
-        success: false,
-        message: error.message || "Welcome email failed."
-      };
-    }
-
-    console.log(
-      `Welcome email sent to ${user.email}`,
-      data?.id || ""
-    );
-
-    return {
-      success: true,
-      message: "Welcome email sent successfully.",
-      emailId: data?.id || null
-    };
-
-  } catch (error) {
-    console.error(
-      "Welcome email exception:",
-      error
-    );
-
-    return {
-      success: false,
-      message: error.message || "Welcome email failed."
-    };
-  }
-}
-
-/* =========================================================
-   SEND ORDER CONFIRMATION EMAIL
-========================================================= */
-
-async function sendOrderEmail(order) {
-  if (!resend) {
-    return {
-      success: false,
-      message: "RESEND_API_KEY is not configured."
-    };
-  }
-
-  try {
-    const safeName = escapeHtml(
-      order.customer_name || "Customer"
-    );
-
-    const safeAddress = escapeHtml(
-      order.address || ""
-    );
-
-    const safePincode = escapeHtml(
-      order.pincode || ""
-    );
-
-    let items = [];
-
-    try {
-      items =
-        typeof order.items === "string"
-          ? JSON.parse(order.items)
-          : order.items;
-    } catch {
-      items = [];
-    }
-
-    let itemRows = "";
-
-    if (Array.isArray(items)) {
-      items.forEach((item) => {
-        const name = escapeHtml(
-          item.name || "Product"
-        );
-
-        const quantity =
-          Number(item.quantity) || 1;
-
-        const price =
-          Number(item.price) || 0;
-
-        const subtotal =
-          quantity * price;
-
-        itemRows += `
-          <tr>
-            <td style="
-              padding:12px;
-              border-bottom:1px solid #eee;
-            ">
-              ${name}
-            </td>
-
-            <td style="
-              padding:12px;
-              border-bottom:1px solid #eee;
-              text-align:center;
-            ">
-              ${quantity}
-            </td>
-
-            <td style="
-              padding:12px;
-              border-bottom:1px solid #eee;
-              text-align:right;
-            ">
-              ₹${subtotal.toFixed(2)}
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    const { data, error } =
-      await resend.emails.send({
-        from: EMAIL_FROM,
-        to: [order.user_email],
-        subject: `GlowCart Order Confirmed #${order.id} 💖`,
-        html: `
-          <!DOCTYPE html>
-          <html>
-
-          <body style="
-            margin:0;
-            padding:0;
-            background:#fff0f7;
-            font-family:Arial,Helvetica,sans-serif;
-          ">
-
-            <div style="
-              max-width:650px;
-              margin:30px auto;
-              background:#ffffff;
-              border-radius:20px;
-              overflow:hidden;
-              box-shadow:0 8px 30px rgba(0,0,0,0.08);
-            ">
-
-              <div style="
-                background:linear-gradient(135deg,#ff4f9a,#8e44ad);
-                color:white;
-                padding:30px;
-                text-align:center;
-              ">
-                <h1 style="margin:0;">
-                  GlowCart 💖
-                </h1>
-
-                <p>
-                  Order Confirmed 🎉
-                </p>
-              </div>
-
-              <div style="padding:30px;">
-
-                <h2 style="color:#d63384;">
-                  Thank you, ${safeName}!
-                </h2>
-
-                <p>
-                  Your GlowCart order has been placed
-                  successfully.
-                </p>
-
-                <div style="
-                  background:#fff4fa;
-                  padding:18px;
-                  border-radius:12px;
-                  margin:20px 0;
-                ">
-
-                  <p>
-                    <strong>Order ID:</strong>
-                    #${order.id}
-                  </p>
-
-                  <p>
-                    <strong>Email:</strong>
-                    ${escapeHtml(order.user_email)}
-                  </p>
-
-                  <p>
-                    <strong>Total:</strong>
-                    ₹${Number(order.total).toFixed(2)}
-                  </p>
-
-                </div>
-
-                <h3>
-                  Ordered Products
-                </h3>
-
-                <table style="
-                  width:100%;
-                  border-collapse:collapse;
-                ">
-
-                  <thead>
-                    <tr>
-                      <th style="
-                        padding:12px;
-                        text-align:left;
-                        background:#fff4fa;
-                      ">
-                        Product
-                      </th>
-
-                      <th style="
-                        padding:12px;
-                        background:#fff4fa;
-                      ">
-                        Qty
-                      </th>
-
-                      <th style="
-                        padding:12px;
-                        text-align:right;
-                        background:#fff4fa;
-                      ">
-                        Amount
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    ${itemRows}
-                  </tbody>
-
-                </table>
-
-                <div style="
-                  margin-top:25px;
-                  padding:20px;
-                  background:#fafafa;
-                  border-radius:12px;
-                ">
-
-                  <h3>
-                    Delivery Address
-                  </h3>
-
-                  <p>
-                    ${safeAddress}
-                  </p>
-
-                  <p>
-                    <strong>Pincode:</strong>
-                    ${safePincode}
-                  </p>
-
-                </div>
-
-                <div style="
-                  text-align:center;
-                  margin-top:30px;
-                  color:#777;
-                ">
-                  Thank you for shopping with GlowCart 💕
-                </div>
-
-              </div>
-
-              <div style="
-                text-align:center;
-                padding:18px;
-                background:#fafafa;
-                color:#888;
-                font-size:13px;
-              ">
-                © 2026 GlowCart. All rights reserved.
-              </div>
-
-            </div>
-
-          </body>
-          </html>
-        `
-      });
-
-    if (error) {
-      console.error(
-        "Resend order email error:",
-        error
-      );
-
-      return {
-        success: false,
-        message: error.message || "Order email failed."
-      };
-    }
-
-    console.log(
-      `Order email sent to ${order.user_email}`,
-      data?.id || ""
-    );
-
-    return {
-      success: true,
-      message: "Order confirmation email sent.",
-      emailId: data?.id || null
-    };
-
-  } catch (error) {
-    console.error(
-      "Order email exception:",
-      error
-    );
-
-    return {
-      success: false,
-      message: error.message || "Order email failed."
-    };
-  }
-}
-
-/* =========================================================
-   ADMIN AUTHENTICATION
-========================================================= */
-
-const ADMIN_TOKEN = "glowcart-admin-session";
-
-function checkAdmin(req, res, next) {
-  const auth =
-    req.headers.authorization || "";
-
-  if (auth === `Bearer ${ADMIN_TOKEN}`) {
-    return next();
-  }
-
-  return res.status(401).json({
-    success: false,
-    message: "Unauthorized admin access."
-  });
-}
-
-/* =========================================================
-   GET PRODUCTS
+   PRODUCTS
 ========================================================= */
 
 app.get("/api/products", async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT *
+      SELECT
+        id,
+        name,
+        description,
+        price,
+        image,
+        created_at
       FROM products
       ORDER BY id ASC
     `);
@@ -755,7 +589,6 @@ app.get("/api/products", async (req, res) => {
       success: true,
       products: result.rows
     });
-
   } catch (error) {
     console.error("Products error:", error);
 
@@ -774,104 +607,136 @@ app.post("/api/register", async (req, res) => {
   try {
     const {
       fullName,
-      name,
       email,
       mobile,
-      password
+      password,
+      permanentAddress,
+      anotherAddress,
+      pincode
     } = req.body;
 
-    const finalName =
-      String(fullName || name || "").trim();
-
-    const finalEmail =
-      String(email || "")
-        .trim()
-        .toLowerCase();
-
-    const finalMobile =
-      String(mobile || "").trim();
-
-    const finalPassword =
-      String(password || "");
-
     if (
-      !finalName ||
-      !finalEmail ||
-      !finalPassword
+      !fullName ||
+      !email ||
+      !mobile ||
+      !password ||
+      !permanentAddress ||
+      !pincode
     ) {
       return res.status(400).json({
         success: false,
         message:
-          "Full name, email and password are required."
+          "Please fill all required registration and address fields."
       });
     }
 
-    const existing =
-      await pool.query(
-        `
-        SELECT id
-        FROM users
-        WHERE LOWER(email) = LOWER($1)
-        `,
-        [finalEmail]
-      );
+    const cleanName = String(fullName).trim();
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanMobile = String(mobile).trim();
+    const cleanPassword = String(password);
+
+    const cleanPermanentAddress =
+      String(permanentAddress).trim();
+
+    const cleanAnotherAddress =
+      anotherAddress
+        ? String(anotherAddress).trim()
+        : "";
+
+    const cleanPincode =
+      String(pincode).trim();
+
+    if (cleanName.length < 2) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid full name."
+      });
+    }
+
+    if (!cleanEmail.includes("@")) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address."
+      });
+    }
+
+    if (cleanPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must contain at least 6 characters."
+      });
+    }
+
+    const existing = await pool.query(
+      `
+      SELECT id
+      FROM users
+      WHERE LOWER(email) = LOWER($1)
+      LIMIT 1
+      `,
+      [cleanEmail]
+    );
 
     if (existing.rows.length > 0) {
       return res.status(409).json({
         success: false,
         message:
-          "Email is already registered."
+          "This email is already registered. Please login instead."
       });
     }
 
-    const result =
-      await pool.query(
-        `
-        INSERT INTO users
-        (full_name, email, mobile, password)
-        VALUES ($1, $2, $3, $4)
-        RETURNING
-          id,
-          full_name,
-          email,
-          mobile,
-          created_at
-        `,
-        [
-          finalName,
-          finalEmail,
-          finalMobile,
-          finalPassword
-        ]
-      );
+    const result = await pool.query(
+      `
+      INSERT INTO users
+      (
+        full_name,
+        email,
+        mobile,
+        password,
+        permanent_address,
+        another_address,
+        pincode
+      )
+      VALUES
+      ($1,$2,$3,$4,$5,$6,$7)
+      RETURNING
+        id,
+        full_name,
+        email,
+        mobile,
+        permanent_address,
+        another_address,
+        pincode,
+        created_at
+      `,
+      [
+        cleanName,
+        cleanEmail,
+        cleanMobile,
+        cleanPassword,
+        cleanPermanentAddress,
+        cleanAnotherAddress,
+        cleanPincode
+      ]
+    );
 
     const user = result.rows[0];
 
-    /* Send exactly one backend welcome email */
-    const emailResult =
-      await sendWelcomeEmail(user);
+    const emailResult = await sendWelcomeEmail(user);
 
     res.status(201).json({
       success: true,
       message:
-        "Registration successful.",
+        "Registration successful. Your account has been saved permanently.",
       user,
-      emailSent:
-        emailResult.success,
-      emailMessage:
-        emailResult.message
+      emailSent: emailResult.sent
     });
-
   } catch (error) {
-    console.error(
-      "Registration error:",
-      error
-    );
+    console.error("Registration error:", error);
 
     res.status(500).json({
       success: false,
-      message:
-        "Registration failed. Please try again."
+      message: "Registration failed. Please try again."
     });
   }
 });
@@ -882,31 +747,36 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   try {
-    const {
-      email,
-      password
-    } = req.body;
+    const { email, password } = req.body;
 
-    const finalEmail =
-      String(email || "")
-        .trim()
-        .toLowerCase();
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required."
+      });
+    }
 
-    const result =
-      await pool.query(
-        `
-        SELECT
-          id,
-          full_name,
-          email,
-          mobile,
-          password,
-          created_at
-        FROM users
-        WHERE LOWER(email) = LOWER($1)
-        `,
-        [finalEmail]
-      );
+    const cleanEmail =
+      String(email).trim().toLowerCase();
+
+    const result = await pool.query(
+      `
+      SELECT
+        id,
+        full_name,
+        email,
+        mobile,
+        password,
+        permanent_address,
+        another_address,
+        pincode,
+        created_at
+      FROM users
+      WHERE LOWER(email) = LOWER($1)
+      LIMIT 1
+      `,
+      [cleanEmail]
+    );
 
     if (result.rows.length === 0) {
       return res.status(401).json({
@@ -917,7 +787,13 @@ app.post("/api/login", async (req, res) => {
 
     const user = result.rows[0];
 
-    if (user.password !== password) {
+    /*
+      This matches the existing beginner version of GlowCart.
+      Do not change password storage format unless you also
+      migrate existing users.
+    */
+
+    if (String(user.password) !== String(password)) {
       return res.status(401).json({
         success: false,
         message: "Invalid email or password."
@@ -931,13 +807,12 @@ app.post("/api/login", async (req, res) => {
       message: "Login successful.",
       user
     });
-
   } catch (error) {
     console.error("Login error:", error);
 
     res.status(500).json({
       success: false,
-      message: "Login failed."
+      message: "Login failed. Please try again."
     });
   }
 });
@@ -946,254 +821,26 @@ app.post("/api/login", async (req, res) => {
    ADMIN LOGIN
 ========================================================= */
 
-app.post("/api/admin/login", async (req, res) => {
-  try {
-    const {
-      email,
-      password
-    } = req.body;
+app.post("/api/admin/login", (req, res) => {
+  const { email, password } = req.body;
 
-    if (
-      String(email || "")
-        .trim()
-        .toLowerCase() !==
-      ADMIN_EMAIL.toLowerCase() ||
-      String(password || "") !== ADMIN_PASSWORD
-    ) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid admin credentials."
-      });
-    }
-
-    res.json({
+  if (
+    String(email || "").trim().toLowerCase() ===
+      String(ADMIN_EMAIL).trim().toLowerCase() &&
+    String(password || "") === String(ADMIN_PASSWORD)
+  ) {
+    return res.json({
       success: true,
       message: "Admin login successful.",
       token: ADMIN_TOKEN
     });
-
-  } catch (error) {
-    console.error(
-      "Admin login error:",
-      error
-    );
-
-    res.status(500).json({
-      success: false,
-      message: "Admin login failed."
-    });
   }
+
+  return res.status(401).json({
+    success: false,
+    message: "Invalid admin email or password."
+  });
 });
-
-/* =========================================================
-   GET REGISTERED MEMBERS
-========================================================= */
-
-app.get(
-  "/api/admin/users",
-  checkAdmin,
-  async (req, res) => {
-    try {
-      const result =
-        await pool.query(`
-          SELECT
-            id,
-            full_name,
-            email,
-            mobile,
-            created_at
-          FROM users
-          ORDER BY created_at DESC
-        `);
-
-      res.json({
-        success: true,
-        users: result.rows
-      });
-
-    } catch (error) {
-      console.error(
-        "Admin users error:",
-        error
-      );
-
-      res.status(500).json({
-        success: false,
-        message:
-          "Unable to load registered members."
-      });
-    }
-  }
-);
-
-/* =========================================================
-   ⭐ RESEND WELCOME EMAIL TO EXISTING MEMBER
-========================================================= */
-
-app.post(
-  "/api/admin/users/:id/resend-welcome",
-  checkAdmin,
-  async (req, res) => {
-    try {
-      const userId =
-        Number(req.params.id);
-
-      if (!Number.isInteger(userId)) {
-        return res.status(400).json({
-          success: false,
-          message: "Invalid member ID."
-        });
-      }
-
-      const result =
-        await pool.query(
-          `
-          SELECT
-            id,
-            full_name,
-            email,
-            mobile,
-            created_at
-          FROM users
-          WHERE id = $1
-          `,
-          [userId]
-        );
-
-      if (result.rows.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: "Registered member not found."
-        });
-      }
-
-      const user = result.rows[0];
-
-      console.log(
-        `Admin requested welcome email resend for ${user.email}`
-      );
-
-      const emailResult =
-        await sendWelcomeEmail(user);
-
-      if (!emailResult.success) {
-        return res.status(502).json({
-          success: false,
-          message:
-            `Email could not be sent to ${user.email}.`,
-          emailError:
-            emailResult.message
-        });
-      }
-
-      res.json({
-        success: true,
-        message:
-          `Welcome email resent successfully to ${user.email}.`,
-        email: user.email,
-        emailId:
-          emailResult.emailId || null
-      });
-
-    } catch (error) {
-      console.error(
-        "Resend welcome error:",
-        error
-      );
-
-      res.status(500).json({
-        success: false,
-        message:
-          "Unable to resend welcome email."
-      });
-    }
-  }
-);
-
-/* =========================================================
-   RESEND WELCOME EMAIL USING EMAIL ADDRESS
-   Useful if frontend only stores email.
-========================================================= */
-
-app.post(
-  "/api/admin/resend-welcome",
-  checkAdmin,
-  async (req, res) => {
-    try {
-      const email =
-        String(req.body.email || "")
-          .trim()
-          .toLowerCase();
-
-      if (!email) {
-        return res.status(400).json({
-          success: false,
-          message:
-            "Email address is required."
-        });
-      }
-
-      const result =
-        await pool.query(
-          `
-          SELECT
-            id,
-            full_name,
-            email,
-            mobile,
-            created_at
-          FROM users
-          WHERE LOWER(email) = LOWER($1)
-          `,
-          [email]
-        );
-
-      if (result.rows.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message:
-            "No registered member found with this email."
-        });
-      }
-
-      const user = result.rows[0];
-
-      const emailResult =
-        await sendWelcomeEmail(user);
-
-      if (!emailResult.success) {
-        return res.status(502).json({
-          success: false,
-          message:
-            "Email could not be sent.",
-          emailError:
-            emailResult.message
-        });
-      }
-
-      res.json({
-        success: true,
-        message:
-          `Welcome email resent successfully to ${user.email}.`,
-        email: user.email,
-        emailId:
-          emailResult.emailId || null
-      });
-
-    } catch (error) {
-      console.error(
-        "Resend welcome by email error:",
-        error
-      );
-
-      res.status(500).json({
-        success: false,
-        message:
-          "Unable to resend welcome email."
-      });
-    }
-  }
-);
 
 /* =========================================================
    ADMIN DASHBOARD
@@ -1204,53 +851,166 @@ app.get(
   checkAdmin,
   async (req, res) => {
     try {
-      const users =
-        await pool.query(
-          "SELECT COUNT(*) FROM users"
-        );
+      const usersResult = await pool.query(
+        "SELECT COUNT(*) AS count FROM users"
+      );
 
-      const products =
-        await pool.query(
-          "SELECT COUNT(*) FROM products"
-        );
+      const productsResult = await pool.query(
+        "SELECT COUNT(*) AS count FROM products"
+      );
 
-      const orders =
-        await pool.query(
-          "SELECT COUNT(*) FROM orders"
-        );
+      const ordersResult = await pool.query(
+        "SELECT COUNT(*) AS count FROM orders"
+      );
 
-      const revenue =
-        await pool.query(
-          "SELECT COALESCE(SUM(total), 0) AS total FROM orders"
-        );
+      const revenueResult = await pool.query(
+        `
+        SELECT COALESCE(SUM(total),0) AS revenue
+        FROM orders
+        `
+      );
 
       res.json({
         success: true,
         dashboard: {
           registeredMembers:
-            Number(users.rows[0].count),
+            Number(usersResult.rows[0].count),
 
           products:
-            Number(products.rows[0].count),
+            Number(productsResult.rows[0].count),
 
           orders:
-            Number(orders.rows[0].count),
+            Number(ordersResult.rows[0].count),
 
           revenue:
-            Number(revenue.rows[0].total)
+            Number(revenueResult.rows[0].revenue)
         }
       });
+    } catch (error) {
+      console.error("Dashboard error:", error);
 
+      res.status(500).json({
+        success: false,
+        message: "Unable to load dashboard."
+      });
+    }
+  }
+);
+
+/* =========================================================
+   ADMIN - ALL USERS
+========================================================= */
+
+app.get(
+  "/api/admin/users",
+  checkAdmin,
+  async (req, res) => {
+    try {
+      const result = await pool.query(`
+        SELECT
+          id,
+          full_name,
+          email,
+          mobile,
+          permanent_address,
+          another_address,
+          pincode,
+          created_at
+        FROM users
+        ORDER BY created_at DESC
+      `);
+
+      res.json({
+        success: true,
+        users: result.rows
+      });
+    } catch (error) {
+      console.error("Admin users error:", error);
+
+      res.status(500).json({
+        success: false,
+        message: "Unable to load registered members."
+      });
+    }
+  }
+);
+
+/* =========================================================
+   ADMIN - RESEND WELCOME EMAIL
+========================================================= */
+
+app.post(
+  "/api/admin/users/:id/resend-welcome",
+  checkAdmin,
+  async (req, res) => {
+    try {
+      const id = Number(req.params.id);
+
+      if (!Number.isInteger(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid user ID."
+        });
+      }
+
+      const result = await pool.query(
+        `
+        SELECT
+          id,
+          full_name,
+          email,
+          mobile,
+          permanent_address,
+          another_address,
+          pincode,
+          created_at
+        FROM users
+        WHERE id = $1
+        LIMIT 1
+        `,
+        [id]
+      );
+
+      if (result.rows.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "Registered member not found."
+        });
+      }
+
+      const user = result.rows[0];
+
+      const emailResult =
+        await sendWelcomeEmail(user);
+
+      if (!emailResult.sent) {
+        return res.status(500).json({
+          success: false,
+          message:
+            "Welcome email could not be sent.",
+          emailError:
+            emailResult.error ||
+            emailResult.reason ||
+            "Unknown email error."
+        });
+      }
+
+      res.json({
+        success: true,
+        message:
+          "Welcome email resent successfully.",
+        email: user.email
+      });
     } catch (error) {
       console.error(
-        "Dashboard error:",
+        "Resend welcome error:",
         error
       );
 
       res.status(500).json({
         success: false,
         message:
-          "Unable to load dashboard."
+          "Failed to resend welcome email."
       });
     }
   }
@@ -1264,9 +1024,7 @@ app.post("/api/orders", async (req, res) => {
   try {
     const {
       userEmail,
-      email,
       customerName,
-      name,
       mobile,
       address,
       pincode,
@@ -1274,72 +1032,78 @@ app.post("/api/orders", async (req, res) => {
       total
     } = req.body;
 
-    const finalEmail =
-      String(userEmail || email || "")
-        .trim()
-        .toLowerCase();
-
-    const finalName =
-      String(customerName || name || "")
-        .trim();
-
-    const finalMobile =
-      String(mobile || "").trim();
-
-    const finalAddress =
-      String(address || "").trim();
-
-    const finalPincode =
-      String(pincode || "").trim();
-
-    const finalTotal =
-      Number(total);
-
     if (
-      !finalEmail ||
+      !userEmail ||
+      !customerName ||
+      !address ||
+      !pincode ||
       !Array.isArray(items) ||
       items.length === 0 ||
-      !Number.isFinite(finalTotal)
+      Number(total) <= 0
     ) {
       return res.status(400).json({
         success: false,
         message:
-          "Invalid order details."
+          "Please provide valid order details."
       });
     }
 
-    const result =
-      await pool.query(
-        `
-        INSERT INTO orders
-        (
-          user_email,
-          customer_name,
-          mobile,
-          address,
-          pincode,
-          items,
-          total
-        )
-        VALUES
-        ($1, $2, $3, $4, $5, $6::jsonb, $7)
-        RETURNING *
-        `,
-        [
-          finalEmail,
-          finalName,
-          finalMobile,
-          finalAddress,
-          finalPincode,
-          JSON.stringify(items),
-          finalTotal
-        ]
-      );
+    const cleanEmail =
+      String(userEmail).trim().toLowerCase();
 
-    const order =
-      result.rows[0];
+    /*
+      Check that the customer actually exists.
+      This also ensures registered members remain
+      associated with their orders.
+    */
 
-    /* Send order confirmation */
+    const userCheck = await pool.query(
+      `
+      SELECT id
+      FROM users
+      WHERE LOWER(email) = LOWER($1)
+      LIMIT 1
+      `,
+      [cleanEmail]
+    );
+
+    if (userCheck.rows.length === 0) {
+      return res.status(401).json({
+        success: false,
+        message:
+          "User account not found. Please register first."
+      });
+    }
+
+    const result = await pool.query(
+      `
+      INSERT INTO orders
+      (
+        user_email,
+        customer_name,
+        mobile,
+        address,
+        pincode,
+        items,
+        total
+      )
+      VALUES
+      ($1,$2,$3,$4,$5,$6::jsonb,$7)
+      RETURNING *
+      `,
+      [
+        cleanEmail,
+        String(customerName).trim(),
+        String(mobile || "").trim(),
+        String(address).trim(),
+        String(pincode).trim(),
+        JSON.stringify(items),
+        Number(total)
+      ]
+    );
+
+    const order = result.rows[0];
+
     const emailResult =
       await sendOrderEmail(order);
 
@@ -1347,29 +1111,22 @@ app.post("/api/orders", async (req, res) => {
       success: true,
       message:
         "Order placed successfully.",
-      order,
-      emailSent:
-        emailResult.success,
-      emailMessage:
-        emailResult.message
+      order: formatOrder(order),
+      emailSent: emailResult.sent
     });
-
   } catch (error) {
-    console.error(
-      "Order error:",
-      error
-    );
+    console.error("Order error:", error);
 
     res.status(500).json({
       success: false,
       message:
-        "Unable to place order."
+        "Unable to place order. Please try again."
     });
   }
 });
 
 /* =========================================================
-   GET USER ORDERS
+   USER ORDERS
 ========================================================= */
 
 app.get(
@@ -1377,26 +1134,24 @@ app.get(
   async (req, res) => {
     try {
       const email =
-        String(req.params.email || "")
+        decodeURIComponent(req.params.email)
           .trim()
           .toLowerCase();
 
-      const result =
-        await pool.query(
-          `
-          SELECT *
-          FROM orders
-          WHERE LOWER(user_email) = LOWER($1)
-          ORDER BY created_at DESC
-          `,
-          [email]
-        );
+      const result = await pool.query(
+        `
+        SELECT *
+        FROM orders
+        WHERE LOWER(user_email) = LOWER($1)
+        ORDER BY created_at DESC
+        `,
+        [email]
+      );
 
       res.json({
         success: true,
-        orders: result.rows
+        orders: result.rows.map(formatOrder)
       });
-
     } catch (error) {
       console.error(
         "User orders error:",
@@ -1406,14 +1161,14 @@ app.get(
       res.status(500).json({
         success: false,
         message:
-          "Unable to load orders."
+          "Unable to load your orders."
       });
     }
   }
 );
 
 /* =========================================================
-   GET ALL ORDERS FOR ADMIN
+   ADMIN - ALL ORDERS
 ========================================================= */
 
 app.get(
@@ -1421,18 +1176,16 @@ app.get(
   checkAdmin,
   async (req, res) => {
     try {
-      const result =
-        await pool.query(`
-          SELECT *
-          FROM orders
-          ORDER BY created_at DESC
-        `);
+      const result = await pool.query(`
+        SELECT *
+        FROM orders
+        ORDER BY created_at DESC
+      `);
 
       res.json({
         success: true,
-        orders: result.rows
+        orders: result.rows.map(formatOrder)
       });
-
     } catch (error) {
       console.error(
         "Admin orders error:",
@@ -1441,64 +1194,32 @@ app.get(
 
       res.status(500).json({
         success: false,
-        message:
-          "Unable to load orders."
+        message: "Unable to load orders."
       });
     }
   }
 );
 
 /* =========================================================
-   ADMIN DELETE PRODUCT
+   ORDER FORMAT
 ========================================================= */
 
-app.delete(
-  "/api/products/:id",
-  checkAdmin,
-  async (req, res) => {
-    try {
-      const id =
-        Number(req.params.id);
-
-      const result =
-        await pool.query(
-          `
-          DELETE FROM products
-          WHERE id = $1
-          RETURNING *
-          `,
-          [id]
-        );
-
-      if (result.rows.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: "Product not found."
-        });
-      }
-
-      res.json({
-        success: true,
-        message:
-          "Product deleted successfully.",
-        product:
-          result.rows[0]
-      });
-
-    } catch (error) {
-      console.error(
-        "Delete product error:",
-        error
-      );
-
-      res.status(500).json({
-        success: false,
-        message:
-          "Unable to delete product."
-      });
-    }
-  }
-);
+function formatOrder(order) {
+  return {
+    id: order.id,
+    user_email: order.user_email,
+    customer_name: order.customer_name,
+    mobile: order.mobile,
+    address: order.address,
+    pincode: order.pincode,
+    items:
+      typeof order.items === "string"
+        ? JSON.parse(order.items)
+        : order.items,
+    total: Number(order.total),
+    created_at: order.created_at
+  };
+}
 
 /* =========================================================
    404
@@ -1507,8 +1228,7 @@ app.delete(
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message:
-      "GlowCart API route not found."
+    message: "API route not found."
   });
 });
 
@@ -1522,18 +1242,6 @@ async function startServer() {
   app.listen(PORT, HOST, () => {
     console.log(
       `GlowCart server running on ${HOST}:${PORT}`
-    );
-
-    console.log(
-      `Email service: ${
-        resend
-          ? "Resend configured"
-          : "Resend NOT configured"
-      }`
-    );
-
-    console.log(
-      `Email sender: ${EMAIL_FROM}`
     );
   });
 }
